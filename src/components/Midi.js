@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import * as WebMidi from "webmidi";
 import {inputById, portById} from "../utils/midi";
+import {inject, observer} from "mobx-react";
 
 const propTypes = {
     classname: PropTypes.string,
@@ -23,7 +24,8 @@ const defaultProps = {
     messageType: "midimessage"
 };
 
-const DEVICE_ID = "Arturia MicroFreak";
+// const DEVICE_ID = "Arturia MicroFreak";
+const DEVICE_ID = "VMPK Output";
 
 // const ERROR_NO_ERROR = -1;
 export const ERROR_MIDI_NOT_SUPPORTED = 1;
@@ -35,17 +37,20 @@ export const ERROR_UNKNOWN = 3;
  * @param props
  * @constructor
  */
-export default class Midi extends Component {
+class Midi extends Component {
 
     //TODO: allow specification of channel and message types to listen to
 
+/*
     state = {
-        inputs: [],         // array of MIDI inputs (filtered from WebMidi object)
+        // inputs: [],         // array of MIDI inputs (filtered from WebMidi object)
         // outputs: [],        // array of MIDI outputs (filtered from WebMidi object)
         input: null,        // MIDI input port ID
         // output: null        // MIDI output port ID
     };
+*/
 
+/*
     connectInput = port => {
         if (this.props.onMidiInputEvent) {
             if (port) {
@@ -55,33 +60,39 @@ export default class Midi extends Component {
                 } else {
                     if (global.dev) console.log(`Midi.connectInput: ${port.id} ${port.name} : add listener for ${this.props.messageType} messages on all channels`);
                     port.addListener(this.props.messageType, 'all', this.props.onMidiInputEvent);
-                    if (this.props.onInputConnection) {
-                        this.props.onInputConnection(port.id);
-                    }
+                    // if (this.props.onInputConnection) {
+                    //     this.props.onInputConnection(port.id);
+                    // }
                     // if (global.dev) console.log("Midi.connectInput:", port.name);
                     // if (global.dev) console.log(`Midi.connectInput: set input input_device_id=${port.id} in preferences`);
                     // savePreferences({input_device_id: port.id});
 
-                    this.setState({input: port.id});
+                    // this.setState({input: port.id});
+                    this.props.state.enableInput(port.id);
                 }
             }
+        } else {
+            console.warn("connectInput: no input event handler defined.");
         }
     };
 
     disconnectInput = (port, updatePreferences=false) => {
-        if (port.id === this.state.input) {
+        if (port.id === this.props.state.midi.input) {
             if (global.dev) console.log(`Midi.disconnectInput: disconnect input ${port.id} ${port.name}`);
             if (port.removeListener) port.removeListener();
 
-            this.setState({input: null});
+            // this.setState({input: null});
+            // this.props.state.midi.input = null;
+            this.props.state.disableInput(port.id);
 
-            if (this.props.onInputDisconnection) {
-                this.props.onInputDisconnection(port.id);
-            }
+            // if (this.props.onInputDisconnection) {
+            //     this.props.onInputDisconnection(port.id);
+            // }
             // if (global.dev) console.log(`Midi.connectInput: connect input set input_device_id=null in preferences`);
             // if (updatePreferences) savePreferences({input_device_id: null});
         }
     };
+*/
 
 /*
     connectOutput = port => {
@@ -113,20 +124,20 @@ export default class Midi extends Component {
     };
 */
 
-    autoConnectInput = (port_id) => {
-        if (global.dev) console.log(`Midi.autoConnectInput ${port_id}`);
-        const port = portById(port_id);
+    autoConnectInput = (port) => {
+        if (global.dev) console.log(`Midi.autoConnectInput "${port.name}" ${port.id}`);
+        // const port = portById(port_id);
         if (!port) {
-            console.warn(`port ${port_id} not found`);
+            console.warn(`port ${port} not found`);
             return;
         }
         if (port.name === DEVICE_ID) {
-            if (this.state.input === null) {
-                if (global.dev) console.log(`Midi.autoConnectInput: autoConnect ${port_id} ${port.name}`);
-                this.connectInput(inputById(port_id));
-            } else {
-                if (global.dev) console.log(`Midi.autoConnectInput: autoConnect skipped, already connected`);
-            }
+            // if (this.props.state.midi.input === null) {
+                if (global.dev) console.log(`Midi.autoConnectInput: autoConnect "${port.name}"`);
+                this.props.state.connectInput(port, this.props.messageType, this.props.onMidiInputEvent);
+            // } else {
+            //     if (global.dev) console.log(`Midi.autoConnectInput: autoConnect skipped, already connected`);
+            // }
         }
 /*
         const s = loadPreferences();
@@ -158,22 +169,37 @@ export default class Midi extends Component {
     };
 */
 
+
+    registerInput = (port) => {
+        console.log("registerInput", port.id);
+        if (this.props.state.addInput(port)) {
+            this.autoConnectInput(port);
+        }
+    };
+
+    unregisterInput = (port_id) => {
+        console.log("unregisterInput", port_id);
+        this.props.state.removeInput(port_id);
+    };
+
+/*
     registerInputs = () => {
-        if (global.dev) console.log(this.state.inputs.length === 0 ? 'Midi.registerInputs register inputs' : 'Midi.registerInputs update inputs list');
+        // if (global.dev) console.log(this.state.inputs.length === 0 ? 'Midi.registerInputs register inputs' : 'Midi.registerInputs update inputs list');
+        if (global.dev) console.log('Midi.registerInputs');
         // noinspection JSUnresolvedVariable
-        this.setState(
+        // this.setState(
             // noinspection JSUnresolvedVariable
-            {inputs: WebMidi.inputs},
-            () => {
+            // {inputs: WebMidi.inputs},
+            // () => {
                 if (global.dev) console.log("Midi.registerInputs: try to autoconnect input");
                 // noinspection JSUnresolvedVariable
                 for (let port of WebMidi.inputs) {
                     if (global.dev) console.log(`input "${port.name}"`);
                     this.autoConnectInput(port.id)
                 }
-            });
+            // });
     };
-
+*/
 /*
     registerOutputs = () => {
         if (global.dev) console.log(this.state.outputs.length === 0 ? 'Midi.registerOutputs register outputs' : 'Midi.registerOutputs update outputs list');
@@ -193,8 +219,9 @@ export default class Midi extends Component {
 
     unRegisterInputs = () => {
         if (global.dev) console.log("Midi.unRegisterInputs");
-        this.disconnectInput(portById(this.state.input));
-        this.setState({inputs: [], input: null});
+        this.props.state.disconnectInput(portById(this.props.state.midi.input));
+        // this.setState({input: null});
+        this.props.state.midi.input = null;
     };
 
 /*
@@ -206,32 +233,48 @@ export default class Midi extends Component {
 */
 
     handleMidiConnectEvent = e => {
-
-        if (global.dev) console.log(`Midi: handleMidiConnectEvent: port.type=${e.port.type} type=${e.type} port.state=${e.port.state}: ${e.port.name} ${e.port.id}`, e);
-
         if (e.port.type === "input") {
-            if (e.type === "disconnected") {
-                this.disconnectInput(e.port);
+            // if (global.dev) console.log(`handleMidiConnectEvent: ${e.type} port: ${e.port.type} ${e.port.connection} ${e.port.state}: ${e.port.name} ${e.port.id}`, e);
+            if (e.type === "disconnected") {    //FIXME: what is this?
+                //TODO: use a copy of port.id in case port is delete too soon by the webmidi api
+                const port_id = e.port.id;
+                this.unregisterInput(port_id);
+                this.props.state.disconnectInput(e.port);
+            } else {
+                // if (global.dev) console.log("Midi.handleMidiConnectEvent: call addInput");
+                // if (e.port.connection === 'closed') {
+                this.registerInput(e.port);
+                // }
+                // do nothing if port.connection is 'open'
+                // can it ben opened by some other app? YES: a port may already be opened by another app, and it that case we must connect to it
             }
-/*
-        } else {
-            if (e.type === "disconnected") {
-                this.disconnectOutput(e.port);
-            }
-*/
         }
 
-        if (e.port.type === 'input') {
-            if (global.dev) console.log("Midi.handleMidiConnectEvent: call registerInputs");
-            this.registerInputs(e.port.id);
-        }
-
-/*
-        if (e.port.type === 'output') {
-            if (global.dev) console.log("Midi.handleMidiConnectEvent: call registerOutputs");
-            this.registerOutputs(e.port.id);
-        }
-*/
+//         if (global.dev) console.log(`Midi: handleMidiConnectEvent: port.type=${e.port.type} type=${e.type} port.state=${e.port.state}: ${e.port.name} ${e.port.id}`, e);
+//
+//         if (e.port.type === "input") {
+//             if (e.type === "disconnected") {
+//                 this.disconnectInput(e.port);
+//             }
+// /*
+//         } else {
+//             if (e.type === "disconnected") {
+//                 this.disconnectOutput(e.port);
+//             }
+// */
+//         }
+//
+//         if (e.port.type === 'input') {
+//             if (global.dev) console.log("Midi.handleMidiConnectEvent: call registerInputs");
+//             this.registerInputs(e.port.id);
+//         }
+//
+// /*
+//         if (e.port.type === 'output') {
+//             if (global.dev) console.log("Midi.handleMidiConnectEvent: call registerOutputs");
+//             this.registerOutputs(e.port.id);
+//         }
+// */
 
         // if (global.dev) console.groupEnd();
     };
@@ -275,7 +318,10 @@ export default class Midi extends Component {
         // noinspection JSUnresolvedVariable
         if (WebMidi.enabled) {
             if (global.dev) console.log(`Midi: component did mount: already enabled, register ports`);
-            this.registerInputs();
+            for (let port of WebMidi.inputs) {
+                this.registerInput(port.id);
+            }
+            // this.registerInputs();
             // this.registerOutputs();
         } else {
             if (global.dev) console.log("Midi: component did mount: Calling WebMidi.enable");
@@ -286,6 +332,10 @@ export default class Midi extends Component {
 
     componentWillUnmount() {
         if (global.dev) console.log("Midi: component will unmount: unregister ports");
+
+        //TODO
+        //FIXME
+
         this.unRegisterInputs();
         // this.unRegisterOutputs();
     }
@@ -371,3 +421,5 @@ export default class Midi extends Component {
 
 Midi.propTypes = propTypes;
 Midi.defaultProps = defaultProps;
+
+export default inject('state')(observer(Midi));
