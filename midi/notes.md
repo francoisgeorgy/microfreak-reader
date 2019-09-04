@@ -18,10 +18,22 @@ answer:
     system-exclusive hex 00 20 6B 07 01 07 23 52 01 70 00 18 00 00 00 00 70 00 00 10 49 6E 69 74 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 dec
 
 
-22:56:50.620	To Scarlett 18i20 USB	SysEx		F0 7E 7F 06 01 F7
-22:56:51.629	To Scarlett 18i20 USB	SysEx		F0 7E 7F 06 01 F7
+49 6E 69 74 => I n i t
+
+22:56:56.918	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 37 03 19 01 20 00 F7
+22:56:56.919	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 37 23 52 01 20 00 18 00 00 00 00 20 00 00 10 49 6E 69 74 00 00 00 00 00 00 00…
+                                                                                                                   -----------
+                                                        0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20                                                                                                                   
+
+22:56:52.525	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 17 03 19 00 00 00 F7
+22:56:52.525	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 17 23 52 00 00 00 00 00 00 00 00 00 00 08 10 44 69 73 72 65 73 70 65 63 74 66…
+                                                                                                       ^^-preset number
+44 69 73 72 65 73 70 65 63 74 66 => D i s r e s p e c t  
+
+
 22:56:51.731	To Arturia MicroFreak	SysEx		F0 7E 7F 06 01 F7
 22:56:51.731	From Arturia MicroFreak	SysEx		F0 7E 7F 06 02 00 20 6B 06 00 06 01 01 01 02 06 F7
+
 22:56:51.833	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 00 01 43 20 F7
 22:56:51.834	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 7F 02 02 42 20 7F F7
 22:56:51.865	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 01 01 43 21 F7
@@ -68,14 +80,19 @@ answer:
 22:56:52.469	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 7F 2C 02 42 27 00 F7
 22:56:52.495	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 16 01 43 28 F7
 22:56:52.495	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 7F 2E 02 42 28 00 F7
+
 22:56:52.525	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 17 03 19 00 00 00 F7
 22:56:52.525	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 17 23 52 00 00 00 00 00 00 00 00 00 00 08 10 44 69 73 72 65 73 70 65 63 74 66…
+
 22:56:52.552	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 18 03 19 00 01 00 F7
 22:56:52.553	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 18 23 52 00 01 00 00 00 00 00 00 01 00 00 10 50 75 6E 69 73 68 65 72 00 00 00…
+
 22:56:52.578	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 19 03 19 00 02 00 F7
 22:56:52.579	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 19 23 52 00 02 00 00 00 00 00 00 02 00 05 10 54 72 61 6E 63 65 00 00 00 00 00…
+
 22:56:52.605	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 1A 03 19 00 03 00 F7
 22:56:52.606	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 1A 23 52 00 03 00 00 00 00 00 00 03 00 03 10 45 74 68 65 72 00 00 00 00 00 00…
+
 22:56:52.636	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 1B 03 19 00 04 00 F7
 22:56:52.637	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 1B 23 52 00 04 00 00 00 00 00 00 04 00 07 10 4D 6F 74 69 76 53 65 71 00 00 00…
 22:56:52.669	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 1C 03 19 00 05 00 F7
