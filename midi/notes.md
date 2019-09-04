@@ -1,5 +1,42 @@
 Arturia MIDI ID 00H 20H 6BH
 
+
+sysex:
+
+    F0 <ID number> <Device ID> <Sub ID#1> <Sub ID#2> . . . . F7
+
+    F0 7E 7F 06 01 F7
+
+3 System Exclusive ID numbers have been set aside for special purposes : 
+- 7D is reserved for non-commercial use (e.g. schools, research, etc.) and is not to be used on any product released to the public; 
+- 7E (Non Real Time) and 
+- 7F (Real Time) are used for extensions to the MIDI specification, and are known as Universal System Exclusive ID numbers.
+
+
+    F0  start
+    7E  ID number 7E = non real-time
+    7F  device ID 7F = all devices
+    06  sub#1 06 = General System Information
+    01  sub#2 01 = Device Identity Request
+
+answer:
+
+    F0
+    7E 7F 06 
+    02          sub#2 02 = Device Identity Reply 
+    00 20 6B 
+    06 00 06 01 01 01 02 06
+
+Device ID: F0 7E id 06 02 mm ff ff dd dd ss ss ss ss F7
+
+
+
+    F0 <ID number> <Device ID> <Sub ID#1> <Sub ID#2> . . . . F7
+
+    ID#1 = 07 --> File Dump 
+
+
+
 request: 
 
     sendmidi dev arturia system-exclusive hex 7e 7f 06 01
@@ -17,6 +54,28 @@ answer:
 
     system-exclusive hex 00 20 6B 07 01 07 23 52 01 70 00 18 00 00 00 00 70 00 00 10 49 6E 69 74 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 dec
 
+
+
+preset req:
+
+    F0 00 20 6B 07 01 2D 03 19 00 16 00 F7
+    
+    F0                  start
+    00 20 6B            man id
+    07 01               constant?
+    2D                  counter?
+    03 19               constant? 
+    00                  bank 0, 1  
+    16                  preset #
+    00                  constant
+    F7
+
+try with counter 0:
+
+    sendmidi dev arturia system-exclusive hex F0 00 20 6B 07 01 00 03 19 00 16 00 F7
+
+
+preset name:
 
 49 6E 69 74 => I n i t
 
@@ -36,14 +95,19 @@ answer:
 
 22:56:51.833	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 00 01 43 20 F7
 22:56:51.834	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 7F 02 02 42 20 7F F7
+
 22:56:51.865	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 01 01 43 21 F7
 22:56:51.866	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 7F 04 02 42 21 00 F7
+
 22:56:51.899	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 02 01 43 25 F7
 22:56:51.899	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 7F 06 02 42 25 05 F7
+
 22:56:51.928	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 03 01 43 26 F7
 22:56:51.929	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 7F 08 02 42 26 01 F7
+
 22:56:51.966	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 04 01 43 2B F7
 22:56:51.967	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 7F 0A 02 42 2B 01 F7
+
 22:56:51.992	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 05 01 43 3B F7
 22:56:51.992	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 7F 0C 02 42 3B 01 F7
 22:56:52.019	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 06 01 43 24 F7
