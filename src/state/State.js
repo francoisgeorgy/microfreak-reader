@@ -11,6 +11,8 @@ class State {
         // input: null         // ID of the connected input port
     };
 
+    preset = new Array(127).fill(0);
+
     addInput(port) {
         // eslint-disable-next-line
         if (this.midi.inputs.hasOwnProperty(port.id) && this.midi.inputs[port.id] !== null) {
@@ -102,7 +104,8 @@ class State {
 
 // https://mobx.js.org/best/decorators.html
 decorate(State, {
-    midi: observable
+    midi: observable,
+    preset: observable
 });
 
 export const state = new State();

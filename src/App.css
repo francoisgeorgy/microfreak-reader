@@ -1,23 +1,36 @@
-.controls {
+.main-grid {
     margin-top: 20px;
     display: grid;
     /*grid-template-columns: 1fr 1fr 1fr;*/
     grid-row-gap: 20px;
-    grid-column-gap: 40px;
+    grid-column-gap: 20px;
     justify-content: start;
     align-items: start;
 }
 
-.controls > div {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-row-gap: 0.25rem;
-    grid-column-gap: 1rem;
-    justify-content: start;
+.group {
+    /*display: grid;*/
+    /*grid-template-columns: auto auto;*/
+    /*grid-row-gap: 0.25rem;*/
+    /*grid-column-gap: 1rem;*/
+    /*justify-content: start;*/
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    border: 1px solid #ccc;
+    padding: 5px;
 }
 
+.controls {
+    display: flex;
+    flex-direction: row;
+}
+
+/*.controls div.control:not(:first-child) {*/
+/*    margin-left: 20px;*/
+/*}*/
+
 h3 {
-    margin: 0;
+    margin: 0 0 10px 0;
     grid-column: span 2;
 }
 
@@ -31,12 +44,17 @@ h3 {
     grid-row: 1;
 }
 
-.lfo {
+.cycling-env {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.arp-seq {
     grid-column: 1;
     grid-row: 2;
 }
 
-.cycling-env {
+.lfo {
     grid-column: 2;
     grid-row: 2;
 }
@@ -46,12 +64,7 @@ h3 {
     grid-row: 2;
 }
 
-.arp-seq {
-    grid-column: 1;
-    grid-row: 3;
-}
-
 .keyboard {
-    grid-column: 2 / span 2;
+    grid-column: 1;
     grid-row: 3;
 }

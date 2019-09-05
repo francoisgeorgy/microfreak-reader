@@ -6,6 +6,8 @@ import {produce} from "immer";
 import {Provider} from "mobx-react";
 import {state} from "./state/State";
 import MidiPorts from "./components/MidiPorts";
+import Control from "./components/Control";
+import {control} from "./model";
 
 class App extends Component {
 
@@ -13,6 +15,15 @@ class App extends Component {
         dropZoneActive: false,
         preset: new Array(127).fill(0)
     };
+
+    // cc = (c) => {
+    //     return (
+    //         <Fragment>
+    //             <div className="value">({h(this.state.preset[c])})</div>
+    //             <div className="value">{this.state.preset[c]}</div>
+    //         </Fragment>
+    //     );
+    // };
 
     handleMidiInputEvent = (e) => {
 
@@ -27,11 +38,13 @@ class App extends Component {
 
         if (global.dev) console.log(`handleMidiInputEvent: ${e.controller.number}=${e.value}`);
 
-        this.setState(
-            produce(draft => {
-                draft.preset[e.controller.number] = e.value;
-            })
-        )
+        // this.setState(
+        //     produce(draft => {
+        //         draft.preset[e.controller.number] = e.value;
+        //     })
+        // )
+
+        state.preset[e.controller.number] = e.value;
 
     };
 
@@ -48,49 +61,65 @@ class App extends Component {
                         <MidiPorts messageType="controlchange" onMidiInputEvent={this.handleMidiInputEvent} />
                     </div>
                     <div>
-                        <div className="controls">
+                        <div className="main-grid">
                             <div className="group oscillator">
                                 <h3>Oscillator</h3>
-                                <div>Type</div><div className="value">{P[9]} ({h(P[9])})</div>
-                                <div>Wave</div><div className="value">{P[10]} ({h(P[10])})</div>
-                                <div>Timbre</div><div className="value">{P[12]} ({h(P[12])})</div>
-                                <div>Shape</div><div className="value">{P[13]} ({h(P[13])})</div>
+                                <div className="controls">
+                                    <Control cc={control.osc_type} />
+                                    <Control cc={control.osc_wave} />
+                                    <Control cc={control.osc_timbre} />
+                                    <Control cc={control.osc_shape} />
+                                </div>
                             </div>
                             <div className="group filter">
                                 <h3>Filter</h3>
-                                <div>Cutoff</div><div className="value">{P[23]} ({h(P[23])})</div>
-                                <div>Resonance</div><div className="value">{P[83]} ({h(P[83])})</div>
+                                <div className="controls">
+                                    <Control cc={control.filter_cutoff} />
+                                    <Control cc={control.filter_resonance} />
+                                </div>
                             </div>
                             <div className="group cycling-env">
                                 <h3>Cycling envelope</h3>
-                                <div>Cycling Env Rise</div><div className="value">{P[102]} ({h(P[102])})</div>
-                                <div>Cycling Env Fall</div><div className="value">{P[103]} ({h(P[103])})</div>
-                                <div>Cycling Env Hold</div><div className="value">{P[28]} ({h(P[28])})</div>
-                                <div>Cycling Env Amount</div><div className="value">{P[24]} ({h(P[24])})</div>
+                                <div className="controls">
+                                    <Control cc={control.cycling_env_rise} />
+                                    <Control cc={control.cycling_env_fall} />
+                                    <Control cc={control.cycling_env_hold} />
+                                    <Control cc={control.cycling_env_amount} />
+                                </div>
                             </div>
                             <div className="group arp-seq">
                                 <h3>ARP/SEQ</h3>
-                                <div>ARP/SEQ Rate (free)</div><div className="value">{P[91]} ({h(P[91])})</div>
-                                <div>ARP/SEQ Rate (sync)</div><div className="value">{P[92]} ({h(P[92])})</div>
+                                <div className="controls">
+                                    <Control cc={control.arp_seq_rate_free} />
+                                    <Control cc={control.arp_seq_rate_sync} />
+                                </div>
                             </div>
                             <div className="group lfo">
                                 <h3>LFO</h3>
-                                <div>LFO Rate (free)</div><div className="value">{P[93]} ({h(P[93])})</div>
-                                <div>LFO Rate (sync)</div><div className="value">{P[94]} ({h(P[94])})</div>
+                                <div className="controls">
+                                    <Control cc={control.lfo_rate_free} />
+                                    <Control cc={control.lfo_rate_sync} />
+                                </div>
                             </div>
                             <div className="group env">
                                 <h3>Envelope</h3>
-                                <div>Envelope Attack</div><div className="value">{P[105]} ({h(P[105])})</div>
-                                <div>Envelope Decay</div><div className="value">{P[106]} ({h(P[106])})</div>
-                                <div>Envelope Sustain</div><div className="value">{P[29]} ({h(P[29])})</div>
+                                <div className="controls">
+                                    <Control cc={control.envelope_attack} />
+                                    <Control cc={control.envelope_decay} />
+                                    <Control cc={control.envelope_sustain} />
+                                </div>
                             </div>
                             <div className="group keyboard">
                                 <h3>Keyboard</h3>
-                                <div>Glide</div><div className="value">{P[5]} ({h(P[5])})</div>
-                                <div>Keyboard Hold button (toggle)</div><div className="value">{P[64]} ({h(P[64])})</div>
-                                <div>Keyboard Spice</div><div className="value">{P[2]} ({h(P[2])})</div>
-                                <div>Keyboard Pitch Bend</div><div className="value">Pitchbend</div>
-                                <div>Keyboard Pressure</div><div className="value">Aftertouch</div>
+                                <div className="controls">
+                                    <Control cc={control.glide} />
+                                    <Control cc={control.keyboard_hold_button} />
+                                    <Control cc={control.keyboard_spice} />
+                                    {/*<Control cc={control.} />*/}
+                                    {/*<Control cc={control.} />*/}
+                                </div>
+                                {/*<div>Keyboard Pitch Bend</div><div className="value">Pitchbend</div>*/}
+                                {/*<div>Keyboard Pressure</div><div className="value">Aftertouch</div>*/}
                             </div>
                         </div>
                     </div>

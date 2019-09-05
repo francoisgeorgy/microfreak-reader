@@ -1,0 +1,27 @@
+
+.control:not(:first-child) {
+    margin-left: 20px;
+}
+
+.control {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    /*margin: 10px 20px;*/
+    padding: 0 10px;
+    border: 1px solid #ddd;
+}
+
+.ctrl-value,
+.ctrl-value-hex {
+    padding: 5px 0;
+}
+
+.ctrl-value {
+    font-size: 1.5rem;
+}
+
+.ctrl-value-hex {
+    color: #999;
+}
+
