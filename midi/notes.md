@@ -1069,3 +1069,18 @@ example for matrixbrute:
 21:07:41.014	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 7C 01 18 00 F7
 
 
+## Setup from MCC
+
+Knob catch
+
+set to hook:
+22:16:43.152	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 2C 02 42 2D 01 F7
+set to scaled:
+22:17:05.627	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 2E 02 42 2D 02 F7
+set to jump:
+22:17:08.351	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 30 02 42 2D 00 F7
+
+set arp off:
+22:19:30.678	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 32 02 42 2B 00 F7
+set arp on:
+22:19:32.923	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 34 02 42 2B 01 F7
