@@ -1,7 +1,7 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {inject, observer} from "mobx-react";
 import {h} from "../utils/hexstring";
-import {control, control_details} from "../model";
+import {control_details} from "../model";
 import "./Control.css";
 
 class Control extends Component {

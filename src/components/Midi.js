@@ -1,7 +1,7 @@
-import React, {Component, Fragment} from 'react';
+import {Component} from 'react';
 import PropTypes from 'prop-types';
 import * as WebMidi from "webmidi";
-import {inputById, portById} from "../utils/midi";
+import {portById} from "../utils/midi";
 import {inject, observer} from "mobx-react";
 
 const propTypes = {

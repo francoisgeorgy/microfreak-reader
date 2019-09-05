@@ -23,7 +23,7 @@ class MidiPorts extends React.Component {
 
         console.log("MidiPorts.render()");
 
-        const {togglePortHandler} = this.props;
+        // const {togglePortHandler} = this.props;
         // const ports = WebMidi.inputs;
 
         // const S = this.props.state;

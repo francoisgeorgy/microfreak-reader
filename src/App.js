@@ -1,20 +1,19 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import Midi from "./components/Midi";
-import {h, hs} from "./utils/hexstring";
-import {produce} from "immer";
 import {Provider} from "mobx-react";
 import {state} from "./state/State";
 import MidiPorts from "./components/MidiPorts";
 import Control from "./components/Control";
 import {control} from "./model";
+import PresetSelector from "./components/PresetSelector";
 
 class App extends Component {
 
-    state = {
-        dropZoneActive: false,
-        preset: new Array(127).fill(0)
-    };
+    // state = {
+    //     dropZoneActive: false,
+    //     preset: new Array(127).fill(0)
+    // };
 
     // cc = (c) => {
     //     return (
@@ -34,7 +33,7 @@ class App extends Component {
             return;
         }
 
-        if (global.dev) console.log("handleMidiInputEvent", hs(e.data), e);
+        // if (global.dev) console.log("handleMidiInputEvent", hs(e.data), e);
 
         if (global.dev) console.log(`handleMidiInputEvent: ${e.controller.number}=${e.value}`);
 
@@ -50,16 +49,14 @@ class App extends Component {
 
     render() {
 
-        const P = this.state.preset;
 
         return (
             <Provider state={state}>
                 <Midi messageType="controlchange" onMidiInputEvent={this.handleMidiInputEvent} />
                 <div className="App">
                     <h2>MicroFreak CC values</h2>
-                    <div>
-                        <MidiPorts messageType="controlchange" onMidiInputEvent={this.handleMidiInputEvent} />
-                    </div>
+                    <MidiPorts messageType="controlchange" onMidiInputEvent={this.handleMidiInputEvent} />
+                    <PresetSelector />
                     <div>
                         <div className="main-grid">
                             <div className="group oscillator">

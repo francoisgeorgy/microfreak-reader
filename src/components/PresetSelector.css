@@ -1,0 +1,35 @@
+.preset-selector {
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*flex-wrap: wrap;*/
+    font-size: 0.85rem;
+}
+
+.seq-access {
+    display: flex;
+        flex-direction: row;
+}
+
+.direct-access {
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*flex-wrap: wrap;*/
+    display: grid;
+    grid-template-columns: repeat(32, 1fr);
+}
+.seq-access > div,
+.direct-access > div {
+    margin: 1px;
+    padding: 1px 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.seq-access > div:hover,
+.direct-access > div:hover {
+    background-color: burlywood;
+}
+
+.toggle {
+    cursor: pointer;
+}
