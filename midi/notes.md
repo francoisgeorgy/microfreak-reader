@@ -24,12 +24,10 @@ answer:
     F0
     7E 7F 06 
     02          sub#2 02 = Device Identity Reply 
-    00 20 6B 
+    00 20 6B    Arturia ID 
     06 00 06 01 01 01 02 06
 
 Device ID: F0 7E id 06 02 mm ff ff dd dd ss ss ss ss F7
-
-
 
     F0 <ID number> <Device ID> <Sub ID#1> <Sub ID#2> . . . . F7
 
@@ -121,6 +119,30 @@ max name length:
 22:56:51.833	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 00 01 43 20 F7
 22:56:51.834	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 7F 02 02 42 20 7F F7
 
+request:
+
+    F0 
+    00 20 6B 
+    07                  code for microfreak?
+    01                  ?
+    00                  counter
+    01 43               constant? 
+    20                  ?
+    F7
+
+reply:
+
+    F0 
+    00 20 6B 
+    07                  code for microfreak? 
+    7F                  ?
+    02                  counter by 2? 
+    02 42               constant? 
+    20 
+    7F 
+    F7
+
+
 22:56:51.865	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 01 01 43 21 F7
 22:56:51.866	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 7F 04 02 42 21 00 F7
 
@@ -177,6 +199,21 @@ max name length:
 
 22:56:52.525	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 17 03 19 00 00 00 F7
 22:56:52.525	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 17 23 52 00 00 00 00 00 00 00 00 00 00 08 10 44 69 73 72 65 73 70 65 63 74 66…
+
+preset req:
+
+    F0 00 20 6B 07 01 17 03 19 00 00 00 F7
+    
+    F0                  start
+    00 20 6B            man id
+    07                  code for microfreak? 
+    01                  constant?
+    17                  counter?    seq number, echoed in reply
+    03 19               constant?   command to read preset name?
+    00                  bank # 0 or 1  
+    00                  preset #0
+    00                  constant
+    F7
 
 22:56:52.552	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 18 03 19 00 01 00 F7
 22:56:52.553	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 18 23 52 00 01 00 00 00 00 00 00 01 00 00 10 50 75 6E 69 73 68 65 72 00 00 00…
@@ -712,6 +749,27 @@ preset 01 7F (last one)
 
 21:07:40.365	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 6A 01 18 00 F7
 21:07:40.365	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 6A 20 16 00 23 56 43 4F 44 54 79 10 70 65 63 0C 2B 0A 46 00 50 61 72 61 6D 31…
+
+request:
+
+    F0 00 20 6B 07 01 6A 01 18 00 F7
+    
+    F0                  start
+    00 20 6B            man id
+    07                  code for microfreak? 
+    01                  constant?
+    6A                  counter?    --> seq number, echoed in reply
+    01 18               constant?
+    00                  constant
+    F7
+
+example for matrixbrute:
+
+    F0 00 20 6B 06 01 36 01 18 00 F7
+
+    id for matrixbrute seems to be 06, 04 is for minibrute (http://hackabrute.yusynth.net/MINIBRUTE/standard2SE_en.html)
+    01 10 seems to be the same for matrixbrute
+    
 
 21:07:40.369	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 6B 01 18 00 F7
 21:07:40.370	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 6B 20 16 10 61 6D 32 63 6E 00 00 00 46 50 61 72 61 6D 33 02 63 6E 00 00 47 42…
