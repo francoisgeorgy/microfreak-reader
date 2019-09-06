@@ -21,7 +21,7 @@ class State {
             // already registered
             return false;
         }
-        if (global.dev) console.log('State.addPort', port.id);
+        if (global.dev) console.log('State.addPort', port.type, port.name, port.id);
         this.midi.ports[port.id] = {
             type: port.type,
             name: port.name,
@@ -78,18 +78,15 @@ class State {
             } else {
                 if (global.dev) console.log(`Midi.connectPort: ${port.id} ${port.name} : add listener for ${messageType} messages on all channels`);
                 port.addListener(messageType, 'all', onMidiInputEvent);
-                // if (this.props.onInputConnection) {
-                //     this.props.onInputConnection(port.id);
-                // }
-                // if (global.dev) console.log("Midi.connectPort:", port.name);
-                // if (global.dev) console.log(`Midi.connectPort: set input input_device_id=${port.id} in preferences`);
-                // savePreferences({input_device_id: port.id});
-
-                // this.setState({input: port.id});
-                this.enablePort(port.id);
             }
         }
-        // there is nothing to do to "connect" an OUTPUT port.
+
+        // there is nothing else to do to "connect" an OUTPUT port.
+
+        this.enablePort(port.id);
+
+        // if (global.dev) console.log(`Midi.connectPort: set input input_device_id=${port.id} in preferences`);
+        // savePreferences({input_device_id: port.id});
     }
 
     disconnectPort(port, updatePreferences=false) {
@@ -97,25 +94,24 @@ class State {
             if (global.dev) console.log(`Midi.disconnectPort: ${port.type} ${port.id} ${port.name}`);
             if (port.type === PORT_INPUT) {
                 if (port.removeListener) port.removeListener();
-
-                // this.setState({input: null});
-                // this.props.state.midi.input = null;
-                this.disablePort(port.id);
-
-                // if (this.props.onInputDisconnection) {
-                //     this.props.onInputDisconnection(port.id);
-                // }
-                // if (global.dev) console.log(`Midi.connectInput: connect input set input_device_id=null in preferences`);
-                // if (updatePreferences) savePreferences({input_device_id: null});
             }
+
             // there is nothing to do to "connect" an OUTPUT port.
+
+            this.disablePort(port.id);
+
+            // if (global.dev) console.log(`Midi.connectInput: connect input set input_device_id=null in preferences`);
+            // if (updatePreferences) savePreferences({input_device_id: null});
         }
     }
 
     disconnectAllPorts(updatePreferences=false) {
         if (global.dev) console.log('Midi.disconnectAllPorts');
-        for (let port of this.midi.ports) {
-            this.disconnectPort(port);
+        // for (let port of this.midi.ports) {
+        //     this.disconnectPort(port);
+        // }
+        for (const port_id of Object.keys(this.midi.ports)) {
+            this.disconnectPort(port_id);
         }
     }
 

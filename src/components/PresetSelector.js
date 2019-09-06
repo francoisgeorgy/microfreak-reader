@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import "./PresetSelector.css";
 import {inject, observer} from "mobx-react";
+import {PORT_OUTPUT} from "./Midi";
+import {portById} from "../utils/midi";
 
 class PresetSelector extends Component {
 
@@ -13,8 +15,15 @@ class PresetSelector extends Component {
     };
 
     selectPreset = n => {
-        console.log(n);
+        const P = this.props.state.midi.ports;
         // const out = outputById(this.props.state.midi.output);
+        for (const port_id of Object.keys(P)) {
+            if (P[port_id].type === PORT_OUTPUT) {
+                const port = portById(port_id);
+                if (global.dev) console.log(`send PC ${n} to ${port.name} ${port.id}`);
+                port.sendProgramChange(n);
+            }
+        }
     };
 
     render() {

@@ -9,6 +9,7 @@ function portById(id) {
     }
 }
 
+/*
 function inputById(id) {
     return WebMidi.inputs.find(item => item.id === id);
 }
@@ -16,6 +17,7 @@ function inputById(id) {
 function outputById(id) {
     return WebMidi.outputs.find(item => item.id === id);
 }
+*/
 
 /*
 function inputName(id) {
@@ -30,7 +32,7 @@ function outputName(id) {
 */
 
 export {
-    portById,
-    inputById,
-    outputById
+    portById
+    // inputById,
+    // outputById
 }

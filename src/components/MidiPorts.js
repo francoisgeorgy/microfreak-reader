@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import Switch from "react-switch";
 import {inject, observer} from "mobx-react";
 import {portById} from "../utils/midi";
@@ -21,11 +21,6 @@ class MidiPorts extends React.Component {
 
     render() {
 
-        console.log("MidiPorts.render()");
-
-        // const {togglePortHandler} = this.props;
-        // const ports = WebMidi.inputs;
-
         // const S = this.props.state;
         const ports = this.props.state.midi.ports;
 
@@ -39,8 +34,7 @@ class MidiPorts extends React.Component {
                         if (port) {
                             // console.log("Ports", port_id);
                             return (
-                                <div className={`port ${port.enabled ? 'enabled' : ''}`} key={port_id}
-                                     onClick={() => this.togglePort(port_id)}>
+                                <Fragment>
                                     <div className="port-switch" onClick={(e) => e.stopPropagation()}>
                                         <Switch onChange={() => this.togglePort(port_id)}
                                                 checked={port.enabled}
@@ -48,10 +42,10 @@ class MidiPorts extends React.Component {
                                                 className="react-switch"
                                                 height={16} width={36} />
                                     </div>
-                                    {/*<div className="port-manufacturer">{port.manufacturer || 'unknown man.'}</div>*/}
-                                    <div className="port-type">{port.type}</div>
-                                    <div className="port-name">{port.name}</div>
-                                </div>);
+                                    <div className={`port-type ${port.enabled ? 'sel' : ''}`}>{port.type}</div>
+                                    <div className={`port-name ${port.enabled ? 'sel' : ''}`}>{port.name}</div>
+                                </Fragment>
+                            );
                         } else {
                             return null;
                         }
@@ -59,7 +53,7 @@ class MidiPorts extends React.Component {
                 }</div>
             );
         } else {
-            console.log("Ports: this.props.appState.inputs is null");
+            if (global.dev) console.log("Ports: this.props.state.midi.ports is null");
             return null;
         }
     }

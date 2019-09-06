@@ -1,17 +1,20 @@
 
 .ports-grid {
     margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: 10px;
+    justify-content: start;
+    align-items: center;
 }
 
-.port {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    cursor: pointer;
-}
+/*.port {*/
+/*    align-items: center;*/
+/*    cursor: pointer;*/
+/*}*/
 
 .port-name {
-    font-weight: 700;
+    /*font-weight: 700;*/
     margin: 2px 0;
 }
 
@@ -19,11 +22,12 @@
 }
 
 .port-switch {
-    /*position: absolute;*/
-    /*right: 5px;*/
-    /*top: 5px;*/
-    margin-right: 10px;
 }
 
 .port.enabled {
+}
+
+.port-type.sel,
+.port-name.sel {
+    font-weight: bold;
 }

@@ -24,8 +24,9 @@ const defaultProps = {
     messageType: "midimessage"
 };
 
+// regex:
 // const DEVICE_ID = "Arturia MicroFreak";
-const DEVICE_ID = "VMPK Output";
+const DEVICE_ID = /VMPK.*/i;
 
 // const ERROR_NO_ERROR = -1;
 export const ERROR_MIDI_NOT_SUPPORTED = 1;
@@ -51,17 +52,13 @@ class Midi extends Component {
             console.warn(`port ${port} not found`);
             return;
         }
-        if (port.name === DEVICE_ID) {
-            // if (this.props.state.midi.input === null) {
-                if (global.dev) console.log(`Midi.autoConnect: autoConnect "${port.name}"`);
-                if (port.type === PORT_INPUT) {
-                    this.props.state.connectPort(port, this.props.messageType, this.props.onMidiInputEvent);
-                } else {
-                    this.props.state.connectPort(port);
-                }
-            // } else {
-            //     if (global.dev) console.log(`Midi.autoConnect: autoConnect skipped, already connected`);
-            // }
+        if (port.name.match(DEVICE_ID)) {
+            if (global.dev) console.log(`Midi.autoConnect: autoConnect "${port.name}"`);
+            if (port.type === PORT_INPUT) {
+                this.props.state.connectPort(port, this.props.messageType, this.props.onMidiInputEvent);
+            } else {
+                this.props.state.connectPort(port);
+            }
         }
 /*
         const s = loadPreferences();
@@ -78,27 +75,27 @@ class Midi extends Component {
     };
 
     registerPort = (port) => {
-        console.log("registerPort", port.id);
+        if (global.dev) console.log("registerPort", port.type, port.name, port.id);
         if (this.props.state.addPort(port)) {
             this.autoConnect(port);
         }
     };
 
     unregisterPort = (port_id) => {
-        console.log("unregisterPort", port_id);
+        if (global.dev) console.log("unregisterPort", port_id);
         this.props.state.disconnectPort(portById(port_id));
         this.props.state.removePort(port_id);
     };
 
     unregisterAllPorts = () => {
-        console.log("unregisterAllPorts");
+        if (global.dev) console.log("unregisterAllPorts");
         this.props.state.disconnectAllPorts();
         this.props.state.removeAllPorts();
     };
 
     handleMidiConnectEvent = e => {
         if (global.dev) console.log(`handleMidiConnectEvent: ${e.type} port: ${e.port.type} ${e.port.connection} ${e.port.state}: ${e.port.name} ${e.port.id}`, e);
-        if (e.port.type === PORT_INPUT) {
+        // if (e.port.type === PORT_INPUT) {
             if (e.type === "disconnected") {    //FIXME: what is this?
                 const port_id = e.port.id;      // use a copy of port.id in case port is delete too soon by the webmidi api
                 this.unregisterPort(port_id);
@@ -106,7 +103,7 @@ class Midi extends Component {
                 this.registerPort(e.port);
                 // can it be opened by some other app? YES: a port may already be opened by another app, and it that case we must connect to it
             }
-        }
+        // }
     };
 
     midiOn = err => {
@@ -153,7 +150,7 @@ class Midi extends Component {
             }
             for (let port of WebMidi.outputs) {
                 this.registerPort(port.id);
-                console.log("output", port.id);
+                // console.log("output", port.id);
             }
         } else {
             if (global.dev) console.log("Midi: component did mount: Calling WebMidi.enable");
@@ -168,7 +165,6 @@ class Midi extends Component {
     }
 
     render() {
-        console.log("MIDI.render");
 /*
         if (this.props.portsRenderer) {
             return (
