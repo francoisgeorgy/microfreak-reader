@@ -1,4 +1,5 @@
 import {decorate, observable} from 'mobx';
+import {PORT_INPUT} from "../components/Midi";
 // import parseMidi from "parse-midi";
 // import {ds, hs} from "../utils/hexstring";
 
@@ -7,20 +8,22 @@ import {decorate, observable} from 'mobx';
 class State {
 
     midi = {
-        inputs: {}
+        ports: {},
+        // outputs: {}
         // input: null         // ID of the connected input port
     };
 
     preset = new Array(127).fill(0);
 
-    addInput(port) {
+    addPort(port) {
         // eslint-disable-next-line
-        if (this.midi.inputs.hasOwnProperty(port.id) && this.midi.inputs[port.id] !== null) {
+        if (this.midi.ports.hasOwnProperty(port.id) && this.midi.ports[port.id] !== null) {
             // already registered
             return false;
         }
-        if (global.dev) console.log('State.addInput', port.id);
-        this.midi.inputs[port.id] = {
+        if (global.dev) console.log('State.addPort', port.id);
+        this.midi.ports[port.id] = {
+            type: port.type,
             name: port.name,
             manufacturer: port.manufacturer,
             enabled: false
@@ -34,70 +37,86 @@ class State {
         return true;
     }
 
-    removeInput(port_id) {
-        if (global.dev) console.log('State.removeInput', port_id);
-        // delete this.midi.inputs[port.id];    // do not use delete with mobx; see https://github.com/mobxjs/mobx/issues/822
-        this.midi.inputs[port_id] = null;
+    removePort(port_id) {
+        if (global.dev) console.log('State.removePort', port_id);
+        // delete this.midi.ports[port.id];    // do not use delete with mobx; see https://github.com/mobxjs/mobx/issues/822
+        this.midi.ports[port_id] = null;
     }
 
-    enableInput(port_id) {
-        if (this.midi.inputs[port_id]) this.midi.inputs[port_id].enabled = true;
-        // this.midi.input = port_id;
+    removeAllPorts() {
+        if (global.dev) console.log('State.removeAllPorts');
+        // delete this.midi.ports[port.id];    // do not use delete with mobx; see https://github.com/mobxjs/mobx/issues/822
+        this.midi.ports = {};
     }
 
-    disableInput(port_id) {
-        // this.midi.input = null;
-        if (this.midi.inputs[port_id]) {
-            this.midi.inputs[port_id].enabled = false;
-            // this.midi.inputs[port_id].solo = false;
-            // this.midi.inputs[port_id].muted = false;
+    enablePort(port_id) {
+        if (this.midi.ports[port_id]) {
+            this.midi.ports[port_id].enabled = true;
         }
     }
 
-    connectInput(port, messageType, onMidiInputEvent) {
-        // if (this.props.onMidiInputEvent) {
-            if (port) {
-                if (global.dev) console.log(`Midi.connectInput: connect input ${port.id} ${port.name}`);
-                if (port.hasListener(messageType, 'all', onMidiInputEvent)) {
-                    console.warn(`Midi.connectInput: ${port.id} ${port.name} : ${messageType} messages on all channels listener already connected`);
-                } else {
-                    if (global.dev) console.log(`Midi.connectInput: ${port.id} ${port.name} : add listener for ${messageType} messages on all channels`);
-                    port.addListener(messageType, 'all', onMidiInputEvent);
-                    // if (this.props.onInputConnection) {
-                    //     this.props.onInputConnection(port.id);
-                    // }
-                    // if (global.dev) console.log("Midi.connectInput:", port.name);
-                    // if (global.dev) console.log(`Midi.connectInput: set input input_device_id=${port.id} in preferences`);
-                    // savePreferences({input_device_id: port.id});
+    disablePort(port_id) {
+        // this.midi.input = null;
+        if (this.midi.ports[port_id]) {
+            this.midi.ports[port_id].enabled = false;
+            // this.midi.ports[port_id].solo = false;
+            // this.midi.ports[port_id].muted = false;
+        }
+    }
 
-                    // this.setState({input: port.id});
-                    this.enableInput(port.id);
-                }
+    /**
+     *
+     * @param port
+     * @param messageType only used if port is input
+     * @param onMidiInputEvent only used if port is input
+     */
+    connectPort(port, messageType = null, onMidiInputEvent = null) {
+        if (global.dev) console.log(`Midi.connectPort: ${port.type} ${port.id} ${port.name}`);
+        if (port.type === PORT_INPUT) {
+            if (port.hasListener(messageType, 'all', onMidiInputEvent)) {
+                console.warn(`Midi.connectPort: ${port.id} ${port.name} : ${messageType} messages on all channels listener already connected`);
+            } else {
+                if (global.dev) console.log(`Midi.connectPort: ${port.id} ${port.name} : add listener for ${messageType} messages on all channels`);
+                port.addListener(messageType, 'all', onMidiInputEvent);
+                // if (this.props.onInputConnection) {
+                //     this.props.onInputConnection(port.id);
+                // }
+                // if (global.dev) console.log("Midi.connectPort:", port.name);
+                // if (global.dev) console.log(`Midi.connectPort: set input input_device_id=${port.id} in preferences`);
+                // savePreferences({input_device_id: port.id});
+
+                // this.setState({input: port.id});
+                this.enablePort(port.id);
             }
-        // } else {
-        //     console.warn("connectInput: no input event handler defined.");
-        // }
+        }
+        // there is nothing to do to "connect" an OUTPUT port.
     }
 
-    disconnectInput(port, updatePreferences=false) {
-        // if (port.id === this.midi.input) {
-            if (global.dev) console.log(`Midi.disconnectInput: disconnect input ${port.id} ${port.name}`);
-            if (port.removeListener) port.removeListener();
+    disconnectPort(port, updatePreferences=false) {
+        if (port) {     // port is probably already null
+            if (global.dev) console.log(`Midi.disconnectPort: ${port.type} ${port.id} ${port.name}`);
+            if (port.type === PORT_INPUT) {
+                if (port.removeListener) port.removeListener();
 
-            // this.setState({input: null});
-            // this.props.state.midi.input = null;
-            this.disableInput(port.id);
+                // this.setState({input: null});
+                // this.props.state.midi.input = null;
+                this.disablePort(port.id);
 
-            // if (this.props.onInputDisconnection) {
-            //     this.props.onInputDisconnection(port.id);
-            // }
-            // if (global.dev) console.log(`Midi.connectInput: connect input set input_device_id=null in preferences`);
-            // if (updatePreferences) savePreferences({input_device_id: null});
-        // }
+                // if (this.props.onInputDisconnection) {
+                //     this.props.onInputDisconnection(port.id);
+                // }
+                // if (global.dev) console.log(`Midi.connectInput: connect input set input_device_id=null in preferences`);
+                // if (updatePreferences) savePreferences({input_device_id: null});
+            }
+            // there is nothing to do to "connect" an OUTPUT port.
+        }
     }
 
-    appendMessageIn(msg) {
-        console.log("State.appendMessageIn", msg);
+    disconnectAllPorts(updatePreferences=false) {
+        if (global.dev) console.log('Midi.disconnectAllPorts');
+        for (let port of this.midi.ports) {
+            this.disconnectPort(port);
+        }
     }
 
 }

@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import "./PresetSelector.css";
 import {inject, observer} from "mobx-react";
-import {outputById} from "../utils/midi";
 
 class PresetSelector extends Component {
 

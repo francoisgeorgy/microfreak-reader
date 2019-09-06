@@ -3,6 +3,9 @@
 22:21:35.099	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 36 03 19 01 7F 01 F7
 22:21:35.101	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 36 00 15 F7
 
+                                                    "F0 00 20 6B 07 01" <sequence> "01 18" 00 "F7"
+                                                    "F0 00 20 6B 07 01" <sequence> "20 16" 00 ... "F7"
+
 22:21:35.104	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 36 01 18 00 F7
 22:21:35.105	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 36 20 16 00 23 56 43 4F 44 54 79 10 70 65 63 0C 2B 0A 46 00 50 61 72 61 6D 31…
 
@@ -14,10 +17,13 @@
 22:21:35.118	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 39 20 16 00 52 65 73 6F 63 00 00 00 00 40 23 45 47 31 44 00 4D 6F 64 65 63 02…
 22:21:35.122	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 3A 01 18 00 F7
 22:21:35.123	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 3A 20 16 10 76 6C 63 00 5A 14 47 00 52 69 73 65 53 6C 70 04 63 00 7F 3F 47 46…
+
 22:21:35.126	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 3B 01 18 00 F7
 22:21:35.127	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 3B 20 16 01 5A 14 44 48 6F 6C 64 00 63 00 00 00 47 46 61 00 6C 6C 53 6C 70 63…
+
 22:21:35.131	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 3C 01 18 00 F7
 22:21:35.132	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 3C 20 16 10 6E 74 63 00 7F 7F 40 00 23 4B 62 64 45 47 6C 00 69 64 65 63 00 00…
+
 22:21:35.135	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 3D 01 18 00 F7
 22:21:35.136	From Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 3D 20 16 00 63 06 00 40 45 56 65 00 6C 6F 63 63 01 00 00 00 44 48 6F 6C 64 63…
 22:21:35.140	To Arturia MicroFreak	SysEx		F0 00 20 6B 07 01 3E 01 18 00 F7

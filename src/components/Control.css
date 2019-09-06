@@ -1,9 +1,10 @@
 
 .control:not(:first-child) {
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .control {
+    min-width: 70px;
     display: flex;
     flex-direction: column;
     text-align: center;
