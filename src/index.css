@@ -9,3 +9,8 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+.space-right {
+    margin-right: 10px;
+}

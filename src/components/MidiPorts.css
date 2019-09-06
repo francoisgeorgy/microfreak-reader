@@ -3,10 +3,21 @@
     margin-bottom: 20px;
     display: grid;
     grid-template-columns: auto auto auto;
-    grid-column-gap: 10px;
+    /*grid-column-gap: 10px;*/
     justify-content: start;
     align-items: center;
 }
+
+.grid-label {
+    font-size: 85%;
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 5px;
+}
+
+/*.ports-grid > div:not(:first-child) {*/
+/*    margin-left: 10px;*/
+/*}*/
+
 
 /*.port {*/
 /*    align-items: center;*/
@@ -14,14 +25,16 @@
 /*}*/
 
 .port-name {
-    /*font-weight: 700;*/
-    margin: 2px 0;
+    font-weight: 700;
+    margin: 2px 10px 2px 0;
 }
 
 .port-manufacturer {
 }
 
 .port-switch {
+    display: flex;
+    align-items: center;
 }
 
 .port.enabled {

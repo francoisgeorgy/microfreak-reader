@@ -1,6 +1,7 @@
 import WebMidi from "webmidi";
 
 function portById(id) {
+    if (!id) return null;
     let p = WebMidi.inputs.find(item => item.id === id);
     if (p) {
         return p;
