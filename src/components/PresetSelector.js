@@ -30,7 +30,7 @@ class PresetSelector extends Component {
 
         const pc = [];
         for (let i=0; i<256; i++){
-            pc.push(<div onClick={() => this.selectPreset(i)}>{i}</div>);
+            pc.push(<div key={i} onClick={() => this.selectPreset(i)}>{i}</div>);
         }
 
         return (

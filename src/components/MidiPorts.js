@@ -3,7 +3,6 @@ import Switch from "react-switch";
 import {inject, observer} from "mobx-react";
 import {portById} from "../utils/midi";
 import "./MidiPorts.css";
-import {PORT_INPUT} from "./Midi";
 
 class MidiPorts extends React.Component {
 
@@ -37,10 +36,6 @@ class MidiPorts extends React.Component {
             groupedByName[port.name][port.type] = id;
         }
 
-        // console.log("groupedByName", groupedByName);
-
-        //TODO: if there is at least one port soloed, then only show the soloed ports.
-
         if (ports) {
             return (
                 <div className="ports-grid">
@@ -52,34 +47,27 @@ class MidiPorts extends React.Component {
                         const port = groupedByName[port_name];
                         const i = portById(port.input);
                         const o = portById(port.output);
-                        // if (port) {
-                            // console.log("Ports", port_id);
-                            return (
-                                <Fragment>
-                                    <div className={`port-name`}>{port_name}</div>
-                                    <div className="port-switch space-right" onClick={(e) => e.stopPropagation()}>
-                                        {i &&
-                                        <Switch onChange={() => this.togglePort(i.id)}
-                                            checked={ports[i.id].enabled}
-                                            id={`switch-${i.id}`}
-                                            className="react-switch"
-                                            height={16} width={36} />}
-                                    </div>
-                                    <div className="port-switch" onClick={(e) => e.stopPropagation()}>
-                                        {o &&
-                                        <Switch onChange={() => this.togglePort(o.id)}
-                                            checked={ports[o.id].enabled}
-                                            id={`switch-${o.id}`}
-                                            className="react-switch"
-                                            height={16} width={36} />}
-                                    </div>
-                                    {/*<div className={`port-type ${port.enabled ? 'sel' : ''}`}>{port.type}</div>*/}
-                                    {/*<div className={`port-name ${port.enabled ? 'sel' : ''}`}>{port_name}</div>*/}
-                                </Fragment>
-                            );
-                        // } else {
-                        //     return null;
-                        // }
+                        return (
+                            <Fragment key={port_name}>
+                                <div className={`port-name`}>{port_name}</div>
+                                <div className="port-switch space-right" onClick={(e) => e.stopPropagation()}>
+                                    {i &&
+                                    <Switch onChange={() => this.togglePort(i.id)}
+                                        checked={ports[i.id].enabled}
+                                        id={`switch-${i.id}`}
+                                        className="react-switch"
+                                        height={16} width={36} />}
+                                </div>
+                                <div className="port-switch" onClick={(e) => e.stopPropagation()}>
+                                    {o &&
+                                    <Switch onChange={() => this.togglePort(o.id)}
+                                        checked={ports[o.id].enabled}
+                                        id={`switch-${o.id}`}
+                                        className="react-switch"
+                                        height={16} width={36} />}
+                                </div>
+                            </Fragment>
+                        );
                     })
                 }</div>
             );
