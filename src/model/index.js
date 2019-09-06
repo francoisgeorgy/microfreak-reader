@@ -4,6 +4,39 @@ const _0_100 = function (v) {
     return Math.floor(v / 127 * 100 + 0.5);
 };
 
+
+const _osc_type = function (v) {
+    switch (v) {
+        case 10:
+            return "Basic Waves";
+        case 21:
+            return "Superwave";
+        case 32:
+            return "Wavetable";
+        case 42:
+            return "Harmonic";
+        case 53:
+            return "KarplusStrong";
+        case 64:
+            return "V. Analog";
+        case 74:
+            return "Waveshaper";
+        case 85:
+            return "Two Op. FM";
+        case 95:
+            return "Formant";
+        case 106:
+            return "Chords";
+        case 117:
+            return "Speech";
+        case 127:
+            return "Modal";
+        default:
+            return v;
+    }
+};
+
+
 export const control = {
     "glide" : 5,
     "osc_type" : 9,
@@ -36,7 +69,7 @@ export const control_details = {
     },
     [control.osc_type]: {
         name: "Type",
-        mapping: null
+        mapping: _osc_type
     },
     [control.osc_wave]: {
         name: "Wave",
@@ -95,7 +128,7 @@ export const control_details = {
         mapping: null
     },
     [control.envelope_decay]: {
-        name: "Decay",
+        name: "Decay/Rel",
         mapping: null
     },
     [control.envelope_sustain]: {
