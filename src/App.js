@@ -10,41 +10,18 @@ import PresetSelector from "./components/PresetSelector";
 
 class App extends Component {
 
-    // state = {
-    //     dropZoneActive: false,
-    //     preset: new Array(127).fill(0)
-    // };
-
-    // cc = (c) => {
-    //     return (
-    //         <Fragment>
-    //             <div className="value">({h(this.state.preset[c])})</div>
-    //             <div className="value">{this.state.preset[c]}</div>
-    //         </Fragment>
-    //     );
-    // };
-
     handleMidiInputEvent = (e) => {
 
-        // console.log(e);
+        // if (global.dev) console.log("handleMidiInputEvent", hs(e.data), e);
 
         if (e.data[0] === 0xF8) {
             // we ignore Timing Clock messages
             return;
         }
 
-        // if (global.dev) console.log("handleMidiInputEvent", hs(e.data), e);
-
         if (global.dev) console.log(`handleMidiInputEvent: ${e.controller.number}=${e.value}`);
 
-        // this.setState(
-        //     produce(draft => {
-        //         draft.preset[e.controller.number] = e.value;
-        //     })
-        // )
-
         state.preset[e.controller.number] = e.value;
-
     };
 
     render() {

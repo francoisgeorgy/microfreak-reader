@@ -65,7 +65,7 @@ export const control = {
 export const control_details = {
     [control.glide]: {
         name: "Glide",
-        mapping: null
+        mapping: _0_100
     },
     [control.osc_type]: {
         name: "Type",
@@ -73,23 +73,23 @@ export const control_details = {
     },
     [control.osc_wave]: {
         name: "Wave",
-        mapping: null
+        mapping: _0_100
     },
     [control.osc_timbre]: {
         name: "Timbre",
-        mapping: null
+        mapping: _0_100
     },
     [control.osc_shape]: {
         name: "Shape",
-        mapping: null
+        mapping: _0_100
     },
     [control.filter_cutoff]: {
         name: "Cutoff",
-        mapping: null
+        mapping: _0_100
     },
     [control.filter_resonance]: {
         name: "Resonance",
-        mapping: null
+        mapping: _0_100
     },
     [control.cycling_env_rise]: {
         name: "Rise",
@@ -97,50 +97,50 @@ export const control_details = {
     },
     [control.cycling_env_fall]: {
         name: "Fall",
-        mapping: null
+        mapping: _0_100
     },
     [control.cycling_env_hold]: {
         name: "Hold",
-        mapping: null
+        mapping: _0_100
     },
     [control.cycling_env_amount]: {
         name: "Amount",
-        mapping: null
+        mapping: _0_100
     },
     [control.arp_seq_rate_free]: {
         name: "Rate free",
-        mapping: null
+        mapping: _0_100
     },
     [control.arp_seq_rate_sync]: {
         name: "Rate sync",
-        mapping: null
+        mapping: _0_100
     },
     [control.lfo_rate_free]: {
         name: "Rate free",
-        mapping: null
+        mapping: _0_100
     },
     [control.lfo_rate_sync]: {
         name: "Rate sync",
-        mapping: null
+        mapping: _0_100
     },
     [control.envelope_attack]: {
         name: "Attack",
-        mapping: null
+        mapping: _0_100
     },
     [control.envelope_decay]: {
         name: "Decay/Rel",
-        mapping: null
+        mapping: _0_100
     },
     [control.envelope_sustain]: {
         name: "Sustain",
-        mapping: null
+        mapping: _0_100
     },
     [control.keyboard_hold_button]: {
         name: "Hold",
-        mapping: null
+        mapping: _0_100
     },
     [control.keyboard_spice]: {
         name: "Spice",
-        mapping: null
+        mapping: _0_100
     }
 };
