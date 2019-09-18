@@ -27,16 +27,25 @@ class MidiPorts extends React.Component {
         const groupedByName = {};
 
         for (let [id, port] of Object.entries(ports)) {
-            if (!(port.name in groupedByName)) {
-                groupedByName[port.name] = {
-                    input: null,
-                    output: null
-                };
+            if (port) {
+                if (!(port.name in groupedByName)) {
+                    groupedByName[port.name] = {
+                        input: null,
+                        output: null
+                    };
+                }
+                groupedByName[port.name][port.type] = id;
             }
-            groupedByName[port.name][port.type] = id;
         }
 
+        console.log("MidiPorts: groupedByName.length", Object.keys(groupedByName).length);
+
         if (ports) {
+
+            if (!Object.keys(groupedByName).length) {
+                return <div className="warning banner">no midi ports</div>
+            }
+
             return (
                 <div className="ports-grid">
                     <div className="grid-label">MIDI ports</div>

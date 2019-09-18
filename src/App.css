@@ -1,3 +1,16 @@
+.banner {
+    background-color: #dddddd;
+    color: #333;
+    border: 1px solid #ccc;
+    margin: 10px 0 20px;
+    padding: 20px;
+}
+
+.warning.banner {
+    background-color: #ffc9ad;
+    border-color: #333;
+}
+
 .main-grid {
     margin-top: 20px;
     display: grid;

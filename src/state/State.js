@@ -1,19 +1,25 @@
 import {decorate, observable} from 'mobx';
 import {PORT_INPUT, PORT_OUTPUT} from "../components/Midi";
-// import parseMidi from "parse-midi";
-// import {ds, hs} from "../utils/hexstring";
-
-// const MIDI_CONSOLE_SIZE = 100;
+import {DEFAULT_msb_mask, DEFAULT_sign_mask, multibytesValue} from "../model";
 
 class State {
 
     midi = {
         ports: {},
-        // outputs: {}
-        // input: null         // ID of the connected input port
     };
 
-    preset = new Array(127).fill(0);
+    // preset = new Array(127).fill(0);
+
+    preset = {
+        current: 1,
+        reference: null,
+        current_counter: 0
+    };
+
+    lock = false;
+
+    data = [];
+    dataRef = [];   // copy used as reference for comparisons
 
     addPort(port) {
         // eslint-disable-next-line
@@ -146,12 +152,56 @@ class State {
         // console.log(JSON.stringify(this.data), JSON.stringify(this.dataRef));
     }
 
+    clearRef() {
+        this.dataRef = [];
+    }
+
+    modMatrixValue(m) {
+
+        // const D = this.props.state.data;
+        // console.log("m", m, D.length);
+        if (this.data.length < 39) return;  //FIXME
+
+        // console.log("modMatrixValue", m);
+
+        const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;
+        const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;
+
+        return multibytesValue(
+            this.data[ m.MSB[0] ][ m.MSB[1] ],
+            this.data[ m.LSB[0] ][ m.LSB[1] ],
+            this.data[ m.msb[0] ][ m.msb[1] ],
+            mask_msb,
+            this.data[ m.sign[0] ][ m.sign[1] ],
+            mask_sign)
+    }
+
+    controlValue(m) {
+
+        // const D = this.props.state.data;
+        // console.log("m", m, D.length);
+        if (this.data.length < 39) return;  //FIXME
+
+        const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;
+        // const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;
+
+        return multibytesValue(
+            this.data[ m.MSB[0] ][ m.MSB[1] ],
+            this.data[ m.LSB[0] ][ m.LSB[1] ],
+            this.data[ m.msb[0] ][ m.msb[1] ],
+            mask_msb,
+            0, 0)
+    }
+
 }
 
 // https://mobx.js.org/best/decorators.html
 decorate(State, {
     midi: observable,
-    preset: observable
+    preset: observable,
+    data: observable,
+    dataRef: observable,
+    lock: observable
 });
 
 export const state = new State();

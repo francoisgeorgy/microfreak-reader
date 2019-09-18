@@ -17,6 +17,7 @@ import {
     OSC_WAVE
 } from "./model";
 import PresetSelector from "./components/PresetSelector";
+import ModMatrix from "./components/ModMatrix";
 
 class App extends Component {
 
@@ -39,10 +40,11 @@ class App extends Component {
             <Provider state={state}>
                 <Midi messageType="controlchange" onMidiInputEvent={this.handleMidiInputEvent}/>
                 <div className="App">
-                    <h2>MicroFreak CC values</h2>
+                    <h2>MicroFreak</h2>
                     <MidiPorts messageType="controlchange" onMidiInputEvent={this.handleMidiInputEvent}/>
                     <PresetSelector/>
                     <div>
+                        <ModMatrix />
                         <div className="main-grid">
                             <div className="group oscillator">
                                 <h3>Oscillator</h3>
