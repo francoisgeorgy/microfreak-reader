@@ -93,6 +93,16 @@ export const MOD_SOURCE = {
     [KEY_ARP]: 'Key/Arp'
 };
 
+// TODO: move into config file?
+export const MOD_SOURCE_COLOR = {
+    [CYC_ENV] : '#fff5cf',
+    [ENV]: '#d1e7ff',
+    [LFO]: '#ffd4e5',
+    [PRESS]: '#94ffa5',
+    [KEY_ARP]: '#f0baff'
+};
+
+
 // names (labels)
 export const MOD_DESTINATION = {
     [PITCH]: 'Pitch',

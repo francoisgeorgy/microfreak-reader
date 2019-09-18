@@ -3,6 +3,7 @@ import {inject, observer} from "mobx-react";
 import {h} from "../utils/hexstring";
 import {CONTROL, OSC_TYPE} from "../model";
 import "./Control.css";
+import ControlMods from "./ControlMods";
 
 class Control extends Component {
 
@@ -21,6 +22,7 @@ class Control extends Component {
                 <div className="ctrl-value">{v}</div>
                 <div className="ctrl-value-hex">0x{h(state.preset[cc])}</div>
                 <div className="ctrl-name">{d.name}</div>
+                <ControlMods cc={cc} />
             </div>
         );
 
