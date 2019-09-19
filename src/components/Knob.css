@@ -1,0 +1,6 @@
+.knob {
+    width: 80px;
+}
+.knob text {
+    font-size: 1.25rem;     /* viewbox/width = 100/80 */
+}

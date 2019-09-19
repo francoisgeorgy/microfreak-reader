@@ -1,4 +1,5 @@
 import React from "react";
+import "./Bar.css";
 
 const config = {
     value_min: 0.0,

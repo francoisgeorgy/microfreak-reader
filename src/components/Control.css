@@ -1,16 +1,18 @@
 
-.control:not(:first-child) {
-    margin-left: 10px;
-}
-
 .control {
     min-width: 70px;
     display: flex;
     flex-direction: column;
-    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    /*text-align: center;*/
     /*margin: 10px 20px;*/
-    padding: 0 10px;
-    border: 1px solid #ddd;
+    /*padding: 0 10px;*/
+    /*border: 1px solid #ddd;*/
+}
+
+.control:not(:first-child) {
+    margin-left: 10px;
 }
 
 .control.large {

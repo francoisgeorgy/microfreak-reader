@@ -1,0 +1,7 @@
+.bar {
+    width: 20px;
+    height: 80px;
+}
+.bar text {
+    font-size: 1.25rem;     /* viewbox/width = 100/80 */
+}

@@ -1,10 +1,11 @@
 import React from "react";
+import "./Knob.css";
 
 const HALF_WIDTH = 50; // viewBox/2
 const HALF_HEIGHT = 50; // viewBox/2
 
 const config = {
-    value_min: 0.0,
+    value_min: -100.0,
     value_max: 100.0,
 
     // position:
@@ -31,7 +32,7 @@ const config = {
 
     // text displayed in the middle of the knob:
     value_text: true,
-    value_position: HALF_HEIGHT + 8, // empirical value: HALF_HEIGHT + config.font_size / 3
+    value_position: 50, //HALF_HEIGHT + 8, // empirical value: HALF_HEIGHT + config.font_size / 3
     font_family: "sans-serif",
     font_size: 25,
     font_weight: "bold",
@@ -98,18 +99,19 @@ function getArc(from_angle, to_angle, radius) {
 }
 
 function ValueText({ value, decimals }) {
+    console.log("ValueText", value);
     const path = getArc(
         config.angle_min,
         config.angle_max,
         config.track_bg_radius
     );
-
     return (
         <text
             d={path}
             x={HALF_WIDTH}
             y={config.value_position}
             textAnchor="middle"
+            alignmentBaseline="middle"
             fill="#000"
         >
             {value.toFixed(decimals)}
