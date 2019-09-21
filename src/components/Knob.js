@@ -5,7 +5,8 @@ const HALF_WIDTH = 50; // viewBox/2
 const HALF_HEIGHT = 50; // viewBox/2
 
 const config = {
-    value_min: -100.0,
+    // value_min: -100.0,
+    value_min: 0.0,
     value_max: 100.0,
 
     // position:
@@ -99,7 +100,7 @@ function getArc(from_angle, to_angle, radius) {
 }
 
 function ValueText({ value, decimals }) {
-    console.log("ValueText", value);
+    // console.log("ValueText", value);
     const path = getArc(
         config.angle_min,
         config.angle_max,

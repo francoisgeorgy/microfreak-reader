@@ -18,30 +18,43 @@ import {
 } from "./model";
 import PresetSelector from "./components/PresetSelector";
 import ModMatrix from "./components/ModMatrix";
+import {hs} from "./utils/hexstring";
+
+const MIDI_MSG_TYPE = "sysex";
 
 class App extends Component {
 
     handleMidiInputEvent = (e) => {
 
-        // if (global.dev) console.log("handleMidiInputEvent", hs(e.data), e);
+        if (global.dev) console.log("handleMidiInputEvent", hs(e.data), e);
 
         if (e.data[0] === 0xF8) {
             // we ignore Timing Clock messages
             return;
         }
 
-        if (global.dev) console.log(`handleMidiInputEvent: ${e.controller.number}=${e.value}`);
+        // if (global.dev) console.log(`handleMidiInputEvent: ${e.controller.number}=${e.value}`);
+        // state.preset[e.controller.number] = e.value;
 
-        state.preset[e.controller.number] = e.value;
+
+        if (e.data.length != 42) {
+            console.log("do not store answer", hs(e.data));
+            return;
+        }
+
+        console.log("store sysex data");
+
+        // TODO: move into store:
+        state.data.push(Array.from(e.data.slice(9, e.data.length - 1)));    // e.data is UInt8Array
     };
 
     render() {
         return (
             <Provider state={state}>
-                <Midi messageType="controlchange" onMidiInputEvent={this.handleMidiInputEvent}/>
+                <Midi messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>
                 <div className="App">
                     <h2>MicroFreak</h2>
-                    <MidiPorts messageType="controlchange" onMidiInputEvent={this.handleMidiInputEvent}/>
+                    <MidiPorts messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>
                     <PresetSelector/>
                     <div>
                         <ModMatrix />

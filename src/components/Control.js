@@ -11,10 +11,14 @@ class Control extends Component {
 
     render() {
 
-        const {cc, state} = this.props;
-        const d = CONTROL[cc];
-        const v = d.mapping ? d.mapping(state.preset[cc]) : state.preset[cc];
+        // console.log("Control.render");
+
+        const {cc, state: S} = this.props;
+        const control = CONTROL[cc];
+        // const v = d.mapping ? d.mapping(S.preset[cc]) : S.preset[cc];
         // const v = -100;
+
+        const v = S.controlValue(control);
 
         //HACK:
         const c = cc === OSC_TYPE ? 'xlarge' : '';
@@ -24,7 +28,7 @@ class Control extends Component {
                 {/*<div className="ctrl-value">{state.preset[cc]}</div>*/}
                 {/*<div className="ctrl-value">{v}</div>*/}
                 {/*<div className="ctrl-value-hex">0x{h(state.preset[cc])}</div>*/}
-                <div className="ctrl-name">{d.name}</div>
+                <div className="ctrl-name">{control.name}</div>
                 {cc !== OSC_TYPE && <Knob value={v} decimals={1} />}
                 {cc === OSC_TYPE && <div>Karplus<br/>Strong{v}</div>}
                 <ControlMods cc={cc} />

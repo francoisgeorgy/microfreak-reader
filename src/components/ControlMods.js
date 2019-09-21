@@ -8,7 +8,7 @@ class ControlMods extends Component {
 
     render() {
 
-        const {cc, state} = this.props;
+        const {cc, S} = this.props;
         // const d = CONTROL[cc];
         // const v = d.mapping ? d.mapping(state.preset[cc]) : state.preset[cc];
 

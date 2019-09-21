@@ -185,6 +185,7 @@ class State {
 
         // const D = this.props.state.data;
         // console.log("m", m, D.length);
+
         if (this.data.length < 39) return;  //FIXME
 
         const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;

@@ -21,7 +21,8 @@ const propTypes = {
 const defaultProps = {
     classname: "",
     portsRenderer: null,
-    messageType: "midimessage"
+    // messageType: "midimessage"
+    messageType: "sysex"
 };
 
 // regex:
