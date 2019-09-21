@@ -1,3 +1,9 @@
+
+
+**THIS BRANCH ONLY UPDATES CONTROL VALUES WHEN THE MF SENDS CC**
+
+
+
 # Microfreak Web
 
 Web tools for the Arturia MicroFreak synthesizer
