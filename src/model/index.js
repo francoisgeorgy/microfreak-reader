@@ -55,13 +55,13 @@ const _0_100 = function (v) {
 export const DEFAULT_msb_mask = 0x01;
 export const DEFAULT_sign_mask = 0x02;
 
-export const CYC_ENV = Symbol("CYC_ENV");
+export const CYC_ENV = Symbol();
 export const ENV = Symbol();
 export const PRESS = Symbol();
 export const KEY_ARP = Symbol();
 export const LFO = Symbol();
 
-export const PITCH = Symbol("PITCH");
+export const PITCH = Symbol();
 // export const WAVE = Symbol();
 // export const TIMBRE = Symbol();
 // export const CUTOFF = Symbol();
@@ -74,8 +74,8 @@ export const OSC_TYPE = Symbol();
 export const OSC_WAVE = Symbol();
 export const OSC_TIMBRE = Symbol();
 export const OSC_SHAPE = Symbol();
-export const FILTER_CUTOFF = Symbol("FILTER_CUTOFF");
-export const FILTER_RESONANCE = Symbol("FILTER_RESONANCE");
+export const FILTER_CUTOFF = Symbol();
+export const FILTER_RESONANCE = Symbol();
 export const CYCLING_ENV_RISE = Symbol();
 export const CYCLING_ENV_FALL = Symbol();
 export const CYCLING_ENV_HOLD = Symbol();

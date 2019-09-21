@@ -19,10 +19,7 @@ class State {
     lock = false;
 
     data = [];
-    dataRef = [];
-    MOD_ASSIGN_SLOT;
-
-    // copy used as reference for comparisons
+    dataRef = [];   // copy used as reference for comparisons
 
     addPort(port) {
         // eslint-disable-next-line
@@ -243,7 +240,7 @@ class State {
      */
     modAssignControl(slot) {
         if (this.data.length < 39) return;  //FIXME
-        const m = (this.MOD_ASSIGN_SLOT)[slot][control];
+        const m = MOD_ASSIGN_SLOT[slot][control];
         const control = this.data[ m[0] ][ m[1] ];
         return control;
     };
