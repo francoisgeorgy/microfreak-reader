@@ -1,27 +1,48 @@
 import React, {Component} from 'react';
-import {inject, observer} from "mobx-react";
-import {h} from "../utils/hexstring";
-import {CONTROL, CYC_ENV, MOD_DESTINATION, MOD_MATRIX, MOD_SOURCE, MOD_SOURCE_COLOR, OSC_TYPE} from "../model";
+import {
+    MOD_DESTINATION,
+    MOD_MATRIX,
+    MOD_SOURCE,
+    MOD_SOURCE_COLOR
+} from "../model";
 import "./ControlMods.css";
+import {inject, observer} from "mobx-react";
 
 class ControlMods extends Component {
 
     render() {
 
-        const {cc, S} = this.props;
+        const {cc, state: S} = this.props;
         // const d = CONTROL[cc];
         // const v = d.mapping ? d.mapping(state.preset[cc]) : state.preset[cc];
 
-        console.log("mod color", MOD_SOURCE_COLOR[cc]);
+        // console.log("mod color", cc, MOD_SOURCE_COLOR[cc]);
 
         return (
             <div className="control-mods">
                 {Object.getOwnPropertySymbols(MOD_SOURCE).map(
                     (src, i) => {
+                        if (!MOD_DESTINATION[cc]) {
+                            // console.log("not a destination", cc, CONTROL[cc].name, MOD_DESTINATION[cc], MOD_DESTINATION[cc]);
+                            return;
+                        }
+                        // console.log("source", src);
+                        // console.log("destination", cc, CONTROL[cc].name);
+                        // if (!MOD_MATRIX[src][cc]) {
+                        //     console.log("no mod matrix for ", src, cc);
+                        //     return null;
+                        // }
+                        const v = S.modMatrixValue(MOD_MATRIX[src][cc]);
+                        console.log(v);
+                        // const v = S.modMatrixValue(MOD_MATRIX[CYC_ENV][CUTOFF]);
+                        if (!v || (Math.abs(v) < 0.01)) {
+                            console.log("mod matrix too small ", v);
+                            return null;
+                        }
                         return (
                             <div key={i} className="mod" style={{backgroundColor:MOD_SOURCE_COLOR[src]}}>
                                 <div className="mod-name">{MOD_SOURCE[src]}</div>
-                                <div className="mod-value">-34.5</div>
+                                <div className="mod-value">{v}</div>
                             </div>
                         )
                     }

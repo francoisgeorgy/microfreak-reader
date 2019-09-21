@@ -165,7 +165,10 @@ class State {
         // console.log("m", m, D.length);
         if (this.data.length < 39) return;  //FIXME
 
-        // console.log("modMatrixValue", m);
+        if (!m) {
+            console.log("modMatrixValue, no def for", m);
+            return 0;
+        }
 
         const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;
         const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;

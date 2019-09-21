@@ -26,7 +26,7 @@ class App extends Component {
 
     handleMidiInputEvent = (e) => {
 
-        if (global.dev) console.log("handleMidiInputEvent", hs(e.data), e);
+        // if (global.dev) console.log("handleMidiInputEvent", hs(e.data), e);
 
         if (e.data[0] === 0xF8) {
             // we ignore Timing Clock messages
@@ -42,7 +42,7 @@ class App extends Component {
             return;
         }
 
-        console.log("store sysex data");
+        // console.log("store sysex data");
 
         // TODO: move into store:
         state.data.push(Array.from(e.data.slice(9, e.data.length - 1)));    // e.data is UInt8Array
@@ -112,11 +112,7 @@ class App extends Component {
                                     <Control cc={GLIDE}/>
                                     <Control cc={KEYBOARD_HOLD_BUTTON}/>
                                     <Control cc={KEYBOARD_SPICE}/>
-                                    {/*<Control cc={} />*/}
-                                    {/*<Control cc={} />*/}
                                 </div>
-                                {/*<div>Keyboard Pitch Bend</div><div className="value">Pitchbend</div>*/}
-                                {/*<div>Keyboard Pressure</div><div className="value">Aftertouch</div>*/}
                             </div>
                         </div>
                     </div>

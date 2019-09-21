@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {inject, observer} from "mobx-react";
-import {h} from "../utils/hexstring";
 import {CONTROL, OSC_TYPE} from "../model";
 import "./Control.css";
-import ControlMods from "./ControlMods";
 import Knob from "./Knob";
-import Bar from "./Bar";
+import ControlMods from "./ControlMods";
+
 
 class Control extends Component {
 
