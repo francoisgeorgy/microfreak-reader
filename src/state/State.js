@@ -1,6 +1,6 @@
 import {decorate, observable} from 'mobx';
 import {PORT_INPUT, PORT_OUTPUT} from "../components/Midi";
-import {DEFAULT_msb_mask, DEFAULT_sign_mask, multibytesValue} from "../model";
+import {DEFAULT_msb_mask, DEFAULT_sign_mask, MOD_ASSIGN_SLOT, multibytesValue} from "../model";
 
 class State {
 
@@ -19,7 +19,10 @@ class State {
     lock = false;
 
     data = [];
-    dataRef = [];   // copy used as reference for comparisons
+    dataRef = [];
+    MOD_ASSIGN_SLOT;
+
+    // copy used as reference for comparisons
 
     addPort(port) {
         // eslint-disable-next-line
@@ -167,13 +170,15 @@ class State {
         const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;
         const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;
 
-        return multibytesValue(
+        const raw = multibytesValue(
             this.data[ m.MSB[0] ][ m.MSB[1] ],
             this.data[ m.LSB[0] ][ m.LSB[1] ],
             this.data[ m.msb[0] ][ m.msb[1] ],
             mask_msb,
             this.data[ m.sign[0] ][ m.sign[1] ],
-            mask_sign)
+            mask_sign);
+
+        return Math.round(raw * 1000 / 32768) / 10;
     }
 
     controlValue(m) {
@@ -185,13 +190,59 @@ class State {
         const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;
         // const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;
 
-        return multibytesValue(
+        const raw = multibytesValue(
             this.data[ m.MSB[0] ][ m.MSB[1] ],
             this.data[ m.LSB[0] ][ m.LSB[1] ],
             this.data[ m.msb[0] ][ m.msb[1] ],
             mask_msb,
-            0, 0)
+            0, 0);
+
+        //TODO: apply mapping or round value
+        return Math.round(raw * 1000 / 32768) / 10;
     }
+
+    switchValue(m) {
+
+        // const D = this.props.state.data;
+        // console.log("m", m, D.length);
+        if (this.data.length < 39) return;  //FIXME
+
+        const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;
+        // const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;
+
+        const raw = multibytesValue(
+            this.data[ m.MSB[0] ][ m.MSB[1] ],
+            this.data[ m.LSB[0] ][ m.LSB[1] ],
+            this.data[ m.msb[0] ][ m.msb[1] ],
+            mask_msb,
+            0, 0);
+
+        // return Math.round(raw * 1000 / 32768) / 10;
+
+        return m.mapping ? m.mapping(raw) : raw;
+    }
+
+    /**
+     *
+     * @param assign_slot ASSIGN1, ASSIGN2 or ASSIGN3 symbol
+     */
+    modAssignGroup(slot) {
+        if (this.data.length < 39) return;  //FIXME
+        const m = MOD_ASSIGN_SLOT[slot][group];
+        const group = this.data[ m[0] ][ m[1] ];
+        return group;
+    };
+
+    /**
+     *
+     * @param assign_slot ASSIGN1, ASSIGN2 or ASSIGN3 symbol
+     */
+    modAssignControl(slot) {
+        if (this.data.length < 39) return;  //FIXME
+        const m = (this.MOD_ASSIGN_SLOT)[slot][control];
+        const control = this.data[ m[0] ][ m[1] ];
+        return control;
+    };
 
 }
 

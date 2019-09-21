@@ -2,8 +2,9 @@ import React, {Component} from "react";
 import "./PresetSelector.css";
 import {inject, observer} from "mobx-react";
 import {PORT_OUTPUT} from "./Midi";
-import {portById, sendPC} from "../utils/midi";
+import {portById, readPreset, sendPC} from "../utils/midi";
 import WebMidi from "webmidi";
+import {state} from "../state/State";
 
 class PresetSelector extends Component {
 
@@ -44,10 +45,11 @@ class PresetSelector extends Component {
     };
 
     render() {
+        const S = this.props.state;
 
         const pc = [];
         for (let i=1; i<=256; i++){
-            pc.push(<div key={i} className={i === this.props.state.preset.current ? 'sel' : ''} onClick={() => this.selectDirect(i)}>{i}</div>);
+            pc.push(<div key={i} className={i === S.preset.current ? 'sel' : ''} onClick={() => this.selectDirect(i)}>{i}</div>);
         }
 
         return (
@@ -58,6 +60,7 @@ class PresetSelector extends Component {
                     {/*<div>next</div>*/}
                     <button onClick={this.go}>go</button>
                     <button onClick={this.toggleDirectAccess}>{this.state.direct_access ? 'hide direct access ...' : 'direct access ...'}</button>
+                    <button type="button" onClick={readPreset}>Read preset {S.preset.current}</button> {S.preset.current_counter}
                 </div>
                 <div className="direct-access">{this.state.direct_access && pc}</div>
             </div>

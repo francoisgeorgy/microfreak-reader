@@ -31,15 +31,22 @@ export const multibytesValue = (MSB, LSB, msb_byte, mask_msb, sign_byte, mask_si
         raw = n;
     }
 
+    return raw;
+
+    //TODO: move rounding in caller
+
     // round to one decimal is done with Math.round(n * 10) / 10.
 
-    return Math.round(raw * 1000 / 32768) / 10;
+    // return Math.round(raw * 1000 / 32768) / 10;
     // return Math.round(f) / 10;
 };
 
+
+/*
 const _0_100 = function (v) {
     return Math.floor(v / 127 * 100 + 0.5);
 };
+*/
 
 // default mask for LSB and MSB : 0x7f
 // default mask for MSB_lsb : 0x01
@@ -83,6 +90,14 @@ export const ENVELOPE_SUSTAIN = Symbol();
 export const KEYBOARD_HOLD_BUTTON = Symbol();
 export const KEYBOARD_SPICE = Symbol();
 
+// switches
+export const FILTER_TYPE = Symbol();
+export const AMP_MOD = Symbol();
+export const CYCLING_ENV_MODE = Symbol();
+export const LFO_SHAPE = Symbol();
+export const LFO_SYNC = Symbol();
+export const PARAPHONIC = Symbol();
+export const OCTAVE = Symbol();
 
 // names (labels)
 export const MOD_SOURCE = {
@@ -112,6 +127,48 @@ export const MOD_DESTINATION = {
     [ASSIGN1]: 'Assign 1',
     [ASSIGN2]: 'Assign 2',
     [ASSIGN3]: 'Assign 3'
+};
+
+export const MOD_ASSIGN_TARGET = {
+    0: {
+        name: "Oscillator",
+        control: {
+            0: "Type",
+            3: "Timbre",
+            5: "Shape"
+        }
+    },
+    1: {
+        name:"Filter",
+        control: {
+            1: "Cutoff",
+            2: "Resonance"
+        }
+    },
+    2: {
+        name: "Cyclic env",
+        control: {
+            1: "Rise",
+            3: "Fall",
+            4: "Hold",
+            6: "Amount"
+        }
+    },
+    5: {
+        name: "LFO",
+        control: {
+            0: "Shape",
+            2: "Rate"
+        }
+    },
+    6: {
+        name:"Envelope",
+        control: {
+            1: "Attack",
+            2: "Decay",
+            3: "Sustain"
+        }
+    }
 };
 
 // [row, col] for data receives when reading preset. Data does not include sysex header, sysex footer, man. id and constant data header
@@ -171,8 +228,8 @@ export const MOD_MATRIX = {
         [WAVE]: {
             MSB: [24, 12],
             LSB: [24, 11],
-            msb: [24, 8, 0x40],
-            sign: [24, 8, 0x80]
+            msb: [24, 8, 0x04],
+            sign: [24, 8, 0x08]
         },
         [TIMBRE]: {
             MSB: [25, 31],
@@ -215,8 +272,8 @@ export const MOD_MATRIX = {
         [WAVE]: {
             MSB: [24, 21],
             LSB: [24, 20],
-            msb: [24, 16, 0x04],
-            sign: [24, 16, 0x08]
+            msb: [24, 16, 0x08],
+            sign: [24, 16, 0x10]
         },
         [TIMBRE]: {
             MSB: [26, 9],
@@ -227,8 +284,8 @@ export const MOD_MATRIX = {
         [CUTOFF]: {
             MSB: [27, 28],
             LSB: [27, 27],
-            msb: [27, 24, 0x02],
-            sign: [27, 24, 0x04]
+            msb: [27, 24, 0x04],
+            sign: [27, 24, 0x08]
         },
         [ASSIGN1]: {
             MSB: [0, 0],
@@ -339,18 +396,34 @@ export const MOD_MATRIX = {
     }
 };
 
+export const MOD_ASSIGN_SLOT = {
+    [ASSIGN1]: {
+        group: [21, 5],
+        control: [21, 4]
+    },
+    [ASSIGN2]: {
+        group: [21, 19],
+        control: [21, 18]
+    },
+    [ASSIGN3]: {
+        group: [22, 1],
+        control: [21, 31]
+    }
+};
+
+
 export const CONTROL = {
     [GLIDE]: {
-        MSB: [0, 0],
-        LSB: [0, 0],
+        MSB: [6, 23],
+        LSB: [6, 22],
         //sign: [0, 0, 0x02],
-        msb: [0, 0, 0x01],
+        msb: [6, 16, 0x20],
         cc: 5,
         mapping: null,
         name: "Glide"
     },
     [OSC_TYPE]: {
-        MSB: [0, 0],
+        MSB: [0, 14],
         LSB: [0, 0],
         //sign: [0, 0, 0x02],
         msb: [0, 0, 0x01],
@@ -362,43 +435,43 @@ export const CONTROL = {
         MSB: [0, 27],
         LSB: [0, 26],
         //sign: [0, 0, 0x02],
-        msb: [0, 24, 0x01],
+        msb: [0, 24, 0x10],
         cc: 10,
         mapping: null,
         name: 'Wave'
     },
     [OSC_TIMBRE]: {
-        MSB: [0, 0],
-        LSB: [0, 0],
+        MSB: [1, 7],
+        LSB: [1, 6],
         //sign: [0, 0, 0x02],
-        msb: [0, 0, 0x01],
+        msb: [1, 0, 0x02],
         cc: 12,
         mapping: null,
         name: 'Timbre'
     },
-    [OSC_SHAPE]: {
+    [OSC_SHAPE]: {      // ok
         MSB: [1, 20],
         LSB: [1, 19],
         //sign: [0, 0, 0x02],
-        msb: [1, 16, 0x02],
+        msb: [1, 16, 0x04],
         cc: 13,
         mapping: null,
         name: 'Shape'
     },
     [FILTER_CUTOFF]: {
-        MSB: [0, 0],
-        LSB: [0, 0],
+        MSB: [2, 30],
+        LSB: [2, 29],
         //sign: [0, 0, 0x02],
-        msb: [0, 0, 0x01],
+        msb: [2, 24, 0x10],
         cc: 23,
         mapping: null,
         name: 'Cutoff'
     },
     [FILTER_RESONANCE]: {
-        MSB: [0, 0],
-        LSB: [0, 0],
+        MSB: [3, 9],
+        LSB: [3, 7],
         //sign: [0, 0, 0x02],
-        msb: [0, 0, 0x01],
+        msb: [3, 0, 0x40],
         cc: 83,
         mapping: null,
         name: 'Resonance'
@@ -485,10 +558,10 @@ export const CONTROL = {
         name: 'Attack'
     },
     [ENVELOPE_DECAY]: {
-        MSB: [0, 0],
-        LSB: [0, 0],
+        MSB: [15, 10],
+        LSB: [15, 9],
         //sign: [0, 0, 0x02],
-        msb: [0, 0, 0x01],
+        msb: [15, 8, 0x01],
         cc: 106,
         mapping: null,
         name: 'Decay/Rel'
@@ -522,6 +595,133 @@ export const CONTROL = {
     }
 };
 
+const _on_off = function (v) {
+    if (v === 0) {
+        return 'off';
+    } else {
+        return 'on';
+    }
+};
+
+const _sw3 = function (v) {
+    if (v < 1) {
+        return 'A';
+    } else if (v > 99) {
+        return 'C';
+    } else {
+        return 'B';
+    }
+};
+
+function _filter_type(v) {
+    if (v < 0x3fff) {
+        return 'Low pass ' + v;
+    } else if (v < 0x7fff) {
+        return 'Band pass ' + v;
+    } else {
+        return 'High pass ' + v;
+    }
+}
+
+function _cyc_env_mode(v) {
+    if (v < 0x3fff) {
+        return 'env ' + v;
+    } else if (v < 0x7fff) {
+        return 'run ' + v;
+    } else {
+        return 'loop ' + v;
+    }
+}
+
+function _lfo_shape(v) {
+    if (v < 0x1999) {
+        return 'sine ' + v;
+    } else if (v < 0x3333) {
+        return 'triangle ' + v;
+    } else if (v < 0x4ccc) {
+        return 'saw ' + v;
+    } else if (v < 0x6666) {
+        return 'square  ' + v;
+    } else if (v < 0x7fff) {
+        return 'SnH ' + v;
+    } else {
+        return 'SnHF ' + v;
+    }
+}
+
+function _octave(v) {
+    if (v < 0x1555) {
+        return '-3 ' + v;
+    } else if (v < 0x2aaa) {
+        return '-2 ' + v;
+    } else if (v < 0x4000) {
+        return '-1 ' + v;
+    } else if (v < 0x5555) {
+        return '0 ' + v;
+    } else if (v < 0x6aaa) {
+        return '+1  ' + v;
+    } else if (v < 0x7fff) {
+        return '+2 ' + v;
+    } else {
+        return '+3 ' + v;
+    }
+}
+
+export const SWITCH = {
+    [FILTER_TYPE]: {
+        MSB: [2, 18],
+        LSB: [2, 17],
+        msb: [2, 16, 0x01],
+        mapping: _filter_type,
+        name: "Filter type"
+    },
+    [AMP_MOD]: {
+        MSB: [14, 17],
+        LSB: [14, 15],
+        msb: [14, 8, 0x40],
+        mapping: _on_off,
+        name: "Amp mod"
+    },
+    [CYCLING_ENV_MODE]: {
+        MSB: [3, 25],
+        LSB: [3, 23],
+        msb: [3, 16, 0x40],
+        mapping: _cyc_env_mode,
+        name: "Cyc env mode"
+    },
+    [LFO_SHAPE]: {
+        MSB: [12, 22],
+        LSB: [12, 21],
+        msb: [12, 16, 0x10],
+        mapping: _lfo_shape,
+        name: "LFO shape"
+    },
+    [LFO_SYNC]: {
+        MSB: [13, 20],
+        LSB: [13, 19],
+        msb: [13, 16, 0x04],
+        mapping: _lfo_shape,
+        name: "LFO sync"
+    },
+    [PARAPHONIC]: {
+        MSB: [16, 23],
+        LSB: [16, 22],
+        msb: [16, 16, 0x20],
+        mapping: _on_off,
+        name: "Paraphonic"
+    },
+    [OCTAVE]: {
+        MSB: [7, 4],
+        LSB: [7, 3],
+        msb: [7, 0, 0x04],
+        mapping: _octave,
+        name: "Octave"
+    }
+};
+
+
+/*
+
 const _osc_type = function (v) {
     switch (v) {
         case 10:
@@ -552,3 +752,4 @@ const _osc_type = function (v) {
             return v;
     }
 };
+*/
