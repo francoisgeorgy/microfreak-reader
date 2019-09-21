@@ -513,40 +513,38 @@ export const CONTROL = {
         name: 'Amount'
     },
     [ARP_SEQ_RATE_FREE]: {
-        MSB: [0, 0],
-        LSB: [0, 0],
+        MSB: [10, 5],
+        LSB: [10, 4],
         //sign: [0, 0, 0x02],
-        msb: [0, 0, 0x01],
+        msb: [10, 0, 0x08],
         cc: 91,
         mapping: null,
-        name: 'Rate free'
+        name: 'Arp rate free'
     },
     [ARP_SEQ_RATE_SYNC]: {
-        MSB: [0, 0],
-        LSB: [0, 0],
+        MSB: [9, 27],
+        LSB: [9, 26],
         //sign: [0, 0, 0x02],
-        msb: [0, 0, 0x01],
+        msb: [9, 24, 0x02],
         cc: 92,
         mapping: null,
-        name: 'Rate sync'
+        name: 'Arp rate sync'
     },
     [LFO_RATE_FREE]: {
-        MSB: [0, 0],
-        LSB: [0, 0],
-        //sign: [0, 0, 0x02],
-        msb: [0, 0, 0x01],
+        MSB: [13, 10],
+        LSB: [13, 9],
+        msb: [13, 8, 0x01],
         cc: 93,
         mapping: null,
-        name: 'Rate free'
+        name: 'LFO rate free'
     },
     [LFO_RATE_SYNC]: {
-        MSB: [0, 0],
-        LSB: [0, 0],
-        //sign: [0, 0, 0x02],
-        msb: [0, 0, 0x01],
+        MSB: [12, 31],
+        LSB: [12, 30],
+        msb: [12, 24, 0x20],
         cc: 94,
         mapping: null,
-        name: 'Rate sync'
+        name: 'LFO rate sync'
     },
     [ENVELOPE_ATTACK]: {
         MSB: [14, 29],
