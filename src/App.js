@@ -6,19 +6,35 @@ import {state} from "./state/State";
 import MidiPorts from "./components/MidiPorts";
 import Control from "./components/Control";
 import {
-    ARP_SEQ_RATE_FREE, ARP_SEQ_RATE_SYNC,
-    CYCLING_ENV_AMOUNT, CYCLING_ENV_FALL, CYCLING_ENV_HOLD,
-    CYCLING_ENV_RISE, ENVELOPE_ATTACK, ENVELOPE_DECAY, ENVELOPE_SUSTAIN,
+    AMP_MOD,
+    ARP_SEQ_RATE_FREE,
+    ARP_SEQ_RATE_SYNC,
+    CYCLING_ENV_AMOUNT,
+    CYCLING_ENV_FALL,
+    CYCLING_ENV_HOLD, CYCLING_ENV_MODE,
+    CYCLING_ENV_RISE,
+    ENVELOPE_ATTACK,
+    ENVELOPE_DECAY,
+    ENVELOPE_SUSTAIN,
     FILTER_CUTOFF,
-    FILTER_RESONANCE, GLIDE, KEYBOARD_HOLD_BUTTON, KEYBOARD_SPICE, LFO_RATE_FREE, LFO_RATE_SYNC,
+    FILTER_RESONANCE,
+    FILTER_TYPE,
+    GLIDE,
+    KEYBOARD_HOLD_BUTTON,
+    KEYBOARD_SPICE,
+    LFO_RATE_FREE,
+    LFO_RATE_SYNC,
+    LFO_SHAPE,
+    LFO_SYNC, OCTAVE,
     OSC_SHAPE,
     OSC_TIMBRE,
     OSC_TYPE,
-    OSC_WAVE
+    OSC_WAVE, PARAPHONIC
 } from "./model";
 import PresetSelector from "./components/PresetSelector";
 import ModMatrix from "./components/ModMatrix";
 import {hs} from "./utils/hexstring";
+import Switch from "./components/Switch";
 
 const MIDI_MSG_TYPE = "sysex";
 
@@ -71,6 +87,7 @@ class App extends Component {
                             <div className="group filter">
                                 <h3>Filter</h3>
                                 <div className="controls">
+                                    <Switch cc={FILTER_TYPE} />
                                     <Control cc={FILTER_CUTOFF}/>
                                     <Control cc={FILTER_RESONANCE}/>
                                 </div>
@@ -78,6 +95,7 @@ class App extends Component {
                             <div className="group cycling-env">
                                 <h3>Cycling envelope</h3>
                                 <div className="controls">
+                                    <Switch cc={CYCLING_ENV_MODE} />
                                     <Control cc={CYCLING_ENV_RISE}/>
                                     <Control cc={CYCLING_ENV_FALL}/>
                                     <Control cc={CYCLING_ENV_HOLD}/>
@@ -94,6 +112,8 @@ class App extends Component {
                             <div className="group lfo">
                                 <h3>LFO</h3>
                                 <div className="controls">
+                                    <Switch cc={LFO_SHAPE} />
+                                    <Switch cc={LFO_SYNC} />
                                     <Control cc={LFO_RATE_FREE}/>
                                     <Control cc={LFO_RATE_SYNC}/>
                                 </div>
@@ -101,6 +121,7 @@ class App extends Component {
                             <div className="group env">
                                 <h3>Envelope</h3>
                                 <div className="controls">
+                                    <Switch cc={AMP_MOD} />
                                     <Control cc={ENVELOPE_ATTACK}/>
                                     <Control cc={ENVELOPE_DECAY}/>
                                     <Control cc={ENVELOPE_SUSTAIN}/>
@@ -112,6 +133,13 @@ class App extends Component {
                                     <Control cc={GLIDE}/>
                                     <Control cc={KEYBOARD_HOLD_BUTTON}/>
                                     <Control cc={KEYBOARD_SPICE}/>
+                                </div>
+                            </div>
+                            <div className="group keyboard2">
+                                <h3>...</h3>
+                                <div className="controls">
+                                    <Switch cc={PARAPHONIC} />
+                                    <Switch cc={OCTAVE} />
                                 </div>
                             </div>
                         </div>

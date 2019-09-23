@@ -1,0 +1,21 @@
+.switch {
+    min-width: 70px;
+}
+
+.switch:not(:first-child) {
+    margin-left: 10px;
+}
+
+.sw-val {
+    color: #aaa;
+}
+
+.sw-sel {
+    /*border: 1px solid #333;*/
+    color: #000;
+    font-weight: bold;
+}
+
+.switch .ctrl-name {
+    margin-bottom: 5px;
+}

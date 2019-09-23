@@ -601,15 +601,15 @@ const _on_off = function (v) {
     }
 };
 
-const _sw3 = function (v) {
-    if (v < 1) {
-        return 'A';
-    } else if (v > 99) {
-        return 'C';
-    } else {
-        return 'B';
-    }
-};
+// const _sw3 = function (v) {
+//     if (v < 1) {
+//         return 'A';
+//     } else if (v > 99) {
+//         return 'C';
+//     } else {
+//         return 'B';
+//     }
+// };
 
 function _filter_type(v) {
     if (v < 0x3fff) {
@@ -671,6 +671,11 @@ export const SWITCH = {
         LSB: [2, 17],
         msb: [2, 16, 0x01],
         mapping: _filter_type,
+        values: [
+            {name: 'LPF', value: 0},
+            {name: 'BPF', value: 0x4000},
+            {name: 'HPF', value: 0x7fff}
+        ],
         name: "Filter type"
     },
     [AMP_MOD]: {
@@ -678,6 +683,10 @@ export const SWITCH = {
         LSB: [14, 15],
         msb: [14, 8, 0x40],
         mapping: _on_off,
+        values: [
+            {name: 'On', value: 0},
+            {name: 'Off', value: 0x7fff}
+        ],
         name: "Amp mod"
     },
     [CYCLING_ENV_MODE]: {
@@ -685,27 +694,48 @@ export const SWITCH = {
         LSB: [3, 23],
         msb: [3, 16, 0x40],
         mapping: _cyc_env_mode,
-        name: "Cyc env mode"
+        values: [
+            {name: 'Env', value: 0},
+            {name: 'Run', value: 0x4000},
+            {name: 'Loop', value: 0x7fff}
+        ],
+        name: "Mode"
     },
     [LFO_SHAPE]: {
         MSB: [12, 22],
         LSB: [12, 21],
         msb: [12, 16, 0x10],
         mapping: _lfo_shape,
-        name: "LFO shape"
+        values: [
+            {name: 'Sine', value: 0},
+            {name: 'Tri', value: 0x1999},
+            {name: 'Saw', value: 0x3333},
+            {name: 'Sqa', value: 0x4ccc},
+            {name: 'SnH', value: 0x6666},
+            {name: 'SnHF', value: 0x7fff}
+        ],
+        name: "Shape"
     },
     [LFO_SYNC]: {
         MSB: [13, 20],
         LSB: [13, 19],
         msb: [13, 16, 0x04],
         mapping: _lfo_shape,
-        name: "LFO sync"
+        values: [
+            {name: 'On', value: 0},
+            {name: 'Off', value: 0x7fff}
+        ],
+        name: "Sync"
     },
     [PARAPHONIC]: {
         MSB: [16, 23],
         LSB: [16, 22],
         msb: [16, 16, 0x20],
         mapping: _on_off,
+        values: [
+            {name: 'On', value: 0},
+            {name: 'Off', value: 0x7fff}
+        ],
         name: "Paraphonic"
     },
     [OCTAVE]: {
@@ -713,6 +743,15 @@ export const SWITCH = {
         LSB: [7, 3],
         msb: [7, 0, 0x04],
         mapping: _octave,
+        values: [
+            {name: '-3', value: 0},
+            {name: '-2', value: 0x1555},
+            {name: '-1', value: 0x2aaa},
+            {name: '0', value: 0x4000},
+            {name: '+1', value: 0x5555},
+            {name: '+2', value: 0x6aaa},
+            {name: '+3', value: 0x7fff}
+        ],
         name: "Octave"
     }
 };
