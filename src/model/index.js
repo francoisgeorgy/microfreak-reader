@@ -108,15 +108,13 @@ export const MOD_SOURCE = {
     [KEY_ARP]: 'Key/Arp'
 };
 
-// TODO: move into config file?
-export const MOD_SOURCE_COLOR = {
-    [CYC_ENV] : '#fff5cf',
-    [ENV]: '#d1e7ff',
-    [LFO]: '#ffd4e5',
-    [PRESS]: '#94ffa5',
-    [KEY_ARP]: '#f0baff'
+export const MOD_SOURCE_CSS = {
+    [CYC_ENV] : 'mod-src-cyc_env',
+    [ENV]: 'mod-src-env',
+    [LFO]: 'mod-src-lfo',
+    [PRESS]: 'mod-src-press',
+    [KEY_ARP]: 'mod-src-key_arp'
 };
-
 
 // names (labels)
 export const MOD_DESTINATION = {

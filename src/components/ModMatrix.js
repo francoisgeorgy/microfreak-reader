@@ -1,6 +1,6 @@
 import {inject, observer} from "mobx-react";
 import React, {Component, Fragment} from "react";
-import {ENV, MOD_DESTINATION, MOD_SOURCE, MOD_SOURCE_COLOR, PITCH} from "../model";
+import {ENV, MOD_DESTINATION, MOD_SOURCE, MOD_SOURCE_CSS, PITCH} from "../model";
 import {MOD_MATRIX} from "../model";
 import "./ModMatrix.css"
 
@@ -32,7 +32,7 @@ class ModMatrix extends Component {
                     (src, i) => {
                         return (
                             <Fragment key={i}>
-                                <div style={{backgroundColor:MOD_SOURCE_COLOR[src]}}>{MOD_SOURCE[src]}</div>
+                                <div className="mod-matrix-col-header"><div className={MOD_SOURCE_CSS[src]}>{MOD_SOURCE[src]}</div></div>
                                 {Object.getOwnPropertySymbols(MOD_DESTINATION).map(
                                     (dst, j) => {
                                         return <div key={j}>{this.props.state.modMatrixValue(MOD_MATRIX[src][dst])}</div>

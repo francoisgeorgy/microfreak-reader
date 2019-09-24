@@ -5,6 +5,13 @@
     /*font-size: 0.85rem;*/
 }
 
+.preset-selector #preset {
+    font-size: 1.5rem;
+    text-align: right;
+    background-color: transparent;
+    color: white;
+}
+
 .seq-access {
     display: flex;
     flex-direction: row;
@@ -16,12 +23,16 @@
 }
 
 .direct-access {
+    position: absolute;
+    right: 0;
+    background-color: var(--direct-access-bg);
+    box-shadow: -10px 10px 10px 5px rgba(0,0,0,1.5);
     /*display: flex;*/
     /*flex-direction: row;*/
     /*flex-wrap: wrap;*/
-    margin: 10px 0;
+    margin: 5px 10px 10px 10px;
     display: grid;
-    grid-template-columns: repeat(32, auto);
+    grid-template-columns: repeat(16, auto);
     justify-content: start;
     font-size: 0.85rem;
 }
@@ -29,19 +40,19 @@
 .direct-access > div {
     margin: 1px;
     padding: 2px 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--direct-access-border);
     cursor: pointer;
     text-align: right;
 }
 
 /*.seq-access > div:hover,*/
 .direct-access > div:hover {
-    background-color: burlywood!important;
+    background-color: var(--direct-access-hover-bg);
 }
 
 /*.seq-access > div.sel,*/
 .direct-access > div.sel {
-    background-color: #decea5;
+    background-color: var(--direct-access-sel-bg);
 }
 
 /*.toggle {*/

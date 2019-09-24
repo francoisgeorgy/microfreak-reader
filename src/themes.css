@@ -1,5 +1,26 @@
 /* default is 'light' */
 
+.mod-src-cyc_env {
+    background-color: var(--mod-src-cyc_env);
+    color: var(--mod-src-cyc_env-text);
+}
+.mod-src-env {
+    background-color: var(--mod-src-env);
+    color: var(--mod-src-env-text);
+}
+.mod-src-lfo {
+    background-color: var(--mod-src-lfo);
+    color: var(--mod-src-lfo-text);
+}
+.mod-src-press {
+    background-color: var(--mod-src-press);
+    color: var(--mod-src-press-text);
+}
+.mod-src-key_arp {
+    background-color: var(--mod-src-key_arp);
+    color: var(--mod-src-key_arp-text);
+}
+
 html {
     --main-bg: #fff;
     --text: #000;
@@ -12,6 +33,20 @@ html {
     --knob-track-bg: #CFD8DC;
     --knob-track: #42A5F5;
     --knob-text: #000;
+    --direct-access-bg: #fff;
+    --direct-access-border: #ccc;
+    --direct-access-hover-bg: burlywood!important;
+    --direct-access-sel-bg: #decea5;
+    --mod-src-cyc_env : #fff5cf;
+    --mod-src-env: #d1e7ff;
+    --mod-src-lfo: #ffd4e5;
+    --mod-src-press: #94ffa5;
+    --mod-src-key_arp: #f0baff;
+    --mod-src-cyc_env-text : #000;
+    --mod-src-env-text: #000;
+    --mod-src-lfo-text: #000;
+    --mod-src-press-text: #000;
+    --mod-src-key_arp-text: #000;
 }
 
 html[data-theme='dark'] {
@@ -26,4 +61,18 @@ html[data-theme='dark'] {
     --knob-track-bg: #393939;
     --knob-track: #eec83f;
     --knob-text: #eec83f;
+    --direct-access-bg: #000;
+    --direct-access-border: #555;
+    --direct-access-hover-bg: #999!important;
+    --direct-access-sel-bg: #777;
+    --mod-src-cyc_env : #fff5cf;
+    --mod-src-env: #d1e7ff;
+    --mod-src-lfo: #ffd4e5;
+    --mod-src-press: #94ffa5;
+    --mod-src-key_arp: #f0baff;
+    --mod-src-cyc_env-text : #000;
+    --mod-src-env-text: #000;
+    --mod-src-lfo-text: #000;
+    --mod-src-press-text: #000;
+    --mod-src-key_arp-text: #000;
 }

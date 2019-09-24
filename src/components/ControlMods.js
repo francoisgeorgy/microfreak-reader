@@ -3,7 +3,7 @@ import {
     MOD_DESTINATION,
     MOD_MATRIX,
     MOD_SOURCE,
-    MOD_SOURCE_COLOR
+    MOD_SOURCE_CSS
 } from "../model";
 import "./ControlMods.css";
 import {inject, observer} from "mobx-react";
@@ -16,7 +16,7 @@ class ControlMods extends Component {
         // const d = CONTROL[cc];
         // const v = d.mapping ? d.mapping(state.preset[cc]) : state.preset[cc];
 
-        // console.log("mod color", cc, MOD_SOURCE_COLOR[cc]);
+        // console.log("mod color", cc, MOD_SOURCE_CSS[cc]);
 
         return (
             <div className="control-mods">
@@ -40,7 +40,7 @@ class ControlMods extends Component {
                             return null;
                         }
                         return (
-                            <div key={i} className="mod" style={{backgroundColor:MOD_SOURCE_COLOR[src]}}>
+                            <div key={i} className={`mod ${MOD_SOURCE_CSS[src]}`}>
                                 <div className="mod-name">{MOD_SOURCE[src]}</div>
                                 <div className="mod-value">{v}</div>
                             </div>

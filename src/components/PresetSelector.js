@@ -42,6 +42,7 @@ class PresetSelector extends Component {
         // this.setState({p: n.toString()});
         this.setPreset(n.toString());
         this.go();
+        this.setState({direct_access: false})
     };
 
     render() {
@@ -59,7 +60,7 @@ class PresetSelector extends Component {
                     {/*<div>prev</div>*/}
                     {/*<div>next</div>*/}
                     <button onClick={this.go}>go</button>
-                    <button onClick={this.toggleDirectAccess}>{this.state.direct_access ? 'hide direct access ...' : 'direct access ...'}</button>
+                    <button onClick={this.toggleDirectAccess}>{this.state.direct_access ? 'direct access ...' : 'direct access ...'}</button>
                     <button type="button" onClick={readPreset}>Read preset {S.preset.current}</button> {S.preset.current_counter}
                 </div>
                 <div className="direct-access">{this.state.direct_access && pc}</div>

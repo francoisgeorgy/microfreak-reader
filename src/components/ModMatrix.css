@@ -1,7 +1,7 @@
 
 .mod-matrix {
-    padding: 5px;
-
+    /*padding: 5px;*/
+    padding: 0 10px 10px 10px;
     background-color: var(--group-bg);
     border: var(--group-border);
     display: grid;
@@ -15,4 +15,12 @@
     border-bottom: 1px solid #aaa;
     border-right: 1px solid #aaa;
     padding: 4px 5px;
+}
+
+.mod-matrix .mod-matrix-col-header {
+    padding-left: 0;
+}
+
+.mod-matrix > .mod-matrix-col-header > div {
+    padding: 0 2px;
 }
