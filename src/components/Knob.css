@@ -3,4 +3,13 @@
 }
 .knob text {
     font-size: 1.25rem;     /* viewbox/width = 100/80 */
+    fill: var(--knob-text);
+}
+
+.knob-track-bg {
+    stroke: var(--knob-track-bg);
+}
+
+.knob-track {
+    stroke: var(--knob-track);
 }

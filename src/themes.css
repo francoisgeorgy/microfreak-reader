@@ -1,0 +1,29 @@
+/* default is 'light' */
+
+html {
+    --main-bg: #fff;
+    --text: #000;
+    --group-bg: #fff;
+    --group-border: 1px solid #eee;
+    --group-header: #eee;
+    --group-header-border: 1px solid #aaa;
+    --switch-sel-bg: #fff;
+    --switch-sel-text: #000;
+    --knob-track-bg: #CFD8DC;
+    --knob-track: #42A5F5;
+    --knob-text: #000;
+}
+
+html[data-theme='dark'] {
+    --main-bg: #000;
+    --text: #fff;
+    --group-bg: #212121;
+    --group-border: none;
+    --group-header: #212121;
+    --group-header-border: 2px solid #000;
+    --switch-sel-bg: #ecc53a;
+    --switch-sel-text: #000;
+    --knob-track-bg: #393939;
+    --knob-track: #eec83f;
+    --knob-text: #eec83f;
+}

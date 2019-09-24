@@ -37,8 +37,24 @@ import {hs} from "./utils/hexstring";
 import Switch from "./components/Switch";
 
 const MIDI_MSG_TYPE = "sysex";
+const DEFAULT_THEME = 'dark';
 
 class App extends Component {
+
+    state = { theme: DEFAULT_THEME };
+
+    selectTheme = (theme) => {
+        this.setState({theme});
+        // savePreferences({theme});
+    };
+
+    setThemeLight = () => {
+        this.selectTheme("light");
+    };
+
+    setThemeDark = () => {
+        this.selectTheme("dark");
+    };
 
     handleMidiInputEvent = (e) => {
 
@@ -65,16 +81,31 @@ class App extends Component {
     };
 
     render() {
+
+        const { theme } = this.state;
+        document.documentElement.setAttribute('data-theme', theme);
+
         return (
             <Provider state={state}>
+                <div className="header">
+                    <div className="title">MicroFreak</div>
+                    <div>
+                        <button onClick={this.setThemeLight}>Light theme</button>
+                        <button onClick={this.setThemeDark}>Dark theme</button>
+                    </div>
+                </div>
                 <Midi messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>
                 <div className="App">
-                    <h2>MicroFreak</h2>
                     <MidiPorts messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>
-                    <PresetSelector/>
                     <div>
-                        <ModMatrix />
                         <div className="main-grid">
+                            <div className="group matrix">
+                                <h3>Modulation matrix</h3>
+                                <ModMatrix />
+                            </div>
+                            <div className="preset">
+                                <PresetSelector/>
+                            </div>
                             <div className="group oscillator">
                                 <h3>Oscillator</h3>
                                 <div className="controls">

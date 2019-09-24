@@ -1,9 +1,14 @@
+
 .mod-matrix {
+    padding: 5px;
+
+    background-color: var(--group-bg);
+    border: var(--group-border);
     display: grid;
     grid-template-columns: repeat(8, minmax(5rem, auto));
     justify-content: start;
     /*font-size: 85%;*/
-    margin: 20px 0;
+    /*margin: 20px 0;*/
 }
 
 .mod-matrix > div {

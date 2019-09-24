@@ -113,8 +113,7 @@ function ValueText({ value, decimals }) {
             y={config.value_position}
             textAnchor="middle"
             alignmentBaseline="middle"
-            fill="#000"
-        >
+            fill="#000">
             {value.toFixed(decimals)}
         </text>
     );
