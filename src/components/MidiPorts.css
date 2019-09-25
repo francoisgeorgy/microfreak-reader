@@ -1,6 +1,6 @@
 
 .ports-grid {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     display: grid;
     grid-template-columns: auto auto auto;
     /*grid-column-gap: 10px;*/
@@ -25,8 +25,9 @@
 /*}*/
 
 .port-name {
-    font-weight: 500;
-    margin: 2px 10px 2px 0;
+    /*font-weight: 500;*/
+    /*margin: 2px 10px 2px 0;*/
+    margin: 0px 10px 0px 0;
 }
 
 .port-manufacturer {

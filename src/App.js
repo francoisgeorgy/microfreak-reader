@@ -35,9 +35,13 @@ import PresetSelector from "./components/PresetSelector";
 import ModMatrix from "./components/ModMatrix";
 import {hs} from "./utils/hexstring";
 import Switch from "./components/Switch";
+import ReadProgress from "./components/ReadProgress";
 
 const MIDI_MSG_TYPE = "sysex";
 const DEFAULT_THEME = 'dark';
+
+const LAYOUT_2_COLS = 'layout-2-cols';
+const LAYOUT_1_ROW = 'layout-1-row';
 
 class App extends Component {
 
@@ -104,7 +108,8 @@ class App extends Component {
                                 <ModMatrix />
                             </div>
                             <div className="preset">
-                                <PresetSelector/>
+                                <PresetSelector />
+                                <ReadProgress />
                                 {/*TODO: add compare*/}
                             </div>
                             <div className="group oscillator">
@@ -144,7 +149,7 @@ class App extends Component {
                             <div className="group lfo">
                                 <h3>LFO</h3>
                                 <div className="controls">
-                                    <Switch cc={LFO_SHAPE} />
+                                    <Switch cc={LFO_SHAPE} layout={LAYOUT_2_COLS} />
                                     <Switch cc={LFO_SYNC} />
                                     <Control cc={LFO_RATE_FREE}/>
                                     <Control cc={LFO_RATE_SYNC}/>
@@ -171,7 +176,7 @@ class App extends Component {
                                 <h3>...</h3>
                                 <div className="controls">
                                     <Switch cc={PARAPHONIC} />
-                                    <Switch cc={OCTAVE} />
+                                    <Switch cc={OCTAVE} layout={LAYOUT_1_ROW} />
                                 </div>
                             </div>
                         </div>

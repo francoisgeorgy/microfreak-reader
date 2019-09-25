@@ -1,15 +1,16 @@
 .preset-selector {
-    /*display: flex;*/
-    /*flex-direction: row;*/
-    /*flex-wrap: wrap;*/
-    /*font-size: 0.85rem;*/
 }
 
 .preset-selector #preset {
+    /*padding-top: 0;*/
+    /*padding-bottom: 0;*/
+    padding: 0 5px;
+    width: 3rem;
     font-size: 1.5rem;
     text-align: right;
     background-color: transparent;
-    color: white;
+    border: var(--input-border);
+    color: var(--text);
 }
 
 .seq-access {
@@ -24,7 +25,7 @@
 
 .direct-access {
     position: absolute;
-    right: 0;
+    right: 10px;
     background-color: var(--direct-access-bg);
     box-shadow: -10px 10px 10px 5px rgba(0,0,0,1.5);
     /*display: flex;*/
@@ -48,11 +49,13 @@
 /*.seq-access > div:hover,*/
 .direct-access > div:hover {
     background-color: var(--direct-access-hover-bg);
+    color: var(--direct-access-hover-text);
 }
 
 /*.seq-access > div.sel,*/
 .direct-access > div.sel {
-    background-color: var(--direct-access-sel-bg);
+    background-color: var(--switch-sel-bg);
+    color: var(--switch-sel-text);
 }
 
 /*.toggle {*/

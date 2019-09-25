@@ -1,21 +1,23 @@
 .banner {
     background-color: #dddddd;
     color: #333;
-    border: 1px solid #ccc;
-    margin: 10px 0 20px;
-    padding: 20px;
+    /*border: 1px solid #ccc;*/
+    margin: 10px 0;
+    padding: 5px;
 }
 
 .warning.banner {
-    background-color: #ffc9ad;
-    border-color: #333;
+    /*background-color: #ffc9ad;*/
+    background-color: #e45209;
+    /*border-color: #333;*/
+    color: #fff;
 }
 
 .header {
     display: flex;
     align-items: start;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .title {
@@ -23,12 +25,12 @@
 }
 
 .main-grid {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     display: grid;
     /*grid-template-columns: 1fr 1fr 1fr;*/
     grid-row-gap: 10px;
     grid-column-gap: 10px;
-    justify-content: start;
+    justify-content: stretch;
     align-items: start;
 }
 

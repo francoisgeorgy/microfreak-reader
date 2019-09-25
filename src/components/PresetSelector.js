@@ -21,6 +21,11 @@ class PresetSelector extends Component {
         // let s = e.target.value;
         if (s) {
             let v = parseInt(s, 10);
+            console.log("parseInt", v);
+            if (!v) {
+                s = '';
+                v = 1;
+            }
             if (v > 256) {
                 s = '256';
                 v = 256;
@@ -32,6 +37,16 @@ class PresetSelector extends Component {
             this.props.state.preset.current = v;
         }
         this.setState({p: s});
+    };
+
+    prev = () => {
+        const n = this.props.state.preset.current - 1;
+        this.setPreset(n < 1 ? 256 : n);
+    };
+
+    next = () => {
+        const n = this.props.state.preset.current + 1;
+        this.setPreset(n > 256 ? 1 : n);
     };
 
     go = () => {
@@ -56,14 +71,16 @@ class PresetSelector extends Component {
         return (
             <div className="preset-selector">
                 <div className="seq-access">
-                    <label>Preset:</label><input type="number" id="preset" name="preset" min="1" max="256" value={this.state.p} onChange={(e) => this.setPreset(e.target.value)} />
+                    <label>Preset:</label><input type="text" id="preset" name="preset" min="1" max="256" value={this.state.p} onChange={(e) => this.setPreset(e.target.value)} />
                     {/*<div>prev</div>*/}
                     {/*<div>next</div>*/}
+                    <button onClick={this.prev}>&lt;</button>
+                    <button onClick={this.next}>&gt;</button>
                     <button onClick={this.go}>go</button>
                     <button onClick={this.toggleDirectAccess}>{this.state.direct_access ? 'direct access ...' : 'direct access ...'}</button>
-                    <button type="button" onClick={readPreset}>Read preset {S.preset.current}</button> {S.preset.current_counter}
+                    <button type="button" onClick={readPreset}>Read preset {S.preset.current}</button>
                 </div>
-                <div className="direct-access">{this.state.direct_access && pc}</div>
+                {this.state.direct_access && <div className="direct-access">{pc}</div>}
             </div>
         );
     }

@@ -15,8 +15,8 @@
     margin-left: 10px;
 }
 
-.control.large {
-    min-width: 130px;
+.control.osc {
+    justify-content: space-between;
 }
 
 .ctrl-value,

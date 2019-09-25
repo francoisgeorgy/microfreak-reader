@@ -20,7 +20,7 @@ class Control extends Component {
         const v = S.controlValue(control);
 
         //HACK:
-        const c = cc === OSC_TYPE ? 'xlarge' : '';
+        const c = cc === OSC_TYPE ? 'osc' : '';
 
         return (
             <div className={`control ${c}`}>

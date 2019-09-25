@@ -21,7 +21,7 @@ class MidiPorts extends React.Component {
 
     render() {
 
-        // const S = this.props.state;
+        const S = this.props.state;
         const ports = this.props.state.midi.ports;
 
         const groupedByName = {};
@@ -47,38 +47,43 @@ class MidiPorts extends React.Component {
             }
 
             return (
-                <div className="ports-grid">
-                    <div className="grid-label">MIDI ports</div>
-                    <div className="grid-label">inputs</div>
-                    <div className="grid-label">outputs</div>
-                    {
-                    Object.keys(groupedByName).map(port_name => {
-                        const port = groupedByName[port_name];
-                        const i = portById(port.input);
-                        const o = portById(port.output);
-                        return (
-                            <Fragment key={port_name}>
-                                <div className={`port-name`}>{port_name}</div>
-                                <div className="port-switch space-right" onClick={(e) => e.stopPropagation()}>
-                                    {i &&
-                                    <Switch onChange={() => this.togglePort(i.id)}
-                                        checked={ports[i.id].enabled}
-                                        id={`switch-${i.id}`}
-                                        className="react-switch"
-                                        height={16} width={36} />}
-                                </div>
-                                <div className="port-switch" onClick={(e) => e.stopPropagation()}>
-                                    {o &&
-                                    <Switch onChange={() => this.togglePort(o.id)}
-                                        checked={ports[o.id].enabled}
-                                        id={`switch-${o.id}`}
-                                        className="react-switch"
-                                        height={16} width={36} />}
-                                </div>
-                            </Fragment>
-                        );
-                    })
-                }</div>
+                <Fragment>
+                    <div className="ports-grid">
+                        <div className="grid-label">MIDI ports</div>
+                        <div className="grid-label">inputs</div>
+                        <div className="grid-label">outputs</div>
+                        {
+                        Object.keys(groupedByName).map(port_name => {
+                            const port = groupedByName[port_name];
+                            const i = portById(port.input);
+                            const o = portById(port.output);
+                            return (
+                                <Fragment key={port_name}>
+                                    <div className={`port-name`}>{port_name}</div>
+                                    <div className="port-switch space-right" onClick={(e) => e.stopPropagation()}>
+                                        {i &&
+                                        <Switch onChange={() => this.togglePort(i.id)}
+                                            checked={ports[i.id].enabled}
+                                            id={`switch-${i.id}`}
+                                            className="react-switch"
+                                            height={16} width={36} />}
+                                    </div>
+                                    <div className="port-switch" onClick={(e) => e.stopPropagation()}>
+                                        {o &&
+                                        <Switch onChange={() => this.togglePort(o.id)}
+                                            checked={ports[o.id].enabled}
+                                            id={`switch-${o.id}`}
+                                            className="react-switch"
+                                            height={16} width={36} />}
+                                    </div>
+                                </Fragment>
+                            );
+                        })}
+                    </div>
+                    {(!S.hasInputEnabled() || !S.hasOutputEnabled()) && <div className="warning banner">
+                        Please enable the input and the output corresponding to your MicroFreak.
+                    </div>}
+                </Fragment>
             );
 
             /*

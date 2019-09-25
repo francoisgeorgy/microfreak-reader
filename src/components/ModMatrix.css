@@ -1,7 +1,7 @@
 
 .mod-matrix {
     /*padding: 5px;*/
-    padding: 0 10px 10px 10px;
+    padding: 0 5px 5px 5px;
     background-color: var(--group-bg);
     border: var(--group-border);
     display: grid;

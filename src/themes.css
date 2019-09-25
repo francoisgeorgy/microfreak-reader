@@ -24,19 +24,21 @@
 html {
     --main-bg: #fff;
     --text: #000;
+    --input-border: 1px solid #aaa;
+    --progress: #ccc;
     --group-bg: #fff;
     --group-border: 1px solid #eee;
     --group-header: #eee;
     --group-header-border: 1px solid #aaa;
-    --switch-sel-bg: #fff;
-    --switch-sel-text: #000;
+    --switch-sel-bg: #42A5F5;
+    --switch-sel-text: #fff;
     --knob-track-bg: #CFD8DC;
     --knob-track: #42A5F5;
     --knob-text: #000;
     --direct-access-bg: #fff;
     --direct-access-border: #ccc;
     --direct-access-hover-bg: burlywood!important;
-    --direct-access-sel-bg: #decea5;
+    /*--direct-access-sel-bg: #decea5;*/
     --mod-src-cyc_env : #fff5cf;
     --mod-src-env: #d1e7ff;
     --mod-src-lfo: #ffd4e5;
@@ -52,6 +54,8 @@ html {
 html[data-theme='dark'] {
     --main-bg: #000;
     --text: #fff;
+    --progress: #34ab33;
+    --input-border: 1px solid #393939;
     --group-bg: #212121;
     --group-border: none;
     --group-header: #212121;
@@ -63,8 +67,9 @@ html[data-theme='dark'] {
     --knob-text: #eec83f;
     --direct-access-bg: #000;
     --direct-access-border: #555;
-    --direct-access-hover-bg: #999!important;
-    --direct-access-sel-bg: #777;
+    --direct-access-hover-bg: yellow!important;
+    --direct-access-hover-text: #000!important;
+    /*--direct-access-sel-bg: #ecc53a;*/
     --mod-src-cyc_env : #fff5cf;
     --mod-src-env: #d1e7ff;
     --mod-src-lfo: #ffd4e5;
