@@ -43,7 +43,7 @@ class MidiPorts extends React.Component {
         if (ports) {
 
             if (!Object.keys(groupedByName).length) {
-                return <div className="warning banner">no midi ports</div>
+                return <div className="warning banner">No MIDI device found.</div>
             }
 
             return (

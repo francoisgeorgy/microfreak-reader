@@ -13,13 +13,19 @@ class Switch extends Component {
 
         const v = S.switchValue(sw);
 
+        console.log("switch", sw.name, v);
+
         return (
             <div className={`switch`}>
                 <div className="ctrl-name">{sw.name}</div>
                 <div className={`sw-values ${this.props.layout}`}>
                 {sw.values.map(
-                    (s, index) =>
-                        <div className={s.value === v ? 'sw-val sw-sel' : 'sw-val'}>{s.name}</div>
+                    (s, index) => {
+                        console.log("switch loop", s, v);
+                        return (
+                            <div className={s.name === v ? 'sw-val sw-sel' : 'sw-val'}>{s.name}</div>
+                        )
+                    }
                 )}
                 </div>
                 <ControlMods cc={cc} />

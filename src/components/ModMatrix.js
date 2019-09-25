@@ -38,7 +38,7 @@ class ModMatrix extends Component {
                                 }
                             }
                         }
-                        return (<div key={i}>{d}</div>)
+                        return (<div key={i} className="mod-matrix-dest">{d}</div>)
                     }
                 )}
                 {Object.getOwnPropertySymbols(MOD_SOURCE).map(
@@ -49,7 +49,7 @@ class ModMatrix extends Component {
                                 {Object.getOwnPropertySymbols(MOD_DESTINATION).map(
                                     (dst, j) => {
                                         const v = S.modMatrixValue(MOD_MATRIX[src][dst]);
-                                        return <div key={j}>{v > 0.00 ? v : ''}</div>
+                                        return <div key={j} className="mod-matrix-value">{Math.abs(v) > 0.00 ? v : ''}</div>
                                     }
                                 )}
                             </Fragment>

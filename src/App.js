@@ -73,7 +73,7 @@ class App extends Component {
         // state.preset[e.controller.number] = e.value;
 
 
-        if (e.data.length != 42) {
+        if (e.data.length !== 42) {
             console.log("do not store answer", hs(e.data));
             return;
         }
@@ -144,6 +144,7 @@ class App extends Component {
                                 <div className="controls">
                                     <Control cc={ARP_SEQ_RATE_FREE}/>
                                     <Control cc={ARP_SEQ_RATE_SYNC}/>
+                                    {/*TODO: sync*/}
                                 </div>
                             </div>
                             <div className="group lfo">
@@ -167,16 +168,16 @@ class App extends Component {
                             <div className="group keyboard">
                                 <h3>Keyboard</h3>
                                 <div className="controls">
+                                    <Switch cc={PARAPHONIC} />
+                                    <Switch cc={OCTAVE} layout={LAYOUT_1_ROW} />
                                     <Control cc={GLIDE}/>
-                                    <Control cc={KEYBOARD_HOLD_BUTTON}/>
-                                    <Control cc={KEYBOARD_SPICE}/>
+                                    <Control cc={KEYBOARD_HOLD_BUTTON}/>    {/*TODO: make switch*/}
                                 </div>
                             </div>
                             <div className="group keyboard2">
                                 <h3>...</h3>
                                 <div className="controls">
-                                    <Switch cc={PARAPHONIC} />
-                                    <Switch cc={OCTAVE} layout={LAYOUT_1_ROW} />
+                                    <Control cc={KEYBOARD_SPICE}/>
                                 </div>
                             </div>
                         </div>

@@ -17,6 +17,11 @@
     padding: 4px 5px;
 }
 
+.mod-matrix-dest,
+.mod-matrix-value {
+    text-align: center;
+}
+
 .mod-matrix .mod-matrix-col-header {
     padding-left: 0;
 }

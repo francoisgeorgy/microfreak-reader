@@ -42,6 +42,38 @@ export const multibytesValue = (MSB, LSB, msb_byte, mask_msb, sign_byte, mask_si
 };
 
 
+
+const _osc_type = function (v) {
+    switch (v) {
+        case 10:
+            return "Basic Waves";
+        case 21:
+            return "Superwave";
+        case 32:
+            return "Wavetable";
+        case 42:
+            return "Harmonic";
+        case 53:
+            return "KarplusStrong";
+        case 64:
+            return "V. Analog";
+        case 74:
+            return "Waveshaper";
+        case 85:
+            return "Two Op. FM";
+        case 95:
+            return "Formant";
+        case 106:
+            return "Chords";
+        case 117:
+            return "Speech";
+        case 127:
+            return "Modal";
+        default:
+            return v;
+    }
+};
+
 /*
 const _0_100 = function (v) {
     return Math.floor(v / 127 * 100 + 0.5);
@@ -421,12 +453,11 @@ export const CONTROL = {
         name: "Glide"
     },
     [OSC_TYPE]: {
-        MSB: [0, 14],
-        LSB: [0, 0],
-        //sign: [0, 0, 0x02],
-        msb: [0, 0, 0x01],
+        MSB: null,
+        LSB: [0, 14],
+        msb: null,
         cc: 9,
-        mapping: null,  //_osc_type,
+        mapping: _osc_type,
         name: "Type"
     },
     [OSC_WAVE]: {
@@ -591,6 +622,7 @@ export const CONTROL = {
     }
 };
 
+/*
 const _on_off = function (v) {
     if (v === 0) {
         return 'off';
@@ -611,64 +643,73 @@ const _on_off = function (v) {
 
 function _filter_type(v) {
     if (v < 0x3fff) {
-        return 'Low pass ' + v;
+        return 'Low pass';
     } else if (v < 0x7fff) {
-        return 'Band pass ' + v;
+        return 'Band pass';
     } else {
-        return 'High pass ' + v;
+        return 'High pass';
     }
 }
 
 function _cyc_env_mode(v) {
     if (v < 0x3fff) {
-        return 'env ' + v;
+        return 'env';
     } else if (v < 0x7fff) {
-        return 'run ' + v;
+        return 'run';
     } else {
-        return 'loop ' + v;
+        return 'loop';
     }
 }
 
 function _lfo_shape(v) {
-    if (v < 0x1999) {
-        return 'sine ' + v;
-    } else if (v < 0x3333) {
-        return 'triangle ' + v;
-    } else if (v < 0x4ccc) {
-        return 'saw ' + v;
-    } else if (v < 0x6666) {
-        return 'square  ' + v;
-    } else if (v < 0x7fff) {
-        return 'SnH ' + v;
-    } else {
-        return 'SnHF ' + v;
+    for (let entry of SWITCH[LFO_SHAPE].values) {
+        console.log("_lfo_shape", v, entry.value, entry.name);
+        if (v <= entry.value) return entry.name;
     }
+    // if (v < 0x1999) {
+    //     return 'sine';
+    // } else if (v < 0x3333) {
+    //     return 'triangle';
+    // } else if (v < 0x4ccc) {
+    //     return 'saw';
+    // } else if (v < 0x6666) {
+    //     return 'square ';
+    // } else if (v < 0x7fff) {
+    //     return 'SnH';
+    // } else {
+    //     return 'SnHF';
+    // }
 }
 
 function _octave(v) {
-    if (v < 0x1555) {
-        return '-3 ' + v;
-    } else if (v < 0x2aaa) {
-        return '-2 ' + v;
-    } else if (v < 0x4000) {
-        return '-1 ' + v;
-    } else if (v < 0x5555) {
-        return '0 ' + v;
-    } else if (v < 0x6aaa) {
-        return '+1  ' + v;
-    } else if (v < 0x7fff) {
-        return '+2 ' + v;
-    } else {
-        return '+3 ' + v;
+    for (let entry of SWITCH[OCTAVE].values) {
+        console.log("_lfo_shape", v, entry.value, entry.name);
+        if (v <= entry.value) return entry.name;
     }
+    // if (v < 0x1555) {
+    //     return '-3';
+    // } else if (v < 0x2aaa) {
+    //     return '-2';
+    // } else if (v < 0x4000) {
+    //     return '-1';
+    // } else if (v < 0x5555) {
+    //     return '0';
+    // } else if (v < 0x6aaa) {
+    //     return '+1';
+    // } else if (v < 0x7fff) {
+    //     return '+2';
+    // } else {
+    //     return '+3';
+    // }
 }
+*/
 
 export const SWITCH = {
     [FILTER_TYPE]: {
         MSB: [2, 18],
         LSB: [2, 17],
         msb: [2, 16, 0x01],
-        mapping: _filter_type,
+        // mapping: _filter_type,
         values: [
             {name: 'LPF', value: 0},
             {name: 'BPF', value: 0x4000},
@@ -680,10 +721,10 @@ export const SWITCH = {
         MSB: [14, 17],
         LSB: [14, 15],
         msb: [14, 8, 0x40],
-        mapping: _on_off,
+        // mapping: _on_off,
         values: [
-            {name: 'On', value: 0},
-            {name: 'Off', value: 0x7fff}
+            {name: 'Off', value: 0},
+            {name: 'On', value: 0x7fff}
         ],
         name: "Amp mod"
     },
@@ -691,7 +732,7 @@ export const SWITCH = {
         MSB: [3, 25],
         LSB: [3, 23],
         msb: [3, 16, 0x40],
-        mapping: _cyc_env_mode,
+        // mapping: _cyc_env_mode,
         values: [
             {name: 'Env', value: 0},
             {name: 'Run', value: 0x4000},
@@ -703,7 +744,7 @@ export const SWITCH = {
         MSB: [12, 22],
         LSB: [12, 21],
         msb: [12, 16, 0x10],
-        mapping: _lfo_shape,
+        // mapping: _lfo_shape,
         values: [
             {name: 'Sine', value: 0},
             {name: 'Tri', value: 0x1999},
@@ -718,10 +759,10 @@ export const SWITCH = {
         MSB: [13, 20],
         LSB: [13, 19],
         msb: [13, 16, 0x04],
-        mapping: _lfo_shape,
+        // mapping: _lfo_shape,
         values: [
-            {name: 'On', value: 0},
-            {name: 'Off', value: 0x7fff}
+            {name: 'Off', value: 0},
+            {name: 'On', value: 0x7fff}
         ],
         name: "Sync"
     },
@@ -729,10 +770,10 @@ export const SWITCH = {
         MSB: [16, 23],
         LSB: [16, 22],
         msb: [16, 16, 0x20],
-        mapping: _on_off,
+        // mapping: _on_off,
         values: [
-            {name: 'On', value: 0},
-            {name: 'Off', value: 0x7fff}
+            {name: 'Off', value: 0},
+            {name: 'On', value: 0x7fff}
         ],
         name: "Paraphonic"
     },
@@ -740,7 +781,7 @@ export const SWITCH = {
         MSB: [7, 4],
         LSB: [7, 3],
         msb: [7, 0, 0x04],
-        mapping: _octave,
+        // mapping: _octave,
         values: [
             {name: '-3', value: 0},
             {name: '-2', value: 0x1555},
@@ -753,38 +794,3 @@ export const SWITCH = {
         name: "Octave"
     }
 };
-
-
-/*
-
-const _osc_type = function (v) {
-    switch (v) {
-        case 10:
-            return "Basic Waves";
-        case 21:
-            return "Superwave";
-        case 32:
-            return "Wavetable";
-        case 42:
-            return "Harmonic";
-        case 53:
-            return "KarplusStrong";
-        case 64:
-            return "V. Analog";
-        case 74:
-            return "Waveshaper";
-        case 85:
-            return "Two Op. FM";
-        case 95:
-            return "Formant";
-        case 106:
-            return "Chords";
-        case 117:
-            return "Speech";
-        case 127:
-            return "Modal";
-        default:
-            return v;
-    }
-};
-*/

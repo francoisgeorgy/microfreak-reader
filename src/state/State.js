@@ -1,6 +1,6 @@
 import {decorate, observable} from 'mobx';
 import {PORT_INPUT, PORT_OUTPUT} from "../components/Midi";
-import {DEFAULT_msb_mask, DEFAULT_sign_mask, MOD_ASSIGN_SLOT, multibytesValue} from "../model";
+import {DEFAULT_msb_mask, DEFAULT_sign_mask, LFO_SHAPE, MOD_ASSIGN_SLOT, multibytesValue, SWITCH} from "../model";
 
 class State {
 
@@ -126,7 +126,7 @@ class State {
      */
     hasInputEnabled() {
         for (const port_id of Object.keys(this.midi.ports)) {
-            if (this.midi.ports[port_id].type === PORT_INPUT && this.midi.ports[port_id].enabled) return true;
+            if (this.midi.ports[port_id] && this.midi.ports[port_id].type === PORT_INPUT && this.midi.ports[port_id].enabled) return true;
         }
         return false;
     }
@@ -136,7 +136,7 @@ class State {
      */
     hasOutputEnabled() {
         for (const port_id of Object.keys(this.midi.ports)) {
-            if (this.midi.ports[port_id].type === PORT_OUTPUT && this.midi.ports[port_id].enabled) return true;
+            if (this.midi.ports[port_id] && this.midi.ports[port_id].type === PORT_OUTPUT && this.midi.ports[port_id].enabled) return true;
         }
         return false;
     }
@@ -181,25 +181,28 @@ class State {
         return Math.round(raw * 1000 / 32768) / 10;
     }
 
-    controlValue(m) {
+    controlValue(m, return_raw=false) {
 
         // const D = this.props.state.data;
         // console.log("m", m, D.length);
 
         if (this.data.length < 39) return 0;  //FIXME
 
-        const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;
-        // const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;
+        let raw;
+        if (m.MSB) {
+            const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;
+            // const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;
+            raw = multibytesValue(
+                this.data[m.MSB[0]][m.MSB[1]],
+                this.data[m.LSB[0]][m.LSB[1]],
+                this.data[m.msb[0]][m.msb[1]],
+                mask_msb,
+                0, 0);
+        } else {
+            raw = this.data[m.LSB[0]][m.LSB[1]];
+        }
 
-        const raw = multibytesValue(
-            this.data[ m.MSB[0] ][ m.MSB[1] ],
-            this.data[ m.LSB[0] ][ m.LSB[1] ],
-            this.data[ m.msb[0] ][ m.msb[1] ],
-            mask_msb,
-            0, 0);
-
-        //TODO: apply mapping or round value
-        return Math.round(raw * 1000 / 32768) / 10;
+        return return_raw ? raw : (Math.round(raw * 1000 / 32768) / 10);
     }
 
     switchValue(m) {
@@ -220,7 +223,13 @@ class State {
 
         // return Math.round(raw * 1000 / 32768) / 10;
 
-        return m.mapping ? m.mapping(raw) : raw;
+        // return m.mapping ? m.mapping(raw) : raw;
+        for (let entry of m.values) {
+            // console.log("_lfo_shape", v, entry.value, entry.name);
+            if (raw <= entry.value) return entry.name;
+        }
+        return raw;
+
     }
 
     /**
