@@ -229,8 +229,9 @@ class State {
      */
     modAssignGroup(slot) {
         if (this.data.length < 39) return;  //FIXME
-        const m = MOD_ASSIGN_SLOT[slot][group];
+        const m = MOD_ASSIGN_SLOT[slot].group;
         const group = this.data[ m[0] ][ m[1] ];
+        console.log("modAssignGroup", m, group);
         return group;
     };
 
@@ -240,7 +241,7 @@ class State {
      */
     modAssignControl(slot) {
         if (this.data.length < 39) return;  //FIXME
-        const m = MOD_ASSIGN_SLOT[slot][control];
+        const m = MOD_ASSIGN_SLOT[slot].control;
         const control = this.data[ m[0] ][ m[1] ];
         return control;
     };

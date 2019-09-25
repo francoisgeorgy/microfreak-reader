@@ -61,6 +61,9 @@ h3 {
     padding: 5px 5px;
     border-bottom: var(--group-header-border);
     background-color: var(--group-header);
+    /*font-weight: 500;*/
+    font-weight: 400;
+    /*letter-spacing: 0.5px;*/
 }
 
 .matrix  {

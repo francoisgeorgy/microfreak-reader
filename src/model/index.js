@@ -116,6 +116,7 @@ export const MOD_SOURCE_CSS = {
     [KEY_ARP]: 'mod-src-key_arp'
 };
 
+
 // names (labels)
 export const MOD_DESTINATION = {
     [PITCH]: 'Pitch',
@@ -204,16 +205,16 @@ export const MOD_MATRIX = {
             sign: [28, 24, 0x10]
         },
         [ASSIGN2]: {
-            MSB: [0, 0],
-            LSB: [0, 0],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [30, 17],
+            LSB: [30, 15],
+            msb: [30, 8, 0x40],
+            sign: [30, 16, 0x01]
         },
         [ASSIGN3]: {
-            MSB: [0, ],
-            LSB: [0, ],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [32, 4],
+            LSB: [32, 3],
+            msb: [32, 0, 0x08],
+            sign: [32, 0, 0x04]
         }
     },
     [ENV]: {
@@ -242,29 +243,29 @@ export const MOD_MATRIX = {
             sign: [27, 16, 0x04]
         },
         [ASSIGN1]: {
-            MSB: [0, 0],
-            LSB: [0, 0],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [29, 6],
+            LSB: [29, 5],
+            msb: [29, 0, 0x10],
+            sign: [29, 0, 0x20]
         },
         [ASSIGN2]: {
-            MSB: [0, 0],
-            LSB: [0, 0],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [30, 26],
+            LSB: [30, 25],
+            msb: [30, 24, 0x01],
+            sign: [30, 24, 0x02]
         },
         [ASSIGN3]: {
-            MSB: [0, 0],
-            LSB: [0, 0],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [32, 13],
+            LSB: [32, 12],
+            msb: [32, 8, 0x10],
+            sign: [32, 8, 0x08]
         }
     },
     [LFO]: {
         [PITCH]: {    // OK
             MSB: [23, 2],
             LSB: [23, 1],
-            msb: [23, 0, 0x01],
+            msb: [23, 0x01],
             sign: [23, 0, 0x02]
         },
         [OSC_WAVE]: {
@@ -286,22 +287,22 @@ export const MOD_MATRIX = {
             sign: [27, 24, 0x08]
         },
         [ASSIGN1]: {
-            MSB: [0, 0],
-            LSB: [0, 0],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [29, 15],
+            LSB: [29, 14],
+            msb: [29, 8, 0x40],
+            sign: [29, 8, 0x20]
         },
         [ASSIGN2]: {
-            MSB: [0, 0],
-            LSB: [0, 0],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [31, 3],
+            LSB: [31, 2],
+            msb: [31, 0, 0x04],
+            sign: [31, 0, 0x02]
         },
         [ASSIGN3]: {
-            MSB: [0, 0],
-            LSB: [0, 0],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [32, 22],
+            LSB: [32, 21],
+            msb: [32, 16, 0x10],
+            sign: [32, 16, 0x20]
         }
     },
     [PRESS]: {
@@ -330,22 +331,22 @@ export const MOD_MATRIX = {
             sign: [28, 0, 0x10]
         },
         [ASSIGN1]: {
-            MSB: [0, 0],
-            LSB: [0, 0],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [29, 25],
+            LSB: [29, 23],
+            msb: [29, 16, 0x40],
+            sign: [29, 24, 0x01]
         },
         [ASSIGN2]: {
-            MSB: [0, 0],
-            LSB: [0, 0],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [31, 12],
+            LSB: [31, 11],
+            msb: [31, 8, 0x08],
+            sign: [31, 8, 0x04]
         },
         [ASSIGN3]: {
-            MSB: [0, 0],
-            LSB: [0, 0],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [32, 31],
+            LSB: [32, 30],
+            msb: [32, 24, 0x40],
+            sign: [32, 24, 0x20]
         }
     },
     [KEY_ARP]: {
@@ -374,22 +375,22 @@ export const MOD_MATRIX = {
             sign: [28, 8, 0x20]
         },
         [ASSIGN1]: {
-            MSB: [0, 0],
-            LSB: [0, 0],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [30, 2],
+            LSB: [30, 1],
+            msb: [30, 0, 0x01],
+            sign: [30, 0, 0x02]
         },
         [ASSIGN2]: {
-            MSB: [0, 0],
-            LSB: [0, 0],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [31, 21],
+            LSB: [31, 20],
+            msb: [31, 16, 0x10],
+            sign: [31, 16, 0x08]
         },
         [ASSIGN3]: {
-            MSB: [0, 0],
-            LSB: [0, 0],
-            msb: [0, 0, 0x01],
-            sign: [0, 0, 0x02]
+            MSB: [33, 9],
+            LSB: [33, 7],
+            msb: [33, 0, 0x40],
+            sign: [33, 8, 0x01]
         }
     }
 };
@@ -408,7 +409,6 @@ export const MOD_ASSIGN_SLOT = {
         control: [21, 31]
     }
 };
-
 
 export const CONTROL = {
     [GLIDE]: {

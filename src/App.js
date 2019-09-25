@@ -105,6 +105,7 @@ class App extends Component {
                             </div>
                             <div className="preset">
                                 <PresetSelector/>
+                                {/*TODO: add compare*/}
                             </div>
                             <div className="group oscillator">
                                 <h3>Oscillator</h3>

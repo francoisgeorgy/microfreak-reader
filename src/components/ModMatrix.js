@@ -1,31 +1,44 @@
 import {inject, observer} from "mobx-react";
 import React, {Component, Fragment} from "react";
-import {ENV, MOD_DESTINATION, MOD_SOURCE, MOD_SOURCE_CSS, PITCH} from "../model";
+import {
+    ASSIGN1,
+    ASSIGN2,
+    ASSIGN3,
+    ENV,
+    MOD_ASSIGN_TARGET,
+    MOD_DESTINATION,
+    MOD_SOURCE,
+    MOD_SOURCE_CSS,
+    PITCH
+} from "../model";
 import {MOD_MATRIX} from "../model";
 import "./ModMatrix.css"
 
 class ModMatrix extends Component {
 
-/*
-    matrix = (source, dest) => {
-        return (
-            <div>
-                {MOD_SOURCE[source]} &#10142; {MOD_DESTINATION[dest]}: {this.props.state.modMatrixValue(MOD_MATRIX[source][dest])}
-            </div>
-        );
-    };
-*/
-/*env-pitch: {this.props.state.modMatrixValue(MOD_MATRIX[ENV][PITCH])}*/
-
     render() {
-        // const D = this.props.state.data;
+        const S = this.props.state;
         // if (!D || D.length === 0) return null;
         return (
             <div className="mod-matrix">
                 <div></div>
                 {Object.getOwnPropertySymbols(MOD_DESTINATION).map(
                     (sym, i) => {
-                        return (<div key={i}>{MOD_DESTINATION[sym]}</div>)
+                        let d = MOD_DESTINATION[sym];
+                        if (sym === ASSIGN1 || sym === ASSIGN2 || sym === ASSIGN3) {
+                            const group = S.modAssignGroup(sym);
+                            const control = S.modAssignControl(sym);
+                            let gn = '?';
+                            let cn = '?';
+                            if (MOD_ASSIGN_TARGET[group]) {
+                                gn = MOD_ASSIGN_TARGET[group].name;
+                                if (MOD_ASSIGN_TARGET[group].control[control]) {
+                                    cn = MOD_ASSIGN_TARGET[group].control[control];
+                                    d = `${gn} ${cn}`;
+                                }
+                            }
+                        }
+                        return (<div key={i}>{d}</div>)
                     }
                 )}
                 {Object.getOwnPropertySymbols(MOD_SOURCE).map(
@@ -35,7 +48,8 @@ class ModMatrix extends Component {
                                 <div className="mod-matrix-col-header"><div className={MOD_SOURCE_CSS[src]}>{MOD_SOURCE[src]}</div></div>
                                 {Object.getOwnPropertySymbols(MOD_DESTINATION).map(
                                     (dst, j) => {
-                                        return <div key={j}>{this.props.state.modMatrixValue(MOD_MATRIX[src][dst])}</div>
+                                        const v = S.modMatrixValue(MOD_MATRIX[src][dst]);
+                                        return <div key={j}>{v > 0.00 ? v : ''}</div>
                                     }
                                 )}
                             </Fragment>
