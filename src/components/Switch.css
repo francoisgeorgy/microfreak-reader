@@ -1,5 +1,5 @@
 .switch {
-    min-width: 70px;
+    /*min-width: 70px;*/
 }
 
 .switch:not(:first-child) {

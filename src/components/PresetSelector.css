@@ -1,4 +1,5 @@
-.preset-selector {
+.preset-selector button {
+    font-size: 1.1rem;
 }
 
 .preset-selector #preset {

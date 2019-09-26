@@ -14,7 +14,7 @@
 .mod-matrix > div {
     border-bottom: 1px solid #aaa;
     border-right: 1px solid #aaa;
-    padding: 4px 5px;
+    padding: 0px 5px;
 }
 
 .mod-matrix-dest,
@@ -23,9 +23,10 @@
 }
 
 .mod-matrix .mod-matrix-col-header {
-    padding-left: 0;
+    /*padding-left: 0;*/
+    padding: 2px 2px 2px 0;
 }
 
 .mod-matrix > .mod-matrix-col-header > div {
-    padding: 0 2px;
+    padding-left: 2px;
 }

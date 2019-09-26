@@ -70,15 +70,16 @@ class PresetSelector extends Component {
 
         return (
             <div className="preset-selector">
+                <h3>Preset</h3>
                 <div className="seq-access">
-                    <label>Preset:</label><input type="text" id="preset" name="preset" min="1" max="256" value={this.state.p} onChange={(e) => this.setPreset(e.target.value)} />
+                    <input type="text" id="preset" name="preset" min="1" max="256" value={this.state.p} onChange={(e) => this.setPreset(e.target.value)} />
                     {/*<div>prev</div>*/}
                     {/*<div>next</div>*/}
                     <button onClick={this.prev}>&lt;</button>
                     <button onClick={this.next}>&gt;</button>
                     <button onClick={this.go}>go</button>
                     <button onClick={this.toggleDirectAccess}>{this.state.direct_access ? 'direct access ...' : 'direct access ...'}</button>
-                    <button type="button" onClick={readPreset}>Read preset {S.preset.current}</button>
+                    <button type="button" onClick={readPreset}>READ</button>
                 </div>
                 {this.state.direct_access && <div className="direct-access">{pc}</div>}
             </div>

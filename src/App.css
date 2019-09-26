@@ -109,7 +109,7 @@ h3 {
 }
 
 .keyboard {
-    grid-column: 1;
+    grid-column: 1 / span 2;
     grid-row: 4;
 }
 

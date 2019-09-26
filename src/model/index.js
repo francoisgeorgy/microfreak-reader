@@ -42,7 +42,6 @@ export const multibytesValue = (MSB, LSB, msb_byte, mask_msb, sign_byte, mask_si
 };
 
 
-
 const _osc_type = function (v) {
     switch (v) {
         case 10:
@@ -73,7 +72,6 @@ const _osc_type = function (v) {
             return v;
     }
 };
-
 /*
 const _0_100 = function (v) {
     return Math.floor(v / 127 * 100 + 0.5);
@@ -120,7 +118,7 @@ export const ENVELOPE_ATTACK = Symbol();
 export const ENVELOPE_DECAY = Symbol();
 export const ENVELOPE_SUSTAIN = Symbol();
 export const KEYBOARD_HOLD_BUTTON = Symbol();
-export const KEYBOARD_SPICE = Symbol();
+export const SPICE = Symbol();
 
 // switches
 export const FILTER_TYPE = Symbol();
@@ -128,6 +126,7 @@ export const AMP_MOD = Symbol();
 export const CYCLING_ENV_MODE = Symbol();
 export const LFO_SHAPE = Symbol();
 export const LFO_SYNC = Symbol();
+export const ARP_SEQ_SYNC = Symbol();
 export const PARAPHONIC = Symbol();
 export const OCTAVE = Symbol();
 
@@ -602,16 +601,16 @@ export const CONTROL = {
         mapping: null,
         name: 'Sustain'
     },
-    [KEYBOARD_HOLD_BUTTON]: {
-        MSB: [0, 0],
-        LSB: [0, 0],
-        //sign: [0, 0, 0x02],
-        msb: [0, 0, 0x01],
-        cc: 64,
-        mapping: null,
-        name: 'Hold'
-    },
-    [KEYBOARD_SPICE]: {
+    // [KEYBOARD_HOLD_BUTTON]: {
+    //     MSB: [0, 0],
+    //     LSB: [0, 0],
+    //     //sign: [0, 0, 0x02],
+    //     msb: [0, 0, 0x01],
+    //     cc: 64,
+    //     mapping: null,
+    //     name: 'Hold'
+    // },
+    [SPICE]: {
         MSB: [0, 0],
         LSB: [0, 0],
         //sign: [0, 0, 0x02],
@@ -732,7 +731,6 @@ export const SWITCH = {
         MSB: [3, 25],
         LSB: [3, 23],
         msb: [3, 16, 0x40],
-        // mapping: _cyc_env_mode,
         values: [
             {name: 'Env', value: 0},
             {name: 'Run', value: 0x4000},
@@ -744,7 +742,6 @@ export const SWITCH = {
         MSB: [12, 22],
         LSB: [12, 21],
         msb: [12, 16, 0x10],
-        // mapping: _lfo_shape,
         values: [
             {name: 'Sine', value: 0},
             {name: 'Tri', value: 0x1999},
@@ -755,11 +752,20 @@ export const SWITCH = {
         ],
         name: "Shape"
     },
+    [ARP_SEQ_SYNC]: {   //TODO
+        MSB: [0, 0],
+        LSB: [0, 0],
+        msb: [0, 0, 0x00],
+        values: [
+            {name: 'Off', value: 0},
+            {name: 'On', value: 0x7fff}
+        ],
+        name: "Sync"
+    },
     [LFO_SYNC]: {
         MSB: [13, 20],
         LSB: [13, 19],
         msb: [13, 16, 0x04],
-        // mapping: _lfo_shape,
         values: [
             {name: 'Off', value: 0},
             {name: 'On', value: 0x7fff}
@@ -770,7 +776,6 @@ export const SWITCH = {
         MSB: [16, 23],
         LSB: [16, 22],
         msb: [16, 16, 0x20],
-        // mapping: _on_off,
         values: [
             {name: 'Off', value: 0},
             {name: 'On', value: 0x7fff}
@@ -792,5 +797,15 @@ export const SWITCH = {
             {name: '+3', value: 0x7fff}
         ],
         name: "Octave"
+    },
+    [KEYBOARD_HOLD_BUTTON]: {   //TODO
+        MSB: [0, 0],
+        LSB: [0, 0],
+        msb: [0, 0, 0],
+        values: [
+            {name: 'Off', value: 0},
+            {name: 'On', value: 0x7fff}
+        ],
+        name: 'Hold'
     }
 };

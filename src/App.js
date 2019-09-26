@@ -8,7 +8,7 @@ import Control from "./components/Control";
 import {
     AMP_MOD,
     ARP_SEQ_RATE_FREE,
-    ARP_SEQ_RATE_SYNC,
+    ARP_SEQ_RATE_SYNC, ARP_SEQ_SYNC,
     CYCLING_ENV_AMOUNT,
     CYCLING_ENV_FALL,
     CYCLING_ENV_HOLD, CYCLING_ENV_MODE,
@@ -21,7 +21,7 @@ import {
     FILTER_TYPE,
     GLIDE,
     KEYBOARD_HOLD_BUTTON,
-    KEYBOARD_SPICE,
+    SPICE,
     LFO_RATE_FREE,
     LFO_RATE_SYNC,
     LFO_SHAPE,
@@ -92,7 +92,7 @@ class App extends Component {
         return (
             <Provider state={state}>
                 <div className="header">
-                    <div className="title">MicroFreak</div>
+                    <div className="title">MicroFreak reader</div>
                     <div>
                         <button onClick={this.setThemeLight}>Light theme</button>
                         <button onClick={this.setThemeDark}>Dark theme</button>
@@ -142,9 +142,10 @@ class App extends Component {
                             <div className="group arp-seq">
                                 <h3>ARP/SEQ</h3>
                                 <div className="controls">
+                                    <Switch cc={ARP_SEQ_SYNC} />
                                     <Control cc={ARP_SEQ_RATE_FREE}/>
                                     <Control cc={ARP_SEQ_RATE_SYNC}/>
-                                    {/*TODO: sync*/}
+                                    <Control cc={SPICE}/>
                                 </div>
                             </div>
                             <div className="group lfo">
@@ -168,18 +169,20 @@ class App extends Component {
                             <div className="group keyboard">
                                 <h3>Keyboard</h3>
                                 <div className="controls">
+                                    <div>Pitch</div>
                                     <Switch cc={PARAPHONIC} />
                                     <Switch cc={OCTAVE} layout={LAYOUT_1_ROW} />
+                                    <Switch cc={KEYBOARD_HOLD_BUTTON}/>
                                     <Control cc={GLIDE}/>
-                                    <Control cc={KEYBOARD_HOLD_BUTTON}/>    {/*TODO: make switch*/}
                                 </div>
                             </div>
+{/*
                             <div className="group keyboard2">
                                 <h3>...</h3>
                                 <div className="controls">
-                                    <Control cc={KEYBOARD_SPICE}/>
                                 </div>
                             </div>
+*/}
                         </div>
                     </div>
                 </div>

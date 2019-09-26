@@ -1,3 +1,19 @@
 .progress {
+    margin-top: 5px;
+    padding: 0 5px;
+    position: relative;
+}
+
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
     background-color: var(--progress);
+}
+
+.progress-counter    {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-left: 5px;
 }
