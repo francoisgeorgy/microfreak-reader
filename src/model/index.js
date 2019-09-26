@@ -293,10 +293,10 @@ export const MOD_MATRIX = {
         }
     },
     [LFO]: {
-        [PITCH]: {    // OK
+        [PITCH]: {
             MSB: [23, 2],
             LSB: [23, 1],
-            msb: [23, 0x01],
+            msb: [23, 0, 0x01],
             sign: [23, 0, 0x02]
         },
         [OSC_WAVE]: {
@@ -320,8 +320,8 @@ export const MOD_MATRIX = {
         [ASSIGN1]: {
             MSB: [29, 15],
             LSB: [29, 14],
-            msb: [29, 8, 0x40],
-            sign: [29, 8, 0x20]
+            msb: [29, 8, 0x20],
+            sign: [29, 8, 0x40]
         },
         [ASSIGN2]: {
             MSB: [31, 3],
@@ -752,10 +752,10 @@ export const SWITCH = {
         ],
         name: "Shape"
     },
-    [ARP_SEQ_SYNC]: {   //TODO
-        MSB: [0, 0],
-        LSB: [0, 0],
-        msb: [0, 0, 0x00],
+    [ARP_SEQ_SYNC]: {   
+        MSB: [10, 27],
+        LSB: [10, 26],
+        msb: [10, 24, 0x02],
         values: [
             {name: 'Off', value: 0},
             {name: 'On', value: 0x7fff}

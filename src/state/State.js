@@ -242,11 +242,10 @@ class State {
 
         // return m.mapping ? m.mapping(raw) : raw;
         for (let entry of m.values) {
-            // console.log("_lfo_shape", v, entry.value, entry.name);
+            // console.log("switchValue", raw, entry.value, entry.name);
             if (raw <= entry.value) return entry.name;
         }
         return raw;
-
     }
 
     /**

@@ -65,7 +65,7 @@ class MidiPortsSelect extends React.Component {
                             {
                                 Object.keys(ports).map(port_id => {
                                     const port = ports[port_id];
-                                    if (port.type === PORT_INPUT) {
+                                    if (port && port.type === PORT_INPUT) {
                                         return <option value={port_id}>{port.name}</option>
                                     }
                                 })
@@ -79,7 +79,7 @@ class MidiPortsSelect extends React.Component {
                                 {
                                     Object.keys(ports).map(port_id => {
                                         const port = ports[port_id];
-                                        if (port.type === PORT_OUTPUT) {
+                                        if (port && port.type === PORT_OUTPUT) {
                                             return <option value={port_id}>{port.name}</option>
                                         }
                                     })
