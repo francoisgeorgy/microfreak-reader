@@ -47,11 +47,12 @@ class App extends Component {
 
     state = { theme: DEFAULT_THEME };
 
-    selectTheme = (theme) => {
-        this.setState({theme});
+    selectTheme = (e) => {
+        this.setState({theme: e.target.value});
         // savePreferences({theme});
     };
 
+/*
     setThemeLight = () => {
         this.selectTheme("light");
     };
@@ -59,6 +60,7 @@ class App extends Component {
     setThemeDark = () => {
         this.selectTheme("dark");
     };
+*/
 
     handleMidiInputEvent = (e) => {
 
@@ -94,8 +96,11 @@ class App extends Component {
                 <div className="header">
                     <div className="title">MicroFreak reader</div>
                     <div>
-                        <button onClick={this.setThemeLight}>Light theme</button>
-                        <button onClick={this.setThemeDark}>Dark theme</button>
+                        <select value={this.state.theme} onChange={this.selectTheme}>
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="darker">Darker</option>
+                        </select>
                     </div>
                 </div>
                 <Midi messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>
