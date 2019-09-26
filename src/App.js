@@ -36,6 +36,7 @@ import ModMatrix from "./components/ModMatrix";
 import {hs} from "./utils/hexstring";
 import Switch from "./components/Switch";
 import ReadProgress from "./components/ReadProgress";
+import MidiPortsSelect from "./components/MidiPortsSelect";
 
 const MIDI_MSG_TYPE = "sysex";
 const DEFAULT_THEME = 'dark';
@@ -105,7 +106,8 @@ class App extends Component {
                 </div>
                 <Midi messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>
                 <div className="App">
-                    <MidiPorts messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>
+                    {/*<MidiPorts messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>*/}
+                    <MidiPortsSelect messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent} />
                     <div>
                         <div className="main-grid">
                             <div className="group matrix">
@@ -174,7 +176,7 @@ class App extends Component {
                             <div className="group keyboard">
                                 <h3>Keyboard</h3>
                                 <div className="controls">
-                                    <div>Pitch</div>
+                                    <div>Pitch</div>    {/*TODO: pitch mod*/}
                                     <Switch cc={PARAPHONIC} />
                                     <Switch cc={OCTAVE} layout={LAYOUT_1_ROW} />
                                     <Switch cc={KEYBOARD_HOLD_BUTTON}/>

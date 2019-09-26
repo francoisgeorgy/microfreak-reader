@@ -1,0 +1,12 @@
+.ports-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.ports-row > div {
+    margin-right: 10px;
+}
+
+.ports-row select {
+    margin-left: 5px;
+}
