@@ -1,5 +1,7 @@
 .progress {
-    margin-top: 5px;
+    /*position: absolute;*/
+    /*bottom: 0px;*/
+    margin-top: 10px;
     padding: 0 5px;
     position: relative;
 }
@@ -17,3 +19,22 @@
     left: 0;
     padding-left: 5px;
 }
+
+
+.progress.done {
+    animation: hide-animation 0.6s ease-in 1s forwards;
+}
+
+
+@keyframes hide-animation {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+

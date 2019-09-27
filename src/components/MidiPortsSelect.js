@@ -55,6 +55,7 @@ class MidiPortsSelect extends React.Component {
             }
 */
 
+
             return (
                 <Fragment>
                     {(!S.hasInputEnabled() || !S.hasOutputEnabled()) && <div className="warning banner">

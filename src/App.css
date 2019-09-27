@@ -2,7 +2,7 @@
     background-color: #dddddd;
     color: #333;
     /*border: 1px solid #ccc;*/
-    margin: 10px 0;
+    margin: 5px 0;
     padding: 5px;
 }
 
@@ -30,6 +30,8 @@ footer {
 
 .title {
     font-size: 2rem;
+    display: flex;
+    color: var(--title-text);
 }
 
 .main-grid {

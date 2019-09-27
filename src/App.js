@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import './App.css';
 import Midi from "./components/Midi";
 import {Provider} from "mobx-react";
 import {state} from "./state/State";
-import MidiPorts from "./components/MidiPorts";
+// import MidiPorts from "./components/MidiPorts";
 import Control from "./components/Control";
 import {
     AMP_MOD,
@@ -111,10 +111,16 @@ class App extends Component {
         const { theme } = this.state;
         document.documentElement.setAttribute('data-theme', theme);
 
+
+
         return (
             <Provider state={state}>
                 <div className="header">
-                    <div className="title">MicroFreak reader</div>
+                    <div className="title">
+                        MicroFreak {/* !preset_name && "reader */}
+                        {/*{preset_name && <Fragment> &#x2013; preset #{state.preset.current} &#171; {preset_name} &#187;</Fragment>}*/}
+                        <PresetName />
+                    </div>
                     <div>
                         <select value={this.state.theme} onChange={this.selectTheme}>
                             <option value="light">Light</option>
@@ -138,7 +144,7 @@ class App extends Component {
                                 <PresetSelector />
                                 <ReadProgress />
                                 {/*TODO: add compare*/}
-                                <PresetName />
+                                {/*<PresetName />*/}
                             </div>
                             <div className="group oscillator">
                                 <h3>Oscillator</h3>

@@ -35,6 +35,7 @@ class PresetSelector extends Component {
                 v = 1;
             }
             this.props.state.preset.current = v;
+            // this.props.state.data_name = [];    //TODO: make method
         }
         this.setState({p: s});
     };
@@ -63,6 +64,8 @@ class PresetSelector extends Component {
     render() {
         const S = this.props.state;
 
+        const midi_ok = S.hasInputEnabled() && S.hasOutputEnabled();
+
         const pc = [];
         for (let i=1; i<=256; i++){
             pc.push(<div key={i} className={i === S.preset.current ? 'sel' : ''} onClick={() => this.selectDirect(i)}>{i}</div>);
@@ -76,9 +79,9 @@ class PresetSelector extends Component {
                     {/*<div>next</div>*/}
                     <button onClick={this.prev}>&lt;</button>
                     <button onClick={this.next}>&gt;</button>
-                    <button onClick={this.go}>go</button>
-                    <button onClick={this.toggleDirectAccess}>{this.state.direct_access ? 'direct access ...' : 'direct access ...'}</button>
-                    <button type="button" onClick={readPreset}>READ</button>
+                    <button onClick={this.go}>select</button>
+                    <button onClick={this.toggleDirectAccess}>{this.state.direct_access ? 'direct access...' : 'direct access...'}</button>
+                    <button className={midi_ok ? "read-button ok" : "read-button"} type="button" onClick={readPreset}>READ</button>
                 </div>
                 {this.state.direct_access && <div className="direct-access">{pc}</div>}
             </div>

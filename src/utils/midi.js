@@ -145,7 +145,9 @@ export async function readPreset() {
     if (global.dev) console.log("readPreset", state.preset.current);
 
     state.data = [];
+    state.data_name = [];
     state.preset.current_counter = 0;
+    state.preset.reference = state.preset.current;
 
     sendPresetRequest(state.preset.current);
     await wait(2 * WAIT_BETWEEN_MESSAGES);

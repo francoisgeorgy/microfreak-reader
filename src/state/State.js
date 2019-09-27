@@ -279,6 +279,7 @@ class State {
     };
 
     presetName() {
+
         if (this.data_name.length < 13) {
             return '';
         }

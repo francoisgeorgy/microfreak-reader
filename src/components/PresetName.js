@@ -1,19 +1,15 @@
 import React, {Component} from 'react';
 import {inject, observer} from "mobx-react";
-import {hs} from "../utils/hexstring";
-import "./PresetName.css";
+// import "./PresetName.css";
 
 class PresetName extends Component {
 
     render() {
 
         const S = this.props.state;
+        const preset_name = S.presetName();
 
-        return (
-            <div className="preset-name">
-                {S.presetName()}
-            </div>
-        );
+        return preset_name ? <div>&#x2013; preset #{S.preset.reference} &#171; {preset_name} &#187;</div> : null;
 
     }
 }

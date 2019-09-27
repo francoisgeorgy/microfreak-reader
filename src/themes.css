@@ -24,6 +24,7 @@
 html {
     --main-bg: #fff;
     --text: #000;
+    --title-text: #222;
     --footer: #ccc;
     --input-border: 1px solid #aaa;
     --progress: #ccc;
@@ -55,6 +56,7 @@ html {
 html[data-theme='dark'] {
     --main-bg: #111;
     --text: #fff;
+    --title-text: #f8f8f8;
     --footer: #444;
     --progress: #34ab33;
     --input-border: 1px solid #393939;
@@ -87,6 +89,7 @@ html[data-theme='dark'] {
 html[data-theme='darker'] {
     --main-bg: #000;
     --text: #fff;
+    --title-text: #f0f0f0;
     --footer: #444;
     --progress: #34ab33;
     --input-border: 1px solid #393939;
