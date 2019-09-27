@@ -199,6 +199,9 @@ class App extends Component {
                         </div>
                     </div>
                 </div>
+                <footer>
+                    &copy; sysex.io 2019
+                </footer>
             </Provider>
         );
     }

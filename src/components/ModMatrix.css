@@ -1,6 +1,7 @@
 
 .mod-matrix {
     /*padding: 5px;*/
+    margin-top: 5px;
     padding: 0 5px 5px 5px;
     background-color: var(--group-bg);
     border: var(--group-border);

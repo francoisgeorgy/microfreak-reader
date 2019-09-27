@@ -59,7 +59,7 @@
 
 h3 {
     grid-column: span 2;
-    margin: 0 0 10px 0;
+    margin: 0 0 0 0;
     padding: 5px 5px;
     border-bottom: var(--group-header-border);
     background-color: var(--group-header);
@@ -116,4 +116,12 @@ h3 {
 .keyboard2 {
     grid-column: 2;
     grid-row: 4;
+}
+
+footer {
+    margin-top: 20px;
+    /*border-top: 1px solid var(--footer);*/
+    padding-top: 2px;
+    color: var(--footer);
+    font-size: 0.75rem;
 }

@@ -27,8 +27,8 @@ const config = {
     track_width: 8,
 
     // cursor
-    cursor_radius: 18, // same unit as radius
-    cursor_length: 10,
+    cursor_radius: 8, // same unit as radius
+    cursor_length: 36,
     cursor_width: 4,
 
     // text displayed in the middle of the knob:
@@ -153,6 +153,31 @@ function Track({ value }) {
     );
 }
 
+function Cursor({ value }) {
+
+    // if (trace) console.log("draw_cursor()", config.cursor);
+    // if (!config.cursor) return;
+    const angle =
+        ((value - config.value_min) / (config.value_max - config.value_min)) *
+        (config.angle_max - config.angle_min) +
+        config.angle_min;
+
+    let a = knobToPolarAngle(angle);
+    let from = getViewboxCoord(a, config.cursor_radius);
+    let to = getViewboxCoord(a, config.cursor_radius + config.cursor_length);
+
+    return (
+        <path
+            d={`M ${from.x},${from.y} L ${to.x},${to.y}`}
+            stroke="#42A5F5"
+            strokeWidth="8"
+            fill="transparent"
+            strokeLinecap="butt"
+            className="knob-track"
+        />
+    );
+}
+
 export default function Knob({ value, decimals }) {
     let v = 0;
     if (value < config.value_min) {
@@ -168,7 +193,8 @@ export default function Knob({ value, decimals }) {
             <svg xmlns="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
                 <Background />
                 <Track value={v} />
-                <ValueText value={v} decimals={decimals} />
+                <Cursor value={v} />
+                {/*<ValueText value={v} decimals={decimals} />*/}
             </svg>
         </div>
     );

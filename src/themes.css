@@ -24,6 +24,7 @@
 html {
     --main-bg: #fff;
     --text: #000;
+    --footer: #ccc;
     --input-border: 1px solid #aaa;
     --progress: #ccc;
     --group-bg: #fff;
@@ -51,20 +52,21 @@ html {
     --mod-src-key_arp-text: #000;
 }
 
-html[data-theme='darker'] {
-    --main-bg: #000;
+html[data-theme='dark'] {
+    --main-bg: #111;
     --text: #fff;
+    --footer: #444;
     --progress: #34ab33;
     --input-border: 1px solid #393939;
-    --group-bg: #212121;
+    --group-bg: #222831;
     --group-border: none;
-    --group-header: #212121;
+    --group-header: #393e46;
     --group-header-border: 2px solid #000;
     --switch-sel-bg: #ecc53a;
     --switch-sel-text: #000;
-    --knob-track-bg: #393939;
+    --knob-track-bg: #494949;
     --knob-track: #eec83f;
-    --knob-text: #fff;
+    --knob-text: #eec83f;
     --direct-access-bg: #000;
     --direct-access-border: #555;
     --direct-access-hover-bg: yellow!important;
@@ -82,18 +84,19 @@ html[data-theme='darker'] {
     --mod-src-key_arp-text: #000;
 }
 
-html[data-theme='dark'] {
-    --main-bg: #111;
+html[data-theme='darker'] {
+    --main-bg: #000;
     --text: #fff;
+    --footer: #444;
     --progress: #34ab33;
     --input-border: 1px solid #393939;
-    --group-bg: #222831;
+    --group-bg: #212121;
     --group-border: none;
-    --group-header: #393e46;
+    --group-header: #212121;
     --group-header-border: 2px solid #000;
     --switch-sel-bg: #ecc53a;
     --switch-sel-text: #000;
-    --knob-track-bg: #494949;
+    --knob-track-bg: #393939;
     --knob-track: #eec83f;
     --knob-text: #fff;
     --direct-access-bg: #000;

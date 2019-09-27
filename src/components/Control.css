@@ -20,16 +20,21 @@
     margin-top: 10px;
 }
 
+/*
 .ctrl-value,
 .ctrl-value-hex {
     padding: 5px 0;
 }
+*/
 
 .ctrl-value {
-    font-size: 1.5rem;
+    margin-top: -7px;
+    color: var(--knob-text);
 }
 
+/*
 .ctrl-value-hex {
     color: #999;
 }
+*/
 
