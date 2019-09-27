@@ -57,6 +57,9 @@ class MidiPortsSelect extends React.Component {
 
             return (
                 <Fragment>
+                    {(!S.hasInputEnabled() || !S.hasOutputEnabled()) && <div className="warning banner">
+                        Please enable the input and the output corresponding to your MicroFreak.
+                    </div>}
                     <div className="ports-row">
                         <div>
                             Input:
@@ -87,9 +90,6 @@ class MidiPortsSelect extends React.Component {
                             </select>
                         </div>
                     </div>
-                    {(!S.hasInputEnabled() || !S.hasOutputEnabled()) && <div className="warning banner">
-                        Please enable the input and the output corresponding to your MicroFreak.
-                    </div>}
                 </Fragment>
             );
         } else {

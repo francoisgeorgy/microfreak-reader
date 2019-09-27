@@ -70,7 +70,6 @@ class PresetSelector extends Component {
 
         return (
             <div className="preset-selector">
-                <h3>Preset</h3>
                 <div className="seq-access">
                     <input type="text" id="preset" name="preset" min="1" max="256" value={this.state.p} onChange={(e) => this.setPreset(e.target.value)} />
                     {/*<div>prev</div>*/}

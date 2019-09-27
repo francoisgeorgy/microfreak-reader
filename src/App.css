@@ -17,7 +17,15 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+footer {
+    margin-top: 10px;
+    /*border-top: 1px solid var(--footer);*/
+    padding-top: 2px;
+    color: var(--footer);
+    font-size: 0.75rem;
 }
 
 .title {
@@ -116,12 +124,4 @@ h3 {
 .keyboard2 {
     grid-column: 2;
     grid-row: 4;
-}
-
-footer {
-    margin-top: 20px;
-    /*border-top: 1px solid var(--footer);*/
-    padding-top: 2px;
-    color: var(--footer);
-    font-size: 0.75rem;
 }

@@ -126,7 +126,6 @@ class App extends Component {
                 <Midi messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>
                 <div className="App">
                     {/*<MidiPorts messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>*/}
-                    <MidiPortsSelect messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent} />
                     <div>
                         <div className="main-grid">
                             <div className="group matrix">
@@ -134,6 +133,8 @@ class App extends Component {
                                 <ModMatrix />
                             </div>
                             <div className="preset">
+                                <h3>MIDI / Preset selection</h3>
+                                <MidiPortsSelect messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent} />
                                 <PresetSelector />
                                 <ReadProgress />
                                 {/*TODO: add compare*/}
