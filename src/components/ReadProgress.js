@@ -18,7 +18,7 @@ class ReadProgress extends Component {
                     &nbsp;
                 </div>
                 <div className="progress-counter">
-                    Reading preset... {Math.round(p)}%
+                    Reading preset #{S.preset.current}... {Math.round(p)}%
                 </div>
             </div>
         );

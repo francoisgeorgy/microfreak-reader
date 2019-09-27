@@ -1,10 +1,7 @@
 import React, {Component} from "react";
 import "./PresetSelector.css";
 import {inject, observer} from "mobx-react";
-import {PORT_OUTPUT} from "./Midi";
-import {portById, readPreset, sendPC} from "../utils/midi";
-import WebMidi from "webmidi";
-import {state} from "../state/State";
+import {readPreset, sendPC} from "../utils/midi";
 
 class PresetSelector extends Component {
 

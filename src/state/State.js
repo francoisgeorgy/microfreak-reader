@@ -1,6 +1,6 @@
 import {decorate, observable} from 'mobx';
 import {PORT_INPUT, PORT_OUTPUT} from "../components/Midi";
-import {DEFAULT_msb_mask, DEFAULT_sign_mask, LFO_SHAPE, MOD_ASSIGN_SLOT, multibytesValue, SWITCH} from "../model";
+import {DEFAULT_msb_mask, DEFAULT_sign_mask, MOD_ASSIGN_SLOT, multibytesValue} from "../model";
 import {portById} from "../utils/midi";
 
 class State {
@@ -274,8 +274,7 @@ class State {
     modAssignControl(slot) {
         if (this.data.length < 39) return;  //FIXME
         const m = MOD_ASSIGN_SLOT[slot].control;
-        const control = this.data[ m[0] ][ m[1] ];
-        return control;
+        return this.data[ m[0] ][ m[1] ];
     };
 
     presetName() {

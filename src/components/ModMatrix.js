@@ -4,12 +4,10 @@ import {
     ASSIGN1,
     ASSIGN2,
     ASSIGN3,
-    ENV,
     MOD_ASSIGN_TARGET,
     MOD_DESTINATION,
     MOD_SOURCE,
-    MOD_SOURCE_CSS,
-    PITCH
+    MOD_SOURCE_CSS
 } from "../model";
 import {MOD_MATRIX} from "../model";
 import "./ModMatrix.css"

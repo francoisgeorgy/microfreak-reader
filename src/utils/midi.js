@@ -149,6 +149,9 @@ export async function readPreset() {
     state.preset.current_counter = 0;
     state.preset.reference = state.preset.current;
 
+    sendNameRequest(state.preset.current);
+    await wait(2 * WAIT_BETWEEN_MESSAGES);
+
     sendPresetRequest(state.preset.current);
     await wait(2 * WAIT_BETWEEN_MESSAGES);
 

@@ -23,7 +23,7 @@ class Switch extends Component {
                     (s, index) => {
                         console.log("switch loop", s, v);
                         return (
-                            <div className={s.name === v ? 'sw-val sw-sel' : 'sw-val'}>{s.name}</div>
+                            <div key={s.value} className={s.name === v ? 'sw-val sw-sel' : 'sw-val'}>{s.name}</div>
                         )
                     }
                 )}
