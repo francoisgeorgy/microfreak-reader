@@ -110,7 +110,7 @@ function ValueText({ value, decimals }) {
         <text
             d={path}
             x={HALF_WIDTH}
-            y={config.value_position}
+            y={config.value_position * 1.05}
             textAnchor="middle"
             alignmentBaseline="middle"
             fill="#000">

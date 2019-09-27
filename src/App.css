@@ -31,7 +31,7 @@
     grid-row-gap: 10px;
     grid-column-gap: 10px;
     justify-content: stretch;
-    align-items: start;
+    align-items: stretch;
 }
 
 .group {

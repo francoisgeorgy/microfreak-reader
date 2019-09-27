@@ -173,7 +173,7 @@ class State {
         this.dataRef = [];
     }
 
-    modMatrixValue(m) {
+    modMatrixValue(m, return_raw=false) {
 
         // const D = this.props.state.data;
         // console.log("m", m, D.length);
@@ -195,7 +195,7 @@ class State {
             this.data[ m.sign[0] ][ m.sign[1] ],
             mask_sign);
 
-        return Math.round(raw * 1000 / 32768) / 10;
+        return return_raw ? raw : (Math.round(raw * 1000 / 32768) / 10);
     }
 
     controlValue(m, return_raw=false) {
@@ -222,7 +222,7 @@ class State {
         return return_raw ? raw : (Math.round(raw * 1000 / 32768) / 10);
     }
 
-    switchValue(m) {
+    switchValue(m, return_raw=false) {
 
         // const D = this.props.state.data;
         // console.log("m", m, D.length);
@@ -241,11 +241,16 @@ class State {
         // return Math.round(raw * 1000 / 32768) / 10;
 
         // return m.mapping ? m.mapping(raw) : raw;
-        for (let entry of m.values) {
-            // console.log("switchValue", raw, entry.value, entry.name);
-            if (raw <= entry.value) return entry.name;
+
+        if (return_raw) {
+            return raw;
+        } else {
+            for (let entry of m.values) {
+                // console.log("_lfo_shape", v, entry.value, entry.name);
+                if (raw <= entry.value) return entry.name;
+            }
+            return raw;
         }
-        return raw;
     }
 
     /**

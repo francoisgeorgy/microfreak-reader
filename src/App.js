@@ -20,7 +20,7 @@ import {
     FILTER_RESONANCE,
     FILTER_TYPE,
     GLIDE,
-    KEYBOARD_HOLD_BUTTON,
+    HOLD,
     SPICE,
     LFO_RATE_FREE,
     LFO_RATE_SYNC,
@@ -29,7 +29,7 @@ import {
     OSC_SHAPE,
     OSC_TIMBRE,
     OSC_TYPE,
-    OSC_WAVE, PARAPHONIC
+    OSC_WAVE, PARAPHONIC, ARP, SEQ, ARP_SEQ_MOD, CYCLING_ENV_RISE_SHAPE, CYCLING_ENV_FALL_SHAPE, ARP_SEQ_SWING
 } from "./model";
 import PresetSelector from "./components/PresetSelector";
 import ModMatrix from "./components/ModMatrix";
@@ -141,7 +141,9 @@ class App extends Component {
                                 <div className="controls">
                                     <Switch cc={CYCLING_ENV_MODE} />
                                     <Control cc={CYCLING_ENV_RISE}/>
+                                    <Control cc={CYCLING_ENV_RISE_SHAPE}/>
                                     <Control cc={CYCLING_ENV_FALL}/>
+                                    <Control cc={CYCLING_ENV_FALL_SHAPE}/>
                                     <Control cc={CYCLING_ENV_HOLD}/>
                                     <Control cc={CYCLING_ENV_AMOUNT}/>
                                 </div>
@@ -149,16 +151,20 @@ class App extends Component {
                             <div className="group arp-seq">
                                 <h3>ARP/SEQ</h3>
                                 <div className="controls">
+                                    <Switch cc={ARP} />
+                                    <Switch cc={SEQ} />
+                                    <Switch cc={ARP_SEQ_MOD} layout={LAYOUT_2_COLS}/>
                                     <Switch cc={ARP_SEQ_SYNC} />
                                     <Control cc={ARP_SEQ_RATE_FREE}/>
                                     <Control cc={ARP_SEQ_RATE_SYNC}/>
+                                    <Control cc={ARP_SEQ_SWING} />
                                     <Control cc={SPICE}/>
                                 </div>
                             </div>
                             <div className="group lfo">
                                 <h3>LFO</h3>
                                 <div className="controls">
-                                    <Switch cc={LFO_SHAPE} layout={LAYOUT_2_COLS} />
+                                    <Switch cc={LFO_SHAPE} layout={LAYOUT_2_COLS}/>
                                     <Switch cc={LFO_SYNC} />
                                     <Control cc={LFO_RATE_FREE}/>
                                     <Control cc={LFO_RATE_SYNC}/>
@@ -179,7 +185,7 @@ class App extends Component {
                                     <div>Pitch</div>    {/*TODO: pitch mod*/}
                                     <Switch cc={PARAPHONIC} />
                                     <Switch cc={OCTAVE} layout={LAYOUT_1_ROW} />
-                                    <Switch cc={KEYBOARD_HOLD_BUTTON}/>
+                                    <Switch cc={HOLD}/>
                                     <Control cc={GLIDE}/>
                                 </div>
                             </div>

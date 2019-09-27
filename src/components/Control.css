@@ -1,6 +1,6 @@
 
 .control {
-    min-width: 70px;
+    min-width: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,6 +9,7 @@
     /*margin: 10px 20px;*/
     /*padding: 0 10px;*/
     /*border: 1px solid #ddd;*/
+    /*background-color: aqua;*/
 }
 
 .control:not(:first-child) {

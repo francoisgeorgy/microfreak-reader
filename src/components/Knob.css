@@ -1,8 +1,8 @@
 .knob {
-    width: 80px;
+    width: 60px;
 }
 .knob text {
-    font-size: 1.25rem;     /* viewbox/width = 100/80 */
+    font-size: 1.8rem;     /* viewbox/width = 100/80 = 1.25 */
     fill: var(--knob-text);
 }
 

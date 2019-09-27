@@ -64,7 +64,7 @@ html[data-theme='darker'] {
     --switch-sel-text: #000;
     --knob-track-bg: #393939;
     --knob-track: #eec83f;
-    --knob-text: #eec83f;
+    --knob-text: #fff;
     --direct-access-bg: #000;
     --direct-access-border: #555;
     --direct-access-hover-bg: yellow!important;
@@ -95,7 +95,7 @@ html[data-theme='dark'] {
     --switch-sel-text: #000;
     --knob-track-bg: #494949;
     --knob-track: #eec83f;
-    --knob-text: #eec83f;
+    --knob-text: #fff;
     --direct-access-bg: #000;
     --direct-access-border: #555;
     --direct-access-hover-bg: yellow!important;

@@ -29,7 +29,7 @@ class Control extends Component {
                 {/*<div className="ctrl-value">{v}</div>*/}
                 {/*<div className="ctrl-value-hex">0x{h(state.preset[cc])}</div>*/}
                 <div className="ctrl-name">{control.name}</div>
-                {cc !== OSC_TYPE && <Knob value={v} decimals={1} />}
+                {cc !== OSC_TYPE && <Knob value={v + Math.random() * 100} decimals={1} />}
                 {cc === OSC_TYPE && <div className="osc">{mapped}</div>}
                 <ControlMods cc={cc} />
             </div>

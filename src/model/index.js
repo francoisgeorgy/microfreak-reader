@@ -99,7 +99,6 @@ export const ASSIGN1 = Symbol();
 export const ASSIGN2 = Symbol();
 export const ASSIGN3 = Symbol();
 
-export const GLIDE = Symbol();
 export const OSC_TYPE = Symbol();
 export const OSC_WAVE = Symbol();
 export const OSC_TIMBRE = Symbol();
@@ -107,17 +106,20 @@ export const OSC_SHAPE = Symbol();
 export const FILTER_CUTOFF = Symbol();
 export const FILTER_RESONANCE = Symbol();
 export const CYCLING_ENV_RISE = Symbol();
+export const CYCLING_ENV_RISE_SHAPE = Symbol();
 export const CYCLING_ENV_FALL = Symbol();
+export const CYCLING_ENV_FALL_SHAPE = Symbol();
 export const CYCLING_ENV_HOLD = Symbol();
 export const CYCLING_ENV_AMOUNT = Symbol();
 export const ARP_SEQ_RATE_FREE = Symbol();
 export const ARP_SEQ_RATE_SYNC = Symbol();
+export const ARP_SEQ_SWING = Symbol();
 export const LFO_RATE_FREE = Symbol();
 export const LFO_RATE_SYNC = Symbol();
 export const ENVELOPE_ATTACK = Symbol();
 export const ENVELOPE_DECAY = Symbol();
 export const ENVELOPE_SUSTAIN = Symbol();
-export const KEYBOARD_HOLD_BUTTON = Symbol();
+export const GLIDE = Symbol();
 export const SPICE = Symbol();
 
 // switches
@@ -126,9 +128,13 @@ export const AMP_MOD = Symbol();
 export const CYCLING_ENV_MODE = Symbol();
 export const LFO_SHAPE = Symbol();
 export const LFO_SYNC = Symbol();
+export const ARP = Symbol();
+export const SEQ = Symbol();
+export const ARP_SEQ_MOD = Symbol();
 export const ARP_SEQ_SYNC = Symbol();
 export const PARAPHONIC = Symbol();
 export const OCTAVE = Symbol();
+export const HOLD = Symbol();
 
 // names (labels)
 export const MOD_SOURCE = {
@@ -540,10 +546,25 @@ export const CONTROL = {
         mapping: null,
         name: 'Amount'
     },
+    [CYCLING_ENV_RISE_SHAPE]: {
+        MSB: [4, 20],
+        LSB: [4, 19],
+        msb: [4, 16, 0x04],
+        cc: 24,
+        mapping: null,
+        name: 'Rise shape'
+    },
+    [CYCLING_ENV_FALL_SHAPE]: {
+        MSB: [5, 26],
+        LSB: [5, 25],
+        msb: [5, 24, 0x01],
+        cc: 24,
+        mapping: null,
+        name: 'Fall shape'
+    },
     [ARP_SEQ_RATE_FREE]: {
         MSB: [10, 5],
         LSB: [10, 4],
-        //sign: [0, 0, 0x02],
         msb: [10, 0, 0x08],
         cc: 91,
         mapping: null,
@@ -552,11 +573,18 @@ export const CONTROL = {
     [ARP_SEQ_RATE_SYNC]: {
         MSB: [9, 27],
         LSB: [9, 26],
-        //sign: [0, 0, 0x02],
         msb: [9, 24, 0x02],
         cc: 92,
         mapping: null,
         name: 'Rate sync'
+    },
+    [ARP_SEQ_SWING]: {
+        MSB: [10, 17],
+        LSB: [10, 15],
+        msb: [19, 8, 0x40],
+        cc: 0,
+        mapping: null,  // 50%..75%
+        name: 'Swing'
     },
     [LFO_RATE_FREE]: {
         MSB: [13, 10],
@@ -601,7 +629,7 @@ export const CONTROL = {
         mapping: null,
         name: 'Sustain'
     },
-    // [KEYBOARD_HOLD_BUTTON]: {
+    // [HOLD]: {
     //     MSB: [0, 0],
     //     LSB: [0, 0],
     //     //sign: [0, 0, 0x02],
@@ -708,7 +736,6 @@ export const SWITCH = {
         MSB: [2, 18],
         LSB: [2, 17],
         msb: [2, 16, 0x01],
-        // mapping: _filter_type,
         values: [
             {name: 'LPF', value: 0},
             {name: 'BPF', value: 0x4000},
@@ -720,7 +747,6 @@ export const SWITCH = {
         MSB: [14, 17],
         LSB: [14, 15],
         msb: [14, 8, 0x40],
-        // mapping: _on_off,
         values: [
             {name: 'Off', value: 0},
             {name: 'On', value: 0x7fff}
@@ -752,7 +778,39 @@ export const SWITCH = {
         ],
         name: "Shape"
     },
-    [ARP_SEQ_SYNC]: {   
+    [ARP]: {
+        MSB: [9, 6],
+        LSB: [9, 5],
+        msb: [9, 0, 0x10],
+        values: [
+            {name: 'Off', value: 0},
+            {name: 'On', value: 0x7fff}
+        ],
+        name: "Arp"
+    },
+    [SEQ]: {
+        MSB: [12, 5],
+        LSB: [12, 4],
+        msb: [12, 0, 0x08],
+        values: [
+            {name: 'Off', value: 0},
+            {name: 'On', value: 0x7fff}
+        ],
+        name: "Seq"
+    },
+    [ARP_SEQ_MOD]: {
+        MSB: [9, 18],
+        LSB: [9, 17],
+        msb: [9, 16, 0x01],
+        values: [
+            {name: '1', value: 17408},
+            {name: '2', value: 10922},
+            {name: '3', value: 21845},
+            {name: '4', value: 0x7fff}
+        ],
+        name: "Mod"
+    },
+    [ARP_SEQ_SYNC]: {   //TODO
         MSB: [10, 27],
         LSB: [10, 26],
         msb: [10, 24, 0x02],
@@ -798,7 +856,7 @@ export const SWITCH = {
         ],
         name: "Octave"
     },
-    [KEYBOARD_HOLD_BUTTON]: {   //TODO
+    [HOLD]: {   //TODO
         MSB: [0, 0],
         LSB: [0, 0],
         msb: [0, 0, 0],
