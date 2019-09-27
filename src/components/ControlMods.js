@@ -40,9 +40,12 @@ class ControlMods extends Component {
                             return null;
                         }
                         return (
-                            <div key={i} className={`mod ${MOD_SOURCE_CSS[src]}`}>
-                                <div className="mod-name">{MOD_SOURCE[src]}</div>
-                                <div className="mod-value">{v}</div>
+                            <div key={i} className="mod" style={{background: `-webkit-linear-gradient(left, var(--${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)`}}>
+                                {/*<div className={`mod-fill ${MOD_SOURCE_CSS[src]}`} style={{width:"50%"}}>&nbsp;</div>*/}
+                                <div className="mod-text">
+                                    <div className="mod-name">{MOD_SOURCE[src]}</div>
+                                    <div className="mod-value">{v}</div>
+                                </div>
                             </div>
                         )
                     }

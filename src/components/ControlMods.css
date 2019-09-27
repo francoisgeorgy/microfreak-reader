@@ -1,13 +1,44 @@
 .mod {
-    margin: 2px 0;
-    border: 1px solid #aaa;
-
-    padding: 1px 2px;
+    margin: 3px 0 0 0;
+    /*border: 1px solid #aaa;*/
+    border: none;
+    background-color: #777;
+    color: #000;
     font-size: 67%;
+
+    /*padding: 1px 2px;*/
+
+    position: relative;
+
+    /*background: linear-gradient(left, black 50%, white 50%);*/
+    width: 100%;
+    background: -webkit-linear-gradient(left, black 50%, white 50%);
+    background: -moz-linear-gradient(left, black 50%, white 50%);
+    background: -ms-linear-gradient(left, black 50%, white 50%);
+    background: linear-gradient(left, black 50%, white 50%);
+}
+
+.mod-text-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.mod-text {
+    /*padding-left: 5px;*/
+
+    padding: 0 2px;
     display: flex;
     justify-content: space-between;
+    z-index: 10000;
 }
 
 .mod-name {
     margin-right: 4px;
+}
+
+.mod-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
