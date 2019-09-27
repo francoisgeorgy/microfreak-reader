@@ -24,7 +24,7 @@ class ControlMods extends Component {
                     (src, i) => {
                         if (!MOD_DESTINATION[cc]) {
                             // console.log("not a destination", cc, CONTROL[cc].name, MOD_DESTINATION[cc], MOD_DESTINATION[cc]);
-                            return;
+                            return null;
                         }
                         // console.log("source", src);
                         // console.log("destination", cc, CONTROL[cc].name);
@@ -33,10 +33,10 @@ class ControlMods extends Component {
                         //     return null;
                         // }
                         const v = S.modMatrixValue(MOD_MATRIX[src][cc]);
-                        console.log(v);
+                        // console.log(v);
                         // const v = S.modMatrixValue(MOD_MATRIX[CYC_ENV][CUTOFF]);
                         if (!v || (Math.abs(v) < 0.01)) {
-                            console.log("mod matrix too small ", v);
+                            // console.log("mod matrix too small ", v);
                             return null;
                         }
                         return (

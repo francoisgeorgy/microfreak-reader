@@ -32,6 +32,7 @@ footer {
     font-size: 2rem;
     display: flex;
     color: var(--title-text);
+    margin-bottom: 5px;
 }
 
 .main-grid {

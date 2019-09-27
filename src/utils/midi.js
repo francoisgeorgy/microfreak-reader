@@ -61,6 +61,8 @@ export function sendPC(n) {
 
 function sendNameRequest(presetNumber) {
 
+    // sendmidi dev arturia system-exclusive hex 00 20 6B 07 01 07 03 19 01 70 00
+
     if (!state.hasInputAndOutputEnabled()) {
         if (global.dev) console.log("sendPresetRequest: no output and/or input connected, ignore request");
         return;
@@ -74,7 +76,7 @@ function sendNameRequest(presetNumber) {
 
     if (global.dev) console.log(`sendNameRequest ${presetNumber}`, bank, preset);
 
-    const sequence = 0x01;
+    const sequence = 0x00;
     const READ_CMD = 0x19;
 
     const P = state.midi.ports;
@@ -82,7 +84,8 @@ function sendNameRequest(presetNumber) {
         if (P[port_id].enabled && P[port_id].type === PORT_OUTPUT) {
             const port = portById(port_id);
             if (global.dev) console.log(`send name request to ${port.name} ${port.id}`);
-            port.sendSysex([0x00, 0x20, 0x6b], [0x07, sequence, 0x03, 0x01, READ_CMD, bank, preset, 0x00]);
+            port.sendSysex([0x00, 0x20, 0x6b], [0x07, 0x01, sequence, 0x01, READ_CMD, bank, preset, 0x00]);
+            // sendmidi dev arturia system-exclusive hex 00 20 6B 07 01 07 03 19 01 70 00
         }
     }
 }

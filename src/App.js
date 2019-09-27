@@ -82,15 +82,15 @@ class App extends Component {
         }
 
         if (e.data[8] === 0x52) {
-            console.log("answer 0x52 contains name", hs(e.data));
-            state.data_name.push(Array.from(e.data.slice(9, e.data.length - 1)));    // e.data is UInt8Array
+            // console.log("answer 0x52 contains name", hs(e.data));
+            state.data_name = Array.from(e.data.slice(9, e.data.length - 1));    // e.data is UInt8Array
             return;
         }
 
         if (e.data[8] === 0x16) {
-            console.log("answer 0x16 is dump packet", hs(e.data));
+            // console.log("answer 0x16 is dump packet", hs(e.data));
         } else if (e.data[8] === 0x17) {
-            console.log("answer 0x17 is last dump packet", hs(e.data));
+            // console.log("answer 0x17 is last dump packet", hs(e.data));
         } else {
             console.warn(`answer 0x${h(e.data[8])} is unknown type`, hs(e.data));
         }

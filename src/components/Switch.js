@@ -13,7 +13,7 @@ class Switch extends Component {
 
         const v = S.switchValue(sw);
 
-        console.log("switch", sw.name, v);
+        // console.log("switch", sw.name, v);
 
         return (
             <div className={`switch`}>
@@ -21,7 +21,7 @@ class Switch extends Component {
                 <div className={`sw-values ${this.props.layout}`}>
                 {sw.values.map(
                     (s, index) => {
-                        console.log("switch loop", s, v);
+                        // console.log("switch loop", s, v);
                         return (
                             <div key={s.value} className={s.name === v ? 'sw-val sw-sel' : 'sw-val'}>{s.name}</div>
                         )

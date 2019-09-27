@@ -54,7 +54,14 @@ class MidiPortsSelect extends React.Component {
                 return <div className="warning banner">No MIDI device found.</div>
             }
 */
+            let selected_input = '';
+            let selected_output = '';
+            for (let [id, port] of Object.entries(ports)) {
+                if (!selected_input && port.enabled && port.type === PORT_INPUT) selected_input = id;
+                if (!selected_output && port.enabled && port.type === PORT_OUTPUT) selected_output = id;
+            }
 
+            console.log("MidiPortsSelect", selected_input, selected_output, ports);
 
             return (
                 <Fragment>
@@ -64,13 +71,15 @@ class MidiPortsSelect extends React.Component {
                     <div className="ports-row">
                         <div>
                             Input:
-                            <select onChange={this.selectInputPort}>
+                            <select onChange={this.selectInputPort} value={selected_input}>
                                 <option value="">select MIDI input...</option>
                             {
                                 Object.keys(ports).map(port_id => {
                                     const port = ports[port_id];
                                     if (port && port.type === PORT_INPUT) {
-                                        return <option value={port_id}>{port.name}</option>
+                                        return <option key={port_id} value={port_id}>{port.name}</option>
+                                    } else {
+                                        return null;
                                     }
                                 })
                             }
@@ -78,13 +87,15 @@ class MidiPortsSelect extends React.Component {
                         </div>
                         <div>
                             Output:
-                            <select onChange={this.selectOutputPort}>
+                            <select onChange={this.selectOutputPort} value={selected_output}>
                                 <option value="">select MIDI output...</option>
                                 {
                                     Object.keys(ports).map(port_id => {
                                         const port = ports[port_id];
                                         if (port && port.type === PORT_OUTPUT) {
-                                            return <option value={port_id}>{port.name}</option>
+                                            return <option key={port_id} value={port_id}>{port.name}</option>
+                                        } else {
+                                            return null;
                                         }
                                     })
                                 }

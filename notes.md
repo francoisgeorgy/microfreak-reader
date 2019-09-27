@@ -71,7 +71,7 @@ preset req:
 
 ###try with counter 0:
 
-counter 0x2D: 
+counter 0x2D, preset 0x16:
 
     sendmidi dev arturia system-exclusive hex 00 20 6B 07 01 2D 03 19 00 16 00
     system-exclusive                      hex 00 20 6B 07 01 2D 23 52 00 16 00 00 00 00 00 00 16 00 02 10 41 6C 69 47 6F 6F 70 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 dec

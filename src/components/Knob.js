@@ -99,6 +99,7 @@ function getArc(from_angle, to_angle, radius) {
     return `M ${x0},${y0} A ${radius},${radius} 0 ${large_arc},${arc_direction} ${x1},${y1}`;
 }
 
+/*
 function ValueText({ value, decimals }) {
     // console.log("ValueText", value);
     const path = getArc(
@@ -118,6 +119,7 @@ function ValueText({ value, decimals }) {
         </text>
     );
 }
+*/
 
 function Background() {
     return (
