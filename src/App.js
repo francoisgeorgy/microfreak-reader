@@ -33,10 +33,11 @@ import {
 } from "./model";
 import PresetSelector from "./components/PresetSelector";
 import ModMatrix from "./components/ModMatrix";
-import {hs} from "./utils/hexstring";
+import {h, hs} from "./utils/hexstring";
 import Switch from "./components/Switch";
 import ReadProgress from "./components/ReadProgress";
 import MidiPortsSelect from "./components/MidiPortsSelect";
+import PresetName from "./components/PresetName";
 
 const MIDI_MSG_TYPE = "sysex";
 const DEFAULT_THEME = 'dark';
@@ -75,6 +76,24 @@ class App extends Component {
         // if (global.dev) console.log(`handleMidiInputEvent: ${e.controller.number}=${e.value}`);
         // state.preset[e.controller.number] = e.value;
 
+        if (e.data.length < 10) {
+            console.log("answer to short", hs(e.data));
+            return;
+        }
+
+        if (e.data[8] === 0x52) {
+            console.log("answer 0x52 contains name", hs(e.data));
+            state.data_name.push(Array.from(e.data.slice(9, e.data.length - 1)));    // e.data is UInt8Array
+            return;
+        }
+
+        if (e.data[8] === 0x16) {
+            console.log("answer 0x16 is dump packet", hs(e.data));
+        } else if (e.data[8] === 0x17) {
+            console.log("answer 0x17 is last dump packet", hs(e.data));
+        } else {
+            console.warn(`answer 0x${h(e.data[8])} is unknown type`, hs(e.data));
+        }
 
         if (e.data.length !== 42) {
             console.log("do not store answer", hs(e.data));
@@ -118,6 +137,7 @@ class App extends Component {
                                 <PresetSelector />
                                 <ReadProgress />
                                 {/*TODO: add compare*/}
+                                <PresetName />
                             </div>
                             <div className="group oscillator">
                                 <h3>Oscillator</h3>

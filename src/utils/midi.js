@@ -59,6 +59,34 @@ export function sendPC(n) {
     }
 }
 
+function sendNameRequest(presetNumber) {
+
+    if (!state.hasInputAndOutputEnabled()) {
+        if (global.dev) console.log("sendPresetRequest: no output and/or input connected, ignore request");
+        return;
+    }
+
+    // presetNumber is 1-indexed
+    // in the request we must use 0-indexed
+
+    const bank = presetNumber > 128 ? 1 : 0;
+    const preset = (presetNumber-1) % 128;
+
+    if (global.dev) console.log(`sendNameRequest ${presetNumber}`, bank, preset);
+
+    const sequence = 0x01;
+    const READ_CMD = 0x19;
+
+    const P = state.midi.ports;
+    for (const port_id of Object.keys(P)) {
+        if (P[port_id].enabled && P[port_id].type === PORT_OUTPUT) {
+            const port = portById(port_id);
+            if (global.dev) console.log(`send name request to ${port.name} ${port.id}`);
+            port.sendSysex([0x00, 0x20, 0x6b], [0x07, sequence, 0x03, 0x01, READ_CMD, bank, preset, 0x00]);
+        }
+    }
+}
+
 function sendPresetRequest(presetNumber) {
 
     if (!state.hasInputAndOutputEnabled()) {

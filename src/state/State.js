@@ -22,6 +22,8 @@ class State {
     data = [];
     dataRef = [];   // copy used as reference for comparisons
 
+    data_name = [0x01, 0x65, 0x00, 0x18, 0x00, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x10, 0x44, 0x69, 0x73, 0x72, 0x65, 0x73, 0x70, 0x65, 0x63, 0x74, 0x66];
+
     addPort(port) {
         // eslint-disable-next-line
         if (this.midi.ports.hasOwnProperty(port.id) && this.midi.ports[port.id] !== null) {
@@ -276,6 +278,24 @@ class State {
         return control;
     };
 
+    presetName() {
+        if (this.data_name.length < 13) {
+            return '';
+        }
+
+        // [0x01, 0x65, 0x00, 0x18, 0x00, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x10, 0x44, 0x69, 0x73, 0x72, 0x65, 0x73, 0x70, 0x65, 0x63, 0x74, 0x66]
+        //     0                                                                11    12
+
+        let name = '';
+        let i = 12;
+        while (i < this.data_name.length && this.data_name[i] !== 0) {
+            name += String.fromCharCode(this.data_name[i]);
+            i++;
+        }
+
+        return name;
+    }
+
 }
 
 // https://mobx.js.org/best/decorators.html
@@ -284,6 +304,7 @@ decorate(State, {
     preset: observable,
     data: observable,
     dataRef: observable,
+    data_name: observable,
     lock: observable
 });
 
