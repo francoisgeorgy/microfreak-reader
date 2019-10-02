@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './themes.css';
 import './index.css';
+import './print.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
