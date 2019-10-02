@@ -33,6 +33,7 @@ class ControlMods extends Component {
                         //     return null;
                         // }
                         const v = S.modMatrixValue(MOD_MATRIX[src][cc]);
+                        // const v = Math.round(Math.random() * 1000) / 10;
                         // console.log(v);
                         // const v = S.modMatrixValue(MOD_MATRIX[CYC_ENV][CUTOFF]);
                         if (!v || (Math.abs(v) < 0.01)) {
@@ -40,7 +41,7 @@ class ControlMods extends Component {
                             return null;
                         }
                         return (
-                            <div key={i} className="mod" style={{background: `-webkit-linear-gradient(left, var(--${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)`}}>
+                            <div key={i} className="mod" style={{background: `linear-gradient(to right, var(--${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)`}}>
                                 {/*<div className={`mod-fill ${MOD_SOURCE_CSS[src]}`} style={{width:"50%"}}>&nbsp;</div>*/}
                                 <div className="mod-text">
                                     <div className="mod-name">{MOD_SOURCE[src]}</div>

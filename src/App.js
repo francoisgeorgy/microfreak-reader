@@ -29,7 +29,7 @@ import {
     OSC_SHAPE,
     OSC_TIMBRE,
     OSC_TYPE,
-    OSC_WAVE, PARAPHONIC, ARP, SEQ, ARP_SEQ_MOD, CYCLING_ENV_RISE_SHAPE, CYCLING_ENV_FALL_SHAPE, ARP_SEQ_SWING
+    OSC_WAVE, PARAPHONIC, ARP, SEQ, ARP_SEQ_MOD, CYCLING_ENV_RISE_SHAPE, CYCLING_ENV_FALL_SHAPE, ARP_SEQ_SWING, PITCH
 } from "./model";
 import PresetSelector from "./components/PresetSelector";
 import ModMatrix from "./components/ModMatrix";
@@ -38,6 +38,7 @@ import Switch from "./components/Switch";
 import ReadProgress from "./components/ReadProgress";
 import MidiPortsSelect from "./components/MidiPortsSelect";
 import PresetName from "./components/PresetName";
+import ControlMods from "./components/ControlMods";
 
 const MIDI_MSG_TYPE = "sysex";
 const DEFAULT_THEME = 'dark';
@@ -110,8 +111,6 @@ class App extends Component {
 
         const { theme } = this.state;
         document.documentElement.setAttribute('data-theme', theme);
-
-
 
         return (
             <Provider state={state}>
@@ -209,7 +208,10 @@ class App extends Component {
                             <div className="group keyboard">
                                 <h3>Keyboard</h3>
                                 <div className="controls">
-                                    <div>Pitch</div>    {/*TODO: pitch mod*/}
+                                    <div className={`control`}>
+                                        <div className="ctrl-name">Pitch</div>
+                                        <ControlMods cc={PITCH} />
+                                    </div>
                                     <Switch cc={PARAPHONIC} />
                                     <Switch cc={OCTAVE} layout={LAYOUT_1_ROW} />
                                     <Switch cc={HOLD}/>

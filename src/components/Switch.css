@@ -11,9 +11,16 @@
     /*padding: 1px 2px 0 2px;*/
 /*}*/
 
-.layout-2-cols {
+.sw-values {
     display: grid;
+    grid-template-columns: auto;
+    justify-items: start;
+}
+
+.layout-2-cols {
+    /*display: grid;*/
     grid-template-columns: auto auto;
+    grid-column-gap: 2px;
 }
 
 .layout-1-row {
@@ -26,7 +33,7 @@
 
 .sw-val {
     margin-bottom: 2px;
-    padding: 1px 2px 0 2px;
+    padding: 1px 3px 0 2px;
     color: #aaa;
 }
 
