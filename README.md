@@ -2,11 +2,16 @@
 
 Web tools for the Arturia MicroFreak synthesizer
 
+## Mod Matrix
 
-MIDI implementation chart: https://www.arturia.com/faq/microfreak/microfreak-general-questions
+
+
+
 
 
 ## CC values
+
+MIDI implementation chart: https://www.arturia.com/faq/microfreak/microfreak-general-questions
 
 ### CC9 Oscillator Type
     

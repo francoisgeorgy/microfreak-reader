@@ -4,13 +4,14 @@ import {CONTROL, OSC_TYPE} from "../model";
 import "./Control.css";
 import Knob from "./Knob";
 import ControlMods from "./ControlMods";
+import ControlModsAssign from "./ControlModsAssign";
 
 
 class Control extends Component {
 
     render() {
 
-        // console.log("Control.render");
+        // console.log("Control.render", this.props.group);
 
         const {cc, state: S} = this.props;
         const control = CONTROL[cc];
@@ -33,6 +34,7 @@ class Control extends Component {
                 {cc === OSC_TYPE && <div className="osc">{mapped}</div>}
                 {cc !== OSC_TYPE && <div className="ctrl-value">{v.toFixed(1)}</div>}
                 <ControlMods cc={cc} />
+                {this.props.group && <ControlModsAssign cc={cc} group={this.props.group}/>}
             </div>
         );
 
