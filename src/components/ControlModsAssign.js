@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {
     MOD_DESTINATION,
-    MOD_MATRIX,
     MOD_SOURCE,
-    MOD_SOURCE_CSS
+    MOD_SOURCE_CSS, MOD_SOURCE_SHORT
 } from "../model";
 import {inject, observer} from "mobx-react";
 
@@ -26,17 +25,20 @@ class ControlModsAssign extends Component {
                             return null;
                         }
 
-                        // const v = S.modMatrixValue(MOD_MATRIX[src][cc]);
-                        const v = Math.round(Math.random() * 1000) / 10;    // DEBUG
+                        const v = S.modMatrixValue(src, cc);
+                        // const v = Math.round(Math.random() * 1000) / 10;    // DEBUG
                         // console.log(v);
 
                         if (!v || (Math.abs(v) < 0.01)) {
                             return null;
                         }
+
+                        const direction = v < 0 ? 'to left' : 'to right';
+
                         return (
-                            <div key={i} className="mod" style={{background: `linear-gradient(to right, var(--${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)`}}>
+                            <div key={i} className="mod" style={{background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)`}}>
                                 <div className="mod-text">
-                                    <div className="mod-name">{MOD_SOURCE[src]}</div>
+                                    <div className="mod-name">{MOD_SOURCE_SHORT[src]}</div>
                                     <div className="mod-value">{v}</div>
                                 </div>
                             </div>

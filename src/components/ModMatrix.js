@@ -4,15 +4,66 @@ import {
     ASSIGN1,
     ASSIGN2,
     ASSIGN3,
-    MOD_ASSIGN_TARGET,
-    MOD_DESTINATION,
+    MOD_DESTINATION, MOD_GROUP_MOD_DEST, MOD_MATRIX_DESTINATION,
     MOD_SOURCE,
     MOD_SOURCE_CSS
 } from "../model";
-import {MOD_MATRIX} from "../model";
 import "./ModMatrix.css"
 
 class ModMatrix extends Component {
+
+    Mods = (src, dest) => {
+        console.log("Mods", src, dest);     // Symbol(MOD_SRC_CYC_ENV) Symbol(PITCH)
+
+        const S = this.props.state;
+
+        let mods = [];
+
+        for (let slot of [ASSIGN1, ASSIGN2, ASSIGN3]) {
+            // const slot = ASSIGN1;
+
+            const dest_def = S.modAssignDest(slot);
+            if (!dest_def) {
+                continue;
+            }
+
+            // console.log("MODS", slot);
+
+            // const mod_target = MOD_GROUP_MOD_DEST[dest]
+            //const control = dest_def.control[S.modAssignControlNum(dest)];
+            // console.log("Mods matrix mod", src, dest, MOD_GROUP_MOD_DEST[dest], dest_def);
+
+            if (MOD_GROUP_MOD_DEST[dest] === dest_def.mod_group) {
+                console.log("Mods matrix mod dest def", slot, src, dest, dest_def);
+                const control = dest_def.control[S.modAssignControlNum(slot)];
+                if (control === src) {
+                    // console.log("Mods matrix mod ifself", src, dest, control, dest_def.mod_group);
+                    // console.log("Mods matrix mod ifself sources", Object.keys(MOD_SOURCE));
+                    // return <div>mods {MOD_DESTINATION[control]} {MOD_GROUP_NAME[dest_def.mod_group]}</div>
+                    // return <div>{S.modDestName(slot)}</div>;
+                    for (let mod_src of Object.getOwnPropertySymbols(MOD_SOURCE)) {
+                        // console.log("Mods matrix mod v", mod_src, slot);
+                        const v = S.modMatrixValue(mod_src, slot, true);
+                        if (v !== 0) {
+                            mods.push(<div>{MOD_SOURCE[mod_src]} {v}</div>);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        return mods;
+
+        //
+        // ModMatrix.js:82 ------ Symbol(MOD_SRC_LFO) x Symbol(OSC_WAVE) ------
+        // ModMatrix.js:28 Mods Symbol(MOD_SRC_LFO) Symbol(OSC_WAVE)
+        // ModMatrix.js:36 Mods matrix mod   Symbol(MOD_SRC_LFO)    Symbol(OSC_WAVE)    Symbol(MOD_GROUP_MATRIX_WAVE)   {mod_group: Symbol(MOD_GROUP_MATRIX_WAVE), control: {…}}
+
+        // Mods Symbol(MOD_SRC_CYC_ENV) Symbol(PITCH)
+        // modAssignDest 11 (2) [21, 5] {mod_group: Symbol(MOD_GROUP_MATRIX_WAVE), control: {…}}
+
+    };
 
     render() {
         const S = this.props.state;
@@ -20,7 +71,11 @@ class ModMatrix extends Component {
         return (
             <div className="mod-matrix">
                 <div></div>
-                {Object.getOwnPropertySymbols(MOD_DESTINATION).map(
+                {Object.getOwnPropertySymbols(MOD_MATRIX_DESTINATION).map(
+                    (dest, i) => {
+                        return (<div key={i} className="mod-matrix-dest">{S.modDestName(dest)}</div>);
+                    }
+/*
                     (sym, i) => {
                         let d = MOD_DESTINATION[sym];
                         if (sym === ASSIGN1 || sym === ASSIGN2 || sym === ASSIGN3) {
@@ -38,16 +93,22 @@ class ModMatrix extends Component {
                         }
                         return (<div key={i} className="mod-matrix-dest">{d}</div>)
                     }
+*/
                 )}
                 {Object.getOwnPropertySymbols(MOD_SOURCE).map(
                     (src, i) => {
                         return (
                             <Fragment key={i}>
                                 <div className="mod-matrix-col-header"><div className={MOD_SOURCE_CSS[src]}>{MOD_SOURCE[src]}</div></div>
-                                {Object.getOwnPropertySymbols(MOD_DESTINATION).map(
+                                {Object.getOwnPropertySymbols(MOD_MATRIX_DESTINATION).map(
                                     (dst, j) => {
-                                        const v = S.modMatrixValue(MOD_MATRIX[src][dst]);
-                                        return <div key={j} className="mod-matrix-value">{Math.abs(v) > 0.00 ? v : ''}</div>
+                                        const v = S.modMatrixValue(src, dst);
+                                        return (
+                                            <div key={j} className="mod-matrix-value">
+                                                {Math.abs(v) > 0.00 ? v : ''}
+                                                {this.Mods(src, dst)}
+                                            </div>
+                                        );
                                     }
                                 )}
                             </Fragment>

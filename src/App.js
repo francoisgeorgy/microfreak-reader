@@ -41,12 +41,12 @@ import {
     CYCLING_ENV_FALL_SHAPE,
     ARP_SEQ_SWING,
     PITCH,
-    CONTROL_GROUP_OSC,
-    CONTROL_GROUP_FILTER,
-    CONTROL_GROUP_CYCLING_ENV,
-    CONTROL_GROUP_LFO,
-    CONTROL_GROUP_ARP_SEQ,
-    CONTROL_GROUP_ENVELOPE, CONTROL_GROUP_KEYBOARD
+    MOD_GROUP_OSC,
+    MOD_GROUP_FILTER,
+    MOD_GROUP_CYCLING_ENV,
+    MOD_GROUP_LFO,
+    MOD_GROUP_ARP_SEQ,
+    MOD_GROUP_ENVELOPE, MOD_GROUP_KEYBOARD
 } from "./model";
 import PresetSelector from "./components/PresetSelector";
 import ModMatrix from "./components/ModMatrix";
@@ -165,30 +165,30 @@ class App extends Component {
                             <div className="group oscillator">
                                 <h3>Oscillator</h3>
                                 <div className="controls">
-                                    <Control cc={OSC_TYPE} group={CONTROL_GROUP_OSC}/>
-                                    <Control cc={OSC_WAVE} group={CONTROL_GROUP_OSC}/>
-                                    <Control cc={OSC_TIMBRE} group={CONTROL_GROUP_OSC}/>
-                                    <Control cc={OSC_SHAPE} group={CONTROL_GROUP_OSC}/>
+                                    <Control cc={OSC_TYPE} group={MOD_GROUP_OSC}/>
+                                    <Control cc={OSC_WAVE} group={MOD_GROUP_OSC}/>
+                                    <Control cc={OSC_TIMBRE} group={MOD_GROUP_OSC}/>
+                                    <Control cc={OSC_SHAPE} group={MOD_GROUP_OSC}/>
                                 </div>
                             </div>
                             <div className="group filter">
                                 <h3>Filter</h3>
                                 <div className="controls">
                                     <Switch cc={FILTER_TYPE}/>
-                                    <Control cc={FILTER_CUTOFF} group={CONTROL_GROUP_FILTER}/>
-                                    <Control cc={FILTER_RESONANCE} group={CONTROL_GROUP_FILTER}/>
+                                    <Control cc={FILTER_CUTOFF} group={MOD_GROUP_FILTER}/>
+                                    <Control cc={FILTER_RESONANCE} group={MOD_GROUP_FILTER}/>
                                 </div>
                             </div>
                             <div className="group cycling-env">
                                 <h3>Cycling envelope</h3>
                                 <div className="controls">
                                     <Switch cc={CYCLING_ENV_MODE} />
-                                    <Control cc={CYCLING_ENV_RISE} group={CONTROL_GROUP_CYCLING_ENV}/>
+                                    <Control cc={CYCLING_ENV_RISE} group={MOD_GROUP_CYCLING_ENV}/>
                                     <Control cc={CYCLING_ENV_RISE_SHAPE}/>
-                                    <Control cc={CYCLING_ENV_FALL} group={CONTROL_GROUP_CYCLING_ENV}/>
+                                    <Control cc={CYCLING_ENV_FALL} group={MOD_GROUP_CYCLING_ENV}/>
                                     <Control cc={CYCLING_ENV_FALL_SHAPE}/>
-                                    <Control cc={CYCLING_ENV_HOLD} group={CONTROL_GROUP_CYCLING_ENV}/>
-                                    <Control cc={CYCLING_ENV_AMOUNT} group={CONTROL_GROUP_CYCLING_ENV}/>
+                                    <Control cc={CYCLING_ENV_HOLD} group={MOD_GROUP_CYCLING_ENV}/>
+                                    <Control cc={CYCLING_ENV_AMOUNT} group={MOD_GROUP_CYCLING_ENV}/>
                                 </div>
                             </div>
                             <div className="group arp-seq">
@@ -198,8 +198,8 @@ class App extends Component {
                                     <Switch cc={SEQ} />
                                     <Switch cc={ARP_SEQ_MOD} layout={LAYOUT_2_COLS}/>
                                     <Switch cc={ARP_SEQ_SYNC} />
-                                    <Control cc={ARP_SEQ_RATE_FREE} group={CONTROL_GROUP_ARP_SEQ}/>
-                                    <Control cc={ARP_SEQ_RATE_SYNC} group={CONTROL_GROUP_ARP_SEQ}/>
+                                    <Control cc={ARP_SEQ_RATE_FREE} group={MOD_GROUP_ARP_SEQ}/>
+                                    <Control cc={ARP_SEQ_RATE_SYNC} group={MOD_GROUP_ARP_SEQ}/>
                                     <Control cc={ARP_SEQ_SWING} />
                                     <Control cc={SPICE}/>
                                 </div>
@@ -209,17 +209,17 @@ class App extends Component {
                                 <div className="controls">
                                     <Switch cc={LFO_SHAPE} layout={LAYOUT_2_COLS}/>
                                     <Switch cc={LFO_SYNC} />
-                                    <Control cc={LFO_RATE_FREE} group={CONTROL_GROUP_LFO}/>
-                                    <Control cc={LFO_RATE_SYNC} group={CONTROL_GROUP_LFO}/>
+                                    <Control cc={LFO_RATE_FREE} group={MOD_GROUP_LFO}/>
+                                    <Control cc={LFO_RATE_SYNC} group={MOD_GROUP_LFO}/>
                                 </div>
                             </div>
                             <div className="group env">
                                 <h3>Envelope</h3>
                                 <div className="controls">
                                     <Switch cc={AMP_MOD} />
-                                    <Control cc={ENVELOPE_ATTACK} group={CONTROL_GROUP_ENVELOPE}/>
-                                    <Control cc={ENVELOPE_DECAY} group={CONTROL_GROUP_ENVELOPE}/>
-                                    <Control cc={ENVELOPE_SUSTAIN} group={CONTROL_GROUP_ENVELOPE}/>
+                                    <Control cc={ENVELOPE_ATTACK} group={MOD_GROUP_ENVELOPE}/>
+                                    <Control cc={ENVELOPE_DECAY} group={MOD_GROUP_ENVELOPE}/>
+                                    <Control cc={ENVELOPE_SUSTAIN} group={MOD_GROUP_ENVELOPE}/>
                                 </div>
                             </div>
                             <div className="group keyboard">
@@ -232,7 +232,7 @@ class App extends Component {
                                     <Switch cc={PARAPHONIC} />
                                     <Switch cc={OCTAVE} layout={LAYOUT_1_ROW} />
                                     <Switch cc={HOLD}/>
-                                    <Control cc={GLIDE} group={CONTROL_GROUP_KEYBOARD}/>
+                                    <Control cc={GLIDE} group={MOD_GROUP_KEYBOARD}/>
                                 </div>
                             </div>
 {/*

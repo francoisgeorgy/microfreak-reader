@@ -32,13 +32,6 @@ export const multibytesValue = (MSB, LSB, msb_byte, mask_msb, sign_byte, mask_si
     }
 
     return raw;
-
-    //TODO: move rounding in caller
-
-    // round to one decimal is done with Math.round(n * 10) / 10.
-
-    // return Math.round(raw * 1000 / 32768) / 10;
-    // return Math.round(f) / 10;
 };
 
 
@@ -85,92 +78,115 @@ const _0_100 = function (v) {
 export const DEFAULT_msb_mask = 0x01;
 export const DEFAULT_sign_mask = 0x02;
 
-export const CYC_ENV = Symbol();
-export const ENV = Symbol();
-export const PRESS = Symbol();
-export const KEY_ARP = Symbol();
-export const LFO = Symbol();
-
-export const PITCH = Symbol();
-// export const WAVE = Symbol();
-// export const TIMBRE = Symbol();
-// export const CUTOFF = Symbol();
-export const ASSIGN1 = Symbol();
-export const ASSIGN2 = Symbol();
-export const ASSIGN3 = Symbol();
-
-export const CONTROL_GROUP_OSC = Symbol();
-export const CONTROL_GROUP_FILTER = Symbol();
-export const CONTROL_GROUP_CYCLING_ENV = Symbol();
-export const CONTROL_GROUP_ENVELOPE = Symbol();
-export const CONTROL_GROUP_LFO = Symbol();
-export const CONTROL_GROUP_ARP_SEQ = Symbol();  //TODO: define in MOD_ASSIGN_TARGET
-export const CONTROL_GROUP_KEYBOARD = Symbol(); //TODO: define in MOD_ASSIGN_TARGET
-export const CONTROL_GROUP_MOD_TARGET_PITCH = Symbol();
-export const CONTROL_GROUP_MOD_TARGET_WAVE = Symbol();
-export const CONTROL_GROUP_MOD_TARGET_TIMBRE = Symbol();
-export const CONTROL_GROUP_MOD_TARGET_CUTOFF = Symbol();
-export const CONTROL_GROUP_MOD_TARGET_ASSIGN1 = Symbol();
-export const CONTROL_GROUP_MOD_TARGET_ASSIGN2 = Symbol();
-export const CONTROL_GROUP_MOD_TARGET_ASSIGN3 = Symbol();
-
-export const OSC_TYPE = Symbol();
-export const OSC_WAVE = Symbol();
-export const OSC_TIMBRE = Symbol();
-export const OSC_SHAPE = Symbol();
-export const FILTER_CUTOFF = Symbol();
-export const FILTER_RESONANCE = Symbol();
-export const CYCLING_ENV_RISE = Symbol();
-export const CYCLING_ENV_RISE_SHAPE = Symbol();
-export const CYCLING_ENV_FALL = Symbol();
-export const CYCLING_ENV_FALL_SHAPE = Symbol();
-export const CYCLING_ENV_HOLD = Symbol();
-export const CYCLING_ENV_AMOUNT = Symbol();
-export const ARP_SEQ_RATE_FREE = Symbol();
-export const ARP_SEQ_RATE_SYNC = Symbol();
-export const ARP_SEQ_SWING = Symbol();
-export const LFO_RATE_FREE = Symbol();
-export const LFO_RATE_SYNC = Symbol();
-export const ENVELOPE_ATTACK = Symbol();
-export const ENVELOPE_DECAY = Symbol();
-export const ENVELOPE_SUSTAIN = Symbol();
-export const GLIDE = Symbol();
-export const SPICE = Symbol();
+// controls
+export const OSC_TYPE = Symbol('OSC_TYPE');
+export const OSC_WAVE = Symbol('OSC_WAVE');
+export const OSC_TIMBRE = Symbol('OSC_TIMBRE');
+export const OSC_SHAPE = Symbol('OSC_SHAPE');
+export const FILTER_CUTOFF = Symbol('FILTER_CUTOFF');
+export const FILTER_RESONANCE = Symbol('FILTER_RESONANCE');
+export const CYCLING_ENV_RISE = Symbol('CYCLING_ENV_RISE');
+export const CYCLING_ENV_RISE_SHAPE = Symbol('CYCLING_ENV_RISE_SHAPE');
+export const CYCLING_ENV_FALL = Symbol('CYCLING_ENV_FALL');
+export const CYCLING_ENV_FALL_SHAPE = Symbol('CYCLING_ENV_FALL_SHAPE');
+export const CYCLING_ENV_HOLD = Symbol('CYCLING_ENV_HOLD');
+export const CYCLING_ENV_AMOUNT = Symbol('CYCLING_ENV_AMOUNT');
+export const ARP_SEQ_RATE_FREE = Symbol('ARP_SEQ_RATE_FREE');
+export const ARP_SEQ_RATE_SYNC = Symbol('ARP_SEQ_RATE_SYNC');
+export const ARP_SEQ_SWING = Symbol('ARP_SEQ_SWING');
+export const LFO_RATE_FREE = Symbol('LFO_RATE_FREE');
+export const LFO_RATE_SYNC = Symbol('LFO_RATE_SYNC');
+export const ENVELOPE_ATTACK = Symbol('ENVELOPE_ATTACK');
+export const ENVELOPE_DECAY = Symbol('ENVELOPE_DECAY');
+export const ENVELOPE_SUSTAIN = Symbol('ENVELOPE_SUSTAIN');
+export const GLIDE = Symbol('GLIDE');
+export const SPICE = Symbol('SPICE');
 
 // switches
-export const FILTER_TYPE = Symbol();
-export const AMP_MOD = Symbol();
-export const CYCLING_ENV_MODE = Symbol();
-export const LFO_SHAPE = Symbol();
-export const LFO_SYNC = Symbol();
-export const ARP = Symbol();
-export const SEQ = Symbol();
-export const ARP_SEQ_MOD = Symbol();
-export const ARP_SEQ_SYNC = Symbol();
-export const PARAPHONIC = Symbol();
-export const OCTAVE = Symbol();
-export const HOLD = Symbol();
+export const FILTER_TYPE = Symbol('FILTER_TYPE');
+export const AMP_MOD = Symbol('AMP_MOD');
+export const CYCLING_ENV_MODE = Symbol('CYCLING_ENV_MODE');
+export const LFO_SHAPE = Symbol('LFO_SHAPE');
+export const LFO_SYNC = Symbol('LFO_SYNC');
+export const ARP = Symbol('ARP');
+export const SEQ = Symbol('SEQ');
+export const ARP_SEQ_MOD = Symbol('ARP_SEQ_MOD');
+export const ARP_SEQ_SYNC = Symbol('ARP_SEQ_SYNC');
+export const PARAPHONIC = Symbol('PARAPHONIC');
+export const OCTAVE = Symbol('OCTAVE');
+export const HOLD = Symbol('HOLD');
+
+// misc mod destination
+export const LFO_DIVISION = Symbol('LFO_DIVISION');
+export const LFO_RATE = Symbol('LFO_RATE');
+export const PITCH = Symbol('PITCH');
+
+// mod-matrix sources:
+export const MOD_SRC_CYC_ENV = Symbol('MOD_SRC_CYC_ENV');
+export const MOD_SRC_ENV = Symbol('MOD_SRC_ENV');
+export const MOD_SRC_PRESS = Symbol('MOD_SRC_PRESS');
+export const MOD_SRC_KEY_ARP = Symbol('MOD_SRC_KEY_ARP');
+export const MOD_SRC_LFO = Symbol('MOD_SRC_LFO');
+
+// // mod-matrix destinations not in control or switch:
+export const ASSIGN1 = Symbol('ASSIGN1');
+export const ASSIGN2 = Symbol('ASSIGN2');
+export const ASSIGN3 = Symbol('ASSIGN3');
+
+export const MOD_GROUP_OSC = Symbol('MOD_GROUP_OSC');
+export const MOD_GROUP_FILTER = Symbol('MOD_GROUP_FILTER');
+export const MOD_GROUP_CYCLING_ENV = Symbol('MOD_GROUP_CYCLING_ENV');
+export const MOD_GROUP_ENVELOPE = Symbol('MOD_GROUP_ENVELOPE');
+export const MOD_GROUP_LFO = Symbol('MOD_GROUP_LFO');
+export const MOD_GROUP_ARP_SEQ = Symbol('MOD_GROUP_ARP_SEQ');  //TODO: define in MOD_ASSIGN_DEST
+export const MOD_GROUP_KEYBOARD = Symbol('MOD_GROUP_KEYBOARD'); //TODO: define in MOD_ASSIGN_DEST
+export const MOD_GROUP_MATRIX_PITCH = Symbol('MOD_GROUP_MATRIX_PITCH');
+export const MOD_GROUP_MATRIX_WAVE = Symbol('MOD_GROUP_MATRIX_WAVE');
+export const MOD_GROUP_MATRIX_TIMBRE = Symbol('MOD_GROUP_MATRIX_TIMBRE');
+export const MOD_GROUP_MATRIX_CUTOFF = Symbol('MOD_GROUP_MATRIX_CUTOFF');
+export const MOD_GROUP_MATRIX_ASSIGN1 = Symbol('MOD_GROUP_MATRIX_ASSIGN1');
+export const MOD_GROUP_MATRIX_ASSIGN2 = Symbol('MOD_GROUP_MATRIX_ASSIGN2');
+export const MOD_GROUP_MATRIX_ASSIGN3 = Symbol('MOD_GROUP_MATRIX_ASSIGN3');
+
+// mapping utility
+export const MOD_GROUP_MOD_DEST = {
+    [PITCH]: MOD_GROUP_MATRIX_PITCH,
+    [OSC_WAVE]: MOD_GROUP_MATRIX_WAVE,
+    [OSC_TIMBRE]: MOD_GROUP_MATRIX_TIMBRE,
+    [FILTER_CUTOFF]: MOD_GROUP_MATRIX_CUTOFF,
+    [ASSIGN1]: MOD_GROUP_MATRIX_ASSIGN1,
+    [ASSIGN2]: MOD_GROUP_MATRIX_ASSIGN2,
+    [ASSIGN3]: MOD_GROUP_MATRIX_ASSIGN3,
+}
 
 // names (labels)
 export const MOD_SOURCE = {
-    [CYC_ENV] : 'Cyclic Env',
-    [ENV]: 'Env',
-    [LFO]: 'LFO',
-    [PRESS]: 'Pressure',
-    [KEY_ARP]: 'Key/Arp'
+    [MOD_SRC_CYC_ENV] : 'Cyclic Env',
+    [MOD_SRC_ENV]: 'Env',
+    [MOD_SRC_LFO]: 'LFO',
+    [MOD_SRC_PRESS]: 'Pressure',
+    [MOD_SRC_KEY_ARP]: 'Key/Arp'
+};
+
+export const MOD_SOURCE_SHORT = {
+    [MOD_SRC_CYC_ENV] : 'CycEnv',
+    [MOD_SRC_ENV]: 'Env',
+    [MOD_SRC_LFO]: 'LFO',
+    [MOD_SRC_PRESS]: 'Press',
+    [MOD_SRC_KEY_ARP]: 'Key/Arp'
 };
 
 export const MOD_SOURCE_CSS = {
-    [CYC_ENV] : 'mod-src-cyc_env',
-    [ENV]: 'mod-src-env',
-    [LFO]: 'mod-src-lfo',
-    [PRESS]: 'mod-src-press',
-    [KEY_ARP]: 'mod-src-key_arp'
+    [MOD_SRC_CYC_ENV] : 'mod-src-cyc_env',
+    [MOD_SRC_ENV]: 'mod-src-env',
+    [MOD_SRC_LFO]: 'mod-src-lfo',
+    [MOD_SRC_PRESS]: 'mod-src-press',
+    [MOD_SRC_KEY_ARP]: 'mod-src-key_arp'
 };
 
-
 // names (labels)
-export const MOD_DESTINATION = {
+// Mod Matrix desitnation row (name of columns)
+export const MOD_MATRIX_DESTINATION = {
     [PITCH]: 'Pitch',
     [OSC_WAVE]: 'Wave',
     [OSC_TIMBRE]: 'Timbre',
@@ -180,46 +196,68 @@ export const MOD_DESTINATION = {
     [ASSIGN3]: 'Assign 3'
 };
 
-// names (labels)
-export const CONTROL_GROUP_NAME = {
-    [CONTROL_GROUP_OSC]: 'Osc',
-    [CONTROL_GROUP_FILTER]: 'Filter',
-    [CONTROL_GROUP_CYCLING_ENV]: 'Cyc Env',
-    [CONTROL_GROUP_ENVELOPE]: 'Env',
-    [CONTROL_GROUP_LFO]: 'LFO',
-    [CONTROL_GROUP_ARP_SEQ]: 'Arp/Seq',
-    [CONTROL_GROUP_KEYBOARD]: 'Keyboard',
-    [CONTROL_GROUP_MOD_TARGET_PITCH]: 'Pitch',
-    [CONTROL_GROUP_MOD_TARGET_WAVE]: 'Wave',
-    [CONTROL_GROUP_MOD_TARGET_TIMBRE]: 'Timbre',
-    [CONTROL_GROUP_MOD_TARGET_CUTOFF]: 'Cutoff',
-    [CONTROL_GROUP_MOD_TARGET_ASSIGN1]: 'Assign1',
-    [CONTROL_GROUP_MOD_TARGET_ASSIGN2]: 'Assign2',
-    [CONTROL_GROUP_MOD_TARGET_ASSIGN3]: 'Assign3'
+// All mod destinations available
+export const MOD_DESTINATION = {
+    [PITCH]: 'Pitch',
+    [OSC_WAVE]: 'Wave',
+    [OSC_TIMBRE]: 'Timbre',
+    [OSC_SHAPE]: 'Shape',
+    [FILTER_CUTOFF]: 'Cutoff',
+    [ASSIGN1]: 'Assign 1',
+    [ASSIGN2]: 'Assign 2',
+    [ASSIGN3]: 'Assign 3',
+    [CYCLING_ENV_RISE]: 'Rise',
+    [CYCLING_ENV_FALL]: 'Fall',
+    [CYCLING_ENV_HOLD]: 'Hol',
+    [CYCLING_ENV_AMOUNT]: 'Amount',
+    [LFO_DIVISION]: 'Division',
+    [LFO_RATE]: 'Rate',
+    [MOD_SRC_CYC_ENV]: 'Mod CycEnv',
+    [MOD_SRC_ENV]: 'Mod Env',
+    [MOD_SRC_LFO]: 'Mod LFO',
+    [MOD_SRC_PRESS]: 'Mod Press',
+    [MOD_SRC_KEY_ARP]: 'Mod Key/Arp'
 };
 
 
-export const MOD_ASSIGN_TARGET = {
-    0: {
-        group: CONTROL_GROUP_OSC,
-        // name: "Oscillator",
+// names (labels)
+export const MOD_GROUP_NAME = {
+    [MOD_GROUP_OSC]: 'Osc',
+    [MOD_GROUP_FILTER]: 'Filter',
+    [MOD_GROUP_CYCLING_ENV]: 'CycEnv',
+    [MOD_GROUP_ENVELOPE]: 'Env',
+    [MOD_GROUP_LFO]: 'LFO',
+    [MOD_GROUP_ARP_SEQ]: 'Arp/Seq',
+    [MOD_GROUP_KEYBOARD]: 'Keyboard',
+    [MOD_GROUP_MATRIX_PITCH]: 'Pitch',
+    [MOD_GROUP_MATRIX_WAVE]: 'Wave',
+    [MOD_GROUP_MATRIX_TIMBRE]: 'Timbre',
+    [MOD_GROUP_MATRIX_CUTOFF]: 'Cutoff',
+    [MOD_GROUP_MATRIX_ASSIGN1]: 'Assign1',
+    [MOD_GROUP_MATRIX_ASSIGN2]: 'Assign2',
+    [MOD_GROUP_MATRIX_ASSIGN3]: 'Assign3'
+};
+
+// mod-matrix assign destination configuration
+// key is value in memory, read with the help of MOD_ASSIGN_SLOT
+export const MOD_ASSIGN_DEST = {
+    0x00: {
+        mod_group: MOD_GROUP_OSC,
         control: {
             0: OSC_TYPE,
             3: OSC_TIMBRE,
             5: OSC_SHAPE
         }
     },
-    1: {
-        group: CONTROL_GROUP_FILTER,
-        // name:"Filter",
+    0x01: {
+        mod_group: MOD_GROUP_FILTER,
         control: {
             1: FILTER_CUTOFF,
             2: FILTER_RESONANCE
         }
     },
-    2: {
-        group: CONTROL_GROUP_CYCLING_ENV,
-        // name: "Cyclic env",
+    0x02: {
+        mod_group: MOD_GROUP_CYCLING_ENV,
         control: {
             1: CYCLING_ENV_RISE,
             3: CYCLING_ENV_FALL,
@@ -227,18 +265,16 @@ export const MOD_ASSIGN_TARGET = {
             6: CYCLING_ENV_AMOUNT
         }
     },
-    5: {
-        group: CONTROL_GROUP_LFO,
-        // name: "LFO",
+    0x05: {
+        mod_group: MOD_GROUP_LFO,
         control: {
             0: LFO_SHAPE,
-            1: "Division",
-            2: "Rate"
+            1: LFO_DIVISION,
+            2: LFO_RATE
         }
     },
-    6: {
-        group: CONTROL_GROUP_ENVELOPE,
-        // name:"Envelope",
+    0x06: {
+        mod_group: MOD_GROUP_ENVELOPE,
         control: {
             1: ENVELOPE_ATTACK,
             2: ENVELOPE_DECAY,
@@ -246,88 +282,98 @@ export const MOD_ASSIGN_TARGET = {
         }
     },
     0x0A: {
-        group: CONTROL_GROUP_MOD_TARGET_PITCH,
-        // name: 'Matrix target pitch',
+        mod_group: MOD_GROUP_MATRIX_PITCH,
         control: {
-            0: CYC_ENV,    // MOD MATRIX SRC
-            1: ENV,
-            2: LFO,
-            3: PRESS,
-            4: KEY_ARP  //'Key/Arp'
+            0: MOD_SRC_CYC_ENV,    // MOD MATRIX SRC
+            1: MOD_SRC_ENV,
+            2: MOD_SRC_LFO,
+            3: MOD_SRC_PRESS,
+            4: MOD_SRC_KEY_ARP  //'Key/Arp'
         }
     },
     0x0B: {
-        group: CONTROL_GROUP_MOD_TARGET_WAVE,
-        // name: 'Matrix target Wave',
+        mod_group: MOD_GROUP_MATRIX_WAVE,
         control: {
-            0: CYC_ENV,    // MOD MATRIX SRC
-            1: ENV,
-            2: LFO,
-            3: PRESS,
-            4: KEY_ARP
+            0: MOD_SRC_CYC_ENV,    // MOD MATRIX SRC
+            1: MOD_SRC_ENV,
+            2: MOD_SRC_LFO,
+            3: MOD_SRC_PRESS,
+            4: MOD_SRC_KEY_ARP
         }
     },
     0x0C: {
-        group: CONTROL_GROUP_MOD_TARGET_TIMBRE,
-        // name: 'Matrix target Timbre',
+        mod_group: MOD_GROUP_MATRIX_TIMBRE,
         control: {
-            0: CYC_ENV,    // MOD MATRIX SRC
-            1: ENV,
-            2: LFO,
-            3: PRESS,
-            4: KEY_ARP
+            0: MOD_SRC_CYC_ENV,    // MOD MATRIX SRC
+            1: MOD_SRC_ENV,
+            2: MOD_SRC_LFO,
+            3: MOD_SRC_PRESS,
+            4: MOD_SRC_KEY_ARP
         }
     },
     0x0D: {
-        group: CONTROL_GROUP_MOD_TARGET_CUTOFF,
-        // name: 'Matrix target Cutoff',
+        mod_group: MOD_GROUP_MATRIX_CUTOFF,
         control: {
-            0: CYC_ENV,    // MOD MATRIX SRC
-            1: ENV,
-            2: LFO,
-            3: PRESS,
-            4: KEY_ARP
+            0: MOD_SRC_CYC_ENV,    // MOD MATRIX SRC
+            1: MOD_SRC_ENV,
+            2: MOD_SRC_LFO,
+            3: MOD_SRC_PRESS,
+            4: MOD_SRC_KEY_ARP
         }
     },
     0x0E: {
-        group: CONTROL_GROUP_MOD_TARGET_ASSIGN1,
-        // name: 'Matrix target Assign1',
+        mod_group: MOD_GROUP_MATRIX_ASSIGN1,
         control: {
-            0: CYC_ENV,    // MOD MATRIX SRC
-            1: ENV,
-            2: LFO,
-            3: PRESS,
-            4: KEY_ARP
+            0: MOD_SRC_CYC_ENV,    // MOD MATRIX SRC
+            1: MOD_SRC_ENV,
+            2: MOD_SRC_LFO,
+            3: MOD_SRC_PRESS,
+            4: MOD_SRC_KEY_ARP
         }
     },
     0x0F: {
-        group: CONTROL_GROUP_MOD_TARGET_ASSIGN2,
-        name: 'Matrix target Assign2',
+        mod_group: MOD_GROUP_MATRIX_ASSIGN2,
         control: {
-            0: CYC_ENV,    // MOD MATRIX SRC
-            1: ENV,
-            2: LFO,
-            3: PRESS,
-            4: KEY_ARP
+            0: MOD_SRC_CYC_ENV,    // MOD MATRIX SRC
+            1: MOD_SRC_ENV,
+            2: MOD_SRC_LFO,
+            3: MOD_SRC_PRESS,
+            4: MOD_SRC_KEY_ARP
         }
     },
     0x10: {
-        group: CONTROL_GROUP_MOD_TARGET_ASSIGN3,
-        // name: 'Matrix target Assign3',
+        mod_group: MOD_GROUP_MATRIX_ASSIGN3,
         control: {
-            0: CYC_ENV,    // MOD MATRIX SRC
-            1: ENV,
-            2: LFO,
-            3: PRESS,
-            4: KEY_ARP
+            0: MOD_SRC_CYC_ENV,    // MOD MATRIX SRC
+            1: MOD_SRC_ENV,
+            2: MOD_SRC_LFO,
+            3: MOD_SRC_PRESS,
+            4: MOD_SRC_KEY_ARP
         }
     }
 };
 
-// [row, col] for data receives when reading preset. Data does not include sysex header, sysex footer, man. id and constant data header
+// mod matrix assign slots configuration
+// The values in memory at mod_group and control are to be used with the MOD_ASSIGN_DEST map.
+export const MOD_ASSIGN_SLOT = {
+    [ASSIGN1]: {
+        mod_group: [21, 5],     // value is key for MOD_ASSIGN_DEST
+        control: [21, 4]
+    },
+    [ASSIGN2]: {
+        mod_group: [21, 19],
+        control: [21, 18]
+    },
+    [ASSIGN3]: {
+        mod_group: [22, 1],
+        control: [21, 31]
+    }
+};
+
+// [row, col] for data received when reading preset. Data does not include sysex header, sysex footer, man. id and constant data header
 export const MOD_MATRIX = {
     // TODO: nibble
-    [CYC_ENV]: {
+    [MOD_SRC_CYC_ENV]: {
         [PITCH]: {
             MSB: [22, 15],
             LSB: [22, 14],
@@ -371,7 +417,7 @@ export const MOD_MATRIX = {
             sign: [32, 0, 0x04]
         }
     },
-    [ENV]: {
+    [MOD_SRC_ENV]: {
         [PITCH]: {              // OK
             MSB: [22, 25],
             LSB: [22, 23],
@@ -415,7 +461,7 @@ export const MOD_MATRIX = {
             sign: [32, 8, 0x08]
         }
     },
-    [LFO]: {
+    [MOD_SRC_LFO]: {
         [PITCH]: {
             MSB: [23, 2],
             LSB: [23, 1],
@@ -459,7 +505,7 @@ export const MOD_MATRIX = {
             sign: [32, 16, 0x20]
         }
     },
-    [PRESS]: {
+    [MOD_SRC_PRESS]: {
         [PITCH]: {
             MSB: [23, 11],
             LSB: [23, 10],
@@ -503,7 +549,7 @@ export const MOD_MATRIX = {
             sign: [32, 24, 0x20]
         }
     },
-    [KEY_ARP]: {
+    [MOD_SRC_KEY_ARP]: {
         [PITCH]: {
             MSB: [23, 20],
             LSB: [23, 19],
@@ -549,21 +595,7 @@ export const MOD_MATRIX = {
     }
 };
 
-export const MOD_ASSIGN_SLOT = {
-    [ASSIGN1]: {
-        group: [21, 5],
-        control: [21, 4]
-    },
-    [ASSIGN2]: {
-        group: [21, 19],
-        control: [21, 18]
-    },
-    [ASSIGN3]: {
-        group: [22, 1],
-        control: [21, 31]
-    }
-};
-
+// if mod_group is defined, that means that the control can be a modulation destination
 export const CONTROL = {
     [GLIDE]: {
         MSB: [6, 23],
@@ -573,7 +605,7 @@ export const CONTROL = {
         cc: 5,
         mapping: null,
         name: "Glide",
-        // group: CONTROL_GROUP_
+        // group: MOD_GROUP_
     },
     [OSC_TYPE]: {
         MSB: null,
@@ -582,7 +614,7 @@ export const CONTROL = {
         cc: 9,
         mapping: _osc_type,
         name: "Type",
-        group: CONTROL_GROUP_OSC
+        mod_group: MOD_GROUP_OSC
     },
     [OSC_WAVE]: {
         MSB: [0, 27],
@@ -592,7 +624,7 @@ export const CONTROL = {
         cc: 10,
         mapping: null,
         name: 'Wave',
-        group: CONTROL_GROUP_OSC
+        mod_group: MOD_GROUP_OSC
     },
     [OSC_TIMBRE]: {
         MSB: [1, 7],
@@ -602,7 +634,7 @@ export const CONTROL = {
         cc: 12,
         mapping: null,
         name: 'Timbre',
-        group: CONTROL_GROUP_OSC
+        mod_group: MOD_GROUP_OSC
     },
     [OSC_SHAPE]: {      // ok
         MSB: [1, 20],
@@ -612,7 +644,7 @@ export const CONTROL = {
         cc: 13,
         mapping: null,
         name: 'Shape',
-        group: CONTROL_GROUP_OSC
+        mod_group: MOD_GROUP_OSC
     },
     [FILTER_CUTOFF]: {
         MSB: [2, 30],
@@ -622,7 +654,7 @@ export const CONTROL = {
         cc: 23,
         mapping: null,
         name: 'Cutoff',
-        group: CONTROL_GROUP_FILTER
+        mod_group: MOD_GROUP_FILTER
     },
     [FILTER_RESONANCE]: {
         MSB: [3, 9],
@@ -632,7 +664,7 @@ export const CONTROL = {
         cc: 83,
         mapping: null,
         name: 'Resonance',
-        group: CONTROL_GROUP_FILTER
+        mod_group: MOD_GROUP_FILTER
     },
     [CYCLING_ENV_RISE]: {
         MSB: [4, 6],
@@ -642,7 +674,7 @@ export const CONTROL = {
         cc: 102,
         mapping: null,  //_0_100,
         name: 'Rise',
-        group: CONTROL_GROUP_CYCLING_ENV
+        mod_group: MOD_GROUP_CYCLING_ENV
     },
     [CYCLING_ENV_FALL]: {
         MSB: [5, 2],
@@ -652,7 +684,7 @@ export const CONTROL = {
         cc: 103,
         mapping: null,
         name: 'Fall',
-        group: CONTROL_GROUP_CYCLING_ENV
+        mod_group: MOD_GROUP_CYCLING_ENV
     },
     [CYCLING_ENV_HOLD]: {
         MSB: [5, 12],
@@ -662,7 +694,7 @@ export const CONTROL = {
         cc: 28,
         mapping: null,
         name: 'Hold',
-        group: CONTROL_GROUP_CYCLING_ENV
+        mod_group: MOD_GROUP_CYCLING_ENV
     },
     [CYCLING_ENV_AMOUNT]: {
         MSB: [6, 6],
@@ -672,7 +704,7 @@ export const CONTROL = {
         cc: 24,
         mapping: null,
         name: 'Amount',
-        group: CONTROL_GROUP_CYCLING_ENV
+        mod_group: MOD_GROUP_CYCLING_ENV
     },
     [CYCLING_ENV_RISE_SHAPE]: {
         MSB: [4, 20],
@@ -738,7 +770,7 @@ export const CONTROL = {
         cc: 105,
         mapping: null,
         name: 'Attack',
-        group: CONTROL_GROUP_ENVELOPE
+        mod_group: MOD_GROUP_ENVELOPE
     },
     [ENVELOPE_DECAY]: {
         MSB: [15, 10],
@@ -748,7 +780,7 @@ export const CONTROL = {
         cc: 106,
         mapping: null,
         name: 'Decay/Rel',
-        group: CONTROL_GROUP_ENVELOPE
+        mod_group: MOD_GROUP_ENVELOPE
     },
     [ENVELOPE_SUSTAIN]: {
         MSB: [15, 23],
@@ -758,7 +790,7 @@ export const CONTROL = {
         cc: 29,
         mapping: null,
         name: 'Sustain',
-        group: CONTROL_GROUP_ENVELOPE
+        mod_group: MOD_GROUP_ENVELOPE
     },
     // [HOLD]: {
     //     MSB: [0, 0],
@@ -826,7 +858,7 @@ export const SWITCH = {
             {name: 'SnHF', value: 0x7fff}
         ],
         name: "Shape",
-        group: CONTROL_GROUP_LFO
+        mod_group: MOD_GROUP_LFO
     },
     [ARP]: {
         MSB: [9, 6],

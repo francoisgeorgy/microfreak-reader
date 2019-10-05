@@ -1,6 +1,25 @@
 import {computed, decorate, observable} from 'mobx';
 import {PORT_INPUT, PORT_OUTPUT} from "../components/Midi";
-import {DEFAULT_msb_mask, DEFAULT_sign_mask, MOD_ASSIGN_SLOT, multibytesValue} from "../model";
+import {
+    ASSIGN1,
+    ASSIGN2,
+    ASSIGN3,
+    CONTROL,
+    DEFAULT_msb_mask,
+    DEFAULT_sign_mask,
+    MOD_ASSIGN_DEST,
+    MOD_ASSIGN_SLOT,
+    MOD_MATRIX_DESTINATION,
+    MOD_MATRIX,
+    multibytesValue,
+    MOD_DESTINATION,
+    MOD_GROUP_NAME,
+    MOD_SRC_CYC_ENV,
+    MOD_SRC_KEY_ARP,
+    MOD_SRC_PRESS,
+    MOD_SRC_LFO,
+    MOD_SRC_ENV
+} from "../model";
 import {portById} from "../utils/midi";
 
 class State {
@@ -176,31 +195,6 @@ class State {
         this.dataRef = [];
     }
 
-    modMatrixValue(m, return_raw=false) {
-
-        // const D = this.props.state.data;
-        // console.log("m", m, D.length);
-        if (this.data.length < 39) return 0;  //FIXME
-
-        if (!m) {
-            console.log("modMatrixValue, no def for", m);
-            return 0;
-        }
-
-        const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;
-        const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;
-
-        const raw = multibytesValue(
-            this.data[ m.MSB[0] ][ m.MSB[1] ],
-            this.data[ m.LSB[0] ][ m.LSB[1] ],
-            this.data[ m.msb[0] ][ m.msb[1] ],
-            mask_msb,
-            this.data[ m.sign[0] ][ m.sign[1] ],
-            mask_sign);
-
-        return return_raw ? raw : (Math.round(raw * 1000 / 32768) / 10);
-    }
-
     controlValue(m, return_raw=false) {
 
         // const D = this.props.state.data;
@@ -258,25 +252,87 @@ class State {
 
     /**
      *
+     * @param src key from MOD_SOURCE
+     * @param dest key from MOD_DESTINATION
+     * @param return_raw
+     * @returns {number}
+     */
+    modMatrixValue(src, dest, return_raw=false) {
+
+        // const D = this.props.state.data;
+        // console.log("m", m, D.length);
+        if (this.data.length < 39) return 0;  //FIXME
+
+        const m = MOD_MATRIX[src][dest];    //TODO: check params validity
+
+        if (!m) {
+            console.log("modMatrixValue, no def for", m);
+            return 0;
+        }
+
+        const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;
+        const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;
+
+        const raw = multibytesValue(
+            this.data[ m.MSB[0] ][ m.MSB[1] ],
+            this.data[ m.LSB[0] ][ m.LSB[1] ],
+            this.data[ m.msb[0] ][ m.msb[1] ],
+            mask_msb,
+            this.data[ m.sign[0] ][ m.sign[1] ],
+            mask_sign);
+
+        return return_raw ? raw : (Math.round(raw * 1000 / 32768) / 10);
+    }
+
+    /**
+     *
      * @param assign_slot ASSIGN1, ASSIGN2 or ASSIGN3 symbol
      */
-    modAssignGroup(slot) {
+    modAssignDest(slot) {
         if (this.data.length < 39) return;  //FIXME
-        const m = MOD_ASSIGN_SLOT[slot].group;
-        const group = this.data[ m[0] ][ m[1] ];
-        console.log("modAssignGroup", m, group);
-        return group;
+        const m = MOD_ASSIGN_SLOT[slot].mod_group;
+        const dest_num = this.data[ m[0] ][ m[1] ];
+        // console.log("modAssignDest", dest_num, m, MOD_ASSIGN_DEST[dest_num]);
+        // return group_num;
+        return MOD_ASSIGN_DEST[dest_num];  // ? MOD_ASSIGN_DEST[group_num] : null;
     };
 
     /**
      *
      * @param assign_slot ASSIGN1, ASSIGN2 or ASSIGN3 symbol
      */
-    modAssignControl(slot) {
+    modAssignControlNum(slot) {
         if (this.data.length < 39) return;  //FIXME
         const m = MOD_ASSIGN_SLOT[slot].control;
         return this.data[ m[0] ][ m[1] ];
     };
+
+    modDestName(dest) {
+        if (!(dest === ASSIGN1 || dest === ASSIGN2 || dest === ASSIGN3)) {
+            return MOD_MATRIX_DESTINATION[dest];
+        }
+        // let d = null;
+        let group_name = '?';
+        let control_name = '?';
+        const dest_def = this.modAssignDest(dest);
+        if (dest_def) {
+            group_name = MOD_GROUP_NAME[dest_def.mod_group];
+            // const control_num = this.modAssignControlNum(dest);
+            const control = dest_def.control[this.modAssignControlNum(dest)];
+            const dest_is_matrix =      // mod destination is the matrix itself
+                control === MOD_SRC_CYC_ENV ||
+                control === MOD_SRC_ENV ||
+                control === MOD_SRC_LFO ||
+                control === MOD_SRC_PRESS ||
+                control === MOD_SRC_KEY_ARP;
+            // console.log("modDestName, control", dest_is_matrix, this.modAssignControlNum(dest), control);
+            if (control) {
+                control_name = MOD_DESTINATION[control];
+                return dest_is_matrix ? `${control_name}-${group_name}` : `${group_name} ${control_name}`;
+            }
+        }
+        return MOD_MATRIX_DESTINATION[dest];
+    }
 
     get presetName() {
 
