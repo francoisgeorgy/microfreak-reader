@@ -182,6 +182,11 @@ export const MOD_SOURCE_CSS = {
     [MOD_SRC_LFO]: 'mod-src-lfo',
     [MOD_SRC_PRESS]: 'mod-src-press',
     [MOD_SRC_KEY_ARP]: 'mod-src-key_arp'
+    // [MOD_GROUP_CYCLING_ENV]: 'mod-src-cyc_env',     // for ASSIGN
+    // [MOD_GROUP_ENVELOPE]: 'mod-src-env',
+    // [MOD_GROUP_LFO]: 'mod-src-lfo',
+    // [MOD_GROUP_ARP_SEQ]: 'mod-src-key_arp',
+    // [MOD_GROUP_KEYBOARD]: 'mod-src-press',
 };
 
 // names (labels)
@@ -197,6 +202,7 @@ export const MOD_MATRIX_DESTINATION = {
 };
 
 // All mod destinations available
+//TODO: add ENV
 export const MOD_DESTINATION = {
     [PITCH]: 'Pitch',
     [OSC_WAVE]: 'Wave',

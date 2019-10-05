@@ -22,6 +22,7 @@ class ControlMods extends Component {
             <div className="control-mods">
                 {Object.getOwnPropertySymbols(MOD_SOURCE).map(
                     (src, i) => {
+
                         if (!MOD_DESTINATION[cc]) {
                             // console.log("not a destination", cc, CONTROL[cc].name, MOD_DESTINATION[cc], MOD_DESTINATION[cc]);
                             return null;
