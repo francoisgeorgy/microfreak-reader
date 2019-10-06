@@ -20,7 +20,7 @@ class Switch extends Component {
                 <div className="ctrl-name">{sw.name}</div>
                 <div className={`sw-values ${this.props.layout}`}>
                 {sw.values.map(
-                    (s, index) => {
+                    s => {
                         // console.log("switch loop", s, v);
                         return (
                             <div key={s.value} className={s.name === v ? 'sw-val sw-sel' : 'sw-val'}>{s.name}</div>

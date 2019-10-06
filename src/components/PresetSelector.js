@@ -76,8 +76,8 @@ class PresetSelector extends Component {
                     {/*<div>next</div>*/}
                     <button onClick={this.prev}>&lt;</button>
                     <button onClick={this.next}>&gt;</button>
-                    <button onClick={this.go}>select</button>
-                    <button onClick={this.toggleDirectAccess}>{this.state.direct_access ? 'direct access...' : 'direct access...'}</button>
+                    <button onClick={this.go} title="Send a PC message to the MicroFreak to select this preset on the MicroFreak itself.">select</button>
+                    <button onClick={this.toggleDirectAccess} title="Choose the preset number then send a PC message to the MF.">{this.state.direct_access ? 'direct access...' : 'direct access...'}</button>
                     <button className={midi_ok ? "read-button ok" : "read-button"} type="button" onClick={readPreset}>READ</button>
                 </div>
                 {this.state.direct_access && <div className="direct-access">{pc}</div>}

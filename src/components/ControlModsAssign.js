@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {
     ASSIGN1, ASSIGN2, ASSIGN3,
-    MOD_DESTINATION, MOD_GROUP_NAME,
     MOD_SOURCE,
     MOD_SOURCE_CSS, MOD_SOURCE_SHORT
 } from "../model";

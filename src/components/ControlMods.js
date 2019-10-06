@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
-    MOD_DESTINATION,
-    MOD_MATRIX, MOD_MATRIX_DESTINATION,
+    MOD_MATRIX_DESTINATION,
     MOD_SOURCE,
     MOD_SOURCE_CSS, MOD_SOURCE_SHORT
 } from "../model";

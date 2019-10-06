@@ -52,6 +52,7 @@ html {
     --mod-src-press-text: #000;
     --mod-src-key_arp-text: #000;
     --mod-src-bg: #e8e8ea;
+    --instructions-text: #666;
 }
 
 @media screen {
@@ -88,6 +89,7 @@ html {
         --mod-src-press-text: #000;
         --mod-src-key_arp-text: #000;
         --mod-src-bg: #777;
+        --instructions-text: #aaa;
     }
 
     html[data-theme='darker'] {
@@ -122,6 +124,7 @@ html {
         --mod-src-press-text: #000;
         --mod-src-key_arp-text: #000;
         --mod-src-bg: #777;
+        --instructions-text: #999;
     }
 
 }

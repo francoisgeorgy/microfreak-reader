@@ -235,18 +235,23 @@ class App extends Component {
                                     <Control cc={GLIDE} group={MOD_GROUP_KEYBOARD}/>
                                 </div>
                             </div>
-{/*
-                            <div className="group keyboard2">
-                                <h3>...</h3>
-                                <div className="controls">
+                            <div className="instructions">
+                                <h3>How to use:</h3>
+                                <div>
+                                    <ol>
+                                        <li>Enable the MIDI input and output ports.</li>
+                                        <li>Select the preset number.</li>
+                                        <li>Click the READ button.</li>
+                                    </ol>
                                 </div>
+                                <div>You can only read saved presets.</div>
+                                <div>You can read a preset different than the one currently loaded on the MicroFreak.</div>
                             </div>
-*/}
                         </div>
                     </div>
                 </div>
                 <footer>
-                    &copy; sysex.io 2019
+                    &copy; studiocode.dev 2019
                 </footer>
             </Provider>
         );

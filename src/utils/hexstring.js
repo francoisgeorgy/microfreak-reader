@@ -19,6 +19,7 @@ export const hs = data => (data === null || data === undefined) ? "" : (Array.fr
 //     (data === null || data === undefined) ? "" :
 //         (Array.from(data).map(n => n === 0 ? h(n) : `${prefix}${h(n)}${suffix}`)).join(" ");
 
+/*
 // hex string compact
 export const hsc = data => (data === null || data === undefined) ? "" : (Array.from(data).map(n => h(n))).join('');    // Array.from() is necessary to get a non-typed array
 
@@ -35,3 +36,4 @@ export var fromHexString = function(string, sep) {
     }
     return a;
 };
+*/

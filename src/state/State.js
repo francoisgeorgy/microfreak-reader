@@ -4,7 +4,6 @@ import {
     ASSIGN1,
     ASSIGN2,
     ASSIGN3,
-    CONTROL,
     DEFAULT_msb_mask,
     DEFAULT_sign_mask,
     MOD_ASSIGN_DEST,
@@ -184,6 +183,7 @@ class State {
         return this.hasInputEnabled() && this.hasOutputEnabled();
     }
 
+/*
     updateRef() {
         // console.log("updateRef: copy current to reference", JSON.stringify(this.data), JSON.stringify(this.dataRef));
         this.dataRef = JSON.parse(JSON.stringify(this.data));
@@ -194,6 +194,7 @@ class State {
     clearRef() {
         this.dataRef = [];
     }
+*/
 
     controlValue(m, return_raw=false) {
 
@@ -286,7 +287,7 @@ class State {
 
     /**
      *
-     * @param assign_slot ASSIGN1, ASSIGN2 or ASSIGN3 symbol
+     * @param slot
      */
     modAssignDest(slot) {
         if (this.data.length < 39) return;  //FIXME
@@ -299,7 +300,7 @@ class State {
 
     /**
      *
-     * @param assign_slot ASSIGN1, ASSIGN2 or ASSIGN3 symbol
+     * @param slot
      */
     modAssignControlNum(slot) {
         if (this.data.length < 39) return;  //FIXME
