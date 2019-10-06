@@ -23,6 +23,15 @@
     text-align: center;
 }
 
+.mod-matrix-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /*padding-top: 3px!important;*/
+}
+
+
 .mod-matrix .mod-matrix-col-header {
     /*padding-left: 0;*/
     padding: 2px 2px 2px 0;
@@ -30,4 +39,8 @@
 
 .mod-matrix > .mod-matrix-col-header > div {
     padding-left: 2px;
+}
+
+.mod-matrix-value .mod {
+    margin-bottom: 3px;
 }

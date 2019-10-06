@@ -1,5 +1,5 @@
 .mod {
-    margin: 3px 0 0 0;
+    margin: 0 0 0 0;
     /*border: 1px solid #aaa;*/
     border: none;
     background-color: #777;
@@ -12,10 +12,18 @@
 
     /*background: linear-gradient(left, black 50%, white 50%);*/
     width: 100%;
-    background: -webkit-linear-gradient(left, black 50%, white 50%);
-    background: -moz-linear-gradient(left, black 50%, white 50%);
-    background: -ms-linear-gradient(left, black 50%, white 50%);
-    background: linear-gradient(left, black 50%, white 50%);
+    /*background: -webkit-linear-gradient(to right, black 50%, white 50%);*/
+    /*background: -moz-linear-gradient(to right, black 50%, white 50%);*/
+    /*background: -ms-linear-gradient(to right, black 50%, white 50%);*/
+    /*background: linear-gradient(to right, black 50%, white 50%);*/
+}
+
+.control-mods {
+    width: 100%;
+}
+
+.control-mods .mod {
+    margin-top: 3px;
 }
 
 .mod-text-wrapper {

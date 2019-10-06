@@ -38,34 +38,47 @@ class ControlModsAssign extends Component {
                             }
                         }
 
-                        console.log("ControlModsAssign", slot, dest_def, control, MOD_GROUP_NAME[dest_def.mod_group]);
-
-                        for (let mod_src of Object.getOwnPropertySymbols(MOD_SOURCE)) {
-                            const v = S.modMatrixValue(mod_src, slot, true);
-                            if (v !== 0) {
-                                console.log("ControlModsAssign value for", slot, mod_src, v);
-                            }
-                        }
+                        // console.log("ControlModsAssign", slot, dest_def, control, MOD_GROUP_NAME[dest_def.mod_group]);
+                        //
+                        // for (let mod_src of Object.getOwnPropertySymbols(MOD_SOURCE)) {
+                        //     const v = S.modMatrixValue(mod_src, slot, true);
+                        //     if (v !== 0) {
+                        //         console.log("ControlModsAssign value for", slot, mod_src, v);
+                        //     }
+                        // }
 
                         // const v = S.modMatrixValue(slot, cc);
                         const v = Math.round(Math.random() * 1000) / 10;    // DEBUG
                         // console.log(v);
 
                         if (!v || (Math.abs(v) < 0.01)) {
+                            // console.log("mod matrix too small ", v);
                             return null;
                         }
+
+
+                        // console.log("ControlModsAssign", slot, dest_def, control, MOD_GROUP_NAME[dest_def.mod_group]);
+
+                        // for (let mod_src of Object.getOwnPropertySymbols(MOD_SOURCE)) {
+                        //     const v = S.modMatrixValue(mod_src, slot, true);
+                        //     if (v !== 0) {
+                        //         console.log("ControlModsAssign value for", slot, mod_src, v);
+                        //     }
+                        // }
+
 
                         const direction = v < 0 ? 'to left' : 'to right';
 
                         return (
-                            <Fragment>
+                            <Fragment key={i}>
                                 {Object.getOwnPropertySymbols(MOD_SOURCE).map(
-                                    (mod_src, i) => {
+                                    (mod_src, k) => {
+                                        // console.log("ControlModsAssign.modMatrixValue", mod_src, slot);
                                         const v = S.modMatrixValue(mod_src, slot);
                                         if (Math.abs(v) > 0.0) {
                                             // console.log("ControlModsAssign value for", slot, mod_src, v);
                                             return (
-                                                <div key={i} className="mod" style={{background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[mod_src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)`}}>
+                                                <div key={k} className="mod" style={{background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[mod_src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)`}}>
                                                     <div className="mod-text">
                                                         <div className="mod-name">{MOD_SOURCE_SHORT[mod_src]}</div>
                                                         <div className="mod-value">{v}</div>

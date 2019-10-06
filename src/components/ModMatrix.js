@@ -6,14 +6,14 @@ import {
     ASSIGN3,
     MOD_DESTINATION, MOD_GROUP_MOD_DEST, MOD_MATRIX_DESTINATION,
     MOD_SOURCE,
-    MOD_SOURCE_CSS
+    MOD_SOURCE_CSS, MOD_SOURCE_SHORT
 } from "../model";
 import "./ModMatrix.css"
 
 class ModMatrix extends Component {
 
-    Mods = (src, dest) => {
-        console.log("Mods", src, dest);     // Symbol(MOD_SRC_CYC_ENV) Symbol(PITCH)
+    Mods = (src, dest, key) => {
+        // console.log("Mods", src, dest);     // Symbol(MOD_SRC_CYC_ENV) Symbol(PITCH)
 
         const S = this.props.state;
 
@@ -34,18 +34,33 @@ class ModMatrix extends Component {
             // console.log("Mods matrix mod", src, dest, MOD_GROUP_MOD_DEST[dest], dest_def);
 
             if (MOD_GROUP_MOD_DEST[dest] === dest_def.mod_group) {
-                console.log("Mods matrix mod dest def", slot, src, dest, dest_def);
+                // console.log("Mods matrix mod dest def", slot, src, dest, dest_def);
                 const control = dest_def.control[S.modAssignControlNum(slot)];
                 if (control === src) {
                     // console.log("Mods matrix mod ifself", src, dest, control, dest_def.mod_group);
                     // console.log("Mods matrix mod ifself sources", Object.keys(MOD_SOURCE));
                     // return <div>mods {MOD_DESTINATION[control]} {MOD_GROUP_NAME[dest_def.mod_group]}</div>
                     // return <div>{S.modDestName(slot)}</div>;
+                    // let k = 0;
                     for (let mod_src of Object.getOwnPropertySymbols(MOD_SOURCE)) {
-                        // console.log("Mods matrix mod v", mod_src, slot);
-                        const v = S.modMatrixValue(mod_src, slot, true);
-                        if (v !== 0) {
-                            mods.push(<div>{MOD_SOURCE[mod_src]} {v}</div>);
+                        // k++;
+                        // console.log("Mods.modMatrixValue", mod_src, slot);
+                        const v = S.modMatrixValue(mod_src, slot);
+                        if (v && (Math.abs(v) > 0.00)) {
+                            // console.log("Mods matrix mod v", mod_src, slot, v);
+                            const direction = v < 0 ? 'to left' : 'to right';
+                            // console.log('key k', k);
+                            // src.toString()+dest.toString()
+                            mods.push(
+                                <div key={slot.toString()+key} className="mod" style={
+                                    {background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[mod_src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)`}
+                                }>
+                                    <div className="mod-text">
+                                        <div className="mod-name">{MOD_SOURCE_SHORT[mod_src]}</div>
+                                        <div className="mod-value">{v}</div>
+                                    </div>
+                                </div>
+                            );
                         }
                     }
                 }
@@ -73,7 +88,7 @@ class ModMatrix extends Component {
                 <div></div>
                 {Object.getOwnPropertySymbols(MOD_MATRIX_DESTINATION).map(
                     (dest, i) => {
-                        return (<div key={i} className="mod-matrix-dest">{S.modDestName(dest)}</div>);
+                        return (<div key={`d${i}`} className="mod-matrix-dest">{S.modDestName(dest)}</div>);
                     }
 /*
                     (sym, i) => {
@@ -97,16 +112,23 @@ class ModMatrix extends Component {
                 )}
                 {Object.getOwnPropertySymbols(MOD_SOURCE).map(
                     (src, i) => {
+                        // console.log('key i', i);
                         return (
                             <Fragment key={i}>
-                                <div className="mod-matrix-col-header"><div className={MOD_SOURCE_CSS[src]}>{MOD_SOURCE[src]}</div></div>
+                                <div className="mod-matrix-col-header">
+                                    <div className={MOD_SOURCE_CSS[src]}>{MOD_SOURCE[src]}</div>
+                                </div>
                                 {Object.getOwnPropertySymbols(MOD_MATRIX_DESTINATION).map(
                                     (dst, j) => {
+                                        // console.log('key ij', j, `${i}${j}`);
+                                        // console.log("ModMatrix.modMatrixValue", src, dst);
                                         const v = S.modMatrixValue(src, dst);
+                                        const key = `${i}${j}`;
+                                        const show = Math.abs(v) > 0.00;
                                         return (
-                                            <div key={j} className="mod-matrix-value">
-                                                {Math.abs(v) > 0.00 ? v : ''}
-                                                {this.Mods(src, dst)}
+                                            <div key={key} className="mod-matrix-value">
+                                                {show ? v : null}
+                                                {show ? this.Mods(src, dst, key) : null}
                                             </div>
                                         );
                                     }

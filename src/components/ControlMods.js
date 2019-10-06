@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
     MOD_DESTINATION,
-    MOD_MATRIX,
+    MOD_MATRIX, MOD_MATRIX_DESTINATION,
     MOD_SOURCE,
     MOD_SOURCE_CSS, MOD_SOURCE_SHORT
 } from "../model";
@@ -23,7 +23,7 @@ class ControlMods extends Component {
                 {Object.getOwnPropertySymbols(MOD_SOURCE).map(
                     (src, i) => {
 
-                        if (!MOD_DESTINATION[cc]) {
+                        if (!MOD_MATRIX_DESTINATION[cc]) {
                             // console.log("not a destination", cc, CONTROL[cc].name, MOD_DESTINATION[cc], MOD_DESTINATION[cc]);
                             return null;
                         }
@@ -33,7 +33,7 @@ class ControlMods extends Component {
                         //     console.log("no mod matrix for ", src, cc);
                         //     return null;
                         // }
-
+                        // console.log("ControlMods.modMatrixValue", src, cc);
                         const v = S.modMatrixValue(src, cc);
                         // const v = Math.round(Math.random() * 1000) / 10;    // DEBUG
                         // console.log(v);
@@ -46,8 +46,12 @@ class ControlMods extends Component {
 
                         const direction = v < 0 ? 'to left' : 'to right';
 
+                        console.log('controlMods', src, cc, `<!--<div key=${i} className="mod" style={background: linear-gradient(${direction}, var(&#45;&#45;${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)}>-->`);
+
                         return (
-                            <div key={i} className="mod" style={{background: `linear-gradient(${direction}}, var(--${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)`}}>
+                            <div key={src.toString() + i} className="mod" style={
+                                {background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)`}
+                            }>
                                 {/*<div className={`mod-fill ${MOD_SOURCE_CSS[src]}`} style={{width:"50%"}}>&nbsp;</div>*/}
                                 <div className="mod-text">
                                     <div className="mod-name">{MOD_SOURCE_SHORT[src]}</div>

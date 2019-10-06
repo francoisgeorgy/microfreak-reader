@@ -266,7 +266,7 @@ class State {
         const m = MOD_MATRIX[src][dest];    //TODO: check params validity
 
         if (!m) {
-            console.log("modMatrixValue, no def for", m);
+            console.log("modMatrixValue, no def for", src, dest);
             return 0;
         }
 
