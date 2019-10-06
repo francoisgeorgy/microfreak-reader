@@ -46,11 +46,9 @@ class ControlMods extends Component {
 
                         const direction = v < 0 ? 'to left' : 'to right';
 
-                        console.log('controlMods', src, cc, `<!--<div key=${i} className="mod" style={background: linear-gradient(${direction}, var(&#45;&#45;${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)}>-->`);
-
                         return (
                             <div key={src.toString() + i} className="mod" style={
-                                {background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)`}
+                                {background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, var(--mod-src-bg) ${Math.abs(v)}%)`}
                             }>
                                 {/*<div className={`mod-fill ${MOD_SOURCE_CSS[src]}`} style={{width:"50%"}}>&nbsp;</div>*/}
                                 <div className="mod-text">

@@ -53,7 +53,7 @@ class ModMatrix extends Component {
                             // src.toString()+dest.toString()
                             mods.push(
                                 <div key={slot.toString()+key} className="mod" style={
-                                    {background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[mod_src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)`}
+                                    {background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[mod_src]}) ${Math.abs(v)}%, var(--mod-src-bg) ${Math.abs(v)}%)`}
                                 }>
                                     <div className="mod-text">
                                         <div className="mod-name">{MOD_SOURCE_SHORT[mod_src]}</div>

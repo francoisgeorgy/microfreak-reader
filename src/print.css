@@ -1,6 +1,7 @@
 
 @media print {
 
+    select,
     button {
         display: none!important;
     }

@@ -51,70 +51,77 @@ html {
     --mod-src-lfo-text: #000;
     --mod-src-press-text: #000;
     --mod-src-key_arp-text: #000;
+    --mod-src-bg: #e8e8ea;
 }
 
-html[data-theme='dark'] {
-    --main-bg: #111;
-    --text: #fff;
-    --title-text: #f8f8f8;
-    --footer: #444;
-    --progress: #34ab33;
-    --input-border: 1px solid #393939;
-    --group-bg: #222831;
-    --group-border: none;
-    --group-header: #393e46;
-    --group-header-border: 2px solid #000;
-    --switch-sel-bg: #ecc53a;
-    --switch-sel-text: #000;
-    --knob-track-bg: #494949;
-    --knob-track: #eec83f;
-    --knob-text: #eec83f;
-    --direct-access-bg: #000;
-    --direct-access-border: #555;
-    --direct-access-hover-bg: yellow!important;
-    --direct-access-hover-text: #000!important;
-    /*--direct-access-sel-bg: #ecc53a;*/
-    --mod-src-cyc_env : #fff5cf;
-    --mod-src-env: #d1e7ff;
-    --mod-src-lfo: #ffd4e5;
-    --mod-src-press: #94ffa5;
-    --mod-src-key_arp: #f0baff;
-    --mod-src-cyc_env-text : #000;
-    --mod-src-env-text: #000;
-    --mod-src-lfo-text: #000;
-    --mod-src-press-text: #000;
-    --mod-src-key_arp-text: #000;
-}
+@media screen {
 
-html[data-theme='darker'] {
-    --main-bg: #000;
-    --text: #fff;
-    --title-text: #f0f0f0;
-    --footer: #444;
-    --progress: #34ab33;
-    --input-border: 1px solid #393939;
-    --group-bg: #212121;
-    --group-border: none;
-    --group-header: #212121;
-    --group-header-border: 2px solid #000;
-    --switch-sel-bg: #ecc53a;
-    --switch-sel-text: #000;
-    --knob-track-bg: #393939;
-    --knob-track: #eec83f;
-    --knob-text: #fff;
-    --direct-access-bg: #000;
-    --direct-access-border: #555;
-    --direct-access-hover-bg: yellow!important;
-    --direct-access-hover-text: #000!important;
-    /*--direct-access-sel-bg: #ecc53a;*/
-    --mod-src-cyc_env : #fff5cf;
-    --mod-src-env: #d1e7ff;
-    --mod-src-lfo: #ffd4e5;
-    --mod-src-press: #94ffa5;
-    --mod-src-key_arp: #f0baff;
-    --mod-src-cyc_env-text : #000;
-    --mod-src-env-text: #000;
-    --mod-src-lfo-text: #000;
-    --mod-src-press-text: #000;
-    --mod-src-key_arp-text: #000;
+    html[data-theme='dark'] {
+        --main-bg: #111;
+        --text: #fff;
+        --title-text: #f8f8f8;
+        --footer: #444;
+        --progress: #34ab33;
+        --input-border: 1px solid #393939;
+        --group-bg: #222831;
+        --group-border: none;
+        --group-header: #393e46;
+        --group-header-border: 2px solid #000;
+        --switch-sel-bg: #ecc53a;
+        --switch-sel-text: #000;
+        --knob-track-bg: #494949;
+        --knob-track: #eec83f;
+        --knob-text: #eec83f;
+        --direct-access-bg: #000;
+        --direct-access-border: #555;
+        --direct-access-hover-bg: yellow !important;
+        --direct-access-hover-text: #000 !important;
+        /*--direct-access-sel-bg: #ecc53a;*/
+        --mod-src-cyc_env: #fff5cf;
+        --mod-src-env: #d1e7ff;
+        --mod-src-lfo: #ffd4e5;
+        --mod-src-press: #94ffa5;
+        --mod-src-key_arp: #f0baff;
+        --mod-src-cyc_env-text: #000;
+        --mod-src-env-text: #000;
+        --mod-src-lfo-text: #000;
+        --mod-src-press-text: #000;
+        --mod-src-key_arp-text: #000;
+        --mod-src-bg: #777;
+    }
+
+    html[data-theme='darker'] {
+        --main-bg: #000;
+        --text: #fff;
+        --title-text: #f0f0f0;
+        --footer: #444;
+        --progress: #34ab33;
+        --input-border: 1px solid #393939;
+        --group-bg: #212121;
+        --group-border: none;
+        --group-header: #212121;
+        --group-header-border: 2px solid #000;
+        --switch-sel-bg: #ecc53a;
+        --switch-sel-text: #000;
+        --knob-track-bg: #393939;
+        --knob-track: #eec83f;
+        --knob-text: #fff;
+        --direct-access-bg: #000;
+        --direct-access-border: #555;
+        --direct-access-hover-bg: yellow !important;
+        --direct-access-hover-text: #000 !important;
+        /*--direct-access-sel-bg: #ecc53a;*/
+        --mod-src-cyc_env: #fff5cf;
+        --mod-src-env: #d1e7ff;
+        --mod-src-lfo: #ffd4e5;
+        --mod-src-press: #94ffa5;
+        --mod-src-key_arp: #f0baff;
+        --mod-src-cyc_env-text: #000;
+        --mod-src-env-text: #000;
+        --mod-src-lfo-text: #000;
+        --mod-src-press-text: #000;
+        --mod-src-key_arp-text: #000;
+        --mod-src-bg: #777;
+    }
+
 }
