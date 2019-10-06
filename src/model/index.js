@@ -439,8 +439,8 @@ export const MOD_MATRIX = {
         [ASSIGN3]: {
             MSB: [32, 4],
             LSB: [32, 3],
-            msb: [32, 0, 0x08],
-            sign: [32, 0, 0x04]
+            msb: [32, 0, 0x04],
+            sign: [32, 0, 0x08]
         }
     },
     [MOD_SRC_ENV]: {
@@ -483,8 +483,8 @@ export const MOD_MATRIX = {
         [ASSIGN3]: {
             MSB: [32, 13],
             LSB: [32, 12],
-            msb: [32, 8, 0x10],
-            sign: [32, 8, 0x08]
+            msb: [32, 8, 0x08],
+            sign: [32, 8, 0x10]
         }
     },
     [MOD_SRC_LFO]: {
@@ -521,8 +521,8 @@ export const MOD_MATRIX = {
         [ASSIGN2]: {
             MSB: [31, 3],
             LSB: [31, 2],
-            msb: [31, 0, 0x04],
-            sign: [31, 0, 0x02]
+            msb: [31, 0, 0x02],
+            sign: [31, 0, 0x04]
         },
         [ASSIGN3]: {
             MSB: [32, 22],
@@ -565,14 +565,14 @@ export const MOD_MATRIX = {
         [ASSIGN2]: {
             MSB: [31, 12],
             LSB: [31, 11],
-            msb: [31, 8, 0x08],
-            sign: [31, 8, 0x04]
+            msb: [31, 8, 0x04],
+            sign: [31, 8, 0x08]
         },
         [ASSIGN3]: {
             MSB: [32, 31],
             LSB: [32, 30],
-            msb: [32, 24, 0x40],
-            sign: [32, 24, 0x20]
+            msb: [32, 24, 0x20],
+            sign: [32, 24, 0x40]
         }
     },
     [MOD_SRC_KEY_ARP]: {
@@ -609,8 +609,8 @@ export const MOD_MATRIX = {
         [ASSIGN2]: {
             MSB: [31, 21],
             LSB: [31, 20],
-            msb: [31, 16, 0x10],
-            sign: [31, 16, 0x08]
+            msb: [31, 16, 0x08],
+            sign: [31, 16, 0x10]
         },
         [ASSIGN3]: {
             MSB: [33, 9],
