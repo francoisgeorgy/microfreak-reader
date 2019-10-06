@@ -157,7 +157,7 @@ export const MOD_GROUP_MOD_DEST = {
     [ASSIGN1]: MOD_GROUP_MATRIX_ASSIGN1,
     [ASSIGN2]: MOD_GROUP_MATRIX_ASSIGN2,
     [ASSIGN3]: MOD_GROUP_MATRIX_ASSIGN3,
-}
+};
 
 // names (labels)
 export const MOD_SOURCE = {
@@ -202,27 +202,34 @@ export const MOD_MATRIX_DESTINATION = {
 };
 
 // All mod destinations available
-//TODO: add ENV
 export const MOD_DESTINATION = {
     [PITCH]: 'Pitch',
+    [OSC_TYPE]: 'Type',
     [OSC_WAVE]: 'Wave',
     [OSC_TIMBRE]: 'Timbre',
     [OSC_SHAPE]: 'Shape',
     [FILTER_CUTOFF]: 'Cutoff',
+    [FILTER_RESONANCE]: 'Resonance',
     [ASSIGN1]: 'Assign 1',
     [ASSIGN2]: 'Assign 2',
     [ASSIGN3]: 'Assign 3',
+    [ENVELOPE_ATTACK]: 'Attack',
+    [ENVELOPE_DECAY]: 'Decay',
+    [ENVELOPE_SUSTAIN]: 'Sustain',
     [CYCLING_ENV_RISE]: 'Rise',
     [CYCLING_ENV_FALL]: 'Fall',
-    [CYCLING_ENV_HOLD]: 'Hol',
+    [CYCLING_ENV_HOLD]: 'Hold',
     [CYCLING_ENV_AMOUNT]: 'Amount',
     [LFO_DIVISION]: 'Division',
     [LFO_RATE]: 'Rate',
+    [LFO_SHAPE]: 'Shape',
     [MOD_SRC_CYC_ENV]: 'Mod CycEnv',
     [MOD_SRC_ENV]: 'Mod Env',
     [MOD_SRC_LFO]: 'Mod LFO',
     [MOD_SRC_PRESS]: 'Mod Press',
-    [MOD_SRC_KEY_ARP]: 'Mod Key/Arp'
+    [MOD_SRC_KEY_ARP]: 'Mod Key/Arp',
+    [GLIDE]: 'Glide',
+    [ARP_SEQ_RATE_FREE]: 'Rate'
 };
 
 
@@ -251,6 +258,7 @@ export const MOD_ASSIGN_DEST = {
         mod_group: MOD_GROUP_OSC,
         control: {
             0: OSC_TYPE,
+            1: OSC_WAVE,
             3: OSC_TIMBRE,
             5: OSC_SHAPE
         }
@@ -269,6 +277,18 @@ export const MOD_ASSIGN_DEST = {
             3: CYCLING_ENV_FALL,
             4: CYCLING_ENV_HOLD,
             6: CYCLING_ENV_AMOUNT
+        }
+    },
+    0x03: {
+        mod_group: MOD_GROUP_KEYBOARD,
+        control: {
+            0: GLIDE
+        }
+    },
+    0x04: {
+        mod_group: MOD_GROUP_ARP_SEQ,
+        control: {
+            3: ARP_SEQ_RATE_FREE
         }
     },
     0x05: {
