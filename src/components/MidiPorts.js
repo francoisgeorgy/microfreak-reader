@@ -38,7 +38,7 @@ class MidiPorts extends React.Component {
             }
         }
 
-        console.log("MidiPorts: groupedByName.length", Object.keys(groupedByName).length, groupedByName);
+        if (global.dev) console.log("MidiPorts: groupedByName.length", Object.keys(groupedByName).length, groupedByName);
 
         if (ports) {
 

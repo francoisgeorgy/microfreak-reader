@@ -4,11 +4,11 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
-    "mobx": "^5.13.0",
+    "mobx": "^5.14.0",
     "mobx-react": "^6.1.3",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-scripts": "3.2.0",
     "react-switch": "^5.0.1",
     "storejs": "^1.0.25",
     "webmidi": "^2.5.1"

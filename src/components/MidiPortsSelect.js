@@ -61,7 +61,7 @@ class MidiPortsSelect extends React.Component {
                 if (!selected_output && port && port.enabled && port.type === PORT_OUTPUT) selected_output = id;
             }
 
-            console.log("MidiPortsSelect", selected_input, selected_output, ports);
+            if (global.dev) console.log("MidiPortsSelect", selected_input, selected_output, ports);
 
             return (
                 <Fragment>

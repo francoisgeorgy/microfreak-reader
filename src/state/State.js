@@ -102,7 +102,7 @@ class State {
         if (global.dev) console.log(`Midi.connectPort: ${port.type} ${port.id} ${port.name}`);
         if (port.type === PORT_INPUT) {
             if (port.hasListener(messageType, 'all', onMidiInputEvent)) {
-                console.warn(`Midi.connectPort: ${port.id} ${port.name} : ${messageType} messages on all channels listener already connected`);
+                if (global.dev) console.warn(`Midi.connectPort: ${port.id} ${port.name} : ${messageType} messages on all channels listener already connected`);
             } else {
                 if (global.dev) console.log(`Midi.connectPort: ${port.id} ${port.name} : add listener for ${messageType} messages on all channels`);
                 port.addListener(messageType, 'all', onMidiInputEvent);
@@ -267,7 +267,7 @@ class State {
         const m = MOD_MATRIX[src][dest];    //TODO: check params validity
 
         if (!m) {
-            console.log("modMatrixValue, no def for", src, dest);
+            if (global.dev) console.log("modMatrixValue, no def for", src, dest);
             return 0;
         }
 
