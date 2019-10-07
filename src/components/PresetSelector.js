@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "./PresetSelector.css";
 import {inject, observer} from "mobx-react";
-import {readPreset, sendPC} from "../utils/midi";
+import {readPreset, sendPC, wait, WAIT_BETWEEN_MESSAGES} from "../utils/midi";
 
 class PresetSelector extends Component {
 
@@ -54,9 +54,9 @@ class PresetSelector extends Component {
     };
 
     selectDirect = (n) => {
-        // this.setState({p: n.toString()});
         this.setPreset(n.toString());
-        this.go();
+        // this.go();
+        this.props.state.loadPreset(n);
         this.setState({direct_access: false})
     };
 
@@ -71,13 +71,18 @@ class PresetSelector extends Component {
         // this.abort_all = false;
 
         this.props.state.all = [];
-        for (let n = 1; n <= 56; n++) {
+        for (let n = 1; n <= 256; n++) {
             // if (this.abort_all) break;
             if (this.state.abort_all) break;
             this.setPreset(n.toString());
             await readPreset();
+            await wait(4 * WAIT_BETWEEN_MESSAGES);
+            // console.log(n, this.props.state.data);
             this.props.state.all[n] = [...this.props.state.data];
+            this.props.state.all_name[n] = this.props.state.data_name;
         }
+
+        // console.log(this.props.state.all);
 
         this.setState({reading_all: false});
         this.setState({abort_all: false});
@@ -94,8 +99,12 @@ class PresetSelector extends Component {
         const midi_ok = S.hasInputEnabled() && S.hasOutputEnabled();
 
         const pc = [];
-        for (let i=1; i<=256; i++){
-            pc.push(<div key={i} className={i === S.preset.current ? 'sel' : ''} onClick={() => this.selectDirect(i)}>{i}</div>);
+        for (let i=1; i<=256; i++) {
+            let classname = i === S.preset.current ? 'sel' : '';
+            if (S.all[i]) {
+                classname += ' loaded';
+            }
+            pc.push(<div key={i} className={classname} onClick={() => this.selectDirect(i)}>{i}</div>);
         }
 
         return (
@@ -108,7 +117,7 @@ class PresetSelector extends Component {
                     <button onClick={this.go} title="Send a PC message to the MicroFreak to select this preset on the MicroFreak itself.">load in MF</button>
                     <button className={midi_ok ? "read-button ok" : "read-button"} type="button" onClick={readPreset}>READ</button>
                     {!this.state.reading_all && <button onClick={this.readAll} title="Read all">Read all</button>}
-                    {this.state.reading_all && <button onClick={this.abortAll} title="Abort reading all">{this.state.abort_all ? "aborting" : "Abort read all"}</button>}
+                    {this.state.reading_all && <button onClick={this.abortAll} title="Abort reading all" className="abort">{this.state.abort_all ? "aborting" : "Abort read all"}</button>}
                 </div>
                 {this.state.direct_access && <div className="direct-access">{pc}</div>}
 {/*

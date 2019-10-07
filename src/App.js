@@ -56,6 +56,7 @@ import MidiPortsSelect from "./components/MidiPortsSelect";
 import PresetName from "./components/PresetName";
 import ControlMods from "./components/ControlMods";
 import {DEFAULT_THEME, loadPreferences, savePreferences} from "./utils/preferences";
+import PresetsGrid from "./components/PresetsGrid";
 
 const MIDI_MSG_TYPE = "sysex";
 
@@ -257,6 +258,7 @@ class App extends Component {
                             </div>
                         </div>
                     </div>
+                    <PresetsGrid />
                 </div>
                 <footer>
                     &copy; studiocode.dev 2019

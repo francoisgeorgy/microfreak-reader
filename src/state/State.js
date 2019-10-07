@@ -37,13 +37,27 @@ class State {
 
     lock = false;
 
-    all = [];
-
     data = [];
     dataRef = [];   // copy used as reference for comparisons
 
     // data_name = [0x01, 0x65, 0x00, 0x18, 0x00, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x10, 0x44, 0x69, 0x73, 0x72, 0x65, 0x73, 0x70, 0x65, 0x63, 0x74, 0x66];
     data_name = null;
+
+    all = [];       // array of data
+    all_name = [];  // array of data_name
+
+    /**
+     * Copy preset from all[] to data[]
+     * @param n
+     */
+    loadPreset(n) {
+        if (this.all[n] && this.all[n].length) {
+            this.data = this.all[n];
+            this.data_name = this.all_name[n];
+            this.preset.reference = n;
+        }
+    }
+
 
     addPort(port) {
         // eslint-disable-next-line
@@ -337,7 +351,21 @@ class State {
         return MOD_MATRIX_DESTINATION[dest];
     }
 
-    get presetName() {
+    name(n) {       //TODO: rename to presetName(n)
+        if (!this.all_name[n]) {
+            return '';
+        }
+        const data = this.all_name[n];
+        let s = '';
+        let i = 12;
+        while (i < data.length && data[i] !== 0) {
+            s += String.fromCharCode(data[i]);
+            i++;
+        }
+        return s;
+    }
+
+    get presetName() {  //TODO: change method name
 
         console.log("state.presetName()");
 

@@ -38,9 +38,12 @@ html {
     --knob-track: #42A5F5;
     --knob-text: #000;
     --direct-access-bg: #fff;
+    --direct-access-loaded-bg: #ddd;
     --direct-access-border: #ccc;
     --direct-access-hover-bg: burlywood!important;
     /*--direct-access-sel-bg: #decea5;*/
+    --presets-grid-text: #333;
+    --presets-grid-loaded-bg: #f0f0f2;
     --mod-src-cyc_env : #fff5cf;
     --mod-src-env: #d1e7ff;
     --mod-src-lfo: #ffd4e5;
@@ -52,6 +55,7 @@ html {
     --mod-src-press-text: #000;
     --mod-src-key_arp-text: #000;
     --mod-src-bg: #e8e8ea;
+    --abort-button-bg: #ff7272;
     --instructions-text: #666;
 }
 
@@ -74,10 +78,13 @@ html {
         --knob-track: #eec83f;
         --knob-text: #eec83f;
         --direct-access-bg: #000;
+        --direct-access-loaded-bg: #333;
         --direct-access-border: #555;
         --direct-access-hover-bg: yellow !important;
         --direct-access-hover-text: #000 !important;
         /*--direct-access-sel-bg: #ecc53a;*/
+        --presets-grid-text: #ccc;
+        --presets-grid-loaded-bg: #1b1f26;
         --mod-src-cyc_env: #fff5cf;
         --mod-src-env: #d1e7ff;
         --mod-src-lfo: #ffd4e5;
@@ -89,6 +96,7 @@ html {
         --mod-src-press-text: #000;
         --mod-src-key_arp-text: #000;
         --mod-src-bg: #777;
+        --abort-button-bg: #ff3636;
         --instructions-text: #aaa;
     }
 
@@ -109,10 +117,13 @@ html {
         --knob-track: #eec83f;
         --knob-text: #fff;
         --direct-access-bg: #000;
+        --direct-access-loaded-bg: #333;
         --direct-access-border: #555;
         --direct-access-hover-bg: yellow !important;
         --direct-access-hover-text: #000 !important;
         /*--direct-access-sel-bg: #ecc53a;*/
+        --presets-grid-text: #ccc;
+        --presets-grid-loaded-bg: #1b1f26;
         --mod-src-cyc_env: #fff5cf;
         --mod-src-env: #d1e7ff;
         --mod-src-lfo: #ffd4e5;
@@ -124,6 +135,7 @@ html {
         --mod-src-press-text: #000;
         --mod-src-key_arp-text: #000;
         --mod-src-bg: #777;
+        --abort-button-bg: #ff3636;
         --instructions-text: #999;
     }
 

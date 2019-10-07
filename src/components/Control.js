@@ -18,8 +18,8 @@ class Control extends Component {
         // const v = d.mapping ? d.mapping(S.preset[cc]) : S.preset[cc];
         // const v = -100;
 
-        // const v = S.controlValue(control, cc === OSC_TYPE);
-        const v = 53;
+        const v = S.controlValue(control, cc === OSC_TYPE);
+        // const v = 53;
         const mapped = control.mapping ? control.mapping(v) : '';
 
         //HACK:

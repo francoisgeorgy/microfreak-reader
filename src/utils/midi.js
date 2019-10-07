@@ -34,11 +34,11 @@ function outputName(id) {
 }
 */
 
-const wait = ms => new Promise(r => setTimeout(r, ms));
+export const wait = ms => new Promise(r => setTimeout(r, ms));
 
 // The MF answer within 2ms typically.
 
-const WAIT_BETWEEN_MESSAGES = 20;
+export const WAIT_BETWEEN_MESSAGES = 20;
 
 
 export function sendPC(n) {
@@ -153,10 +153,10 @@ export async function readPreset() {
     state.preset.reference = state.preset.current;
 
     sendNameRequest(state.preset.current);
-    await wait(2 * WAIT_BETWEEN_MESSAGES);
+    await wait(WAIT_BETWEEN_MESSAGES);
 
     sendPresetRequest(state.preset.current);
-    await wait(2 * WAIT_BETWEEN_MESSAGES);
+    await wait(WAIT_BETWEEN_MESSAGES);
 
     // const N = 146;
     const N = 40;
@@ -166,7 +166,7 @@ export async function readPreset() {
         // console.log(`sendPresetRequest ${i}`);
         sendPresetRequestData(i);
         state.preset.current_counter++;
-        await wait(2 * WAIT_BETWEEN_MESSAGES);
+        await wait(WAIT_BETWEEN_MESSAGES);
     }
     state.lock = false;
 

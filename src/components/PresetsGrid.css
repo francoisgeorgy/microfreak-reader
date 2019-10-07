@@ -1,0 +1,30 @@
+.presets-grid {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 3px;
+    font-size: 85%;
+    color: var(--presets-grid-text);
+}
+.presets-grid > div {
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.presets-grid > div:hover {
+    background-color: var(--direct-access-hover-bg);
+    color: var(--direct-access-hover-text);
+}
+
+.presets-grid > .loaded {
+    background-color: var(--presets-grid-loaded-bg);
+    /*color: var(--switch-sel-text);*/
+}
+
+.presets-grid > div.sel {
+    background-color: var(--switch-sel-bg);
+    color: var(--switch-sel-text);
+}
+
