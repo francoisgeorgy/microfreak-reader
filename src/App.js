@@ -3,7 +3,6 @@ import './App.css';
 import Midi from "./components/Midi";
 import {Provider} from "mobx-react";
 import {state} from "./state/State";
-// import MidiPorts from "./components/MidiPorts";
 import Control from "./components/Control";
 import {
     AMP_MOD,
@@ -56,9 +55,9 @@ import ReadProgress from "./components/ReadProgress";
 import MidiPortsSelect from "./components/MidiPortsSelect";
 import PresetName from "./components/PresetName";
 import ControlMods from "./components/ControlMods";
+import {DEFAULT_THEME, loadPreferences, savePreferences} from "./utils/preferences";
 
 const MIDI_MSG_TYPE = "sysex";
-const DEFAULT_THEME = 'dark';
 
 const LAYOUT_2_COLS = 'layout-2-cols';
 const LAYOUT_1_ROW = 'layout-1-row';
@@ -69,18 +68,27 @@ class App extends Component {
 
     selectTheme = (e) => {
         this.setState({theme: e.target.value});
-        // savePreferences({theme});
+        savePreferences({theme: e.target.value});
     };
 
-/*
-    setThemeLight = () => {
-        this.selectTheme("light");
-    };
+    componentDidMount(){
+        const s = loadPreferences();
+        this.setState(
+            {
+                theme: s.theme || DEFAULT_THEME
+            }
+        );
+    }
 
-    setThemeDark = () => {
-        this.selectTheme("dark");
-    };
-*/
+    /*
+        setThemeLight = () => {
+            this.selectTheme("light");
+        };
+
+        setThemeDark = () => {
+            this.selectTheme("dark");
+        };
+    */
 
     handleMidiInputEvent = (e) => {
 

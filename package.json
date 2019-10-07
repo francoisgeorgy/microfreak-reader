@@ -10,6 +10,7 @@
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1",
     "react-switch": "^5.0.1",
+    "storejs": "^1.0.25",
     "webmidi": "^2.5.1"
   },
   "scripts": {
