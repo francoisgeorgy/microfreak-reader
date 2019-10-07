@@ -134,3 +134,7 @@
 /*.toggle {*/
 /*    cursor: pointer;*/
 /*}*/
+
+.aborting {
+    margin-left: 5px;
+}

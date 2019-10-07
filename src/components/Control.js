@@ -18,20 +18,21 @@ class Control extends Component {
         // const v = d.mapping ? d.mapping(S.preset[cc]) : S.preset[cc];
         // const v = -100;
 
-        const v = S.controlValue(control, cc === OSC_TYPE);
+        // const v = S.controlValue(control, cc === OSC_TYPE);
+        const v = 53;
         const mapped = control.mapping ? control.mapping(v) : '';
 
         //HACK:
         // const c = cc === OSC_TYPE ? 'osc' : '';
 
         return (
-            <div className={`control`}>
+            <div className={`control${cc === OSC_TYPE ? ' osc' : ''}`}>
                 {/*<div className="ctrl-value">{state.preset[cc]}</div>*/}
                 {/*<div className="ctrl-value">{v}</div>*/}
                 {/*<div className="ctrl-value-hex">0x{h(state.preset[cc])}</div>*/}
                 <div className="ctrl-name">{control.name}</div>
                 {cc !== OSC_TYPE && <Knob value={v} decimals={1} />}
-                {cc === OSC_TYPE && <div className="osc">{mapped}</div>}
+                {cc === OSC_TYPE && <div className="osc-name">{mapped}</div>}
                 {cc !== OSC_TYPE && <div className="ctrl-value">{v.toFixed(1)}</div>}
                 <ControlMods cc={cc} />
                 {this.props.group && <ControlModsAssign cc={cc} group={this.props.group}/>}

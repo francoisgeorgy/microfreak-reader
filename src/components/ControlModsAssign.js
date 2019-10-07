@@ -84,6 +84,8 @@ class ControlModsAssign extends Component {
                                                     </div>
                                                 </div>
                                             )
+                                        } else {
+                                            return null;
                                         }
                                     }
                                 )}

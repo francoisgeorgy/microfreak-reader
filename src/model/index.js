@@ -38,7 +38,7 @@ export const multibytesValue = (MSB, LSB, msb_byte, mask_msb, sign_byte, mask_si
 const _osc_type = function (v) {
     switch (v) {
         case 10:
-            return "Basic Waves";
+            return "Basic\nWaves";
         case 21:
             return "Superwave";
         case 32:
@@ -46,13 +46,13 @@ const _osc_type = function (v) {
         case 42:
             return "Harmonic";
         case 53:
-            return "KarplusStrong";
+            return "Karplus\nStrong";
         case 64:
             return "V. Analog";
         case 74:
             return "Waveshaper";
         case 85:
-            return "Two Op. FM";
+            return "Two Op.\nFM";
         case 95:
             return "Formant";
         case 106:
@@ -62,7 +62,7 @@ const _osc_type = function (v) {
         case 127:
             return "Modal";
         default:
-            return v;
+            return "?";
     }
 };
 /*

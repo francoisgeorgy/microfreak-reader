@@ -16,8 +16,15 @@
     margin-left: 10px;
 }
 
-.osc {
+.control.osc {
+    min-width: 80px;
+}
+
+.osc-name {
     margin-top: 10px;
+    color: var(--knob-text);
+    white-space: pre-wrap;
+    text-align: center;
 }
 
 /*

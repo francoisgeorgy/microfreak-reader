@@ -37,6 +37,8 @@ class State {
 
     lock = false;
 
+    all = [];
+
     data = [];
     dataRef = [];   // copy used as reference for comparisons
 
