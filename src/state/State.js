@@ -128,36 +128,40 @@ class State {
     setPresetNumber(number) {
         if (number === undefined || number === null) return;
         if ((typeof number !== 'string') && (typeof number !== 'number')) return;
+
         let num;
         let s = null;
+
         if (typeof number === 'string') {
             num = parseInt(number, 10);
-            // this.props.state.preset_number = num;
-            // this.props.state.data_name = [];    //TODO: make method
-
-            //this.setState({p: s});
-            // console.log("setPreset", s);
-            // this.props.state.preset_number_string = s;
         } else {
             num = number + 1;
         }
 
-        if (!num) {
-            s = '';
+        if (isNaN(num)) {
+            // s = '';
             num = 1;
-        }
-        // num = num - 1;    // index is 0..255 but displayed as 1..256
-        if (num > 256) {
+        } else if (num > 256) {
             s = '256';
             num = 256;
-        }
-        if (num < 1) {
+        } else if (num < 1) {
             s = '1';
             num = 1;
+        } else {
+            s = number.toString(10);
         }
 
-        this.preset_number = num - 1;
-        this.preset_number_string = s !== null ? s : num.toString(10);
+        if (s === null) {
+            this.preset_number_string = '';
+        } else {
+            this.preset_number_string = s;
+            this.preset_number = num - 1;
+        }
+
+        // if (s !== null) {
+        //     this.preset_number = num - 1;
+        // }
+        // this.preset_number_string = s === null ? '' : s;
     }
 
     /**
