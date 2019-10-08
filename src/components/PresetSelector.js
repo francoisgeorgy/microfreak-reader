@@ -16,6 +16,7 @@ class PresetSelector extends Component {
         this.setState({direct_access: !this.state.direct_access})
     };
 
+/*
     setPreset = (s) => {
         if (s) {
             let v = parseInt(s, 10);
@@ -36,9 +37,10 @@ class PresetSelector extends Component {
             // this.props.state.data_name = [];    //TODO: make method
         }
         //this.setState({p: s});
-        console.log("setPreset", s);
+        // console.log("setPreset", s);
         this.props.state.preset_number_string = s;
     };
+*/
 
     prev = () => {
         const n = this.props.state.preset_number - 1;
@@ -57,7 +59,7 @@ class PresetSelector extends Component {
     };
 
     selectDirect = (n) => {
-        this.setPreset(n.toString());
+        this.props.state.setPresetNumber(n);
         // this.go();
         // this.props.state.loadPreset(n);
         // this.props.state.preset_number = n;
@@ -78,9 +80,10 @@ class PresetSelector extends Component {
         for (let n = 0; n < 256; n++) {
             // if (this.abort_all) break;
             if (this.state.abort_all) break;
-            this.setPreset(n.toString());
+            // this.props.state.setPresetNumber(n);
             await readPreset(n);
-            await wait(4 * WAIT_BETWEEN_MESSAGES);
+            this.props.state.setPresetNumber(n);
+            await wait(4 * WAIT_BETWEEN_MESSAGES);  // by updating the preset_number _after_ the reading, we avoid to display an empty preset while reading. This is much more pleasant.
             // console.log(n, this.props.state.data);
             // this.props.state.all[n] = [...this.props.state.data];
             // this.props.state.all_name[n] = this.props.state.data_name;
@@ -101,7 +104,7 @@ class PresetSelector extends Component {
 
         const S = this.props.state;
 
-        if (global.dev) console.log("PresetSelector.render", S.preset_number);
+        // if (global.dev) console.log("PresetSelector.render", S.preset_number, S.presets.length);
 
         const midi_ok = S.hasInputEnabled() && S.hasOutputEnabled();
 
@@ -109,7 +112,7 @@ class PresetSelector extends Component {
         const plength = S.presets.length;
         for (let i=0; i<256; i++) {
             let classname = i === S.preset_number ? 'sel' : '';
-            if (plength && (plength >= i && S.presets[i])) {
+            if (plength && (plength > i && S.presets[i])) {
                 classname += ' loaded';
             }
             pc.push(<div key={i} className={classname} onClick={() => this.selectDirect(i)}>{i+1}</div>);
@@ -129,7 +132,7 @@ class PresetSelector extends Component {
                     <button onClick={this.next} title="Next">&gt;</button>
                     <button onClick={this.toggleDirectAccess} title="Choose the preset number then send a PC message to the MF.">#...</button>
                     <button onClick={this.go} title="Send a PC message to the MicroFreak to select this preset on the MicroFreak itself.">load in MF</button>
-                    <button className={midi_ok ? "read-button ok" : "read-button"} type="button" onClick={readPreset}>READ</button>
+                    <button className={midi_ok ? "read-button ok" : "read-button"} type="button" onClick={() => readPreset()}>READ</button>
                     {!this.state.reading_all && <button onClick={this.readAll} title="Read all">Read all</button>}
                     {this.state.reading_all && <button onClick={this.abortAll} title="Abort reading all" className="abort">{this.state.abort_all ? "aborting" : "Abort read all"}</button>}
                 </div>

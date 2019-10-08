@@ -1,4 +1,4 @@
-import {computed, decorate, observable} from 'mobx';
+import {decorate, observable} from 'mobx';
 import {PORT_INPUT, PORT_OUTPUT} from "../components/Midi";
 import {
     ASSIGN1,
@@ -29,14 +29,15 @@ class State {
     // The number of the currently displayed preset
     preset_number = 0;  // 0..255 display as 1..256
 
-    preset_number_string = '';  // input field in preset selector
+    preset_number_string = '1';  // input field in preset selector
 
     // The preset number used in MIDI
     preset_number_comm = null;      // 0..255 display as 1..256
 
     // All the presets
     // This is an array of {name: String; data: []}
-    presets = [];   // index 0..255
+    // We prefill the array with null value to avoid OutOfBound exceptions when accessing the array with MobX
+    presets = new Array(256).fill(null);   // index 0..255
 
     // preset = {
     //     current: 1,
@@ -76,39 +77,46 @@ class State {
         return s;
     }
 
-    importData(message_bytes) {
+    /**
+     *
+     * @param data Data attribute of a midi message
+     */
+    importData(data) {
 
         //TODO: extract preset num: NOT POSSIBLE, preset num is not in the answers
 
-        if (!this.presets[this.preset_number_comm]) {
+        // console.log("importData", this.presets.length, this.preset_number_comm);
+
+        if (!this.presets.length || (this.presets.length <= this.preset_number_comm) || this.presets[this.preset_number_comm] === null) {
             this.presets[this.preset_number_comm] = {name: null, data:[]};
         }
 
         //
         // Store PRESET NAME:
         //
-        if (message_bytes.data[8] === 0x52) {
-            // console.log("answer 0x52 contains name", hs(message_bytes.data));
-            // state.data_name = Array.from(message_bytes.data.slice(9, message_bytes.data.length - 1));    // message_bytes.data is UInt8Array
-            this.presets[this.preset_number_comm].name = this.bytesToName(Array.from(message_bytes.data.slice(9, message_bytes.data.length - 1)));    // message_bytes.data is UInt8Array
+        if (data[8] === 0x52) {
+            // console.log("answer 0x52 contains name", hs(message_bytes));
+            // state.data_name = Array.from(message_bytes.slice(9, message_bytes.length - 1));    // message_bytes is UInt8Array
+            this.presets[this.preset_number_comm].name = this.bytesToName(Array.from(data.slice(9, data.length - 1)));    // message_bytes is UInt8Array
             return;
         }
 
 /*
-        if (message_bytes.data[8] === 0x16) {
-            // console.log("answer 0x16 is dump packet", hs(message_bytes.data));
-        } else if (message_bytes.data[8] === 0x17) {
-            // console.log("answer 0x17 is last dump packet", hs(message_bytes.data));
+        if (message_bytes[8] === 0x16) {
+            // console.log("answer 0x16 is dump packet", hs(message_bytes));
+        } else if (message_bytes[8] === 0x17) {
+            // console.log("answer 0x17 is last dump packet", hs(message_bytes));
         } else {
-            if (global.dev) console.warn(`answer 0x${h(message_bytes.data[8])} is unknown type`, hs(message_bytes.data));
+            if (global.dev) console.warn(`answer 0x${h(message_bytes[8])} is unknown type`, hs(message_bytes));
         }
 */
-        if (message_bytes.data[8] === 0x16 || message_bytes.data[8] === 0x17) {
-            if (global.dev) console.warn(`answer 0x${h(message_bytes.data[8])} is unknown type`, hs(message_bytes.data));
+        if (data[8] !== 0x16 && data[8] !== 0x17) {
+            if (global.dev) console.warn(`ignore answer type 0x${h(data[8])}`, hs(data));
+            return;
         }
 
-        if (message_bytes.data.length !== 42) {
-            if (global.dev) console.log("do not store answer", hs(message_bytes.data));
+        if (data.length !== 42) {
+            if (global.dev) console.log("do not store answer", hs(data));
             return;
         }
 
@@ -117,7 +125,7 @@ class State {
         //
         // Store PRESET DATA:
         // TODO: move into store:
-        this.presets[this.preset_number_comm].data.push(Array.from(message_bytes.data.slice(9, message_bytes.data.length - 1)));    // message_bytes.data is UInt8Array
+        this.presets[this.preset_number_comm].data.push(Array.from(data.slice(9, data.length - 1)));    // message_bytes is UInt8Array
     }
 
     /**
@@ -135,7 +143,7 @@ class State {
         if (typeof number === 'string') {
             num = parseInt(number, 10);
         } else {
-            num = number + 1;
+            num = number + 1;       // displayed value is 1..256
         }
 
         if (isNaN(num)) {
@@ -148,7 +156,7 @@ class State {
             s = '1';
             num = 1;
         } else {
-            s = number.toString(10);
+            s = num.toString(10);
         }
 
         if (s === null) {
@@ -334,7 +342,7 @@ class State {
         // const D = this.props.state.data;
         // console.log("m", m, D.length);
 
-        if (!this.presets.length || (this.presets.length < this.preset_number)) {
+        if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
             return 0;
         }
 
@@ -367,7 +375,7 @@ class State {
         // const D = this.props.state.data;
         // console.log("m", m, D.length);
 
-        if (!this.presets.length || (this.presets.length < this.preset_number)) {
+        if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
             return 0;
         }
         // if (!this.presets[this.preset_number]) {
@@ -411,7 +419,7 @@ class State {
      */
     modMatrixValue(src, dest, return_raw=false) {
 
-        if (!this.presets.length || (this.presets.length < this.preset_number)) {
+        if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
             return 0;
         }
         // if (!this.presets[this.preset_number]) {
@@ -452,7 +460,7 @@ class State {
 
         // console.log("modAssignDest", this.presets.length, this.preset_number);
 
-        if (!this.presets.length || (this.presets.length < this.preset_number)) {
+        if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
             return 0;
         }
         // if (!this.presets[this.preset_number]) {
@@ -517,12 +525,11 @@ class State {
 
     presetName(number) {  //TODO: change method name
 
-        if (!this.presets.length || (this.presets.length < number)) {
+        if (!this.presets.length || (this.presets.length < number) || !this.presets[number]) {
             return '';
-        }
-
-        if (!this.presets[number]) {
-            return '';
+        // }
+        // if (!this.presets[number]) {
+        //     return '';
         } else {
             return this.presets[number].name;
         }

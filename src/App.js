@@ -49,7 +49,7 @@ import {
 } from "./model";
 import PresetSelector from "./components/PresetSelector";
 import ModMatrix from "./components/ModMatrix";
-import {h, hs} from "./utils/hexstring";
+import {hs} from "./utils/hexstring";
 import Switch from "./components/Switch";
 import ReadProgress from "./components/ReadProgress";
 import MidiPortsSelect from "./components/MidiPortsSelect";
@@ -74,11 +74,7 @@ class App extends Component {
 
     componentDidMount(){
         const s = loadPreferences();
-        this.setState(
-            {
-                theme: s.theme || DEFAULT_THEME
-            }
-        );
+        this.setState({theme: s.theme || DEFAULT_THEME});
     }
 
     /*
@@ -104,7 +100,7 @@ class App extends Component {
         // state.preset[e.controller.number] = e.value;
 
         if (e.data.length < 10) {
-            if (global.dev) console.log("answer to short", hs(e.data));
+            if (global.dev) console.log("answer too short", hs(e.data));
             return;
         }
 

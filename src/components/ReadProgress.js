@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {inject, observer} from "mobx-react";
 import "./ReadProgress.css";
+import {MESSAGES_TO_READ_FOR_PRESET} from "../utils/midi";
 
 class ReadProgress extends Component {
 
     render() {
 
         const S = this.props.state;
-        const p = S.read_progress / 40 * 100;
-        const all_done = S.read_progress >= 40;
+        const p = S.read_progress / MESSAGES_TO_READ_FOR_PRESET * 100;
+        const all_done = S.read_progress >= MESSAGES_TO_READ_FOR_PRESET;
 
         if (p < 0.01) return null;
 
@@ -18,7 +19,7 @@ class ReadProgress extends Component {
                     &nbsp;
                 </div>
                 <div className="progress-counter">
-                    Reading preset #{S.preset.current}... {Math.round(p)}%
+                    Reading preset #{S.preset_number_comm + 1}... {Math.round(p)}%
                 </div>
             </div>
         );

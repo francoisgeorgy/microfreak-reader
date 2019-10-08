@@ -39,7 +39,7 @@ export const wait = ms => new Promise(r => setTimeout(r, ms));
 // The MF answer within 2ms typically.
 
 export const WAIT_BETWEEN_MESSAGES = 20;
-
+export const MESSAGES_TO_READ_FOR_PRESET = 40;  // we don't need to read a full and complete dump
 
 export function sendPC(presetNumber) {
 
@@ -76,7 +76,7 @@ function sendNameRequest(presetNumber) {
     const bank = presetNumber > 127 ? 1 : 0;
     const preset = presetNumber % 128;
 
-    if (global.dev) console.log(`sendNameRequest ${presetNumber}`, bank, preset);
+    // if (global.dev) console.log(`sendNameRequest ${presetNumber}`, bank, preset);
 
     const sequence = 0x00;
     const READ_CMD = 0x19;
@@ -85,7 +85,8 @@ function sendNameRequest(presetNumber) {
     for (const port_id of Object.keys(P)) {
         if (P[port_id].enabled && P[port_id].type === PORT_OUTPUT) {
             const port = portById(port_id);
-            if (global.dev) console.log(`send name request to ${port.name} ${port.id}`);
+            // if (global.dev) console.log(`send name request to ${port.name} ${port.id}`);
+            if (global.dev) console.log(`send name request to ${port.name} ${port.id} for bank ${bank} preset ${preset}`);
             port.sendSysex([0x00, 0x20, 0x6b], [0x07, 0x01, sequence, 0x01, READ_CMD, bank, preset, 0x00]);
             // sendmidi dev arturia system-exclusive hex 00 20 6B 07 01 07 03 19 01 70 00
         }
@@ -107,13 +108,13 @@ function sendPresetRequest(presetNumber) {
     const bank = presetNumber > 127 ? 1 : 0;
     const preset = presetNumber % 128;
 
-    if (global.dev) console.log(`sendPresetRequest ${presetNumber}`, bank, preset);
+    // if (global.dev) console.log(`sendPresetRequest ${presetNumber}`, bank, preset);
 
     const P = state.midi.ports;
     for (const port_id of Object.keys(P)) {
         if (P[port_id].enabled && P[port_id].type === PORT_OUTPUT) {
             const port = portById(port_id);
-            if (global.dev) console.log(`send ID request to ${port.name} ${port.id}`);
+            if (global.dev) console.log(`send ID request to ${port.name} ${port.id} for bank ${bank} preset ${preset}`);
             port.sendSysex([0x00, 0x20, 0x6b], [0x07, 0x01, 0x01, 0x01, 0x19, bank, preset, 0x01]);  // use sendSysex to bypass the webmidijs internal checks.
         }
     }
@@ -141,19 +142,21 @@ function sendPresetRequestData(presetNumber) {
 
 export async function readPreset(presetNumber = -1) {
 
+    // if (global.dev) console.log("readPreset", presetNumber);
+
     if (!state.hasInputAndOutputEnabled()) {
         if (global.dev) console.log("readPreset: no output and/or input connected, ignore request");
         return;
     }
 
     if (state.lock) {
-        if (global.dev) console.log("readPreset: locked");
+        // if (global.dev) console.log("readPreset: locked");
         return;
     }
 
     state.preset_number_comm = presetNumber < 0 ? state.preset_number : presetNumber;
 
-    if (global.dev) console.log("readPreset", state.preset_number_comm);
+    // if (global.dev) console.log("readPreset", state.preset_number_comm);
 
     // state.data = [];
     // state.data_name = [];
@@ -167,9 +170,10 @@ export async function readPreset(presetNumber = -1) {
     await wait(WAIT_BETWEEN_MESSAGES);
 
     // const N = 146;
-    const N = 40;
+    const N = MESSAGES_TO_READ_FOR_PRESET;
 
     state.lock = true;
+    state.read_progress = 0;
     try {
         for (let i = 0; i < N; i++) {
             // console.log(`sendPresetRequest ${i}`);

@@ -22,7 +22,7 @@ class PresetsGrid extends Component {
         for (let i=0; i<256; i++) {
 
             let classname = i === S.preset_number ? 'sel' : '';
-            if (S.presets.length && (S.presets.length >= i && S.presets[i])) {
+            if (S.presets.length && (S.presets.length > i && S.presets[i])) {
                 classname += ' loaded';
             }
             pc.push(
