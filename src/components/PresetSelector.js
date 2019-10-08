@@ -7,7 +7,7 @@ class PresetSelector extends Component {
 
     state = {
         direct_access: false,
-        p: '1',
+        // p: '1',
         reading_all: false,
         abort_all: false
     };
@@ -21,34 +21,39 @@ class PresetSelector extends Component {
             let v = parseInt(s, 10);
             if (!v) {
                 s = '';
-                v = 1;
+                v = 0;
             }
-            if (v > 256) {
+            v = v - 1;    // index is 0..255 but displayed as 1..256
+            if (v > 255) {
                 s = '256';
-                v = 256;
+                v = 255;
             }
-            if (v < 1) {
+            if (v < 0) {
                 s = '1';
-                v = 1;
+                v = 0;
             }
             this.props.state.preset_number = v;
             // this.props.state.data_name = [];    //TODO: make method
         }
-        this.setState({p: s});
+        //this.setState({p: s});
+        console.log("setPreset", s);
+        this.props.state.preset_number_string = s;
     };
 
     prev = () => {
         const n = this.props.state.preset_number - 1;
-        this.setPreset(n < 1 ? '256' : n.toString());
+        // this.setPreset(n < 0 ? '255' : n.toString());
+        this.props.state.setPresetNumber(n < 0 ? 255 : n);
     };
 
     next = () => {
         const n = this.props.state.preset_number + 1;
-        this.setPreset(n > 256 ? '1' : n.toString());
+        // this.setPreset(n > 255 ? '1' : n.toString());
+        this.props.state.setPresetNumber(n > 255 ? 0 : n);
     };
 
     go = () => {
-        sendPC(this.props.state.preset_number - 1);
+        sendPC(this.props.state.preset_number);
     };
 
     selectDirect = (n) => {
@@ -70,7 +75,7 @@ class PresetSelector extends Component {
         // this.abort_all = false;
 
         // this.props.state.all = [];
-        for (let n = 1; n <= 256; n++) {
+        for (let n = 0; n < 256; n++) {
             // if (this.abort_all) break;
             if (this.state.abort_all) break;
             this.setPreset(n.toString());
@@ -93,17 +98,21 @@ class PresetSelector extends Component {
     };
 
     render() {
+
         const S = this.props.state;
+
+        if (global.dev) console.log("PresetSelector.render", S.preset_number);
 
         const midi_ok = S.hasInputEnabled() && S.hasOutputEnabled();
 
         const pc = [];
-        for (let i=1; i<=256; i++) {
+        const plength = S.presets.length;
+        for (let i=0; i<256; i++) {
             let classname = i === S.preset_number ? 'sel' : '';
-            if (S.presets[i]) {
+            if (plength && (plength >= i && S.presets[i])) {
                 classname += ' loaded';
             }
-            pc.push(<div key={i} className={classname} onClick={() => this.selectDirect(i)}>{i}</div>);
+            pc.push(<div key={i} className={classname} onClick={() => this.selectDirect(i)}>{i+1}</div>);
         }
 
         // TODO:
@@ -115,7 +124,7 @@ class PresetSelector extends Component {
         return (
             <div className="preset-selector">
                 <div className="seq-access">
-                    <input type="text" id="preset" name="preset" min="1" max="256" value={this.state.p} onChange={(e) => this.setPreset(e.target.value)} />
+                    <input type="text" id="preset" name="preset" min="1" max="256" value={S.preset_number_string} onChange={(e) => this.props.state.setPresetNumber(e.target.value)} />
                     <button onClick={this.prev} title="Previous">&lt;</button>
                     <button onClick={this.next} title="Next">&gt;</button>
                     <button onClick={this.toggleDirectAccess} title="Choose the preset number then send a PC message to the MF.">#...</button>

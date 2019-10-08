@@ -4,31 +4,30 @@ import {inject, observer} from "mobx-react";
 
 class PresetsGrid extends Component {
 
-    state = {
-    };
+    // state = {
+    // };
 
-    selectDirect = (n) => {
-        // this.setPreset(n.toString());
-        // this.props.state.loadPreset(n);
-        this.props.state.preset_number = n;
-    };
+    // selectDirect = (n) => {
+    //     // this.setPreset(n.toString());
+    //     // this.props.state.loadPreset(n);
+    //     if (global.dev) console.log("selectDirect", n);
+    //     this.props.state.preset_number = n;
+    // };
 
     render() {
 
         const S = this.props.state;
 
-        const midi_ok = S.hasInputEnabled() && S.hasOutputEnabled();
-
         const pc = [];
-        for (let i=1; i<=256; i++) {
+        for (let i=0; i<256; i++) {
 
             let classname = i === S.preset_number ? 'sel' : '';
-            if (S.presets[i]) {
+            if (S.presets.length && (S.presets.length >= i && S.presets[i])) {
                 classname += ' loaded';
             }
             pc.push(
-                <div key={i} className={classname} onClick={() => this.selectDirect(i)}>
-                    {i}&nbsp;&nbsp;{S.presetName(i)}
+                <div key={i} className={classname} onClick={() => this.props.state.setPresetNumber(i)}>
+                    {i+1}&nbsp;&nbsp;{S.presetName(i)}
                 </div>
             );
         }

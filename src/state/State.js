@@ -27,14 +27,16 @@ class State {
     // preset = new Array(127).fill(0);
 
     // The number of the currently displayed preset
-    preset_number = null;
+    preset_number = 0;  // 0..255 display as 1..256
+
+    preset_number_string = '';  // input field in preset selector
 
     // The preset number used in MIDI
-    preset_number_comm = null;
+    preset_number_comm = null;      // 0..255 display as 1..256
 
     // All the presets
     // This is an array of {name: String; data: []}
-    presets = [];
+    presets = [];   // index 0..255
 
     // preset = {
     //     current: 1,
@@ -119,16 +121,56 @@ class State {
     }
 
     /**
+     * If string, range is 1..256
+     * If number, range is 0..255
+     * @param number
+     */
+    setPresetNumber(number) {
+        if (number === undefined || number === null) return;
+        if ((typeof number !== 'string') && (typeof number !== 'number')) return;
+        let num;
+        let s = null;
+        if (typeof number === 'string') {
+            num = parseInt(number, 10);
+            // this.props.state.preset_number = num;
+            // this.props.state.data_name = [];    //TODO: make method
+
+            //this.setState({p: s});
+            // console.log("setPreset", s);
+            // this.props.state.preset_number_string = s;
+        } else {
+            num = number + 1;
+        }
+
+        if (!num) {
+            s = '';
+            num = 1;
+        }
+        // num = num - 1;    // index is 0..255 but displayed as 1..256
+        if (num > 256) {
+            s = '256';
+            num = 256;
+        }
+        if (num < 1) {
+            s = '1';
+            num = 1;
+        }
+
+        this.preset_number = num - 1;
+        this.preset_number_string = s !== null ? s : num.toString(10);
+    }
+
+    /**
      * Copy preset from all[] to data[]
      * @param n
      */
-    loadPreset(n) {
+    // loadPreset(n) {
         // if (this.all[n] && this.all[n].length) {
         //     this.data = this.all[n];
         //     this.data_name = this.all_name[n];
         //     this.preset.reference = n;
         // }
-    }
+    // }
 
     addPort(port) {
         // eslint-disable-next-line
@@ -288,6 +330,10 @@ class State {
         // const D = this.props.state.data;
         // console.log("m", m, D.length);
 
+        if (!this.presets.length || (this.presets.length < this.preset_number)) {
+            return 0;
+        }
+
         if (!this.presets[this.preset_number]) {
             return 0;
         }
@@ -316,9 +362,13 @@ class State {
 
         // const D = this.props.state.data;
         // console.log("m", m, D.length);
-        if (!this.presets[this.preset_number]) {
+
+        if (!this.presets.length || (this.presets.length < this.preset_number)) {
             return 0;
         }
+        // if (!this.presets[this.preset_number]) {
+        //     return 0;
+        // }
         const data = this.presets[this.preset_number].data;
 
         if (data.length < 39) return 0;  //FIXME
@@ -357,9 +407,12 @@ class State {
      */
     modMatrixValue(src, dest, return_raw=false) {
 
-        if (!this.presets[this.preset_number]) {
+        if (!this.presets.length || (this.presets.length < this.preset_number)) {
             return 0;
         }
+        // if (!this.presets[this.preset_number]) {
+        //     return 0;
+        // }
         const data = this.presets[this.preset_number].data;
 
         // const D = this.props.state.data;
@@ -393,9 +446,14 @@ class State {
      */
     modAssignDest(slot) {
 
-        if (!this.presets[this.preset_number]) {
+        // console.log("modAssignDest", this.presets.length, this.preset_number);
+
+        if (!this.presets.length || (this.presets.length < this.preset_number)) {
             return 0;
         }
+        // if (!this.presets[this.preset_number]) {
+        //     return 0;
+        // }
         const data = this.presets[this.preset_number].data;
 
         if (data.length < 39) return;  //FIXME
@@ -412,9 +470,12 @@ class State {
      */
     modAssignControlNum(slot) {
 
-        if (!this.presets[this.preset_number]) {
+        if (!this.presets.length || (this.presets.length < this.preset_number)) {
             return 0;
         }
+        // if (!this.presets[this.preset_number]) {
+        //     return 0;
+        // }
         const data = this.presets[this.preset_number].data;
 
         if (data.length < 39) return;  //FIXME
@@ -452,6 +513,10 @@ class State {
 
     presetName(number) {  //TODO: change method name
 
+        if (!this.presets.length || (this.presets.length < number)) {
+            return '';
+        }
+
         if (!this.presets[number]) {
             return '';
         } else {
@@ -488,6 +553,7 @@ decorate(State, {
     midi: observable,
     presets: observable,
     preset_number: observable,
+    preset_number_string: observable,
     preset_number_comm: observable,
     // presetName: computed,
     // data: observable,

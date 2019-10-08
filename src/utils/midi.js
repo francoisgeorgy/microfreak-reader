@@ -73,8 +73,8 @@ function sendNameRequest(presetNumber) {
     // presetNumber is 1-indexed
     // in the request we must use 0-indexed
 
-    const bank = presetNumber > 128 ? 1 : 0;
-    const preset = (presetNumber-1) % 128;
+    const bank = presetNumber > 127 ? 1 : 0;
+    const preset = presetNumber % 128;
 
     if (global.dev) console.log(`sendNameRequest ${presetNumber}`, bank, preset);
 
@@ -104,8 +104,8 @@ function sendPresetRequest(presetNumber) {
     // presetNumber is 1-indexed
     // in the request we must use 0-indexed
 
-    const bank = presetNumber > 128 ? 1 : 0;
-    const preset = (presetNumber-1) % 128;
+    const bank = presetNumber > 127 ? 1 : 0;
+    const preset = presetNumber % 128;
 
     if (global.dev) console.log(`sendPresetRequest ${presetNumber}`, bank, preset);
 
@@ -139,7 +139,7 @@ function sendPresetRequestData(presetNumber) {
     }
 }
 
-export async function readPreset(presetNumber = 0) {
+export async function readPreset(presetNumber = -1) {
 
     if (!state.hasInputAndOutputEnabled()) {
         if (global.dev) console.log("readPreset: no output and/or input connected, ignore request");
@@ -151,7 +151,7 @@ export async function readPreset(presetNumber = 0) {
         return;
     }
 
-    state.preset_number_comm = presetNumber < 1 ? state.preset_number : presetNumber;
+    state.preset_number_comm = presetNumber < 0 ? state.preset_number : presetNumber;
 
     if (global.dev) console.log("readPreset", state.preset_number_comm);
 
