@@ -41,7 +41,7 @@ export const wait = ms => new Promise(r => setTimeout(r, ms));
 export const WAIT_BETWEEN_MESSAGES = 20;
 
 
-export function sendPC(n) {
+export function sendPC(presetNumber) {
 
     if (!state.hasInputAndOutputEnabled()) {
         if (global.dev) console.log("sendPresetRequest: no output and/or input connected, ignore request");
@@ -52,9 +52,9 @@ export function sendPC(n) {
     for (const port_id of Object.keys(P)) {
         if (P[port_id].enabled && P[port_id].type === PORT_OUTPUT) {
             const port = portById(port_id);
-            if (global.dev) console.log(`send PC ${n} to ${port.name} ${port.id}`);
-            port.sendControlChange(WebMidi.MIDI_CONTROL_CHANGE_MESSAGES.bankselectcoarse, n < 128 ? 0 : 1);
-            port.sendProgramChange(n % 128);
+            if (global.dev) console.log(`send PC ${presetNumber} to ${port.name} ${port.id}`);
+            port.sendControlChange(WebMidi.MIDI_CONTROL_CHANGE_MESSAGES.bankselectcoarse, presetNumber < 128 ? 0 : 1);
+            port.sendProgramChange(presetNumber % 128);
         }
     }
 }
@@ -67,6 +67,8 @@ function sendNameRequest(presetNumber) {
         if (global.dev) console.log("sendPresetRequest: no output and/or input connected, ignore request");
         return;
     }
+
+    //TODO: check number param validity
 
     // presetNumber is 1-indexed
     // in the request we must use 0-indexed
@@ -97,6 +99,8 @@ function sendPresetRequest(presetNumber) {
         return;
     }
 
+    //TODO: check presetNumber param validity
+
     // presetNumber is 1-indexed
     // in the request we must use 0-indexed
 
@@ -116,24 +120,26 @@ function sendPresetRequest(presetNumber) {
 }
 
 // do this 146x to read all the preset
-function sendPresetRequestData(n) {
+function sendPresetRequestData(presetNumber) {
 
     if (!state.hasInputAndOutputEnabled()) {
         if (global.dev) console.log("sendPresetRequestData: no output and/or input connected, ignore request");
         return;
     }
 
+    //TODO: check presetNumber param validity
+
     const P = state.midi.ports;
     for (const port_id of Object.keys(P)) {
         if (P[port_id].enabled && P[port_id].type === PORT_OUTPUT) {
             const port = portById(port_id);
             // if (global.dev) console.log(`send ID request to ${port.name} ${port.id}`);
-            port.sendSysex([0x00, 0x20, 0x6b], [0x07, 0x01, n, 0x01, 0x18, 0x00]);  // use sendSysex to bypass the webmidijs internal checks.
+            port.sendSysex([0x00, 0x20, 0x6b], [0x07, 0x01, presetNumber, 0x01, 0x18, 0x00]);  // use sendSysex to bypass the webmidijs internal checks.
         }
     }
 }
 
-export async function readPreset() {
+export async function readPreset(presetNumber = 0) {
 
     if (!state.hasInputAndOutputEnabled()) {
         if (global.dev) console.log("readPreset: no output and/or input connected, ignore request");
@@ -145,29 +151,36 @@ export async function readPreset() {
         return;
     }
 
-    if (global.dev) console.log("readPreset", state.preset.current);
+    state.preset_number_comm = presetNumber < 1 ? state.preset_number : presetNumber;
 
-    state.data = [];
-    state.data_name = [];
-    state.preset.current_counter = 0;
-    state.preset.reference = state.preset.current;
+    if (global.dev) console.log("readPreset", state.preset_number_comm);
 
-    sendNameRequest(state.preset.current);
+    // state.data = [];
+    // state.data_name = [];
+    // state.preset.current_counter = 0;
+    // state.preset.reference = state.preset.current;
+
+    sendNameRequest(state.preset_number_comm);
     await wait(WAIT_BETWEEN_MESSAGES);
 
-    sendPresetRequest(state.preset.current);
+    sendPresetRequest(state.preset_number_comm);
     await wait(WAIT_BETWEEN_MESSAGES);
 
     // const N = 146;
     const N = 40;
 
     state.lock = true;
-    for (let i=0; i < N; i++) {
-        // console.log(`sendPresetRequest ${i}`);
-        sendPresetRequestData(i);
-        state.preset.current_counter++;
-        await wait(WAIT_BETWEEN_MESSAGES);
+    try {
+        for (let i = 0; i < N; i++) {
+            // console.log(`sendPresetRequest ${i}`);
+            sendPresetRequestData(i);
+            state.read_progress++;
+            await wait(WAIT_BETWEEN_MESSAGES);
+        }
+    } catch (error) {
+        console.warn("Error in readPreset", error);
+    } finally {
+        state.lock = false;
     }
-    state.lock = false;
 
 }

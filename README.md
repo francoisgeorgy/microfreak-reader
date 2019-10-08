@@ -2,6 +2,14 @@
 
 Web tools for the Arturia MicroFreak synthesizer
 
+## How to use
+
+The **READ** button read the selected preset.
+
+The **Read All** button read all presets from 1 to 256 or until the user stops with the "Abort read all" button.
+
+ 
+
 ## Mod Matrix
 
 

@@ -17,10 +17,8 @@ class PresetSelector extends Component {
     };
 
     setPreset = (s) => {
-        // let s = e.target.value;
         if (s) {
             let v = parseInt(s, 10);
-            console.log("parseInt", v);
             if (!v) {
                 s = '';
                 v = 1;
@@ -33,30 +31,31 @@ class PresetSelector extends Component {
                 s = '1';
                 v = 1;
             }
-            this.props.state.preset.current = v;
+            this.props.state.preset_number = v;
             // this.props.state.data_name = [];    //TODO: make method
         }
         this.setState({p: s});
     };
 
     prev = () => {
-        const n = this.props.state.preset.current - 1;
-        this.setPreset(n < 1 ? 256 : n);
+        const n = this.props.state.preset_number - 1;
+        this.setPreset(n < 1 ? '256' : n.toString());
     };
 
     next = () => {
-        const n = this.props.state.preset.current + 1;
-        this.setPreset(n > 256 ? 1 : n);
+        const n = this.props.state.preset_number + 1;
+        this.setPreset(n > 256 ? '1' : n.toString());
     };
 
     go = () => {
-        sendPC(this.props.state.preset.current - 1);
+        sendPC(this.props.state.preset_number - 1);
     };
 
     selectDirect = (n) => {
         this.setPreset(n.toString());
         // this.go();
-        this.props.state.loadPreset(n);
+        // this.props.state.loadPreset(n);
+        // this.props.state.preset_number = n;
         this.setState({direct_access: false})
     };
 
@@ -70,16 +69,16 @@ class PresetSelector extends Component {
         this.setState({reading_all: true});
         // this.abort_all = false;
 
-        this.props.state.all = [];
+        // this.props.state.all = [];
         for (let n = 1; n <= 256; n++) {
             // if (this.abort_all) break;
             if (this.state.abort_all) break;
             this.setPreset(n.toString());
-            await readPreset();
+            await readPreset(n);
             await wait(4 * WAIT_BETWEEN_MESSAGES);
             // console.log(n, this.props.state.data);
-            this.props.state.all[n] = [...this.props.state.data];
-            this.props.state.all_name[n] = this.props.state.data_name;
+            // this.props.state.all[n] = [...this.props.state.data];
+            // this.props.state.all_name[n] = this.props.state.data_name;
         }
 
         // console.log(this.props.state.all);
@@ -100,12 +99,18 @@ class PresetSelector extends Component {
 
         const pc = [];
         for (let i=1; i<=256; i++) {
-            let classname = i === S.preset.current ? 'sel' : '';
-            if (S.all[i]) {
+            let classname = i === S.preset_number ? 'sel' : '';
+            if (S.presets[i]) {
                 classname += ' loaded';
             }
             pc.push(<div key={i} className={classname} onClick={() => this.selectDirect(i)}>{i}</div>);
         }
+
+        // TODO:
+        //
+        // - READ
+        // - READ ALL
+        // - RE-READ
 
         return (
             <div className="preset-selector">

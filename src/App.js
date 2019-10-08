@@ -108,8 +108,15 @@ class App extends Component {
             return;
         }
 
+        state.importData(e.data);
+
+/*
+        //
+        // Store PRESET NAME:
+        //
         if (e.data[8] === 0x52) {
             // console.log("answer 0x52 contains name", hs(e.data));
+            // state.data_name = Array.from(e.data.slice(9, e.data.length - 1));    // e.data is UInt8Array
             state.data_name = Array.from(e.data.slice(9, e.data.length - 1));    // e.data is UInt8Array
             return;
         }
@@ -129,8 +136,11 @@ class App extends Component {
 
         // console.log("store sysex data");
 
+        //
+        // Store PRESET DATA:
         // TODO: move into store:
         state.data.push(Array.from(e.data.slice(9, e.data.length - 1)));    // e.data is UInt8Array
+*/
     };
 
     render() {

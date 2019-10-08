@@ -9,7 +9,8 @@ class PresetsGrid extends Component {
 
     selectDirect = (n) => {
         // this.setPreset(n.toString());
-        this.props.state.loadPreset(n);
+        // this.props.state.loadPreset(n);
+        this.props.state.preset_number = n;
     };
 
     render() {
@@ -20,13 +21,14 @@ class PresetsGrid extends Component {
 
         const pc = [];
         for (let i=1; i<=256; i++) {
-            let classname = i === S.preset.reference ? 'sel' : '';
-            if (S.all[i]) {
+
+            let classname = i === S.preset_number ? 'sel' : '';
+            if (S.presets[i]) {
                 classname += ' loaded';
             }
             pc.push(
                 <div key={i} className={classname} onClick={() => this.selectDirect(i)}>
-                    {i}&nbsp;&nbsp;{S.name(i)}
+                    {i}&nbsp;&nbsp;{S.presetName(i)}
                 </div>
             );
         }

@@ -20,44 +20,115 @@ import {
     MOD_SRC_ENV
 } from "../model";
 import {portById} from "../utils/midi";
+import {h, hs} from "../utils/hexstring";
 
 class State {
+
+    // preset = new Array(127).fill(0);
+
+    // The number of the currently displayed preset
+    preset_number = null;
+
+    // The preset number used in MIDI
+    preset_number_comm = null;
+
+    // All the presets
+    // This is an array of {name: String; data: []}
+    presets = [];
+
+    // preset = {
+    //     current: 1,
+    //     reference: null,
+    //     current_counter: 0
+    // };
+
+    lock = false;   // Used during preset reading to prevent concurrent reads.
+
+    read_progress = 0;
+
+    // data = [];
+    // dataRef = [];   // copy used as reference for comparisons
+
+    // data_name = [0x01, 0x65, 0x00, 0x18, 0x00, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x10, 0x44, 0x69, 0x73, 0x72, 0x65, 0x73, 0x70, 0x65, 0x63, 0x74, 0x66];
+    // data_name = null;
+
+    // all = [];       // array of data
+    // all_name = [];  // array of data_name
 
     midi = {
         ports: {},
     };
 
-    // preset = new Array(127).fill(0);
 
-    preset = {
-        current: 1,
-        reference: null,
-        current_counter: 0
-    };
+    bytesToName(data) {
+        // if (!this.all_name[n]) {
+        //     return '';
+        // }
+        // const data = this.all_name[n];
+        let s = '';
+        let i = 12;
+        while (i < data.length && data[i] !== 0) {
+            s += String.fromCharCode(data[i]);
+            i++;
+        }
+        return s;
+    }
 
-    lock = false;
+    importData(message_bytes) {
 
-    data = [];
-    dataRef = [];   // copy used as reference for comparisons
+        //TODO: extract preset num: NOT POSSIBLE, preset num is not in the answers
 
-    // data_name = [0x01, 0x65, 0x00, 0x18, 0x00, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x10, 0x44, 0x69, 0x73, 0x72, 0x65, 0x73, 0x70, 0x65, 0x63, 0x74, 0x66];
-    data_name = null;
+        if (!this.presets[this.preset_number_comm]) {
+            this.presets[this.preset_number_comm] = {name: null, data:[]};
+        }
 
-    all = [];       // array of data
-    all_name = [];  // array of data_name
+        //
+        // Store PRESET NAME:
+        //
+        if (message_bytes.data[8] === 0x52) {
+            // console.log("answer 0x52 contains name", hs(message_bytes.data));
+            // state.data_name = Array.from(message_bytes.data.slice(9, message_bytes.data.length - 1));    // message_bytes.data is UInt8Array
+            this.presets[this.preset_number_comm].name = this.bytesToName(Array.from(message_bytes.data.slice(9, message_bytes.data.length - 1)));    // message_bytes.data is UInt8Array
+            return;
+        }
+
+/*
+        if (message_bytes.data[8] === 0x16) {
+            // console.log("answer 0x16 is dump packet", hs(message_bytes.data));
+        } else if (message_bytes.data[8] === 0x17) {
+            // console.log("answer 0x17 is last dump packet", hs(message_bytes.data));
+        } else {
+            if (global.dev) console.warn(`answer 0x${h(message_bytes.data[8])} is unknown type`, hs(message_bytes.data));
+        }
+*/
+        if (message_bytes.data[8] === 0x16 || message_bytes.data[8] === 0x17) {
+            if (global.dev) console.warn(`answer 0x${h(message_bytes.data[8])} is unknown type`, hs(message_bytes.data));
+        }
+
+        if (message_bytes.data.length !== 42) {
+            if (global.dev) console.log("do not store answer", hs(message_bytes.data));
+            return;
+        }
+
+        // console.log("store sysex data");
+
+        //
+        // Store PRESET DATA:
+        // TODO: move into store:
+        this.presets[this.preset_number_comm].data.push(Array.from(message_bytes.data.slice(9, message_bytes.data.length - 1)));    // message_bytes.data is UInt8Array
+    }
 
     /**
      * Copy preset from all[] to data[]
      * @param n
      */
     loadPreset(n) {
-        if (this.all[n] && this.all[n].length) {
-            this.data = this.all[n];
-            this.data_name = this.all_name[n];
-            this.preset.reference = n;
-        }
+        // if (this.all[n] && this.all[n].length) {
+        //     this.data = this.all[n];
+        //     this.data_name = this.all_name[n];
+        //     this.preset.reference = n;
+        // }
     }
-
 
     addPort(port) {
         // eslint-disable-next-line
@@ -217,20 +288,25 @@ class State {
         // const D = this.props.state.data;
         // console.log("m", m, D.length);
 
-        if (this.data.length < 39) return 0;  //FIXME
+        if (!this.presets[this.preset_number]) {
+            return 0;
+        }
+        const data = this.presets[this.preset_number].data;
+
+        if (data.length < 39) return 0;  //FIXME
 
         let raw;
         if (m.MSB) {
             const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;
             // const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;
             raw = multibytesValue(
-                this.data[m.MSB[0]][m.MSB[1]],
-                this.data[m.LSB[0]][m.LSB[1]],
-                this.data[m.msb[0]][m.msb[1]],
+                data[m.MSB[0]][m.MSB[1]],
+                data[m.LSB[0]][m.LSB[1]],
+                data[m.msb[0]][m.msb[1]],
                 mask_msb,
                 0, 0);
         } else {
-            raw = this.data[m.LSB[0]][m.LSB[1]];
+            raw = data[m.LSB[0]][m.LSB[1]];
         }
 
         return return_raw ? raw : (Math.round(raw * 1000 / 32768) / 10);
@@ -240,15 +316,20 @@ class State {
 
         // const D = this.props.state.data;
         // console.log("m", m, D.length);
-        if (this.data.length < 39) return 0;  //FIXME
+        if (!this.presets[this.preset_number]) {
+            return 0;
+        }
+        const data = this.presets[this.preset_number].data;
+
+        if (data.length < 39) return 0;  //FIXME
 
         const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;
         // const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;
 
         const raw = multibytesValue(
-            this.data[ m.MSB[0] ][ m.MSB[1] ],
-            this.data[ m.LSB[0] ][ m.LSB[1] ],
-            this.data[ m.msb[0] ][ m.msb[1] ],
+            data[ m.MSB[0] ][ m.MSB[1] ],
+            data[ m.LSB[0] ][ m.LSB[1] ],
+            data[ m.msb[0] ][ m.msb[1] ],
             mask_msb,
             0, 0);
 
@@ -276,9 +357,14 @@ class State {
      */
     modMatrixValue(src, dest, return_raw=false) {
 
+        if (!this.presets[this.preset_number]) {
+            return 0;
+        }
+        const data = this.presets[this.preset_number].data;
+
         // const D = this.props.state.data;
         // console.log("m", m, D.length);
-        if (this.data.length < 39) return 0;  //FIXME
+        if (data.length < 39) return 0;  //FIXME
 
         const m = MOD_MATRIX[src][dest];    //TODO: check params validity
 
@@ -291,11 +377,11 @@ class State {
         const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;
 
         const raw = multibytesValue(
-            this.data[ m.MSB[0] ][ m.MSB[1] ],
-            this.data[ m.LSB[0] ][ m.LSB[1] ],
-            this.data[ m.msb[0] ][ m.msb[1] ],
+            data[ m.MSB[0] ][ m.MSB[1] ],
+            data[ m.LSB[0] ][ m.LSB[1] ],
+            data[ m.msb[0] ][ m.msb[1] ],
             mask_msb,
-            this.data[ m.sign[0] ][ m.sign[1] ],
+            data[ m.sign[0] ][ m.sign[1] ],
             mask_sign);
 
         return return_raw ? raw : (Math.round(raw * 1000 / 32768) / 10);
@@ -306,9 +392,15 @@ class State {
      * @param slot
      */
     modAssignDest(slot) {
-        if (this.data.length < 39) return;  //FIXME
+
+        if (!this.presets[this.preset_number]) {
+            return 0;
+        }
+        const data = this.presets[this.preset_number].data;
+
+        if (data.length < 39) return;  //FIXME
         const m = MOD_ASSIGN_SLOT[slot].mod_group;
-        const dest_num = this.data[ m[0] ][ m[1] ];
+        const dest_num = data[ m[0] ][ m[1] ];
         // console.log("modAssignDest", dest_num, m, MOD_ASSIGN_DEST[dest_num]);
         // return group_num;
         return MOD_ASSIGN_DEST[dest_num];  // ? MOD_ASSIGN_DEST[group_num] : null;
@@ -319,9 +411,15 @@ class State {
      * @param slot
      */
     modAssignControlNum(slot) {
-        if (this.data.length < 39) return;  //FIXME
+
+        if (!this.presets[this.preset_number]) {
+            return 0;
+        }
+        const data = this.presets[this.preset_number].data;
+
+        if (data.length < 39) return;  //FIXME
         const m = MOD_ASSIGN_SLOT[slot].control;
-        return this.data[ m[0] ][ m[1] ];
+        return data[ m[0] ][ m[1] ];
     };
 
     modDestName(dest) {
@@ -351,26 +449,21 @@ class State {
         return MOD_MATRIX_DESTINATION[dest];
     }
 
-    name(n) {       //TODO: rename to presetName(n)
-        if (!this.all_name[n]) {
-            return '';
-        }
-        const data = this.all_name[n];
-        let s = '';
-        let i = 12;
-        while (i < data.length && data[i] !== 0) {
-            s += String.fromCharCode(data[i]);
-            i++;
-        }
-        return s;
-    }
 
-    get presetName() {  //TODO: change method name
+    presetName(number) {  //TODO: change method name
+
+        if (!this.presets[number]) {
+            return '';
+        } else {
+            return this.presets[number].name;
+        }
+/*
+        const data = this.presets[this.preset_number].data;
 
         console.log("state.presetName()");
 
-        if (!this.data_name || this.data_name.length < 13) {
-            console.log("state.presetName: data_name too short", this.data_name);
+        if (!data_name || data_name.length < 13) {
+            console.log("state.presetName: data_name too short", data_name);
             return '';
         }
 
@@ -379,12 +472,13 @@ class State {
 
         let name = '';
         let i = 12;
-        while (i < this.data_name.length && this.data_name[i] !== 0) {
-            name += String.fromCharCode(this.data_name[i]);
+        while (i < data_name.length && data_name[i] !== 0) {
+            name += String.fromCharCode(data_name[i]);
             i++;
         }
 
         return name;
+*/
     }
 
 }
@@ -392,12 +486,15 @@ class State {
 // https://mobx.js.org/best/decorators.html
 decorate(State, {
     midi: observable,
-    preset: observable,
-    presetName: computed,
-    data: observable,
-    dataRef: observable,
-    data_name: observable,
-    lock: observable
+    presets: observable,
+    preset_number: observable,
+    preset_number_comm: observable,
+    // presetName: computed,
+    // data: observable,
+    // dataRef: observable,
+    // data_name: observable,
+    lock: observable,
+    read_progress: observable
 });
 
 export const state = new State();

@@ -2,7 +2,7 @@ Out:  F0  00  20  6B  07  01  nn  03  19  01  65  00  F7
                                            1   2   3
                                       03 is number of data bytes
                                       19 is read cmd
-                                      65 is probably the preset number  0x65 = 101 + 128 = 229
+                                      01 65 is probably the preset number  0x65 = 101 + 128 = 229
 
 read preset:
  In:  F0  00  20  6B  07  01  nn  23  52  01  65  00  18  00  00  00  00  65  00  00  10  49  6E  69  74  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  F7  
