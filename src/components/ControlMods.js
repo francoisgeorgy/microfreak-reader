@@ -50,7 +50,7 @@ class ControlMods extends Component {
                                 {background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, var(--mod-src-bg) ${Math.abs(v)}%)`}
                             }>
                                 {/*<div className={`mod-fill ${MOD_SOURCE_CSS[src]}`} style={{width:"50%"}}>&nbsp;</div>*/}
-                                <div className="mod-text">
+                                <div className={`mod-text ${MOD_SOURCE_CSS[src]}-text`}>
                                     <div className="mod-name">{MOD_SOURCE_SHORT[src]}</div>
                                     <div className="mod-value">{v}</div>
                                 </div>

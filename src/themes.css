@@ -1,24 +1,51 @@
 /* default is 'light' */
 
 .mod-src-cyc_env {
-    background-color: var(--mod-src-cyc_env);
     color: var(--mod-src-cyc_env-text);
 }
 .mod-src-env {
-    background-color: var(--mod-src-env);
     color: var(--mod-src-env-text);
 }
 .mod-src-lfo {
-    background-color: var(--mod-src-lfo);
     color: var(--mod-src-lfo-text);
 }
 .mod-src-press {
-    background-color: var(--mod-src-press);
     color: var(--mod-src-press-text);
 }
 .mod-src-key_arp {
-    background-color: var(--mod-src-key_arp);
     color: var(--mod-src-key_arp-text);
+}
+
+.mod-src-cyc_env-text {
+    color: var(--mod-src-cyc_env);
+}
+.mod-src-env-text {
+    color: var(--mod-src-env);
+}
+.mod-src-lfo-text {
+    color: var(--mod-src-lfo);
+}
+.mod-src-press-text {
+    color: var(--mod-src-press);
+}
+.mod-src-key_arp-text {
+    color: var(--mod-src-key_arp);
+}
+
+.mod-src-cyc_env-bg {
+    background-color: var(--mod-src-cyc_env);
+}
+.mod-src-env-bg {
+    background-color: var(--mod-src-env);
+}
+.mod-src-lfo-bg {
+    background-color: var(--mod-src-lfo);
+}
+.mod-src-press-bg {
+    background-color: var(--mod-src-press);
+}
+.mod-src-key_arp-bg {
+    background-color: var(--mod-src-key_arp);
 }
 
 html {
@@ -95,7 +122,9 @@ html {
         --mod-src-lfo-text: #000;
         --mod-src-press-text: #000;
         --mod-src-key_arp-text: #000;
-        --mod-src-bg: #777;
+        /*--mod-src-bg: #777;*/
+        --mod-src-bg: #222831;
+        --mod-src-text: #eec83f;
         --abort-button-bg: #ff3636;
         --instructions-text: #aaa;
     }

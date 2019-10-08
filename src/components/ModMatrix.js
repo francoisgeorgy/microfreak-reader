@@ -116,7 +116,7 @@ class ModMatrix extends Component {
                         return (
                             <Fragment key={i}>
                                 <div className="mod-matrix-col-header">
-                                    <div className={MOD_SOURCE_CSS[src]}>{MOD_SOURCE[src]}</div>
+                                    <div className={`${MOD_SOURCE_CSS[src]} ${MOD_SOURCE_CSS[src]}-bg`}>{MOD_SOURCE[src]}</div>
                                 </div>
                                 {Object.getOwnPropertySymbols(MOD_MATRIX_DESTINATION).map(
                                     (dst, j) => {

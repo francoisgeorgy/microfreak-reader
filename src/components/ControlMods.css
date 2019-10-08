@@ -23,7 +23,11 @@
 }
 
 .control-mods .mod {
-    margin-top: 3px;
+    /*margin-top: 3px;*/
+
+    margin-top: 16px;
+    height: 3px;
+
 }
 
 .mod-text-wrapper {
@@ -35,11 +39,34 @@
 .mod-text {
     /*padding-left: 5px;*/
 
+    position: absolute;
+    bottom: 3px;
+
     padding: 0 2px;
     display: flex;
     justify-content: space-between;
     z-index: 10000;
+
+    /*color: var(--mod-src-text);*/
 }
+
+/*
+.mod-text.mod-src-cyc_env {
+    color: var(--mod-src-text);
+}
+.mod-text.mod-src-env {
+    color: var(--mod-src-text);
+}
+.mod-text.mod-src-lfo {
+    color: var(--mod-src-text);
+}
+.mod-text.mod-src-press {
+    color: var(--mod-src-text);
+}
+.mod-text.mod-src-key_arp {
+    color: var(--mod-src-text);
+}
+*/
 
 .mod-name {
     margin-right: 4px;
