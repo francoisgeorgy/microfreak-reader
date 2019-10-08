@@ -77,8 +77,8 @@ class ControlModsAssign extends Component {
                                         if (Math.abs(v) > 0.0) {
                                             // console.log("ControlModsAssign value for", slot, mod_src, v);
                                             return (
-                                                <div key={k} className="mod" style={{background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[mod_src]}) ${Math.abs(v)}%, #777 ${Math.abs(v)}%)`}}>
-                                                    <div className="mod-text">
+                                                <div key={k} className="mod" style={{background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[mod_src]}) ${Math.abs(v)}%, var(--mod-src-bg) ${Math.abs(v)}%)`}}>
+                                                    <div className={`mod-text ${MOD_SOURCE_CSS[mod_src]}-text`}>
                                                         <div className="mod-name">{MOD_SOURCE_SHORT[mod_src]}</div>
                                                         <div className="mod-value">{v}</div>
                                                     </div>

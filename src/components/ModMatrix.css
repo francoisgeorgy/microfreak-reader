@@ -43,4 +43,7 @@
 
 .mod-matrix-value .mod {
     margin-bottom: 3px;
+
+    margin-top: 16px;
+    height: 3px;
 }

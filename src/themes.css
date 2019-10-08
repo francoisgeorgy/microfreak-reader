@@ -123,7 +123,7 @@ html {
         --mod-src-press-text: #000;
         --mod-src-key_arp-text: #000;
         /*--mod-src-bg: #777;*/
-        --mod-src-bg: #222831;
+        --mod-src-bg: #393e46;
         --mod-src-text: #eec83f;
         --abort-button-bg: #ff3636;
         --instructions-text: #aaa;
@@ -163,7 +163,7 @@ html {
         --mod-src-lfo-text: #000;
         --mod-src-press-text: #000;
         --mod-src-key_arp-text: #000;
-        --mod-src-bg: #777;
+        --mod-src-bg: #101010;
         --abort-button-bg: #ff3636;
         --instructions-text: #999;
     }
