@@ -6,8 +6,9 @@ export const DEFAULT_THEME = 'dark';
 let preferences = {
     theme: DEFAULT_THEME,
     midi_channel: 1,
-    input_device_id: null,      // web midi port ID
-    output_device_id: null      // web midi port ID
+    preset: '1',
+    input_id: null,      // web midi port ID
+    output_id: null      // web midi port ID
 };
 
 export function loadPreferences() {

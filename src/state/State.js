@@ -21,6 +21,7 @@ import {
 } from "../model";
 import {portById} from "../utils/midi";
 import {h, hs} from "../utils/hexstring";
+import {savePreferences} from "../utils/preferences";
 
 class State {
 
@@ -164,6 +165,7 @@ class State {
         } else {
             this.preset_number_string = s;
             this.preset_number = num - 1;
+            savePreferences({preset:s});
         }
 
         // if (s !== null) {

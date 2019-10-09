@@ -75,6 +75,7 @@ class App extends Component {
     componentDidMount(){
         const s = loadPreferences();
         this.setState({theme: s.theme || DEFAULT_THEME});
+        state.setPresetNumber(s.preset);
     }
 
     /*

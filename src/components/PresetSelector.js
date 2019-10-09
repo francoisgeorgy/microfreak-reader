@@ -9,7 +9,8 @@ class PresetSelector extends Component {
         direct_access: false,
         // p: '1',
         reading_all: false,
-        abort_all: false
+        abort_all: false,
+        sync: true
     };
 
     toggleDirectAccess = () => {
@@ -42,16 +43,29 @@ class PresetSelector extends Component {
     };
 */
 
+    change = (e) => {
+        this.props.state.setPresetNumber(e.target.value);
+        if (this.state.sync) {
+            this.go();
+        }
+    };
+
     prev = () => {
         const n = this.props.state.preset_number - 1;
         // this.setPreset(n < 0 ? '255' : n.toString());
         this.props.state.setPresetNumber(n < 0 ? 255 : n);
+        if (this.state.sync) {
+            this.go();
+        }
     };
 
     next = () => {
         const n = this.props.state.preset_number + 1;
         // this.setPreset(n > 255 ? '1' : n.toString());
         this.props.state.setPresetNumber(n > 255 ? 0 : n);
+        if (this.state.sync) {
+            this.go();
+        }
     };
 
     go = () => {
@@ -64,6 +78,9 @@ class PresetSelector extends Component {
         // this.props.state.loadPreset(n);
         // this.props.state.preset_number = n;
         this.setState({direct_access: false})
+        if (this.state.sync) {
+            this.go();
+        }
     };
 
     readAll = async () => {
@@ -100,6 +117,10 @@ class PresetSelector extends Component {
         // this.abort_all = true;
     };
 
+    toggleSync = () => {
+        this.setState({sync: !this.state.sync});
+    };
+
     render() {
 
         const S = this.props.state;
@@ -127,7 +148,7 @@ class PresetSelector extends Component {
         return (
             <div className="preset-selector">
                 <div className="seq-access">
-                    <input type="text" id="preset" name="preset" min="1" max="256" value={S.preset_number_string} onChange={(e) => this.props.state.setPresetNumber(e.target.value)} />
+                    <input type="text" id="preset" name="preset" min="1" max="256" value={S.preset_number_string} onChange={this.change} />
                     <button onClick={this.prev} title="Previous">&lt;</button>
                     <button onClick={this.next} title="Next">&gt;</button>
                     <button onClick={this.toggleDirectAccess} title="Choose the preset number then send a PC message to the MF.">#...</button>
@@ -135,6 +156,9 @@ class PresetSelector extends Component {
                     <button className={midi_ok ? "read-button ok" : "read-button"} type="button" onClick={() => readPreset()}>READ</button>
                     {!this.state.reading_all && <button onClick={this.readAll} title="Read all">Read all</button>}
                     {this.state.reading_all && <button onClick={this.abortAll} title="Abort reading all" className="abort">{this.state.abort_all ? "aborting" : "Abort read all"}</button>}
+                </div>
+                <div>
+                    <input type="checkbox" checked={this.state.sync} onChange={this.toggleSync}/> automatically send PC to MF on preset change
                 </div>
                 {this.state.direct_access && <div className="direct-access">{pc}</div>}
 {/*
