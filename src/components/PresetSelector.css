@@ -1,11 +1,26 @@
+.preset-selector > div {
+    margin-bottom: 5px;
+}
 
 .preset-selector button {
     /*background-color: #bfbfbf;*/
+ /*
     background-color: var(--group-header);
     color: var(--text);
     padding: 5px;
     font-size: 1.1rem;
     border-color: var(--knob-track-bg);
+*/
+    /*font-family: sans-serif;*/
+    /*font-size: 14px;*/
+    background-color: #452098;
+    color: var(--text);
+    padding: 5px;
+    font-size: 1.1rem;
+    border-color: var(--knob-track-bg);
+    border: none;
+    border-radius: 3px;
+    margin-right: 5px;
 }
 
 .read-button {
@@ -83,6 +98,7 @@
 
 button.abort {
     background-color: var(--abort-button-bg);
+    padding: 5px 25px!important;
 }
 
 .aborting {

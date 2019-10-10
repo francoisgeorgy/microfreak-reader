@@ -83,7 +83,7 @@ class PresetSelector extends Component {
         }
     };
 
-    readAll = async () => {
+    readAll = async (from=0, to=255, unread_only=false) => {
 
         if (!this.props.state.hasInputAndOutputEnabled()) {
             if (global.dev) console.log("readAllPresets: no output and/or input connected, ignore request");
@@ -93,13 +93,18 @@ class PresetSelector extends Component {
         this.setState({reading_all: true});
         // this.abort_all = false;
 
+        const S = this.props.state;
+
         // this.props.state.all = [];
-        for (let n = 0; n < 256; n++) {
+        for (let n = from; n <= to; n++) {
             // if (this.abort_all) break;
             if (this.state.abort_all) break;
             // this.props.state.setPresetNumber(n);
+
+            if (unread_only && (S.presets.length && (S.presets.length > n && S.presets[n]))) continue;
+
             await readPreset(n);
-            this.props.state.setPresetNumber(n);
+            S.setPresetNumber(n);
             await wait(4 * WAIT_BETWEEN_MESSAGES);  // by updating the preset_number _after_ the reading, we avoid to display an empty preset while reading. This is much more pleasant.
             // console.log(n, this.props.state.data);
             // this.props.state.all[n] = [...this.props.state.data];
@@ -110,6 +115,22 @@ class PresetSelector extends Component {
 
         this.setState({reading_all: false});
         this.setState({abort_all: false});
+    };
+
+    read1To256 = () => {
+        this.readAll(0, 255, false);
+    };
+
+    readNTo256 = () => {
+        this.readAll((this.props.state.preset_number + 1) % 256, 255, false);
+    };
+
+    read128To256 = () => {
+        this.readAll(127, 255, false);
+    };
+
+    readUnread = () => {
+        this.readAll(0, 255, true);
     };
 
     abortAll = () => {
@@ -154,11 +175,18 @@ class PresetSelector extends Component {
                     <button onClick={this.toggleDirectAccess} title="Choose the preset number then send a PC message to the MF.">#...</button>
                     <button onClick={this.go} title="Send a PC message to the MicroFreak to select this preset on the MicroFreak itself.">load in MF</button>
                     <button className={midi_ok ? "read-button ok" : "read-button"} type="button" onClick={() => readPreset()}>READ</button>
-                    {!this.state.reading_all && <button onClick={this.readAll} title="Read all">Read all</button>}
-                    {this.state.reading_all && <button onClick={this.abortAll} title="Abort reading all" className="abort">{this.state.abort_all ? "aborting" : "Abort read all"}</button>}
+                    {/*{!this.state.reading_all && <button onClick={this.readAll} title="Read all">Read all</button>}*/}
                 </div>
                 <div>
                     <input type="checkbox" checked={this.state.sync} onChange={this.toggleSync}/> automatically send PC to MF on preset change
+                </div>
+                <div>
+                    {!this.state.reading_all && <button onClick={this.read1To256} title="Read all">Read 1..256</button>}
+                    {!this.state.reading_all && <button onClick={this.readNTo256} title="Read all">Read {S.preset_number+2}..256</button>}
+                    {!this.state.reading_all && <button onClick={this.read128To256} title="Read all">Read 128..256</button>}
+                    {/*{!this.state.reading_all && <button onClick={this.readUnread} title="Read all">Read unread</button>}*/}
+                    {this.state.reading_all && <button onClick={this.abortAll} title="Abort reading all" className="abort">{this.state.abort_all ? "Aborting" : "ABORT"}</button>}
+                    <input type="checkbox" checked={this.state.sync} onChange={this.toggleSync}/> only unread
                 </div>
                 {this.state.direct_access && <div className="direct-access">{pc}</div>}
 {/*
