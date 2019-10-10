@@ -33,7 +33,7 @@ class PresetsGrid extends Component {
         }
 
         return (
-            <div className="presets-grid">
+            <div className="presets-grid vertical">
                 {pc}
             </div>
         );

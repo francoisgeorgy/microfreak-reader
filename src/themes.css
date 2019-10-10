@@ -54,6 +54,9 @@ html {
     --title-text: #222;
     --footer: #ccc;
     --progress: #ccc;
+    --header-select-bg: #fff;
+    --header-select-text: #333;
+    --header-select-border: #ccc;
     --button-text: #fff;
     --button-bg: #7d44ff;
     --button-disabled-bg: #cccccc;
@@ -100,6 +103,9 @@ html {
         --text: #fff;
         --title-text: #f8f8f8;
         --footer: #444;
+        --header-select-bg: #393e46;
+        --header-select-text: #ccc;
+        --header-select-border: #555;
         --progress: #34ab33;
         --button-text: #fff;
         --button-bg: #452098;
@@ -148,6 +154,9 @@ html {
         --text: #fff;
         --title-text: #f0f0f0;
         --footer: #444;
+        --header-select-bg: #212121;
+        --header-select-text: #bbb;
+        --header-select-border: #555;
         --progress: #34ab33;
         --button-text: #fff;
         --button-bg: #452098;

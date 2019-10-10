@@ -55,7 +55,13 @@ import ReadProgress from "./components/ReadProgress";
 import MidiPortsSelect from "./components/MidiPortsSelect";
 import PresetName from "./components/PresetName";
 import ControlMods from "./components/ControlMods";
-import {DEFAULT_THEME, loadPreferences, savePreferences} from "./utils/preferences";
+import {
+    DEFAULT_LAYOUT,
+    DEFAULT_PRESETS_POS,
+    DEFAULT_THEME,
+    loadPreferences,
+    savePreferences
+} from "./utils/preferences";
 import PresetsGrid from "./components/PresetsGrid";
 
 const MIDI_MSG_TYPE = "sysex";
@@ -65,16 +71,27 @@ const LAYOUT_1_ROW = 'layout-1-row';
 
 class App extends Component {
 
-    state = { theme: DEFAULT_THEME };
+    state = {
+        theme: DEFAULT_THEME,
+        presets_pos: DEFAULT_PRESETS_POS
+    };
 
     selectTheme = (e) => {
         this.setState({theme: e.target.value});
         savePreferences({theme: e.target.value});
     };
 
+    selectPresetPos = (e) => {
+        this.setState({presets_pos: e.target.value});
+        savePreferences({presets_pos: e.target.value});
+    };
+
     componentDidMount(){
         const s = loadPreferences();
-        this.setState({theme: s.theme || DEFAULT_THEME});
+        this.setState({
+            theme: s.theme || DEFAULT_THEME,
+            presets_pos: s.presets_pos || DEFAULT_PRESETS_POS
+        });
         state.setPresetNumber(s.preset);
     }
 
@@ -147,6 +164,7 @@ class App extends Component {
 
         return (
             <Provider state={state}>
+                <div className={`app-wrapper ${this.state.presets_pos}`}>
                 <div className="header">
                     <div className="title">
                         MicroFreak {/* !preset_name && "reader */}
@@ -154,10 +172,15 @@ class App extends Component {
                         <PresetName />
                     </div>
                     <div>
+                        <select value={this.state.presets_pos} onChange={this.selectPresetPos}>
+                            <option value="presets-grid-right">Presets list on the right</option>
+                            <option value="presets-grid-bottom">Presets list at bottom</option>
+                            <option value="presets-grid-none">No presets list</option>
+                        </select>
                         <select value={this.state.theme} onChange={this.selectTheme}>
-                            <option value="light">Light</option>
-                            <option value="dark">Dark</option>
-                            <option value="darker">Darker</option>
+                            <option value="light">Light theme</option>
+                            <option value="dark">Dark theme</option>
+                            <option value="darker">Darkest theme</option>
                         </select>
                     </div>
                 </div>
@@ -265,11 +288,14 @@ class App extends Component {
                             </div>
                         </div>
                     </div>
-                    <PresetsGrid />
+                    {this.state.presets_pos !== 'presets-grid-none' && <PresetsGrid />}
                 </div>
+{/*
                 <footer>
                     &copy; studiocode.dev 2019
                 </footer>
+*/}
+                </div>
             </Provider>
         );
     }

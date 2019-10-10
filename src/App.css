@@ -1,3 +1,26 @@
+.app-wrapper.presets-grid-right {
+    margin: 0 auto;
+    max-width: 1420px;
+}
+
+.app-wrapper.presets-grid-bottom,
+.app-wrapper.presets-grid-none {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.presets-grid-right .App {
+    display: flex;
+    flex-direction: row;
+    /*margin: 0 10px;*/
+}
+
+.presets-grid-bottom .App {
+    display: flex;
+    flex-direction: column;
+    /*margin: 0 10px;*/
+}
+
 .banner {
     background-color: #dddddd;
     color: #333;
@@ -18,6 +41,13 @@
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 5px;
+}
+
+.header select {
+    margin-left: 5px;
+    background-color: var(--header-select-bg);
+    color: var(--header-select-text);
+    border-color: var(--header-select-border);
 }
 
 footer {
@@ -56,7 +86,6 @@ footer {
     background-color: var(--group-bg);
     border: var(--group-border);
 }
-
 
 .controls {
     display: flex;

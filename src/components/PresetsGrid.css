@@ -1,4 +1,18 @@
-.presets-grid {
+.presets-grid-right .presets-grid {
+    max-height: calc(100vh - 82px);
+    overflow-y: auto;
+    /*margin-top: 10px;*/
+    width: 200px;
+    margin-left: 10px;
+    padding-right: 5px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 3px;
+    font-size: 85%;
+    color: var(--presets-grid-text);
+}
+
+.presets-grid-bottom .presets-grid {
     max-height: 200px;
     overflow-y: auto;
     margin-top: 10px;
@@ -8,6 +22,7 @@
     font-size: 85%;
     color: var(--presets-grid-text);
 }
+
 .presets-grid > div {
     padding: 0 5px;
     cursor: pointer;
