@@ -174,18 +174,6 @@ class State {
         // this.preset_number_string = s === null ? '' : s;
     }
 
-    /**
-     * Copy preset from all[] to data[]
-     * @param n
-     */
-    // loadPreset(n) {
-        // if (this.all[n] && this.all[n].length) {
-        //     this.data = this.all[n];
-        //     this.data_name = this.all_name[n];
-        //     this.preset.reference = n;
-        // }
-    // }
-
     addPort(port) {
         // eslint-disable-next-line
         if (this.midi.ports.hasOwnProperty(port.id) && this.midi.ports[port.id] !== null) {

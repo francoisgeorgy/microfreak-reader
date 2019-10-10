@@ -78,7 +78,7 @@ class PresetSelector extends Component {
         // this.go();
         // this.props.state.loadPreset(n);
         // this.props.state.preset_number = n;
-        this.setState({direct_access: false})
+        this.setState({direct_access: false});
         if (this.state.sync) {
             this.go();
         }
