@@ -10,7 +10,7 @@ class PresetSelector extends Component {
         // p: '1',
         reading_all: false,
         abort_all: false,
-        sync: true,
+        // sync: true,
         unread: true
     };
 
@@ -46,7 +46,7 @@ class PresetSelector extends Component {
 
     change = (e) => {
         this.props.state.setPresetNumber(e.target.value);
-        if (this.state.sync) {
+        if (this.props.state.send_pc) {
             this.go();
         }
     };
@@ -55,7 +55,7 @@ class PresetSelector extends Component {
         const n = this.props.state.preset_number - 1;
         // this.setPreset(n < 0 ? '255' : n.toString());
         this.props.state.setPresetNumber(n < 0 ? 255 : n);
-        if (this.state.sync) {
+        if (this.props.state.send_pc) {
             this.go();
         }
     };
@@ -64,7 +64,7 @@ class PresetSelector extends Component {
         const n = this.props.state.preset_number + 1;
         // this.setPreset(n > 255 ? '1' : n.toString());
         this.props.state.setPresetNumber(n > 255 ? 0 : n);
-        if (this.state.sync) {
+        if (this.props.state.send_pc) {
             this.go();
         }
     };
@@ -79,7 +79,7 @@ class PresetSelector extends Component {
         // this.props.state.loadPreset(n);
         // this.props.state.preset_number = n;
         this.setState({direct_access: false});
-        if (this.state.sync) {
+        if (this.props.state.send_pc) {
             this.go();
         }
     };
@@ -140,7 +140,8 @@ class PresetSelector extends Component {
     };
 
     toggleSync = () => {
-        this.setState({sync: !this.state.sync});
+        // this.setState({sync: !this.state.sync});
+        this.props.state.send_pc = !this.props.state.send_pc;
     };
 
     toggleUnread = () => {
@@ -183,11 +184,11 @@ class PresetSelector extends Component {
                     <button onClick={this.go} title="Send a PC message to the MicroFreak to select this preset on the MicroFreak itself.">load in MF</button>
                     <button className={midi_ok ? "read-button ok" : "read-button"} type="button" onClick={() => readPreset()}>READ</button>
                     {/*{!this.state.reading_all && <button onClick={this.readAll} title="Read all">Read all</button>}*/}
-                    <label title="Automatically sends a PC message to the MF on preset change."><input type="checkbox" checked={this.state.sync} onChange={this.toggleSync}/> send PC</label>
+                    <label title="Automatically sends a PC message to the MF on preset change."><input type="checkbox" checked={this.props.state.send_pc} onChange={this.toggleSync}/> send PC</label>
                 </div>
 {/*
                 <div>
-                    <input type="checkbox" checked={this.state.sync} onChange={this.toggleSync}/> automatically send PC to MF on preset change
+                    <input type="checkbox" checked={this.props.state.send_pc} onChange={this.toggleSync}/> automatically send PC to MF on preset change
                 </div>
 */}
                 <div>

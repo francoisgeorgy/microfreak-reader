@@ -56,7 +56,6 @@ import MidiPortsSelect from "./components/MidiPortsSelect";
 import PresetName from "./components/PresetName";
 import ControlMods from "./components/ControlMods";
 import {
-    DEFAULT_LAYOUT,
     DEFAULT_PRESETS_POS,
     DEFAULT_THEME,
     loadPreferences,

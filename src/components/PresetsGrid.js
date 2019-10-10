@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import "./PresetsGrid.css";
 import {inject, observer} from "mobx-react";
+import {sendPC} from "../utils/midi";
 
 class PresetsGrid extends Component {
 
@@ -14,6 +15,13 @@ class PresetsGrid extends Component {
     //     this.props.state.preset_number = n;
     // };
 
+    selectPreset = (n) => {
+        this.props.state.setPresetNumber(n);
+        if (this.props.state.send_pc) {
+            sendPC(this.props.state.preset_number);
+        }
+    };
+
     render() {
 
         const S = this.props.state;
@@ -26,14 +34,14 @@ class PresetsGrid extends Component {
                 classname += ' loaded';
             }
             pc.push(
-                <div key={i} className={classname} onClick={() => this.props.state.setPresetNumber(i)}>
+                <div key={i} className={classname} onClick={() => this.selectPreset(i)}>
                     {i+1}&nbsp;&nbsp;{S.presetName(i)}
                 </div>
             );
         }
 
         return (
-            <div className="presets-grid vertical">
+            <div className="presets-grid">
                 {pc}
             </div>
         );
