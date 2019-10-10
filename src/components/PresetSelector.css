@@ -13,14 +13,23 @@
 */
     /*font-family: sans-serif;*/
     /*font-size: 14px;*/
-    background-color: #452098;
-    color: var(--text);
+    background-color: var(--button-bg);
+    color: var(--button-text);
     padding: 5px;
     font-size: 1.1rem;
-    border-color: var(--knob-track-bg);
+    /*border-color: var(--knob-track-bg);*/
     border: none;
     border-radius: 3px;
     margin-right: 5px;
+}
+
+.midi-ko button {
+    color: var(--button-disabled-text);
+    background-color: var(--button-disabled-bg);
+}
+
+.midi-ok button:hover {
+    background-color: var(--button-hover-bg);
 }
 
 .read-button {
@@ -28,8 +37,12 @@
 }
 
 .read-button.ok {
-    background-color: #0ba20b;
-    color: #fff;
+    background-color: var(--read-button-bg) !important;
+    /*color: #fff;*/
+}
+.read-button.ok:hover {
+    background-color: var(--read-button-hover-bg) !important;
+    /*color: #fff;*/
 }
 
 .preset-selector #preset {

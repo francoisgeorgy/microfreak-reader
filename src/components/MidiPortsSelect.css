@@ -9,4 +9,9 @@
 
 .ports-row select {
     margin-left: 5px;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    padding: 2px 0;
+    border: none;
 }
+

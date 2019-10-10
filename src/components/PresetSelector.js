@@ -10,7 +10,8 @@ class PresetSelector extends Component {
         // p: '1',
         reading_all: false,
         abort_all: false,
-        sync: true
+        sync: true,
+        unread: true
     };
 
     toggleDirectAccess = () => {
@@ -118,20 +119,20 @@ class PresetSelector extends Component {
     };
 
     read1To256 = () => {
-        this.readAll(0, 255, false);
+        this.readAll(0, 255, this.state.unread);
     };
 
     readNTo256 = () => {
-        this.readAll((this.props.state.preset_number + 1) % 256, 255, false);
+        this.readAll((this.props.state.preset_number + 1) % 256, 255, this.state.unread);
     };
 
     read128To256 = () => {
-        this.readAll(127, 255, false);
+        this.readAll(127, 255, this.state.unread);
     };
 
-    readUnread = () => {
-        this.readAll(0, 255, true);
-    };
+    // readUnread = () => {
+    //     this.readAll(0, 255, true);
+    // };
 
     abortAll = () => {
         this.setState({abort_all: true});
@@ -140,6 +141,10 @@ class PresetSelector extends Component {
 
     toggleSync = () => {
         this.setState({sync: !this.state.sync});
+    };
+
+    toggleUnread = () => {
+        this.setState({unread: !this.state.unread});
     };
 
     render() {
@@ -160,14 +165,16 @@ class PresetSelector extends Component {
             pc.push(<div key={i} className={classname} onClick={() => this.selectDirect(i)}>{i+1}</div>);
         }
 
+        let preset_to = S.preset_number + 2;
+        if (preset_to > 256) preset_to = 1;
+
         // TODO:
         //
         // - READ
         // - READ ALL
         // - RE-READ
-
         return (
-            <div className="preset-selector">
+            <div className={`preset-selector ${midi_ok?'midi-ok':'midi-ko'}`}>
                 <div className="seq-access">
                     <input type="text" id="preset" name="preset" min="1" max="256" value={S.preset_number_string} onChange={this.change} />
                     <button onClick={this.prev} title="Previous">&lt;</button>
@@ -176,17 +183,20 @@ class PresetSelector extends Component {
                     <button onClick={this.go} title="Send a PC message to the MicroFreak to select this preset on the MicroFreak itself.">load in MF</button>
                     <button className={midi_ok ? "read-button ok" : "read-button"} type="button" onClick={() => readPreset()}>READ</button>
                     {/*{!this.state.reading_all && <button onClick={this.readAll} title="Read all">Read all</button>}*/}
+                    <label title="Automatically sends a PC message to the MF on preset change."><input type="checkbox" checked={this.state.sync} onChange={this.toggleSync}/> send PC</label>
                 </div>
+{/*
                 <div>
                     <input type="checkbox" checked={this.state.sync} onChange={this.toggleSync}/> automatically send PC to MF on preset change
                 </div>
+*/}
                 <div>
                     {!this.state.reading_all && <button onClick={this.read1To256} title="Read all">Read 1..256</button>}
-                    {!this.state.reading_all && <button onClick={this.readNTo256} title="Read all">Read {S.preset_number+2}..256</button>}
+                    {!this.state.reading_all && <button onClick={this.readNTo256} title="Read all">Read {preset_to}..256</button>}
                     {!this.state.reading_all && <button onClick={this.read128To256} title="Read all">Read 128..256</button>}
                     {/*{!this.state.reading_all && <button onClick={this.readUnread} title="Read all">Read unread</button>}*/}
                     {this.state.reading_all && <button onClick={this.abortAll} title="Abort reading all" className="abort">{this.state.abort_all ? "Aborting" : "ABORT"}</button>}
-                    <input type="checkbox" checked={this.state.sync} onChange={this.toggleSync}/> only unread
+                    <label title="Only read unread presets"><input type="checkbox" checked={this.state.unread} onChange={this.toggleUnread}/> only unread</label>
                 </div>
                 {this.state.direct_access && <div className="direct-access">{pc}</div>}
 {/*
