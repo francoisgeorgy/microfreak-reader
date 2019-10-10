@@ -7,6 +7,7 @@ export const DEFAULT_PRESETS_POS = 'presets-grid-right';
 let preferences = {
     theme: DEFAULT_THEME,
     presets_pos: DEFAULT_PRESETS_POS,
+    send_pc: true,
     midi_channel: 1,
     preset: '1',
     input_id: null,      // web midi port ID

@@ -89,9 +89,10 @@ class App extends Component {
         const s = loadPreferences();
         this.setState({
             theme: s.theme || DEFAULT_THEME,
-            presets_pos: s.presets_pos || DEFAULT_PRESETS_POS
+            presets_pos: s.presets_pos || DEFAULT_PRESETS_POS,
         });
         state.setPresetNumber(s.preset);
+        state.send_pc = s.send_pc;
     }
 
     /*
@@ -287,7 +288,7 @@ class App extends Component {
                             </div>
                         </div>
                     </div>
-                    {this.state.presets_pos !== 'presets-grid-none' && <PresetsGrid />}
+                    {this.state.presets_pos !== 'presets-grid-none' && <PresetsGrid position={this.state.presets_pos} />}
                 </div>
 {/*
                 <footer>

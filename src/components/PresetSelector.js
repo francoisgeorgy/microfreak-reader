@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import "./PresetSelector.css";
 import {inject, observer} from "mobx-react";
 import {readPreset, sendPC, wait, WAIT_BETWEEN_MESSAGES} from "../utils/midi";
+import {savePreferences} from "../utils/preferences";
 
 class PresetSelector extends Component {
 
@@ -142,6 +143,7 @@ class PresetSelector extends Component {
     toggleSync = () => {
         // this.setState({sync: !this.state.sync});
         this.props.state.send_pc = !this.props.state.send_pc;
+        savePreferences({send_pc: this.props.state.send_pc});
     };
 
     toggleUnread = () => {

@@ -40,7 +40,7 @@ class State {
     // We prefill the array with null value to avoid OutOfBound exceptions when accessing the array with MobX
     presets = new Array(256).fill(null);   // index 0..255
 
-    send_pc = false;    // if true send PC when changing preset
+    send_pc = true;    // if true send PC when changing preset
 
     // preset = {
     //     current: 1,
