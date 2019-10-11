@@ -95,16 +95,6 @@ class App extends Component {
         state.send_pc = s.send_pc;
     }
 
-    /*
-        setThemeLight = () => {
-            this.selectTheme("light");
-        };
-
-        setThemeDark = () => {
-            this.selectTheme("dark");
-        };
-    */
-
     handleMidiInputEvent = (e) => {
 
         // if (global.dev) console.log("handleMidiInputEvent", hs(e.data), e);
@@ -114,47 +104,12 @@ class App extends Component {
             return;
         }
 
-        // if (global.dev) console.log(`handleMidiInputEvent: ${e.controller.number}=${e.value}`);
-        // state.preset[e.controller.number] = e.value;
-
         if (e.data.length < 10) {
             if (global.dev) console.log("answer too short", hs(e.data));
             return;
         }
 
         state.importData(e.data);
-
-/*
-        //
-        // Store PRESET NAME:
-        //
-        if (e.data[8] === 0x52) {
-            // console.log("answer 0x52 contains name", hs(e.data));
-            // state.data_name = Array.from(e.data.slice(9, e.data.length - 1));    // e.data is UInt8Array
-            state.data_name = Array.from(e.data.slice(9, e.data.length - 1));    // e.data is UInt8Array
-            return;
-        }
-
-        if (e.data[8] === 0x16) {
-            // console.log("answer 0x16 is dump packet", hs(e.data));
-        } else if (e.data[8] === 0x17) {
-            // console.log("answer 0x17 is last dump packet", hs(e.data));
-        } else {
-            if (global.dev) console.warn(`answer 0x${h(e.data[8])} is unknown type`, hs(e.data));
-        }
-
-        if (e.data.length !== 42) {
-            if (global.dev) console.log("do not store answer", hs(e.data));
-            return;
-        }
-
-        // console.log("store sysex data");
-
-        //
-        // Store PRESET DATA:
-        // TODO: move into store:
-        state.data.push(Array.from(e.data.slice(9, e.data.length - 1)));    // e.data is UInt8Array
-*/
     };
 
     render() {
@@ -167,8 +122,7 @@ class App extends Component {
                 <div className={`app-wrapper ${this.state.presets_pos}`}>
                 <div className="header">
                     <div className="title">
-                        MicroFreak {/* !preset_name && "reader */}
-                        {/*{preset_name && <Fragment> &#x2013; preset #{state.preset.current} &#171; {preset_name} &#187;</Fragment>}*/}
+                        MicroFreak
                         <PresetName />
                     </div>
                     <div>
@@ -285,6 +239,9 @@ class App extends Component {
                                 </div>
                                 <div>You can only read saved presets.</div>
                                 <div>You can read a preset different than the one currently loaded on the MicroFreak.</div>
+                                <div className="copyright">
+                                    &copy; <a href="https://studiocode.dev" target="_blank" >studiocode.dev 2019</a>
+                                </div>
                             </div>
                         </div>
                     </div>

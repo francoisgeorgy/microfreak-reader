@@ -50,12 +50,26 @@
     border-color: var(--header-select-border);
 }
 
+/*
 footer {
     margin-top: 10px;
-    /*border-top: 1px solid var(--footer);*/
+    !*border-top: 1px solid var(--footer);*!
     padding-top: 2px;
     color: var(--footer);
     font-size: 0.75rem;
+}
+*/
+.copyright {
+    /*margin-top: 10px;*/
+    /*border-top: 1px solid var(--footer);*/
+    /*padding-top: 2px;*/
+    text-align: right;
+    color: var(--footer);
+    font-size: 0.75rem;
+}
+
+.copyright a {
+    text-decoration: none;
 }
 
 .title {
