@@ -39,6 +39,19 @@ class State {
     // This is an array of {name: String; data: []}
     // We prefill the array with null value to avoid OutOfBound exceptions when accessing the array with MobX
     presets = new Array(256).fill(null);   // index 0..255
+/*
+    presets = new Array(256).fill(
+        {
+            name: 'dummy',
+            data: Array.from(
+                {length: 40},
+                () => Array.from(
+                    {length: 40},
+                    () => Math.floor(Math.random() * 128)
+                )
+            )
+        });   // index 0..255
+*/
 
     send_pc = true;    // if true send PC when changing preset
 

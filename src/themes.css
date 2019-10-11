@@ -57,6 +57,9 @@ html {
     --header-select-bg: #fff;
     --header-select-text: #333;
     --header-select-border: #ccc;
+    --midi-select-bg: #0ba20b;
+    --midi-select-text: #fff;
+    /*--midi-select-border: #555;*/
     --button-text: #fff;
     --button-bg: #7d44ff;
     --button-disabled-bg: #cccccc;
@@ -106,6 +109,9 @@ html {
         --header-select-bg: #393e46;
         --header-select-text: #ccc;
         --header-select-border: #555;
+        --midi-select-bg: #0ba20b;
+        --midi-select-text: #fff;
+        /*--midi-select-border: #555;*/
         --progress: #34ab33;
         --button-text: #fff;
         --button-bg: #452098;
@@ -157,6 +163,9 @@ html {
         --header-select-bg: #212121;
         --header-select-text: #bbb;
         --header-select-border: #555;
+        --midi-select-bg: #0ba20b;
+        --midi-select-text: #fff;
+        /*--midi-select-border: #555;*/
         --progress: #34ab33;
         --button-text: #fff;
         --button-bg: #452098;

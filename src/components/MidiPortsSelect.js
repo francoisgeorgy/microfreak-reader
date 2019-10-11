@@ -29,6 +29,7 @@ class MidiPortsSelect extends React.Component {
         const S = this.props.state;
         const ports = this.props.state.midi.ports;
 
+        const midi_ok = S.hasInputEnabled() && S.hasOutputEnabled();
 /*
         const groupedByName = {};
 
@@ -65,10 +66,10 @@ class MidiPortsSelect extends React.Component {
 
             return (
                 <Fragment>
-                    {(!S.hasInputEnabled() || !S.hasOutputEnabled()) && <div className="warning banner">
+                    {!midi_ok && <div className="warning banner">
                         Please enable the input and the output corresponding to your MicroFreak.
                     </div>}
-                    <div className="ports-row">
+                    <div className={`ports-row ${midi_ok?'midi-ok':'midi-ko'}`}>
                         <div>
                             Input:
                             <select onChange={this.selectInputPort} value={selected_input}>

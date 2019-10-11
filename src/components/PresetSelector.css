@@ -23,12 +23,12 @@
     margin-right: 5px;
 }
 
-.midi-ko button {
+.midi-ko button.button-midi {
     color: var(--button-disabled-text);
     background-color: var(--button-disabled-bg);
 }
 
-.midi-ok button:hover {
+button:hover {
     background-color: var(--button-hover-bg);
 }
 

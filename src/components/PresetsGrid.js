@@ -106,7 +106,7 @@ class PresetsGrid extends Component {
         // this.setPreset(n < 0 ? '255' : n.toString());
         this.props.state.setPresetNumber(n < 0 ? 255 : n);
         if (this.props.state.send_pc) {
-            this.go();
+            sendPC(this.props.state.preset_number);
         }
     };
 
@@ -115,7 +115,7 @@ class PresetsGrid extends Component {
         // this.setPreset(n > 255 ? '1' : n.toString());
         this.props.state.setPresetNumber(n > 255 ? 0 : n);
         if (this.props.state.send_pc) {
-            this.go();
+            sendPC(this.props.state.preset_number);
         }
     };
 

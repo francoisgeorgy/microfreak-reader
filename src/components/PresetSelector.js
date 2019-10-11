@@ -3,6 +3,8 @@ import "./PresetSelector.css";
 import {inject, observer} from "mobx-react";
 import {readPreset, sendPC, wait, WAIT_BETWEEN_MESSAGES} from "../utils/midi";
 import {savePreferences} from "../utils/preferences";
+import {readFile} from "../utils/files";
+import ReadProgress from "./ReadProgress";
 
 class PresetSelector extends Component {
 
@@ -14,6 +16,11 @@ class PresetSelector extends Component {
         // sync: true,
         unread: true
     };
+
+    constructor(props) {
+        super(props);
+        this.inputOpenFileRef = React.createRef();
+    }
 
     toggleDirectAccess = () => {
         this.setState({direct_access: !this.state.direct_access})
@@ -150,6 +157,53 @@ class PresetSelector extends Component {
         this.setState({unread: !this.state.unread});
     };
 
+    onFileSelection = async e => {
+        if (global.dev) console.log("onFileSelection");
+        let file = e.target.files[0];
+        // noinspection JSIgnoredPromiseFromCall
+        //this.importFiles([file]);
+        // const bytes =
+        await readFile(file);
+        // if (global.dev) console.log("onFileSelection: bytes read", bytes);
+        // this.props.appState.importSysexDump(bytes, true);
+    };
+
+    importFromFile = () => {
+        if (global.dev) console.log("importFromFile");
+        this.inputOpenFileRef.current.click()
+    };
+
+    exportAsFile = () => {
+
+        // const bytes = ;
+
+        let url = window.URL.createObjectURL(new Blob([JSON.stringify(this.props.state.presets)], {type: "application/json"}));
+
+        let now = new Date();
+        let timestamp =
+            now.getUTCFullYear() + "-" +
+            ("0" + (now.getUTCMonth() + 1)).slice(-2) + "-" +
+            ("0" + now.getUTCDate()).slice(-2) + "-" +
+            ("0" + now.getUTCHours()).slice(-2) + "" +
+            ("0" + now.getUTCMinutes()).slice(-2) + "" +
+            ("0" + now.getUTCSeconds()).slice(-2);
+        let filename = 'microfreak-reader.' + timestamp;
+
+        let shadowlink = document.createElement("a");
+        shadowlink.download = filename + ".json";
+        shadowlink.style.display = "none";
+        shadowlink.href = url;
+
+        document.body.appendChild(shadowlink);
+        shadowlink.click();
+        document.body.removeChild(shadowlink);
+
+        setTimeout(function() {
+            return window.URL.revokeObjectURL(url);
+        }, 1000);
+
+    };
+
     render() {
 
         const S = this.props.state;
@@ -183,8 +237,8 @@ class PresetSelector extends Component {
                     <button onClick={this.prev} title="Previous">&lt;</button>
                     <button onClick={this.next} title="Next">&gt;</button>
                     <button onClick={this.toggleDirectAccess} title="Choose the preset number then send a PC message to the MF.">#...</button>
-                    <button onClick={this.go} title="Send a PC message to the MicroFreak to select this preset on the MicroFreak itself.">load in MF</button>
-                    <button className={midi_ok ? "read-button ok" : "read-button"} type="button" onClick={() => readPreset()}>READ</button>
+                    <button className="button-midi" onClick={this.go} title="Send a PC message to the MicroFreak to select this preset on the MicroFreak itself.">load in MF</button>
+                    <button className={midi_ok ? "button-midi read-button ok" : "button-midi read-button"} type="button" onClick={() => readPreset()}>READ</button>
                     {/*{!this.state.reading_all && <button onClick={this.readAll} title="Read all">Read all</button>}*/}
                     <label title="Automatically sends a PC message to the MF on preset change."><input type="checkbox" checked={this.props.state.send_pc} onChange={this.toggleSync}/> send PC</label>
                 </div>
@@ -194,11 +248,11 @@ class PresetSelector extends Component {
                 </div>
 */}
                 <div>
-                    {!this.state.reading_all && <button onClick={this.read1To256} title="Read all">Read 1..256</button>}
-                    {!this.state.reading_all && <button onClick={this.readNTo256} title="Read all">Read {preset_to}..256</button>}
-                    {!this.state.reading_all && <button onClick={this.read128To256} title="Read all">Read 128..256</button>}
+                    {!this.state.reading_all && <button className="button-midi" onClick={this.read1To256} title="Read all">Read 1..256</button>}
+                    {!this.state.reading_all && <button className="button-midi" onClick={this.readNTo256} title="Read all">Read {preset_to}..256</button>}
+                    {!this.state.reading_all && <button className="button-midi" onClick={this.read128To256} title="Read all">Read 128..256</button>}
                     {/*{!this.state.reading_all && <button onClick={this.readUnread} title="Read all">Read unread</button>}*/}
-                    {this.state.reading_all && <button onClick={this.abortAll} title="Abort reading all" className="abort">{this.state.abort_all ? "Aborting" : "ABORT"}</button>}
+                    {this.state.reading_all && <button className="button-midi abort" onClick={this.abortAll} title="Stop reading all">{this.state.abort_all ? "Stopping..." : "STOP"}</button>}
                     <label title="Only read unread presets"><input type="checkbox" checked={this.state.unread} onChange={this.toggleUnread}/> only unread</label>
                 </div>
                 {this.state.direct_access && <div className="direct-access">{pc}</div>}
@@ -207,6 +261,11 @@ class PresetSelector extends Component {
                     {this.state.abort_all && <span className="aborting">aborting...</span>}
                 </div>
 */}
+                <div>
+                    <input ref={this.inputOpenFileRef} type="file" style={{display:"none"}}  onChange={this.onFileSelection} />
+                    <button type="button midi-ok" onClick={this.importFromFile}>Import to file</button>
+                    <button type="button midi-ok" onClick={this.exportAsFile}>Export to file</button>
+                </div>
             </div>
         );
     }

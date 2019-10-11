@@ -9,9 +9,13 @@
 
 .ports-row select {
     margin-left: 5px;
-    background-color: var(--button-bg);
-    color: var(--button-text);
+    background-color: var(--midi-select-bg);
+    color: var(--midi-select-text);
     padding: 2px 0;
     border: none;
+}
+
+.ports-row.midi-ko select {
+    background-color: red;
 }
 
