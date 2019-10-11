@@ -4,7 +4,6 @@ import {inject, observer} from "mobx-react";
 import {readPreset, sendPC, wait, WAIT_BETWEEN_MESSAGES} from "../utils/midi";
 import {savePreferences} from "../utils/preferences";
 import {readFile} from "../utils/files";
-import ReadProgress from "./ReadProgress";
 
 class PresetSelector extends Component {
 

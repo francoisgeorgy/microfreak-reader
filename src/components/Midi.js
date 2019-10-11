@@ -27,7 +27,6 @@ const defaultProps = {
 
 // regex:
 const DEVICE_ID = "Arturia MicroFreak";
-// const DEVICE_ID = /VMPK.*/i;
 
 // const ERROR_NO_ERROR = -1;
 export const ERROR_MIDI_NOT_SUPPORTED = 1;

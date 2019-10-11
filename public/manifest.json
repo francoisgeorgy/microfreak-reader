@@ -1,6 +1,6 @@
 {
-  "short_name": "MicroFreak Web",
-  "name": "Web tools for the Arturia MicroFreak synthesizer",
+  "short_name": "MicroFreak Reader",
+  "name": "Web application to read and display Arturia MicroFreak presets",
   "icons": [
     {
       "src": "favicon.ico",
