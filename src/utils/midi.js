@@ -38,8 +38,12 @@ export const wait = ms => new Promise(r => setTimeout(r, ms));
 
 // The MF answer within 2ms typically.
 
-export const WAIT_BETWEEN_MESSAGES = 20;
+export const WAIT_BETWEEN_MESSAGES = 15;    // empiric value with some margin
 export const MESSAGES_TO_READ_FOR_PRESET = 40;  // we don't need to read a full and complete dump
+
+// type of last received message:
+export const MSG_NAME = 1;
+export const MSG_DATA = 1;
 
 export function sendPC(presetNumber) {
 
@@ -81,6 +85,8 @@ function sendNameRequest(presetNumber) {
     const sequence = 0x00;
     const READ_CMD = 0x19;
 
+    state.last_received_midi_msg = 0;
+
     const P = state.midi.ports;
     for (const port_id of Object.keys(P)) {
         if (P[port_id].enabled && P[port_id].type === PORT_OUTPUT) {
@@ -110,6 +116,8 @@ function sendPresetRequest(presetNumber) {
 
     // if (global.dev) console.log(`sendPresetRequest ${presetNumber}`, bank, preset);
 
+    state.last_received_midi_msg = 0;
+
     const P = state.midi.ports;
     for (const port_id of Object.keys(P)) {
         if (P[port_id].enabled && P[port_id].type === PORT_OUTPUT) {
@@ -129,6 +137,8 @@ function sendPresetRequestData(presetNumber) {
     }
 
     //TODO: check presetNumber param validity
+
+    state.last_received_midi_msg = 0;
 
     const P = state.midi.ports;
     for (const port_id of Object.keys(P)) {
@@ -166,6 +176,11 @@ export async function readPreset(presetNumber = -1) {
     sendNameRequest(state.preset_number_comm);
     await wait(WAIT_BETWEEN_MESSAGES);
 
+    if (state.last_received_midi_msg !== MSG_NAME) {
+        console.warn("Expected name answer not received");
+        return false;
+    }
+
     sendPresetRequest(state.preset_number_comm);
     await wait(WAIT_BETWEEN_MESSAGES);
 
@@ -180,11 +195,20 @@ export async function readPreset(presetNumber = -1) {
             sendPresetRequestData(i);
             state.read_progress++;
             await wait(WAIT_BETWEEN_MESSAGES);
+
+            if (state.last_received_midi_msg !== MSG_DATA) {
+                console.warn("Expected data answer not received");
+                state.lock = false;
+                return false;
+            }
+
         }
     } catch (error) {
         console.warn("Error in readPreset", error);
     } finally {
         state.lock = false;
     }
+
+    return true;
 
 }

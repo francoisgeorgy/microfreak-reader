@@ -49,10 +49,10 @@ class ModMatrix extends Component {
                         if (v && (Math.abs(v) > 0.00)) {
                             // console.log("Mods matrix mod v", mod_src, slot, v);
                             const direction = v < 0 ? 'to left' : 'to right';
-                            // console.log('key k', k);
+                            // console.log('key k', slot.toString()+'-'+mod_src.toString()+key);
                             // src.toString()+dest.toString()
                             mods.push(
-                                <div key={slot.toString()+key} className="mod" style={
+                                <div key={slot.toString() + mod_src.toString() + key} className="mod" style={
                                     {background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[mod_src]}) ${Math.abs(v)}%, var(--mod-src-bg) ${Math.abs(v)}%)`}
                                 }>
                                     <div className={`mod-text ${MOD_SOURCE_CSS[mod_src]}-text`}>
@@ -123,12 +123,13 @@ class ModMatrix extends Component {
                                         // console.log('key ij', j, `${i}${j}`);
                                         // console.log("ModMatrix.modMatrixValue", src, dst);
                                         const v = S.modMatrixValue(src, dst);
-                                        const key = `${i}${j}`;
+                                        // const key = `${src.toString()}${i}${dst.toString()}${j}`;
+                                        const k = `${i}${j}`;
                                         const show = Math.abs(v) > 0.00;
                                         return (
-                                            <div key={key} className="mod-matrix-value">
+                                            <div key={k} className="mod-matrix-value">
                                                 {show ? v : null}
-                                                {show ? this.Mods(src, dst, key) : null}
+                                                {show ? this.Mods(src, dst, k) : null}
                                             </div>
                                         );
                                     }

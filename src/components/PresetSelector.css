@@ -17,6 +17,7 @@
     color: var(--button-text);
     padding: 5px;
     font-size: 1.1rem;
+    font-weight: 300;
     /*border-color: var(--knob-track-bg);*/
     border: none;
     border-radius: 3px;

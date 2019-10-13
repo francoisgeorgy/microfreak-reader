@@ -1,5 +1,5 @@
 
-const MAX_FILE_SIZE = 100000;
+const MAX_FILE_SIZE = 1000000;
 
 export async function readFile(file) {
 
@@ -11,7 +11,7 @@ export async function readFile(file) {
                 console.warn(`${file.name}: file too big, ${file.size}`);
             } else {
                 const data = new Uint8Array(await new Response(file).json());
-                console.log(data);
+                // console.log(data);
                 // if (isSysexData(data)) {
                 //     if (bytes === null) {
                 //         bytes = data;

@@ -91,6 +91,14 @@ class PresetSelector extends Component {
         }
     };
 
+    readSelected = async () => {
+        this.props.state.error = 0;
+        if (!await readPreset()) {
+            console.warn("read preset fail");
+            this.props.state.error = 1;
+        }
+    };
+
     readAll = async (from=0, to=255, unread_only=false) => {
 
         if (!this.props.state.hasInputAndOutputEnabled()) {
@@ -98,28 +106,26 @@ class PresetSelector extends Component {
             return;
         }
 
+        this.props.state.error = 0;
+
         this.setState({reading_all: true});
-        // this.abort_all = false;
 
         const S = this.props.state;
 
-        // this.props.state.all = [];
         for (let n = from; n <= to; n++) {
-            // if (this.abort_all) break;
             if (this.state.abort_all) break;
-            // this.props.state.setPresetNumber(n);
 
             if (unread_only && (S.presets.length && (S.presets.length > n && S.presets[n]))) continue;
 
-            await readPreset(n);
+            if (! await readPreset(n)) {
+                console.warn("read preset fail");
+                this.props.state.error = 1;
+                break;
+            }
+
             S.setPresetNumber(n);
             await wait(4 * WAIT_BETWEEN_MESSAGES);  // by updating the preset_number _after_ the reading, we avoid to display an empty preset while reading. This is much more pleasant.
-            // console.log(n, this.props.state.data);
-            // this.props.state.all[n] = [...this.props.state.data];
-            // this.props.state.all_name[n] = this.props.state.data_name;
         }
-
-        // console.log(this.props.state.all);
 
         this.setState({reading_all: false});
         this.setState({abort_all: false});
@@ -237,7 +243,7 @@ class PresetSelector extends Component {
                     <button onClick={this.next} title="Next">&gt;</button>
                     <button onClick={this.toggleDirectAccess} title="Choose the preset number then send a PC message to the MF.">#...</button>
                     <button className="button-midi" onClick={this.go} title="Send a PC message to the MicroFreak to select this preset on the MicroFreak itself.">load in MF</button>
-                    <button className={midi_ok ? "button-midi read-button ok" : "button-midi read-button"} type="button" onClick={() => readPreset()}>READ</button>
+                    <button className={midi_ok ? "button-midi read-button ok" : "button-midi read-button"} type="button" onClick={this.readSelected}>READ</button>
                     {/*{!this.state.reading_all && <button onClick={this.readAll} title="Read all">Read all</button>}*/}
                     <label title="Automatically sends a PC message to the MF on preset change."><input type="checkbox" checked={this.props.state.send_pc} onChange={this.toggleSync}/> send PC</label>
                 </div>
@@ -262,7 +268,7 @@ class PresetSelector extends Component {
 */}
                 <div>
                     <input ref={this.inputOpenFileRef} type="file" style={{display:"none"}}  onChange={this.onFileSelection} />
-                    <button type="button midi-ok" onClick={this.importFromFile}>Import to file</button>
+                    <button type="button midi-ok" onClick={this.importFromFile}>Import from file</button>
                     <button type="button midi-ok" onClick={this.exportAsFile}>Export to file</button>
                 </div>
             </div>

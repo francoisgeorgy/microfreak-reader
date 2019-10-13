@@ -19,7 +19,7 @@ import {
     MOD_SRC_LFO,
     MOD_SRC_ENV
 } from "../model";
-import {portById} from "../utils/midi";
+import {MSG_DATA, MSG_NAME, portById} from "../utils/midi";
 import {h, hs} from "../utils/hexstring";
 import {savePreferences} from "../utils/preferences";
 
@@ -78,6 +78,9 @@ class State {
         ports: {},
     };
 
+    last_received_midi_msg = 0;
+
+    error = 0;  // 0 means no error
 
     bytesToName(data) {
         // if (!this.all_name[n]) {
@@ -97,9 +100,23 @@ class State {
      *
      * @param data Data attribute of a midi message
      */
-    importData(data) {
+    importData(midiMessage) {
+
+        // if (global.dev) console.log("midi message received", midiMessage);
+
+        const data = midiMessage.data;
 
         //TODO: extract preset num: NOT POSSIBLE, preset num is not in the answers
+
+        if (data[0] === 0xF8) {
+            // we ignore Timing Clock messages
+            return;
+        }
+
+        if (data.length < 10) {
+            if (global.dev) console.log("answer too short", hs(data));
+            return;
+        }
 
         // console.log("importData", this.presets.length, this.preset_number_comm);
 
@@ -112,6 +129,7 @@ class State {
         //
         if (data[8] === 0x52) {
             // console.log("answer 0x52 contains name", hs(message_bytes));
+            this.last_received_midi_msg = MSG_NAME;
             // state.data_name = Array.from(message_bytes.slice(9, message_bytes.length - 1));    // message_bytes is UInt8Array
             this.presets[this.preset_number_comm].name = this.bytesToName(Array.from(data.slice(9, data.length - 1)));    // message_bytes is UInt8Array
             return;
@@ -141,6 +159,7 @@ class State {
         //
         // Store PRESET DATA:
         // TODO: move into store:
+        this.last_received_midi_msg = MSG_DATA;
         this.presets[this.preset_number_comm].data.push(Array.from(data.slice(9, data.length - 1)));    // message_bytes is UInt8Array
     }
 
@@ -577,7 +596,8 @@ decorate(State, {
     // dataRef: observable,
     // data_name: observable,
     lock: observable,
-    read_progress: observable
+    read_progress: observable,
+    error: observable
 });
 
 export const state = new State();

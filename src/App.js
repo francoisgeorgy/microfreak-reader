@@ -49,7 +49,6 @@ import {
 } from "./model";
 import PresetSelector from "./components/PresetSelector";
 import ModMatrix from "./components/ModMatrix";
-import {hs} from "./utils/hexstring";
 import Switch from "./components/Switch";
 import ReadProgress from "./components/ReadProgress";
 import MidiPortsSelect from "./components/MidiPortsSelect";
@@ -62,6 +61,7 @@ import {
     savePreferences
 } from "./utils/preferences";
 import PresetsGrid from "./components/PresetsGrid";
+import ErrorBanner from "./components/ErrorBanner";
 
 const MIDI_MSG_TYPE = "sysex";
 
@@ -95,6 +95,7 @@ class App extends Component {
         state.send_pc = s.send_pc;
     }
 
+/*
     handleMidiInputEvent = (e) => {
 
         // if (global.dev) console.log("handleMidiInputEvent", hs(e.data), e);
@@ -110,6 +111,12 @@ class App extends Component {
         }
 
         state.importData(e.data);
+    };
+*/
+
+    // We need this method to have a correct "this" binding in state.importData()
+    handleMidiInputEvent = (e) => {
+        state.importData(e);
     };
 
     render() {
@@ -138,6 +145,7 @@ class App extends Component {
                         </select>
                     </div>
                 </div>
+                <ErrorBanner />
                 <Midi messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>
                 <div className="App">
                     {/*<MidiPorts messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>*/}
@@ -240,7 +248,7 @@ class App extends Component {
                                 <div>You can only read saved presets.</div>
                                 <div>You can read a preset different than the one currently loaded on the MicroFreak.</div>
                                 <div className="copyright">
-                                    &copy; <a href="https://studiocode.dev" target="_blank" >studiocode.dev 2019</a>
+                                    &copy; <a href="https://studiocode.dev" target="_blank" rel="noopener noreferrer">studiocode.dev 2019</a>
                                 </div>
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from "react";
 import "./PresetsGrid.css";
 import {inject, observer} from "mobx-react";
-import {sendPC} from "../utils/midi";
+import {readPreset, sendPC} from "../utils/midi";
 
 class PresetsGrid extends Component {
 
@@ -101,6 +101,14 @@ class PresetsGrid extends Component {
         return false;
     };
 
+    readSelected = async () => {
+        this.props.state.error = 0;
+        if (! await readPreset()) {
+            console.warn("read preset fail");
+            this.props.state.error = 1;
+        }
+    };
+
     prev = (d = 1) => {
         const n = this.props.state.preset_number - d;
         // this.setPreset(n < 0 ? '255' : n.toString());
@@ -119,9 +127,9 @@ class PresetsGrid extends Component {
         }
     };
 
-
-    selectPreset = (n) => {
+    selectPreset = n => {
         this.props.state.setPresetNumber(n);
+        // await this.readSelected();
         if (this.props.state.send_pc) {
             sendPC(this.props.state.preset_number);
         }
