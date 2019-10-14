@@ -65,7 +65,7 @@ class State {
 
     /**
      *
-     * @param data Data attribute of a midi message
+     * @param midiMessage midi message
      */
     importData(midiMessage) {
 

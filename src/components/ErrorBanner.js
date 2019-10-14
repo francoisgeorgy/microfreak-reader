@@ -17,7 +17,7 @@ class ErrorBanner extends Component {
                     msg = 'MIDI communication error. Try restarting the MicroFreak.';
                     break;
                 default:
-                    msg = 'Unknonw error code: ' + S.error;
+                    msg = 'Unknown error code: ' + S.error;
             }
         // }
 
