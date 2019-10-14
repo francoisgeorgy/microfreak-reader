@@ -166,13 +166,7 @@ class PresetSelector extends Component {
 
     onFileSelection = async e => {
         if (global.dev) console.log("onFileSelection");
-        let file = e.target.files[0];
-        // noinspection JSIgnoredPromiseFromCall
-        //this.importFiles([file]);
-        // const bytes =
-        await readFile(file);
-        // if (global.dev) console.log("onFileSelection: bytes read", bytes);
-        // this.props.appState.importSysexDump(bytes, true);
+        this.props.state.presets = await readFile(e.target.files[0]);
     };
 
     importFromFile = () => {
