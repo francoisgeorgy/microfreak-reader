@@ -12,22 +12,3 @@ export function getRightShift(v) {
     }
     return i;
 }
-
-
-/**
- * getSetBits(0b10000000)
- * 1
- * getSetBits(0b10000001)
- * 2
- * getSetBits(0b11111111)
- * 8
- *
- * return the number of bit set
- */
-export function getSetBits(v) {
-    let c;
-    for (c = 0; v; c++) {
-        v &= v - 1; // clear the least significant bit set
-    }
-    return c;
-}

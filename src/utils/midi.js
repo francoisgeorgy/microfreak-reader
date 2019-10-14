@@ -12,32 +12,9 @@ export function portById(id) {
     }
 }
 
-/*
-function inputById(id) {
-    return WebMidi.inputs.find(item => item.id === id);
-}
-
-function outputById(id) {
-    return WebMidi.outputs.find(item => item.id === id);
-}
-*/
-
-/*
-function inputName(id) {
-    let i = inputById(id);
-    return i ? i.name : null;
-}
-
-function outputName(id) {
-    let i = outputById(id);
-    return i ? i.name : null;
-}
-*/
-
 export const wait = ms => new Promise(r => setTimeout(r, ms));
 
 // The MF answer within 2ms typically.
-
 export const WAIT_BETWEEN_MESSAGES = 15;    // empiric value with some margin
 export const MESSAGES_TO_READ_FOR_PRESET = 40;  // we don't need to read a full and complete dump
 
@@ -114,8 +91,6 @@ function sendPresetRequest(presetNumber) {
     const bank = presetNumber > 127 ? 1 : 0;
     const preset = presetNumber % 128;
 
-    // if (global.dev) console.log(`sendPresetRequest ${presetNumber}`, bank, preset);
-
     state.last_received_midi_msg = 0;
 
     const P = state.midi.ports;
@@ -128,7 +103,7 @@ function sendPresetRequest(presetNumber) {
     }
 }
 
-// do this 146x to read all the preset
+// do this 146x to fully read the preset
 function sendPresetRequestData(presetNumber) {
 
     if (!state.hasInputAndOutputEnabled()) {
@@ -152,26 +127,16 @@ function sendPresetRequestData(presetNumber) {
 
 export async function readPreset(presetNumber = -1) {
 
-    // if (global.dev) console.log("readPreset", presetNumber);
-
     if (!state.hasInputAndOutputEnabled()) {
         if (global.dev) console.log("readPreset: no output and/or input connected, ignore request");
         return;
     }
 
     if (state.lock) {
-        // if (global.dev) console.log("readPreset: locked");
         return;
     }
 
     state.preset_number_comm = presetNumber < 0 ? state.preset_number : presetNumber;
-
-    // if (global.dev) console.log("readPreset", state.preset_number_comm);
-
-    // state.data = [];
-    // state.data_name = [];
-    // state.preset.current_counter = 0;
-    // state.preset.reference = state.preset.current;
 
     sendNameRequest(state.preset_number_comm);
     await wait(WAIT_BETWEEN_MESSAGES);
@@ -191,13 +156,12 @@ export async function readPreset(presetNumber = -1) {
     state.read_progress = 0;
     try {
         for (let i = 0; i < N; i++) {
-            // console.log(`sendPresetRequest ${i}`);
             sendPresetRequestData(i);
             state.read_progress++;
             await wait(WAIT_BETWEEN_MESSAGES);
 
             if (state.last_received_midi_msg !== MSG_DATA) {
-                console.warn("Expected data answer not received");
+                if (global.dev) console.warn("Expected data answer not received");
                 state.lock = false;
                 return false;
             }

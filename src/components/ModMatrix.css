@@ -1,15 +1,10 @@
 
 .mod-matrix {
-    /*padding: 5px;*/
-    /*margin-top: 5px;*/
     padding: 5px 5px 5px 5px;
     background-color: var(--group-bg);
-    /*border: var(--group-border);*/
     display: grid;
     grid-template-columns: repeat(8, minmax(5rem, auto));
     justify-content: start;
-    /*font-size: 85%;*/
-    /*margin: 20px 0;*/
 }
 
 .mod-matrix > div {
@@ -28,12 +23,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    /*padding-top: 3px!important;*/
 }
 
-
 .mod-matrix .mod-matrix-col-header {
-    /*padding-left: 0;*/
     padding: 2px 2px 2px 0;
 }
 
@@ -43,7 +35,6 @@
 
 .mod-matrix-value .mod {
     margin-bottom: 3px;
-
     margin-top: 16px;
     height: 3px;
 }

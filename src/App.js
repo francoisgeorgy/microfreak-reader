@@ -61,7 +61,6 @@ import {
     savePreferences
 } from "./utils/preferences";
 import PresetsGrid from "./components/PresetsGrid";
-import ErrorBanner from "./components/ErrorBanner";
 
 const MIDI_MSG_TYPE = "sysex";
 
@@ -95,25 +94,6 @@ class App extends Component {
         state.send_pc = s.send_pc;
     }
 
-/*
-    handleMidiInputEvent = (e) => {
-
-        // if (global.dev) console.log("handleMidiInputEvent", hs(e.data), e);
-
-        if (e.data[0] === 0xF8) {
-            // we ignore Timing Clock messages
-            return;
-        }
-
-        if (e.data.length < 10) {
-            if (global.dev) console.log("answer too short", hs(e.data));
-            return;
-        }
-
-        state.importData(e.data);
-    };
-*/
-
     // We need this method to have a correct "this" binding in state.importData()
     handleMidiInputEvent = (e) => {
         state.importData(e);
@@ -127,29 +107,27 @@ class App extends Component {
         return (
             <Provider state={state}>
                 <div className={`app-wrapper ${this.state.presets_pos}`}>
-                <div className="header">
-                    <div className="title">
-                        MicroFreak&nbsp;<PresetName />
+                    <div className="header">
+                        <div className="title">
+                            MicroFreak&nbsp;<PresetName />
+                        </div>
+                        <div className="header-options">
+                            <a href="https://github.com/francoisgeorgy/microfreak-reader/blob/master/README.md" target="_blank" rel="noopener noreferrer">Doc</a>
+                            <select value={this.state.theme} onChange={this.selectTheme}>
+                                <option value="light">Light theme</option>
+                                <option value="dark">Dark theme</option>
+                                <option value="darker">Darkest theme</option>
+                            </select>
+                            <select value={this.state.presets_pos} onChange={this.selectPresetPos}>
+                                <option value="presets-grid-right">Presets list on the right</option>
+                                <option value="presets-grid-bottom">Presets list at bottom</option>
+                                <option value="presets-grid-none">No presets list</option>
+                            </select>
+                        </div>
                     </div>
-                    <div className="header-options">
-                        <a href="https://github.com/francoisgeorgy/microfreak-reader/blob/master/README.md" target="_blank" rel="noopener noreferrer">Doc</a>
-                        <select value={this.state.theme} onChange={this.selectTheme}>
-                            <option value="light">Light theme</option>
-                            <option value="dark">Dark theme</option>
-                            <option value="darker">Darkest theme</option>
-                        </select>
-                        <select value={this.state.presets_pos} onChange={this.selectPresetPos}>
-                            <option value="presets-grid-right">Presets list on the right</option>
-                            <option value="presets-grid-bottom">Presets list at bottom</option>
-                            <option value="presets-grid-none">No presets list</option>
-                        </select>
-                    </div>
-                </div>
-                {/*<ErrorBanner />*/}
-                <Midi messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>
-                <div className="App">
-                    {/*<MidiPorts messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>*/}
-                    <div>
+                    {/*<ErrorBanner />*/}
+                    <Midi messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>
+                    <div className="App">
                         <div className="main-grid">
                             <div className="group matrix">
                                 <h3>Modulation matrix</h3>
@@ -254,14 +232,8 @@ class App extends Component {
                                 </div>
                             </div>
                         </div>
+                        {this.state.presets_pos !== 'presets-grid-none' && <PresetsGrid position={this.state.presets_pos} />}
                     </div>
-                    {this.state.presets_pos !== 'presets-grid-none' && <PresetsGrid position={this.state.presets_pos} />}
-                </div>
-{/*
-                <footer>
-                    &copy; studiocode.dev 2019
-                </footer>
-*/}
                 </div>
             </Provider>
         );
