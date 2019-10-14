@@ -12,6 +12,7 @@ class ErrorBanner extends Component {
         // if (S.error) {
             switch (S.error) {
                 case null:
+                case 0:
                     break;
                 case 1:
                     msg = 'MIDI communication error. Try restarting the MicroFreak.';

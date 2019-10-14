@@ -31,6 +31,12 @@ button:hover {
     padding-right: 25px!important;
 }
 
+button.abort {
+    background-color: var(--abort-button-bg);
+    padding-left: 25px!important;
+    padding-right: 25px!important;
+}
+
 .read-button.ok {
     background-color: var(--read-button-bg) !important;
 }
@@ -90,18 +96,13 @@ button:hover {
     color: var(--switch-sel-text);
 }
 
-button.abort {
-    background-color: var(--abort-button-bg);
-    padding: 5px 25px!important;
-}
-
 .aborting {
     margin-left: 5px;
 }
 
 select.preloader {
-    background-color: var(--button-bg);
-    color: var(--button-text);
+    /*background-color: var(--button-bg);*/
+    /*color: var(--button-text);*/
     font-weight: 300;
 }
 

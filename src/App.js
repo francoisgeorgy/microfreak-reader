@@ -128,6 +128,7 @@ class App extends Component {
                     {/*<ErrorBanner />*/}
                     <Midi messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>
                     <div className="App">
+                        <div> {/* grid wrapper; helps to have a nice layout; without it the grid will stretch full height */}
                         <div className="main-grid">
                             <div className="group matrix">
                                 <h3>Modulation matrix</h3>
@@ -231,6 +232,7 @@ class App extends Component {
                                     &copy; <a href="https://studiocode.dev" target="_blank" rel="noopener noreferrer">studiocode.dev 2019</a>
                                 </div>
                             </div>
+                        </div>
                         </div>
                         {this.state.presets_pos !== 'presets-grid-none' && <PresetsGrid position={this.state.presets_pos} />}
                     </div>
