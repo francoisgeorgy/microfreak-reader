@@ -18,8 +18,7 @@ This application does not read nor display any data about the stored sequences.
 ## Accuracy of the displayed data 
 
 :warning: To create this application I reverse-engineered some of the sysex messages exchanged between the MicroFreak and the
-Arturia MIDI Control Center. This process is subject to errors and misinterpretations. Therefore **I can not give any guarantee 
-as to the accuracy of the displayed data**. 
+Arturia MIDI Control Center. This process is subject to errors and misinterpretations. Therefore **NO GUARANTEE, EXPRESS OR IMPLIED, IS GIVEN AS TO THE ACCURACY OF THE DISPLAYED DATA**. 
 
 If you think the application display wrong values, send me the preset
 and any useful info to reproduce the problem and I will fix the application if necessary. 
@@ -88,7 +87,7 @@ votre navigateur ou que vous rafraîchissiez la page.
 
 :warning: Pour créer cette application, j’ai analysé certains des messages sysex échangés entre le MicroFreak et le
 MIDI Control Center de Arturia. Ce processus est sujet à des erreurs et à des interprétations erronées. Par conséquent 
-**je ne peux donner aucune garantie quant à la précision des données affichées**.
+**AUCUNE GARANTIE, EXPRESSE OU IMPLICITE, N'EST DONNEE QUAND A L'EXACTITUDE DES DONNEES AFFICHEES**.
 
 Si vous pensez que l'application affiche des valeurs incorrectes, envoyez-moi le _preset_ et toute information utile pour 
 reproduire le problème et je corrigerai l'application si nécessaire. Si possible, utilisez la page 
