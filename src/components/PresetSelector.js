@@ -139,9 +139,11 @@ class PresetSelector extends Component {
         this.readAll((this.props.state.preset_number + 1) % 256, 255, this.state.unread);
     };
 
+/*
     read128To256 = () => {
         this.readAll(127, 255, this.state.unread);
     };
+*/
 
     // readUnread = () => {
     //     this.readAll(0, 255, true);
@@ -242,7 +244,7 @@ class PresetSelector extends Component {
                     <button onClick={this.prev} title="Previous">&lt;</button>
                     <button onClick={this.next} title="Next">&gt;</button>
                     <button onClick={this.toggleDirectAccess} title="Choose the preset number then send a PC message to the MF.">#...</button>
-                    <button className="button-midi" onClick={this.go} title="Send a PC message to the MicroFreak to select this preset on the MicroFreak itself.">load in MF</button>
+                    <button className="button-midi" onClick={this.go} title="Send a PC message to the MicroFreak to select this preset on the MicroFreak itself.">PC</button>
                     <button className={midi_ok ? "button-midi read-button ok" : "button-midi read-button"} type="button" onClick={this.readSelected}>READ</button>
                     {/*{!this.state.reading_all && <button onClick={this.readAll} title="Read all">Read all</button>}*/}
                     <label title="Automatically sends a PC message to the MF on preset change."><input type="checkbox" checked={this.props.state.send_pc} onChange={this.toggleSync}/> send PC</label>
@@ -255,7 +257,7 @@ class PresetSelector extends Component {
                 <div>
                     {!this.state.reading_all && <button className="button-midi" onClick={this.read1To256} title="Read all">Read 1..256</button>}
                     {!this.state.reading_all && <button className="button-midi" onClick={this.readNTo256} title="Read all">Read {preset_to}..256</button>}
-                    {!this.state.reading_all && <button className="button-midi" onClick={this.read128To256} title="Read all">Read 128..256</button>}
+                    {/*{!this.state.reading_all && <button className="button-midi" onClick={this.read128To256} title="Read all">Read 128..256</button>}*/}
                     {/*{!this.state.reading_all && <button onClick={this.readUnread} title="Read all">Read unread</button>}*/}
                     {this.state.reading_all && <button className="button-midi abort" onClick={this.abortAll} title="Stop reading all">{this.state.abort_all ? "Stopping..." : "STOP"}</button>}
                     <label title="Only read unread presets"><input type="checkbox" checked={this.state.unread} onChange={this.toggleUnread}/> only unread</label>

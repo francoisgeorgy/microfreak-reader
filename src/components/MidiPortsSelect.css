@@ -1,6 +1,7 @@
 .ports-row {
     display: flex;
     margin: 5px 0 10px 0;
+    font-weight: 300;
 }
 
 .ports-row > div {
@@ -9,14 +10,17 @@
 
 .ports-row select {
     margin-left: 5px;
-    background-color: var(--midi-select-bg);
-    color: var(--midi-select-text);
-    padding: 2px 0;
+    /*background-color: var(--midi-select-bg);*/
+    /*color: var(--midi-select-text);*/
+    /*padding: 2px 0;*/
     border: none;
     font-size: 1rem;
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
 }
 
 .ports-row.midi-ko select {
-    background-color: red;
+    /*background-color: red;*/
+    border-color: red;
 }
 

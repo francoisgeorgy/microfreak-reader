@@ -25,7 +25,7 @@
     background-color: #dddddd;
     color: #333;
     /*border: 1px solid #ccc;*/
-    margin: 5px 0;
+    /*margin: 5px 0;*/
     padding: 5px;
 }
 
@@ -130,6 +130,11 @@ h3 {
 .preset  {
     grid-column: 3;
     grid-row: 1;
+    /*border: var(--group-border);*/
+}
+
+.preset-wrapper {
+    padding: 5px;
 }
 
 .oscillator {

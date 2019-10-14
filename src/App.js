@@ -155,13 +155,15 @@ class App extends Component {
                                 <h3>Modulation matrix</h3>
                                 <ModMatrix />
                             </div>
-                            <div className="preset">
+                            <div className="group preset">
                                 <h3>MIDI / Preset selection</h3>
-                                <MidiPortsSelect messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent} />
-                                <PresetSelector />
-                                <ReadProgress />
-                                {/*TODO: add compare*/}
-                                {/*<PresetName />*/}
+                                <div className="preset-wrapper">
+                                    <MidiPortsSelect messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent} />
+                                    <PresetSelector />
+                                    <ReadProgress />
+                                    {/*TODO: add compare*/}
+                                    {/*<PresetName />*/}
+                                </div>
                             </div>
                             <div className="group oscillator">
                                 <h3>Oscillator</h3>
