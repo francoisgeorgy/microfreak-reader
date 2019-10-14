@@ -92,6 +92,12 @@ class PresetSelector extends Component {
     };
 
     readSelected = async () => {
+
+        if (!this.props.state.hasInputAndOutputEnabled()) {
+            if (global.dev) console.log("readAllPresets: no output and/or input connected, ignore request");
+            return;
+        }
+
         this.props.state.error = 0;
         if (!await readPreset()) {
             console.warn("read preset fail");
@@ -264,8 +270,8 @@ class PresetSelector extends Component {
 */}
                 <div>
                     <input ref={this.inputOpenFileRef} type="file" style={{display:"none"}}  onChange={this.onFileSelection} />
-                    <button type="button midi-ok" onClick={this.importFromFile}>Import from file</button>
-                    <button type="button midi-ok" onClick={this.exportAsFile}>Export to file</button>
+                    <button type="button midi-ok" onClick={this.importFromFile}>Load file</button>
+                    <button type="button midi-ok" onClick={this.exportAsFile}>Save to file</button>
                 </div>
             </div>
         );

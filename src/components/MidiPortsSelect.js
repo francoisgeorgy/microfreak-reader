@@ -3,6 +3,7 @@ import {inject, observer} from "mobx-react";
 import {portById} from "../utils/midi";
 import "./MidiPortsSelect.css";
 import {PORT_INPUT, PORT_OUTPUT} from "./Midi";
+import ErrorBanner from "./ErrorBanner";
 
 class MidiPortsSelect extends React.Component {
 
@@ -13,6 +14,7 @@ class MidiPortsSelect extends React.Component {
         if (port_id) {
             this.props.state.connectPort(portById(port_id), this.props.messageType, this.props.onMidiInputEvent);
         }
+        this.props.state.error = 0;
     };
 
     selectOutputPort = (e) => {
@@ -22,6 +24,7 @@ class MidiPortsSelect extends React.Component {
         if (port_id) {
             this.props.state.connectPort(portById(port_id), this.props.messageType, this.props.onMidiInputEvent);
         }
+        this.props.state.error = 0;
     };
 
     render() {
@@ -66,9 +69,10 @@ class MidiPortsSelect extends React.Component {
 
             return (
                 <Fragment>
-                    {!midi_ok && <div className="warning banner">
+                    {/* !midi_ok && <div className="warning banner">
                         Please enable the input and the output corresponding to your MicroFreak.
-                    </div>}
+                    </div> */}
+                    <ErrorBanner />
                     <div className={`ports-row ${midi_ok?'midi-ok':'midi-ko'}`}>
                         <div>
                             Input:

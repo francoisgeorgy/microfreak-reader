@@ -1,7 +1,9 @@
 
 @media print {
 
+    .ports-row,
     select,
+    label,
     button {
         display: none!important;
     }

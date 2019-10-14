@@ -57,9 +57,13 @@ html {
     --header-select-bg: #fff;
     --header-select-text: #333;
     --header-select-border: #ccc;
-    --midi-select-bg: #0ba20b;
-    --midi-select-text: #fff;
+    /*--midi-select-bg: #0ba20b;*/
+    --midi-select-bg: #eee;
+    /*--midi-select-text: #fff;*/
+    --midi-select-text: #000;
     /*--midi-select-border: #555;*/
+    --preset-number-bg: #eee;
+    --preset-number-text: #000;
     --button-text: #fff;
     --button-bg: #7d44ff;
     --button-disabled-bg: #cccccc;
@@ -109,9 +113,12 @@ html {
         --header-select-bg: #393e46;
         --header-select-text: #ccc;
         --header-select-border: #555;
-        --midi-select-bg: #0ba20b;
+        /*--midi-select-bg: #0ba20b;*/
+        --midi-select-bg: #393e46;
         --midi-select-text: #fff;
         /*--midi-select-border: #555;*/
+        --preset-number-bg: #393e46;
+        --preset-number-text: #fff;
         --progress: #34ab33;
         --button-text: #fff;
         --button-bg: #452098;
@@ -120,7 +127,8 @@ html {
         --button-hover-bg: #562ecd;
         --read-button-bg: #0ba20b;
         --read-button-hover-bg: #0bc00b;
-        --input-border: 1px solid #393939;
+        /*--input-border: 1px solid #393939;*/
+        --input-border: 1px solid #777;
         --group-bg: #222831;
         --group-border: none;
         --group-header: #393e46;
@@ -163,9 +171,12 @@ html {
         --header-select-bg: #212121;
         --header-select-text: #bbb;
         --header-select-border: #555;
-        --midi-select-bg: #0ba20b;
+        /*--midi-select-bg: #0ba20b;*/
+        --midi-select-bg: #000;
         --midi-select-text: #fff;
         /*--midi-select-border: #555;*/
+        --preset-number-bg: #000;
+        --preset-number-text: #fff;
         --progress: #34ab33;
         --button-text: #fff;
         --button-bg: #452098;

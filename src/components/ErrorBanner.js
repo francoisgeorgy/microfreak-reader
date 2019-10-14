@@ -6,21 +6,27 @@ class ErrorBanner extends Component {
 
     render() {
 
+        let msg = null;
+
         const S = this.props.state;
-        // const preset_name = S.presetName(S.preset_number);
 
-        if (!S.error) return null;
+/*
+        if (!S.hasInputEnabled() || !S.hasOutputEnabled()) {
+            msg = "Enable the input and the output corresponding to your MicroFreak.";
+        }
+*/
 
-        let s;
-        switch (S.error) {
-            case 1:
-                s = 'MIDI communication error. Please restart the connected MicroFreak and try again.';
-                break;
-            default:
-                s = 'Unknonw error code: ' + S.error;
+        if (!msg && S.error) {
+            switch (S.error) {
+                case 1:
+                    msg = 'MIDI communication error. Try restarting the MicroFreak.';
+                    break;
+                default:
+                    msg = 'Unknonw error code: ' + S.error;
+            }
         }
 
-        return <div className="warning banner">{s}</div>;
+        return msg ? <div className="warning banner">{msg}</div> : null;
 
     }
 }

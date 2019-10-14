@@ -133,19 +133,19 @@ class App extends Component {
                         <PresetName />
                     </div>
                     <div>
-                        <select value={this.state.presets_pos} onChange={this.selectPresetPos}>
-                            <option value="presets-grid-right">Presets list on the right</option>
-                            <option value="presets-grid-bottom">Presets list at bottom</option>
-                            <option value="presets-grid-none">No presets list</option>
-                        </select>
                         <select value={this.state.theme} onChange={this.selectTheme}>
                             <option value="light">Light theme</option>
                             <option value="dark">Dark theme</option>
                             <option value="darker">Darkest theme</option>
                         </select>
+                        <select value={this.state.presets_pos} onChange={this.selectPresetPos}>
+                            <option value="presets-grid-right">Presets list on the right</option>
+                            <option value="presets-grid-bottom">Presets list at bottom</option>
+                            <option value="presets-grid-none">No presets list</option>
+                        </select>
                     </div>
                 </div>
-                <ErrorBanner />
+                {/*<ErrorBanner />*/}
                 <Midi messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>
                 <div className="App">
                     {/*<MidiPorts messageType={MIDI_MSG_TYPE} onMidiInputEvent={this.handleMidiInputEvent}/>*/}

@@ -15,7 +15,7 @@
     /*font-size: 14px;*/
     background-color: var(--button-bg);
     color: var(--button-text);
-    padding: 2px 5px;
+    padding: 2px 10px;
     font-size: 1.1rem;
     font-weight: 300;
     /*border-color: var(--knob-track-bg);*/
@@ -59,9 +59,10 @@ button:hover {
     width: 3rem;
     font-size: 1.2rem;
     text-align: right;
-    background-color: transparent;
+    /*background-color: transparent;*/
+    background-color: var(--preset-number-bg);
+    color: var(--preset-number-text);
     border: var(--input-border);
-    color: var(--text);
 }
 
 .seq-access {

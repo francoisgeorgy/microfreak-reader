@@ -3,6 +3,7 @@ import Switch from "react-switch";
 import {inject, observer} from "mobx-react";
 import {portById} from "../utils/midi";
 import "./MidiPorts.css";
+import ErrorBanner from "./ErrorBanner";
 
 class MidiPorts extends React.Component {
 
@@ -46,6 +47,21 @@ class MidiPorts extends React.Component {
                 return <div className="warning banner">No MIDI device found.</div>
             }
 
+/*
+            if (!S.error) return null;
+
+            let s;
+            switch (S.error) {
+                case 1:
+                    s = 'MIDI communication error. Please restart the connected MicroFreak and try again.';
+                    break;
+                default:
+                    s = 'Unknonw error code: ' + S.error;
+            }
+
+            return <div className="warning banner">{s}</div>;
+*/
+
             return (
                 <Fragment>
                     <div className="ports-grid">
@@ -80,9 +96,10 @@ class MidiPorts extends React.Component {
                             );
                         })}
                     </div>
-                    {(!S.hasInputEnabled() || !S.hasOutputEnabled()) && <div className="warning banner">
+                    <ErrorBanner />
+                    {/* (!S.hasInputEnabled() || !S.hasOutputEnabled()) && <div className="warning banner">
                         Please enable the input and the output corresponding to your MicroFreak.
-                    </div>}
+                    </div> */}
                 </Fragment>
             );
 
