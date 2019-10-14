@@ -8,12 +8,11 @@ You can only read _saved_ presets. The application can not read the current, uns
 
 This application can only _read_ presets. You can not edit presets. You can not send values to the MicroFreak.
 
-However, the application can send a PC (Program Change) message to the MicroFreak when you select in preset in the application.
+However, the application can send a PC (Program Change) message to the MicroFreak when you select a preset in the application.
 
-Once the application has read a preset, it is kept in the application memory until you close your browser or refresh the
-page.
+Once the application has read a preset, it is kept in memory until you close your browser or refresh the page.
 
-This application does not read nor display any data about the stored sequences.
+This application does not read nor display the stored sequences.
 
 ## Accuracy of the displayed data 
 
@@ -80,8 +79,7 @@ MicroFreak.
 Cependant, l'application est capable d'envoyer un message PC (Program Change) au MicroFreak lorsque vous sélectionnez un
 preset dans l'application.
 
-Une fois que l'application a lu un preset, celui-ci est conservé dans la mémoire de l'application jusqu'à ce que vous fermiez
-votre navigateur ou que vous rafraîchissiez la page.
+Une fois que l'application a lu un preset, celui-ci est conservé en mémoire jusqu'à ce que vous fermiez votre navigateur ou que vous rafraîchissiez la page.
 
 ## Précision des données affichées
 
@@ -129,7 +127,6 @@ le MicroFreak et rechargez l'application dans votre navigateur.
 
 Pour tout autre problème ou suggestion, n'hésitez pas à ouvrir un ticket 
 à l'adresse https://github.com/francoisgeorgy/microfreak-reader/issues
-
 
 # Marques
 
