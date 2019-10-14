@@ -43,11 +43,19 @@
     margin-bottom: 5px;
 }
 
+.header a {
+    text-decoration: none;
+    margin-right: 5px;
+    /*color: #3838ff;*/
+}
+
 .header select {
     margin-left: 5px;
     background-color: var(--header-select-bg);
     color: var(--header-select-text);
     border-color: var(--header-select-border);
+    font-size: 0.9rem;
+    font-weight: 300;
 }
 
 /*
@@ -76,7 +84,7 @@ footer {
     font-size: 2rem;
     display: flex;
     color: var(--title-text);
-    margin-bottom: 5px;
+    /*margin-bottom: 5px;*/
 }
 
 .main-grid {
@@ -203,4 +211,26 @@ h3 {
 
 .instructions > div {
     margin-bottom: 10px;
+}
+
+
+button,
+input {
+    font-family: 'Oswald', sans-serif;
+}
+
+
+select {
+    /*margin-left: 5px;*/
+    margin-right: 5px;
+    background-color: var(--midi-select-bg);
+    /*background-color: var(--group-header);*/
+    color: var(--midi-select-text);
+    /*color: var(--text);*/
+    /*padding: 2px 0;*/
+    /*border: none;*/
+    border: var(--input-border);
+    font-size: 1rem;
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
 }

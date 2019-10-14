@@ -2,6 +2,7 @@
 @media print {
 
     .ports-row,
+    .header-options,
     select,
     label,
     button {

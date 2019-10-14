@@ -8,11 +8,6 @@ body {
     color: var(--text);
 }
 
-button,
-input {
-    font-family: 'Oswald', sans-serif;
-}
-
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

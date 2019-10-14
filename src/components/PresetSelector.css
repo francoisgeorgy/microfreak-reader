@@ -125,3 +125,13 @@ button.abort {
 .aborting {
     margin-left: 5px;
 }
+
+select.preloader {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    font-weight: 300;
+}
+
+select.preloader option {
+    font-weight: 300;
+}

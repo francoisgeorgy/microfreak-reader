@@ -170,6 +170,18 @@ class PresetSelector extends Component {
         this.setState({unread: !this.state.unread});
     };
 
+    loadData = async e => {
+        console.log("load data", e.target.value);
+        if (e.target.value) {
+
+
+            let response = await fetch("data/" + e.target.value);
+            this.props.state.presets = await response.json();
+
+            // this.props.state.presets = await readFile("data/" + e.target.value);
+        }
+    };
+
     onFileSelection = async e => {
         if (global.dev) console.log("onFileSelection");
         this.props.state.presets = await readFile(e.target.files[0]);
@@ -208,7 +220,6 @@ class PresetSelector extends Component {
         setTimeout(function() {
             return window.URL.revokeObjectURL(url);
         }, 1000);
-
     };
 
     render() {
@@ -269,6 +280,10 @@ class PresetSelector extends Component {
                 </div>
 */}
                 <div>
+                    <select className="preloader" onChange={this.loadData}>
+                        <option value="">preloaded data...</option>
+                        <option value="factory_1-160.json">Factory presets</option>
+                    </select>
                     <input ref={this.inputOpenFileRef} type="file" style={{display:"none"}}  onChange={this.onFileSelection} />
                     <button type="button midi-ok" onClick={this.importFromFile}>Load file</button>
                     <button type="button midi-ok" onClick={this.exportAsFile}>Save to file</button>

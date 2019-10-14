@@ -75,7 +75,7 @@ class MidiPortsSelect extends React.Component {
                     <ErrorBanner />
                     <div className={`ports-row ${midi_ok?'midi-ok':'midi-ko'}`}>
                         <div>
-                            Input:
+                            <span>Input:</span>
                             <select onChange={this.selectInputPort} value={selected_input}>
                                 <option value="">select MIDI input...</option>
                             {
@@ -91,7 +91,7 @@ class MidiPortsSelect extends React.Component {
                             </select>
                         </div>
                         <div>
-                            Output:
+                            <span>Output:</span>
                             <select onChange={this.selectOutputPort} value={selected_output}>
                                 <option value="">select MIDI output...</option>
                                 {

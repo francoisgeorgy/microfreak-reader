@@ -129,10 +129,10 @@ class App extends Component {
                 <div className={`app-wrapper ${this.state.presets_pos}`}>
                 <div className="header">
                     <div className="title">
-                        MicroFreak
-                        <PresetName />
+                        MicroFreak&nbsp;<PresetName />
                     </div>
-                    <div>
+                    <div className="header-options">
+                        <a href="https://github.com/francoisgeorgy/microfreak-reader/blob/master/README.md" target="_blank" rel="noopener noreferrer">Doc</a>
                         <select value={this.state.theme} onChange={this.selectTheme}>
                             <option value="light">Light theme</option>
                             <option value="dark">Dark theme</option>

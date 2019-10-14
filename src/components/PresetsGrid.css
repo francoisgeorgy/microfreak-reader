@@ -1,5 +1,6 @@
 .presets-grid-right .presets-grid {
-    max-height: calc(100vh - 82px);
+    /*max-height: calc(100vh - 82px);*/
+    max-height: calc(100vh - 92px);
     overflow-y: auto;
     /*margin-top: 10px;*/
     width: 200px;

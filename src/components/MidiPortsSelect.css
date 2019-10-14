@@ -8,22 +8,11 @@
     margin-right: 10px;
 }
 
-.ports-row select {
-    margin-left: 5px;
-    background-color: var(--midi-select-bg);
-    /*background-color: var(--group-header);*/
-    color: var(--midi-select-text);
-    /*color: var(--text);*/
-    /*padding: 2px 0;*/
-    /*border: none;*/
-    border: var(--input-border);
-    font-size: 1rem;
-    font-family: "Oswald", sans-serif;
-    font-weight: 400;
-}
-
 .ports-row.midi-ko select {
     /*background-color: red;*/
     /*border-color: red;*/
 }
 
+.ports-row span {
+    margin-right: 5px;
+}
