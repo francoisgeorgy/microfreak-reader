@@ -2,16 +2,28 @@
 
 _(en français plus bas)_
 
-This application allows you to read and display the presets stored in the MicroFreak memory.
+This application allows you to **read and display the presets stored in the MicroFreak memory**.
 
 You can only read _saved_ presets. The application can not read the current, unsaved, values of the controllers.
 
-The application in just a _reader_. You can not edit presets. You can not send values to the MicroFreak.
+This application can only _read_ presets. You can not edit presets. You can not send values to the MicroFreak.
 
-However, the application can send a PC (Program Change) message to the MF when you select in preset in the application.
+However, the application can send a PC (Program Change) message to the MicroFreak when you select in preset in the application.
 
 Once the application has read a preset, it is kept in the application memory until you close your browser or refresh the
 page.
+
+This application does not read nor display any data about the stored sequences.
+
+## Accuracy of the displayed data 
+
+:warning: To create this application I reverse-engineered some of the sysex messages exchanged between the MicroFreak and the
+Arturia MIDI Control Center. This process is subject to errors and misinterpretations. Therefore **I can not give any guarantee 
+as to the accuracy of the displayed data**. 
+
+If you think the application display wrong values, send me the preset
+and any useful info to reproduce the problem and I will fix the application if necessary. 
+If possible, use the https://github.com/francoisgeorgy/microfreak-reader/issues page to send any feedback.
 
 ## Requirements
 
@@ -28,6 +40,17 @@ page.
 
 The buttons `READ 1..256`, et al. allows you to read all the MicroFreak presets at once. It can take some time. Be patient.
 Click the STOP button to abort the read process.  
+
+### File save
+
+You can save the application's currently loaded data in a file. This allow you to read the MicroFreak once and, later on, to
+reload this file and view the presets without having to read the MicroFreak again.
+
+The application already provides the pre-loaded data for the factory presets and other free presets packs offered
+by Arturia.
+
+The file saved by the application is **not** a sysex file nor a MicroFreak preset file. You can not use it with the 
+MIDI Control Center.
 
 ## Problems, bug
 
@@ -61,6 +84,15 @@ preset dans l'application.
 Une fois que l'application a lu un preset, celui-ci est conservé dans la mémoire de l'application jusqu'à ce que vous fermiez
 votre navigateur ou que vous rafraîchissiez la page.
 
+## Précision des données affichées
+
+:warning: Pour créer cette application, j’ai analysé certains des messages sysex échangés entre le MicroFreak et le
+MIDI Control Center de Arturia. Ce processus est sujet à des erreurs et à des interprétations erronées. Par conséquent 
+**je ne peux donner aucune garantie quant à la précision des données affichées**.
+
+Si vous pensez que l'application affiche des valeurs incorrectes, envoyez-moi le _preset_ et toute information utile pour 
+reproduire le problème et je corrigerai l'application si nécessaire. Si possible, utilisez la page 
+https://github.com/francoisgeorgy/microfreak-reader/issues pour tout _feedback_.
 
 ## Prérequis
 
@@ -77,6 +109,18 @@ votre navigateur ou que vous rafraîchissiez la page.
 
 Les boutons `READ 1..256`, ... vous permettent de lire tous les presets du MicroFreak en une fois.
 Cela peut prendre du temps. Soyez patient. Cliquez sur le bouton `STOP` pour arrêter le processus de lecture.
+
+### Sauvegarde de fichier
+
+Vous pouvez enregistrer les données actuellement chargées de l'application dans un fichier. Cela vous permet de lire 
+une seule fois le MicroFreak et, plus tard, de recharger ce fichier et d'afficher les presets sans avoir à relire 
+le MicroFreak.
+
+L'application fournit déjà les données préchargées pour les presets d'usine et autres packs de presets gratuits 
+proposés par Arturia.
+
+Le fichier enregistré par l'application n'est ni un fichier sysex ni un fichier de preset au format MicroFreak. 
+Vous ne pouvez pas l'utiliser avec le MIDI Control Center.
 
 ## Problèmes, bugs
 
