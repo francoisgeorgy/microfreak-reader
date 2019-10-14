@@ -1,6 +1,6 @@
 # MicroFreak Reader
 
-_(en français plus bas)_
+_(en français [plus bas](#Lecteur-de-preset-MicroFreak))_
 
 This application allows you to **read and display the presets stored in the MicroFreak memory**.
 
@@ -70,7 +70,7 @@ trademarks or registered trademarks of their respective owners.
 
 # Lecteur de preset MicroFreak
 
-Cette application vous permet de lire et afficher les _presets_ sauvegardés dans votre MicroFreak.
+Cette application vous permet de **lire et afficher les _presets_ sauvegardés dans votre MicroFreak**.
 
 Vous ne pouvez lire que des presets _sauvegardés_. L'application ne peut pas lire les valeurs courantes, non sauvegardées,
 des contrôleurs.
@@ -92,7 +92,7 @@ MIDI Control Center de Arturia. Ce processus est sujet à des erreurs et à des 
 
 Si vous pensez que l'application affiche des valeurs incorrectes, envoyez-moi le _preset_ et toute information utile pour 
 reproduire le problème et je corrigerai l'application si nécessaire. Si possible, utilisez la page 
-https://github.com/francoisgeorgy/microfreak-reader/issues pour tout _feedback_.
+https://github.com/francoisgeorgy/microfreak-reader/issues pour cela.
 
 ## Prérequis
 
