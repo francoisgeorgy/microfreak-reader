@@ -215,7 +215,7 @@ class PresetSelector extends Component {
                 {this.state.direct_access && <div className="direct-access">{pc}</div>}
                 <div>
                     <select className="preloader" onChange={this.loadData}>
-                        <option value="">preloaded data...</option>
+                        <option value="">Packs...</option>
                         <option value="Factory_1-1.json">Factory 1.1</option>
                         <option value="Naughty_Bass.json">Naughty Bass</option>
                         <option value="Plaisir_Pads.json">Plaisir Pads</option>

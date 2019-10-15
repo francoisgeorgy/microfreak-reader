@@ -227,7 +227,7 @@ class App extends Component {
                                     </ol>
                                 </div>
                                 <div>You can only read saved presets.</div>
-                                <div>You can read a preset different than the one currently loaded on the MicroFreak.</div>
+                                {/*<div>You can read a preset different than the one currently loaded on the MicroFreak.</div>*/}
                                 <div className="copyright">
                                     &copy; <a href="https://studiocode.dev" target="_blank" rel="noopener noreferrer">studiocode.dev 2019</a>
                                 </div>
