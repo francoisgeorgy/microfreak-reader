@@ -58,7 +58,7 @@ the MicroFreak and reload the Application in your browser.
 
 For any other problem or suggestion, feel free to open an issue at https://github.com/francoisgeorgy/microfreak-reader/issues
 
-# Trademarks
+## Trademarks
 
 Arturia, MicroFreak and all other products, logos or company names quoted in this document and in the application are
 trademarks or registered trademarks of their respective owners.
@@ -128,7 +128,7 @@ le MicroFreak et rechargez l'application dans votre navigateur.
 Pour tout autre problème ou suggestion, n'hésitez pas à ouvrir un ticket 
 à l'adresse https://github.com/francoisgeorgy/microfreak-reader/issues
 
-# Marques
+## Marques
 
 Arturia, MicroFreak et tous les autres produits, logos ou noms de sociétés cités dans ce documents et dans l'application 
 sont des marques ou des marques déposées appartenant à leurs propriétaires respectifs.
