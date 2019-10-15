@@ -14,8 +14,7 @@ Once the application has read a preset, it is kept in memory until you close you
 
 This application does not read nor display the stored sequences.
 
-![light theme](/screenshots/light-theme-320x196.png)
-![dark theme](/screenshots/dark-theme-320x196.png)
+[![light theme](/screenshots/light-theme-320x196.png)](https://raw.githubusercontent.com/francoisgeorgy/microfreak-reader/master/screenshots/light-theme.png) ![dark theme](/screenshots/dark-theme-320x196.png)
 
 _light and dark themes_
 
