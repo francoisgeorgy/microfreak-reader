@@ -12,6 +12,18 @@
     color: var(--presets-grid-text);
 }
 
+.presets-grid::-webkit-scrollbar {
+    width: 1em;
+}
+.presets-grid::-webkit-scrollbar-track {
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+    background-color: var(--group-bg);
+}
+.presets-grid::-webkit-scrollbar-thumb {
+    background-color: var(--group-header);
+    /*outline: 1px solid slategrey;*/
+}
+
 .presets-grid-bottom .presets-grid {
     margin-top: 10px;
     display: grid;
