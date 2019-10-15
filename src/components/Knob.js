@@ -157,8 +157,6 @@ function Track({ value }) {
 
 function Cursor({ value }) {
 
-    // if (trace) console.log("draw_cursor()", config.cursor);
-    // if (!config.cursor) return;
     const angle =
         ((value - config.value_min) / (config.value_max - config.value_min)) *
         (config.angle_max - config.angle_min) +

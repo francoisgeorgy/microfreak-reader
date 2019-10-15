@@ -21,7 +21,6 @@ const propTypes = {
 const defaultProps = {
     classname: "",
     portsRenderer: null,
-    // messageType: "midimessage"
     messageType: "sysex"
 };
 
@@ -165,17 +164,6 @@ class Midi extends Component {
     }
 
     render() {
-/*
-        if (this.props.portsRenderer) {
-            return (
-                <Fragment>
-                    {this.props.portsRenderer(this.portsGrouped(), this.togglePort)}
-                </Fragment>
-            );
-        } else {
-            return null;
-        }
-*/
         return null;
     }
 

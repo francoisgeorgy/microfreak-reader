@@ -29,74 +29,67 @@ class PresetsGrid extends Component {
         const k = e.type === 'keydown';
         const xy = this.props.position === 'presets-grid-bottom';
 
-        // if (e.type === 'keydown') {
-
         //TODO: improve this code
-            switch (e.keyCode) {
-                case 33:        // PAGE-UP
-                    if (k) {
-                        e.preventDefault();
-                        //e.stopPropagation();
-                        if (xy) {
-                            this.prev(10);
-                        } else {
-                            this.prev();
-                        }
+        switch (e.keyCode) {
+            case 33:        // PAGE-UP
+                if (k) {
+                    e.preventDefault();
+                    //e.stopPropagation();
+                    if (xy) {
+                        this.prev(10);
+                    } else {
+                        this.prev();
                     }
-                    break;
-                case 37:        // LEFT
-                    if (k) {
-                        e.preventDefault();
-                        // if (xy) {
-                        //     this.prev();
-                        // } else {
-                            this.prev();
-                        // }
+                }
+                break;
+            case 37:        // LEFT
+                if (k) {
+                    e.preventDefault();
+                    this.prev();
+                }
+                break;
+            case 38:        // UP
+                if (k) {
+                    e.preventDefault();
+                    if (xy) {
+                        this.prev(10);
+                    } else {
+                        this.prev();
                     }
-                    break;
-                case 38:        // UP
-                    if (k) {
-                        e.preventDefault();
-                        if (xy) {
-                            this.prev(10);
-                        } else {
-                            this.prev();
-                        }
+                }
+                break;
+            case 34:        // PAGE-DOWN
+                if (k) {
+                    e.preventDefault();
+                    if (xy) {
+                        this.next(10);
+                    } else {
+                        this.next();
                     }
-                    break;
-                case 34:        // PAGE-DOWN
-                    if (k) {
-                        e.preventDefault();
-                        if (xy) {
-                            this.next(10);
-                        } else {
-                            this.next();
-                        }
+                }
+                break;
+            case 39:        // RIGHT
+                if (k) {
+                    e.preventDefault();
+                    // if (xy) {
+                    //     this.next();
+                    // } else {
+                        this.next();
+                    // }
+                }
+                break;
+            case 40:        // DOWN
+                if (k) {
+                    e.preventDefault();
+                    if (xy) {
+                        this.next(10);
+                    } else {
+                        this.next();
                     }
-                    break;
-                case 39:        // RIGHT
-                    if (k) {
-                        e.preventDefault();
-                        // if (xy) {
-                        //     this.next();
-                        // } else {
-                            this.next();
-                        // }
-                    }
-                    break;
-                case 40:        // DOWN
-                    if (k) {
-                        e.preventDefault();
-                        if (xy) {
-                            this.next(10);
-                        } else {
-                            this.next();
-                        }
-                    }
-                    break;
-                default: break;
-            }
-        // }
+                }
+                break;
+            default: break;
+        }
 
         return false;
     };
@@ -104,14 +97,13 @@ class PresetsGrid extends Component {
     readSelected = async () => {
         this.props.state.error = 0;
         if (! await readPreset()) {
-            console.warn("read preset fail");
+            if (global.dev) console.warn("read preset fail");
             this.props.state.error = 1;
         }
     };
 
     prev = (d = 1) => {
         const n = this.props.state.preset_number - d;
-        // this.setPreset(n < 0 ? '255' : n.toString());
         this.props.state.setPresetNumber(n < 0 ? 255 : n);
         if (this.props.state.send_pc) {
             sendPC(this.props.state.preset_number);
@@ -120,7 +112,6 @@ class PresetsGrid extends Component {
 
     next = (d = 1) => {
         const n = this.props.state.preset_number + d;
-        // this.setPreset(n > 255 ? '1' : n.toString());
         this.props.state.setPresetNumber(n > 255 ? 0 : n);
         if (this.props.state.send_pc) {
             sendPC(this.props.state.preset_number);
@@ -129,7 +120,6 @@ class PresetsGrid extends Component {
 
     selectPreset = n => {
         this.props.state.setPresetNumber(n);
-        // await this.readSelected();
         if (this.props.state.send_pc) {
             sendPC(this.props.state.preset_number);
         }

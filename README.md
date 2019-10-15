@@ -85,7 +85,7 @@ Une fois que l'application a lu un preset, celui-ci est conservé en mémoire ju
 
 :warning: Pour créer cette application, j’ai analysé certains des messages sysex échangés entre le MicroFreak et le
 MIDI Control Center de Arturia. Ce processus est sujet à des erreurs et à des interprétations erronées. Par conséquent 
-**AUCUNE GARANTIE, EXPRESSE OU IMPLICITE, N'EST DONNEE QUAND A L'EXACTITUDE DES DONNEES AFFICHEES**.
+**AUCUNE GARANTIE, EXPRESSE OU IMPLICITE, N'EST DONNEE QUANT A L'EXACTITUDE DES DONNEES AFFICHEES**.
 
 Si vous pensez que l'application affiche des valeurs incorrectes, envoyez-moi le _preset_ et toute information utile pour 
 reproduire le problème et je corrigerai l'application si nécessaire. Si possible, utilisez la page 

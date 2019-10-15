@@ -33,31 +33,9 @@ class MidiPortsSelect extends React.Component {
         const ports = this.props.state.midi.ports;
 
         const midi_ok = S.hasInputEnabled() && S.hasOutputEnabled();
-/*
-        const groupedByName = {};
-
-        for (let [id, port] of Object.entries(ports)) {
-            if (port) {
-                if (!(port.name in groupedByName)) {
-                    groupedByName[port.name] = {
-                        input: null,
-                        output: null
-                    };
-                }
-                groupedByName[port.name][port.type] = id;
-            }
-        }
-*/
-
-        // console.log("MidiPorts: groupedByName.length", Object.keys(groupedByName).length, groupedByName);
 
         if (ports) {
 
-/*
-            if (!Object.keys(groupedByName).length) {
-                return <div className="warning banner">No MIDI device found.</div>
-            }
-*/
             let selected_input = '';
             let selected_output = '';
             for (let [id, port] of Object.entries(ports)) {
@@ -69,9 +47,6 @@ class MidiPortsSelect extends React.Component {
 
             return (
                 <Fragment>
-                    {/* !midi_ok && <div className="warning banner">
-                        Please enable the input and the output corresponding to your MicroFreak.
-                    </div> */}
                     <ErrorBanner />
                     <div className={`ports-row ${midi_ok?'midi-ok':'midi-ko'}`}>
                         <div>

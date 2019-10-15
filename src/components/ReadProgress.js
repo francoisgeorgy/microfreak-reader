@@ -9,9 +9,9 @@ class ReadProgress extends Component {
 
         const S = this.props.state;
         const p = S.read_progress / MESSAGES_TO_READ_FOR_PRESET * 100;
-        const all_done = S.read_progress >= MESSAGES_TO_READ_FOR_PRESET;
-
         if (p < 0.01) return null;
+
+        const all_done = S.read_progress >= MESSAGES_TO_READ_FOR_PRESET;
 
         return (
             <div className={`progress ${all_done ? 'done' : ''}`}>

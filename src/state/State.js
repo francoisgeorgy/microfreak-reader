@@ -25,12 +25,11 @@ import {savePreferences} from "../utils/preferences";
 
 class State {
 
-    // preset = new Array(127).fill(0);
-
     // The number of the currently displayed preset
     preset_number = 0;  // 0..255 display as 1..256
 
-    preset_number_string = '1';  // input field in preset selector
+    // input field in preset selector
+    preset_number_string = '1';
 
     // The preset number used in MIDI
     preset_number_comm = null;      // 0..255 display as 1..256
@@ -39,40 +38,12 @@ class State {
     // This is an array of {name: String; data: []}
     // We prefill the array with null value to avoid OutOfBound exceptions when accessing the array with MobX
     presets = new Array(256).fill(null);   // index 0..255
-/*
-    presets = new Array(256).fill(
-        {
-            name: 'dummy',
-            data: Array.from(
-                {length: 40},
-                () => Array.from(
-                    {length: 40},
-                    () => Math.floor(Math.random() * 128)
-                )
-            )
-        });   // index 0..255
-*/
 
     send_pc = true;    // if true send PC when changing preset
-
-    // preset = {
-    //     current: 1,
-    //     reference: null,
-    //     current_counter: 0
-    // };
 
     lock = false;   // Used during preset reading to prevent concurrent reads.
 
     read_progress = 0;
-
-    // data = [];
-    // dataRef = [];   // copy used as reference for comparisons
-
-    // data_name = [0x01, 0x65, 0x00, 0x18, 0x00, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x10, 0x44, 0x69, 0x73, 0x72, 0x65, 0x73, 0x70, 0x65, 0x63, 0x74, 0x66];
-    // data_name = null;
-
-    // all = [];       // array of data
-    // all_name = [];  // array of data_name
 
     midi = {
         ports: {},
@@ -83,10 +54,6 @@ class State {
     error = 0;  // 0 means no error
 
     bytesToName(data) {
-        // if (!this.all_name[n]) {
-        //     return '';
-        // }
-        // const data = this.all_name[n];
         let s = '';
         let i = 12;
         while (i < data.length && data[i] !== 0) {
@@ -98,7 +65,7 @@ class State {
 
     /**
      *
-     * @param data Data attribute of a midi message
+     * @param midiMessage midi message
      */
     importData(midiMessage) {
 
@@ -118,8 +85,6 @@ class State {
             return;
         }
 
-        // console.log("importData", this.presets.length, this.preset_number_comm);
-
         if (!this.presets.length || (this.presets.length <= this.preset_number_comm) || this.presets[this.preset_number_comm] === null) {
             this.presets[this.preset_number_comm] = {name: null, data:[]};
         }
@@ -135,15 +100,6 @@ class State {
             return;
         }
 
-/*
-        if (message_bytes[8] === 0x16) {
-            // console.log("answer 0x16 is dump packet", hs(message_bytes));
-        } else if (message_bytes[8] === 0x17) {
-            // console.log("answer 0x17 is last dump packet", hs(message_bytes));
-        } else {
-            if (global.dev) console.warn(`answer 0x${h(message_bytes[8])} is unknown type`, hs(message_bytes));
-        }
-*/
         if (data[8] !== 0x16 && data[8] !== 0x17) {
             if (global.dev) console.warn(`ignore answer type 0x${h(data[8])}`, hs(data));
             return;
@@ -153,8 +109,6 @@ class State {
             if (global.dev) console.log("do not store answer", hs(data));
             return;
         }
-
-        // console.log("store sysex data");
 
         //
         // Store PRESET DATA:
@@ -182,7 +136,6 @@ class State {
         }
 
         if (isNaN(num)) {
-            // s = '';
             num = 1;
         } else if (num > 256) {
             s = '256';
@@ -201,11 +154,6 @@ class State {
             this.preset_number = num - 1;
             savePreferences({preset:s});
         }
-
-        // if (s !== null) {
-        //     this.preset_number = num - 1;
-        // }
-        // this.preset_number_string = s === null ? '' : s;
     }
 
     addPort(port) {
@@ -220,25 +168,17 @@ class State {
             name: port.name,
             manufacturer: port.manufacturer,
             enabled: false
-            // minimized: false,   // TODO
-            // nb_messages: 0,
-            // solo: false,        // TODO
-            // color: null,        // TODO
-            // muted: false,       // TODO
-            // hidden: false       // TODO
         };
         return true;
     }
 
     removePort(port_id) {
         if (global.dev) console.log('State.removePort', port_id);
-        // delete this.midi.ports[port.id];    // do not use delete with mobx; see https://github.com/mobxjs/mobx/issues/822
         this.midi.ports[port_id] = null;
     }
 
     removeAllPorts() {
         if (global.dev) console.log('State.removeAllPorts');
-        // delete this.midi.ports[port.id];    // do not use delete with mobx; see https://github.com/mobxjs/mobx/issues/822
         this.midi.ports = {};
     }
 
@@ -249,11 +189,8 @@ class State {
     }
 
     disablePort(port_id) {
-        // this.midi.input = null;
         if (this.midi.ports[port_id]) {
             this.midi.ports[port_id].enabled = false;
-            // this.midi.ports[port_id].solo = false;
-            // this.midi.ports[port_id].muted = false;
         }
     }
 
@@ -277,9 +214,6 @@ class State {
         // there is nothing else to do to "connect" an OUTPUT port.
 
         this.enablePort(port.id);
-
-        // if (global.dev) console.log(`Midi.connectPort: set input input_device_id=${port.id} in preferences`);
-        // savePreferences({input_device_id: port.id});
     }
 
     disconnectPort(port, updatePreferences=false) {
@@ -289,12 +223,9 @@ class State {
                 if (port.removeListener) port.removeListener();
             }
 
-            // there is nothing to do to "connect" an OUTPUT port.
+            // there is nothing else to do to "connect" an OUTPUT port.
 
             this.disablePort(port.id);
-
-            // if (global.dev) console.log(`Midi.connectInput: connect input set input_device_id=null in preferences`);
-            // if (updatePreferences) savePreferences({input_device_id: null});
         }
     }
 
@@ -316,9 +247,6 @@ class State {
 
     disconnectAllPorts(updatePreferences=false) {
         if (global.dev) console.log('Midi.disconnectAllPorts');
-        // for (let port of this.midi.ports) {
-        //     this.disconnectPort(port);
-        // }
         for (const port_id of Object.keys(this.midi.ports)) {
             this.disconnectPort(portById(port_id));
         }
@@ -348,23 +276,7 @@ class State {
         return this.hasInputEnabled() && this.hasOutputEnabled();
     }
 
-/*
-    updateRef() {
-        // console.log("updateRef: copy current to reference", JSON.stringify(this.data), JSON.stringify(this.dataRef));
-        this.dataRef = JSON.parse(JSON.stringify(this.data));
-        this.preset.reference = this.preset.current;
-        // console.log(JSON.stringify(this.data), JSON.stringify(this.dataRef));
-    }
-
-    clearRef() {
-        this.dataRef = [];
-    }
-*/
-
     controlValue(m, return_raw=false) {
-
-        // const D = this.props.state.data;
-        // console.log("m", m, D.length);
 
         if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
             return 0;
@@ -396,21 +308,15 @@ class State {
 
     switchValue(m, return_raw=false) {
 
-        // const D = this.props.state.data;
-        // console.log("m", m, D.length);
-
         if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
             return 0;
         }
-        // if (!this.presets[this.preset_number]) {
-        //     return 0;
-        // }
+
         const data = this.presets[this.preset_number].data;
 
         if (data.length < 39) return 0;  //FIXME
 
         const mask_msb = m.msb.length === 3 ? m.msb[2] : DEFAULT_msb_mask;
-        // const mask_sign = m.sign.length === 3 ? m.sign[2] : DEFAULT_sign_mask;
 
         const raw = multibytesValue(
             data[ m.MSB[0] ][ m.MSB[1] ],
@@ -419,15 +325,10 @@ class State {
             mask_msb,
             0, 0);
 
-        // return Math.round(raw * 1000 / 32768) / 10;
-
-        // return m.mapping ? m.mapping(raw) : raw;
-
         if (return_raw) {
             return raw;
         } else {
             for (let entry of m.values) {
-                // console.log("_lfo_shape", v, entry.value, entry.name);
                 if (raw <= entry.value) return entry.name;
             }
             return raw;
@@ -446,13 +347,9 @@ class State {
         if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
             return 0;
         }
-        // if (!this.presets[this.preset_number]) {
-        //     return 0;
-        // }
+
         const data = this.presets[this.preset_number].data;
 
-        // const D = this.props.state.data;
-        // console.log("m", m, D.length);
         if (data.length < 39) return 0;  //FIXME
 
         const m = MOD_MATRIX[src][dest];    //TODO: check params validity
@@ -482,21 +379,16 @@ class State {
      */
     modAssignDest(slot) {
 
-        // console.log("modAssignDest", this.presets.length, this.preset_number);
-
         if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
             return 0;
         }
-        // if (!this.presets[this.preset_number]) {
-        //     return 0;
-        // }
+
         const data = this.presets[this.preset_number].data;
 
         if (data.length < 39) return;  //FIXME
         const m = MOD_ASSIGN_SLOT[slot].mod_group;
         const dest_num = data[ m[0] ][ m[1] ];
-        // console.log("modAssignDest", dest_num, m, MOD_ASSIGN_DEST[dest_num]);
-        // return group_num;
+
         return MOD_ASSIGN_DEST[dest_num];  // ? MOD_ASSIGN_DEST[group_num] : null;
     };
 
@@ -509,9 +401,7 @@ class State {
         if (!this.presets.length || (this.presets.length < this.preset_number)) {
             return 0;
         }
-        // if (!this.presets[this.preset_number]) {
-        //     return 0;
-        // }
+
         const data = this.presets[this.preset_number].data;
 
         if (data.length < 39) return;  //FIXME
@@ -523,13 +413,11 @@ class State {
         if (!(dest === ASSIGN1 || dest === ASSIGN2 || dest === ASSIGN3)) {
             return MOD_MATRIX_DESTINATION[dest];
         }
-        // let d = null;
         let group_name = '?';
         let control_name = '?';
         const dest_def = this.modAssignDest(dest);
         if (dest_def) {
             group_name = MOD_GROUP_NAME[dest_def.mod_group];
-            // const control_num = this.modAssignControlNum(dest);
             const control = dest_def.control[this.modAssignControlNum(dest)];
             const dest_is_matrix =      // mod destination is the matrix itself
                 control === MOD_SRC_CYC_ENV ||
@@ -537,7 +425,6 @@ class State {
                 control === MOD_SRC_LFO ||
                 control === MOD_SRC_PRESS ||
                 control === MOD_SRC_KEY_ARP;
-            // console.log("modDestName, control", dest_is_matrix, this.modAssignControlNum(dest), control);
             if (control) {
                 control_name = MOD_DESTINATION[control];
                 return dest_is_matrix ? `${control_name}-${group_name}` : `${group_name} ${control_name}`;
@@ -548,37 +435,11 @@ class State {
 
 
     presetName(number) {  //TODO: change method name
-
         if (!this.presets.length || (this.presets.length < number) || !this.presets[number]) {
             return '';
-        // }
-        // if (!this.presets[number]) {
-        //     return '';
         } else {
             return this.presets[number].name;
         }
-/*
-        const data = this.presets[this.preset_number].data;
-
-        console.log("state.presetName()");
-
-        if (!data_name || data_name.length < 13) {
-            console.log("state.presetName: data_name too short", data_name);
-            return '';
-        }
-
-        // [0x01, 0x65, 0x00, 0x18, 0x00, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x10, 0x44, 0x69, 0x73, 0x72, 0x65, 0x73, 0x70, 0x65, 0x63, 0x74, 0x66]
-        //     0                                                                11    12
-
-        let name = '';
-        let i = 12;
-        while (i < data_name.length && data_name[i] !== 0) {
-            name += String.fromCharCode(data_name[i]);
-            i++;
-        }
-
-        return name;
-*/
     }
 
 }
@@ -591,10 +452,6 @@ decorate(State, {
     preset_number_string: observable,
     preset_number_comm: observable,
     send_pc: observable,
-    // presetName: computed,
-    // data: observable,
-    // dataRef: observable,
-    // data_name: observable,
     lock: observable,
     read_progress: observable,
     error: observable

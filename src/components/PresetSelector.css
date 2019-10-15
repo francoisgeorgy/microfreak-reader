@@ -3,22 +3,11 @@
 }
 
 .preset-selector button {
-    /*background-color: #bfbfbf;*/
- /*
-    background-color: var(--group-header);
-    color: var(--text);
-    padding: 5px;
-    font-size: 1.1rem;
-    border-color: var(--knob-track-bg);
-*/
-    /*font-family: sans-serif;*/
-    /*font-size: 14px;*/
     background-color: var(--button-bg);
     color: var(--button-text);
     padding: 2px 10px;
     font-size: 1.1rem;
     font-weight: 300;
-    /*border-color: var(--knob-track-bg);*/
     border: none;
     border-radius: 3px;
     margin-right: 5px;
@@ -38,28 +27,28 @@ button:hover {
 }
 
 .read-button {
-    /*padding: 5px 25px!important;*/
+    padding-left: 25px!important;
+    padding-right: 25px!important;
+}
+
+button.abort {
+    background-color: var(--abort-button-bg);
     padding-left: 25px!important;
     padding-right: 25px!important;
 }
 
 .read-button.ok {
     background-color: var(--read-button-bg) !important;
-    /*color: #fff;*/
 }
 .read-button.ok:hover {
     background-color: var(--read-button-hover-bg) !important;
-    /*color: #fff;*/
 }
 
 .preset-selector #preset {
-    /*padding-top: 0;*/
-    /*padding-bottom: 0;*/
     padding: 0 5px 0 0;
     width: 3rem;
     font-size: 1.2rem;
     text-align: right;
-    /*background-color: transparent;*/
     background-color: var(--preset-number-bg);
     color: var(--preset-number-text);
     border: var(--input-border);
@@ -81,9 +70,6 @@ button:hover {
     right: 10px;
     background-color: var(--direct-access-bg);
     box-shadow: -10px 10px 10px 5px rgba(0,0,0,1.5);
-    /*display: flex;*/
-    /*flex-direction: row;*/
-    /*flex-wrap: wrap;*/
     margin: 5px 10px 10px 10px;
     display: grid;
     grid-template-columns: repeat(16, auto);
@@ -105,21 +91,9 @@ button:hover {
     color: var(--direct-access-hover-text);
 }
 
-/*
-.direct-access > .loaded {
-    background-color: var(--direct-access-loaded-bg);
-    color: var(--switch-sel-text);
-}
-*/
-
 .direct-access > div.sel {
     background-color: var(--switch-sel-bg);
     color: var(--switch-sel-text);
-}
-
-button.abort {
-    background-color: var(--abort-button-bg);
-    padding: 5px 25px!important;
 }
 
 .aborting {
@@ -127,8 +101,8 @@ button.abort {
 }
 
 select.preloader {
-    background-color: var(--button-bg);
-    color: var(--button-text);
+    /*background-color: var(--button-bg);*/
+    /*color: var(--button-text);*/
     font-weight: 300;
 }
 

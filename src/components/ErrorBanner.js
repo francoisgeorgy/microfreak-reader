@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {inject, observer} from "mobx-react";
-// import "./PresetName.css";
 
 class ErrorBanner extends Component {
 
@@ -10,21 +9,18 @@ class ErrorBanner extends Component {
 
         const S = this.props.state;
 
-/*
-        if (!S.hasInputEnabled() || !S.hasOutputEnabled()) {
-            msg = "Enable the input and the output corresponding to your MicroFreak.";
-        }
-*/
-
-        if (!msg && S.error) {
+        // if (S.error) {
             switch (S.error) {
+                case null:
+                case 0:
+                    break;
                 case 1:
                     msg = 'MIDI communication error. Try restarting the MicroFreak.';
                     break;
                 default:
-                    msg = 'Unknonw error code: ' + S.error;
+                    msg = 'Unknown error code: ' + S.error;
             }
-        }
+        // }
 
         return msg ? <div className="warning banner">{msg}</div> : null;
 

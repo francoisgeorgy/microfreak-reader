@@ -1,6 +1,4 @@
 .progress {
-    /*position: absolute;*/
-    /*bottom: 0px;*/
     margin-top: 10px;
     padding: 0 5px;
     position: relative;
@@ -20,11 +18,9 @@
     padding-left: 5px;
 }
 
-
 .progress.done {
     animation: hide-animation 0.6s ease-in 1s forwards;
 }
-
 
 @keyframes hide-animation {
     0% {

@@ -18,21 +18,16 @@
 .presets-grid-bottom .App {
     display: flex;
     flex-direction: column;
-    /*margin: 0 10px;*/
 }
 
 .banner {
     background-color: #dddddd;
     color: #333;
-    /*border: 1px solid #ccc;*/
-    /*margin: 5px 0;*/
     padding: 5px;
 }
 
 .warning.banner {
-    /*background-color: #ffc9ad;*/
     background-color: #e45209;
-    /*border-color: #333;*/
     color: #fff;
 }
 
@@ -46,7 +41,6 @@
 .header a {
     text-decoration: none;
     margin-right: 5px;
-    /*color: #3838ff;*/
 }
 
 .header select {
@@ -68,9 +62,6 @@ footer {
 }
 */
 .copyright {
-    /*margin-top: 10px;*/
-    /*border-top: 1px solid var(--footer);*/
-    /*padding-top: 2px;*/
     text-align: right;
     color: var(--footer);
     font-size: 0.75rem;
@@ -84,13 +75,10 @@ footer {
     font-size: 2rem;
     display: flex;
     color: var(--title-text);
-    /*margin-bottom: 5px;*/
 }
 
 .main-grid {
-    /*margin-top: 20px;*/
     display: grid;
-    /*grid-template-columns: 1fr 1fr 1fr;*/
     grid-row-gap: 10px;
     grid-column-gap: 10px;
     justify-content: stretch;
@@ -98,13 +86,6 @@ footer {
 }
 
 .group {
-    /*display: grid;*/
-    /*grid-template-columns: auto auto;*/
-    /*grid-row-gap: 0.25rem;*/
-    /*grid-column-gap: 1rem;*/
-    /*justify-content: start;*/
-    /*display: flex;*/
-    /*flex-direction: row;*/
     background-color: var(--group-bg);
     border: var(--group-border);
 }
@@ -115,19 +96,13 @@ footer {
     padding: 5px;
 }
 
-/*.controls div.control:not(:first-child) {*/
-/*    margin-left: 20px;*/
-/*}*/
-
 h3 {
     grid-column: span 2;
     margin: 0 0 0 0;
     padding: 5px 5px;
     border-bottom: var(--group-header-border);
     background-color: var(--group-header);
-    /*font-weight: 500;*/
     font-weight: 400;
-    /*letter-spacing: 0.5px;*/
 }
 
 .matrix  {
@@ -138,7 +113,6 @@ h3 {
 .preset  {
     grid-column: 3;
     grid-row: 1;
-    /*border: var(--group-border);*/
 }
 
 .preset-wrapper {
@@ -184,8 +158,9 @@ h3 {
     grid-column: 3;
     grid-row: 4;
     padding: 5px;
-    font-family: sans-serif;
+    /*font-family: sans-serif;*/
     font-size: 14px;
+    font-weight: 300;
     color: var(--instructions-text);
 }
 
@@ -195,40 +170,32 @@ h3 {
     padding: 5px 0;
     border-bottom: var(--main-bg);
     background-color: var(--main-bg);
-    /*font-weight: 500;*/
     font-weight: 400;
-    /*letter-spacing: 0.5px;*/
 }
 
 .instructions ol {
     margin: 0;
-    /*padding: 0;*/
+    padding: 0 0 0 20px;
 }
 
 .instructions li {
-    margin-bottom: 3px;
+    margin: 0;
+    /*margin-bottom: 3px;*/
 }
 
 .instructions > div {
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
 }
-
 
 button,
 input {
     font-family: 'Oswald', sans-serif;
 }
 
-
 select {
-    /*margin-left: 5px;*/
     margin-right: 5px;
     background-color: var(--midi-select-bg);
-    /*background-color: var(--group-header);*/
     color: var(--midi-select-text);
-    /*color: var(--text);*/
-    /*padding: 2px 0;*/
-    /*border: none;*/
     border: var(--input-border);
     font-size: 1rem;
     font-family: "Oswald", sans-serif;

@@ -2,7 +2,6 @@
     /*max-height: calc(100vh - 82px);*/
     max-height: calc(100vh - 92px);
     overflow-y: auto;
-    /*margin-top: 10px;*/
     width: 200px;
     margin-left: 10px;
     padding-right: 5px;
@@ -14,8 +13,6 @@
 }
 
 .presets-grid-bottom .presets-grid {
-    /*max-height: 200px;*/
-    /*overflow-y: auto;*/
     margin-top: 10px;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -36,7 +33,6 @@
 
 .presets-grid > .loaded {
     background-color: var(--presets-grid-loaded-bg);
-    /*color: var(--switch-sel-text);*/
 }
 
 .presets-grid > div.sel {
