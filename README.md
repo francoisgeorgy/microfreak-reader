@@ -14,6 +14,10 @@ Once the application has read a preset, it is kept in memory until you close you
 
 This application does not read nor display the stored sequences.
 
+![light theme](screenshots/light-theme-320x196.png)
+![dark theme](screenshots/dark-theme-320x196.png)
+![darkest theme](screenshots/darkest-theme-320x196.png)
+
 ## Accuracy of the displayed data 
 
 :warning: To create this application I reverse-engineered some of the sysex messages exchanged between the MicroFreak and the
