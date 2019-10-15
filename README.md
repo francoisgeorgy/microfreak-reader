@@ -16,7 +16,8 @@ This application does not read nor display the stored sequences.
 
 ![light theme](/screenshots/light-theme-320x196.png)
 ![dark theme](/screenshots/dark-theme-320x196.png)
-![darkest theme](/screenshots/darkest-theme-320x196.png)
+
+_light and dark themes_
 
 ## Accuracy of the displayed data 
 
