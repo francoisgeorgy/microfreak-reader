@@ -17,10 +17,10 @@
 }
 .presets-grid::-webkit-scrollbar-track {
     /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
-    background-color: var(--group-bg);
+    background-color: var(--scrollbar-track);
 }
 .presets-grid::-webkit-scrollbar-thumb {
-    background-color: var(--group-header);
+    background-color: var(--scrollbar-thumb);
     /*outline: 1px solid slategrey;*/
 }
 

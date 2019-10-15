@@ -100,6 +100,8 @@ html {
     --mod-src-bg: #e8e8ea;
     --abort-button-bg: #ff7272;
     --instructions-text: #666;
+    --scrollbar-track: var(--knob-track-bg);
+    --scrollbar-thumb: var(--knob-track);
 }
 
 @media screen {
@@ -160,6 +162,8 @@ html {
         --mod-src-text: #eec83f;
         --abort-button-bg: #ff1313;
         --instructions-text: #aaa;
+        --scrollbar-track: var(--group-bg);
+        --scrollbar-thumb: var(--group-header);
     }
 
     html[data-theme='darker'] {
@@ -215,6 +219,8 @@ html {
         --mod-src-bg: #101010;
         --abort-button-bg: #ff3636;
         --instructions-text: #999;
+        --scrollbar-track: var(--knob-track-bg);
+        --scrollbar-thumb: var(--group-header);
     }
 
 }
