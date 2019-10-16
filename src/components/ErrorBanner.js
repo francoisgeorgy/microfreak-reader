@@ -9,18 +9,19 @@ class ErrorBanner extends Component {
 
         const S = this.props.state;
 
-        // if (S.error) {
-            switch (S.error) {
-                case null:
-                case 0:
-                    break;
-                case 1:
-                    msg = 'MIDI communication error. Try restarting the MicroFreak.';
-                    break;
-                default:
-                    msg = 'Unknown error code: ' + S.error;
-            }
-        // }
+        switch (S.error) {
+            case null:
+            case 0:
+                break;
+            case 1:
+                msg = 'MIDI communication error. Try restarting the MicroFreak.';
+                break;
+            case 2:
+                msg = 'Unsupported browser. Not support for MIDI.';
+                break;
+            default:
+                msg = 'Unknown error code: ' + S.error;
+        }
 
         return msg ? <div className="warning banner">{msg}</div> : null;
 

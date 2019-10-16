@@ -4,8 +4,27 @@ import {portById} from "../utils/midi";
 import "./MidiPortsSelect.css";
 import {PORT_INPUT, PORT_OUTPUT} from "./Midi";
 import ErrorBanner from "./ErrorBanner";
+import {detect} from "detect-browser";
 
 class MidiPortsSelect extends React.Component {
+
+    componentDidMount() {
+
+        const browser = detect();
+
+        if (browser) {
+            switch (browser && browser.name) {
+                case "chrome":
+                    break;
+                case "firefox":
+                case "edge":
+                default:
+                    console.warn("unsupported browser");
+                    this.props.state.error = 2;
+            }
+        }
+
+    }
 
     selectInputPort = (e) => {
         const port_id = e.target.value;
