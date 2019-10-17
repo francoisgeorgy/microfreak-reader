@@ -40,8 +40,14 @@
 }
 
 .header a {
+    color: var(--link);
     text-decoration: none;
+    font-weight: 300;
     margin-right: 5px;
+}
+
+.header a:visited {
+    color: var(--link);
 }
 
 .header select {
@@ -70,6 +76,11 @@ footer {
 
 .copyright a {
     text-decoration: none;
+    color: var(--link);
+}
+
+.copyright a:visited {
+    color: var(--link);
 }
 
 .title {

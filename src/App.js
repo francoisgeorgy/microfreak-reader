@@ -112,7 +112,7 @@ class App extends Component {
                             MicroFreak&nbsp;<PresetName />
                         </div>
                         <div className="header-options">
-                            <a href="https://github.com/francoisgeorgy/microfreak-reader/blob/master/README.md" target="_blank" rel="noopener noreferrer">Doc</a>
+                            <a href="https://studiocode.dev/microfreak/reader/help/" target="_blank" rel="noopener noreferrer">Doc</a>
                             <select value={this.state.theme} onChange={this.selectTheme}>
                                 <option value="light">Light theme</option>
                                 <option value="dark">Dark theme</option>

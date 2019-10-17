@@ -51,6 +51,7 @@ html {
     --main-bg: #fff;
     --text: #000;
     --title-text: #222;
+    --link: blue;
     --footer: #ccc;
     --progress: #ccc;
     --header-select-bg: #fff;
@@ -110,6 +111,7 @@ html {
         --main-bg: #111;
         --text: #fff;
         --title-text: #f8f8f8;
+        --link: #6d6dff;
         --footer: #444;
         --header-select-bg: #393e46;
         --header-select-text: #ccc;
@@ -171,6 +173,7 @@ html {
         --text: #fff;
         --title-text: #f0f0f0;
         --footer: #444;
+        --link: #6d6dff;
         --header-select-bg: #212121;
         --header-select-text: #bbb;
         --header-select-border: #555;
