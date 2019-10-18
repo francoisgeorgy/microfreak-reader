@@ -31,7 +31,7 @@ class ControlMods extends Component {
                         return (
                             <div key={src.toString() + i} className="mod" style={
                                 {background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, var(--mod-src-bg) ${Math.abs(v)}%)`}
-                            }>
+                            } title={`${MOD_SOURCE_SHORT[src]} ${v}`}>
                                 <div className={`mod-text ${MOD_SOURCE_CSS[src]}-text`}>
                                     <div className="mod-name">{MOD_SOURCE_SHORT[src]}</div>
                                     <div className="mod-value">{v}</div>

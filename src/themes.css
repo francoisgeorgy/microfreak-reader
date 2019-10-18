@@ -105,6 +105,20 @@ html {
     --scrollbar-thumb: var(--knob-track);
 }
 
+html[data-theme='light'] .mod {
+    --mod-src-cyc_env : #a6a398;
+    --mod-src-env: #adb9c7;
+    --mod-src-lfo: #c7afb8;
+    --mod-src-press: #8bc795;
+    --mod-src-key_arp: #cba7d5;
+    --mod-src-cyc_env-text : #000;
+    --mod-src-env-text: #000;
+    --mod-src-lfo-text: #000;
+    --mod-src-press-text: #000;
+    --mod-src-key_arp-text: #000;
+    --mod-src-bg: #e8e8ea;
+}
+
 @media screen {
 
     html[data-theme='dark'] {
