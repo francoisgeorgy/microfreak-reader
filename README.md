@@ -2,6 +2,8 @@
 
 _(en français [plus bas](#Lecteur-de-preset-MicroFreak))_
 
+[![Buy Me A Coffee](https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png)](https://www.buymeacoffee.com/c6dVm4Q)
+
 This application allows you to **read and display the presets stored in the MicroFreak memory**.
 
 You can only read _saved_ presets. The application can not read the current, unsaved, values of the controllers.
