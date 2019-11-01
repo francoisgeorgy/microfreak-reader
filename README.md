@@ -76,11 +76,26 @@ Here are these two workarounds:
 
 **Copy to a user slot:**
 
-instructions coming soon...
+On the MicroFreak:
+
+1. press the _Save_ button
+2. choose the destination preset with the _Preset_ dial
+3. click on the _Preset_ Dial twice
+4. press _Save_ button
 
 **Save over itself:**
 
-instructions coming soon...
+First disable the write protection:
+
+1. press the _Utility_ button
+2. select _Misc_,
+3. select _Mem protect_
+4. turn the Dial to select _OFF_
+5. click the _Utility_ button
+
+Then copy the factory preset over itself:
+
+1. press and hold the _Save_ button for 2 seconds
 
 
 ## Problems, bug
@@ -168,15 +183,31 @@ L'application est en générale capable de détecter ces presets et affiche un a
 Si on copie un preset d'usine non supporté dans un autre emplacement ou si on sauvegarde sur lui-même un preset d'usine non supporté, alors,
 comme par magie, le format du preset est mis à jour et l'application est alors capable de le lire.
 
-Voici comment faire:
+
+Voici deux possibilités pour contourner ce problème:
 
 **Copier un preset d'usine dans un autre emplacement:**
 
-bientôt...
+Sur le MicroFreak:
+
+1. presser le bouton _Save_
+2. choisir la destination avec l'encodeur _Preset_
+3. cliquer deux foix sur l'encodeur _Preset_
+4. presser le bouton _Save_
 
 **Sauver un preset d'usine sur lui-même:**
 
-bientôt...
+Tout d'abord désactiver la protection contre l'écriture:
+
+1. presser le bouton _Utility_
+2. sélectionner _Misc_,
+3. sélectionner _Mem protect_
+4. sélectionner _OFF_
+5. cliquer sur le bouton _Utility_
+
+Puis sauver le preset sur lui-même (le mettre à jour):
+
+1. maintenir pressé le bouton _Save_ pendant 2 secondes 
 
 
 ## Problèmes, bugs
