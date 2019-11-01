@@ -58,6 +58,8 @@ MIDI Control Center.
 
 ## Limitations
 
+### Sequences
+
 This reader does not read the **sequences**.
 
 ### Unsupported factory presets
@@ -151,6 +153,8 @@ Le fichier enregistré par l'application n'est ni un fichier sysex ni un fichier
 Vous ne pouvez pas l'utiliser avec le MIDI Control Center.
 
 ## Limites
+
+### Séquences
 
 Cette application ne lit pas les **séquences**.
 
