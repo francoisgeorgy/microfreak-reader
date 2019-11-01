@@ -13,6 +13,16 @@ class ControlMods extends Component {
 
         const {cc, state: S} = this.props;
 
+        if (S.presets && S.presets.length && S.presets[S.preset_number]) {
+            if (S.presets[S.preset_number].hasOwnProperty("supported")) {
+                if (!S.presets[S.preset_number].supported) {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        }
+
         return (
             <div className="control-mods">
                 {Object.getOwnPropertySymbols(MOD_SOURCE).map(

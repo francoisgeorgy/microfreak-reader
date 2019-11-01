@@ -57,25 +57,11 @@ class ModMatrix extends Component {
         const S = this.props.state;
 
         let supported_format = true;
-        console.log(S.preset_number);
         if (S.presets && S.presets.length && S.presets[S.preset_number]) {
-            const D = S.presets[S.preset_number].data;
-            console.log(hs(D[16]));
-            console.log(hs(D[17]));
-
-            // 1 (not ok):
-            // 00 63 01 00 00 40 23 47 00 65 6E 47 50 61 72 61 20 66 6F 6E 63 01 7F 7F 00 45 50 61 6E 65 6C 63
-            // 00 03 00 00 47 50 6F 6C 40 79 43 6E 74 63 01 7D 00 7F 47 50 72 73 74 56 00 6F 6C 63 18 00 00 46
-            // 2 (ok):
-            // 00 63 01 00 00 40 23 47 00 65 6E 47 50 61 72 61 00 66 6F 6E 63 01 00 00 00 47 50 6F 6C 79 43 6E
-            // 00 74 63 01 00 00 47 50 00 72 73 74 56 6F 6C 63 00 18 00 00 46 56 6F 6C 10 75 6D 65 63 66 00 00
-
-            console.log(hs(D[16].slice(-7)))
-            console.log(hs(D[17].slice(0, 4)));
-
-            if (hs(D[16].slice(-7)) === '45 50 61 6E 65 6C 63' && hs(D[17].slice(0, 4)) === '00 03 00 00') {
-                console.log("FACTORY UNKNOWN");
-                supported_format = false;
+            if (S.presets[S.preset_number].hasOwnProperty("supported")) {
+                supported_format = S.presets[S.preset_number].supported;
+            // } else {
+            //     supported_format = true;
             }
         }
 

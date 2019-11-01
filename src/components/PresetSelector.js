@@ -135,6 +135,7 @@ class PresetSelector extends Component {
         if (e.target.value) {
             let response = await fetch("data/" + e.target.value);
             this.props.state.presets = await response.json();
+            this.props.state.checkAllPresets();
         }
     };
 

@@ -165,8 +165,9 @@ export async function readPreset(presetNumber = -1) {
                 state.lock = false;
                 return false;
             }
-
         }
+        await wait(WAIT_BETWEEN_MESSAGES);
+        state.checkPreset(state.preset_number_comm);
     } catch (error) {
         console.warn("Error in readPreset", error);
     } finally {
