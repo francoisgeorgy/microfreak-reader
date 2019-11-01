@@ -56,6 +56,31 @@ by Arturia.
 The file saved by the application is **not** a sysex file nor a MicroFreak preset file. You can not use it with the 
 MIDI Control Center.
 
+## Limitations
+
+This reader does not read the **sequences**.
+
+### Unsupported factory presets
+
+Some factory preset uses a format different from the user preset, especially with the MOD Matrix. The application is
+usually able to detect these presets and will display a warning if it does not support all or part of the preset format.
+
+#### Viewing unsupported factory presets
+
+If one copy an unsupported factory preset in a user slot or if one overwrite an unsupported factory preset, then, magically, the preset
+format is updated and the reader is then able to read it.
+
+Here are these two workarounds:
+
+**Copy to a user slot:**
+
+instructions coming soon...
+
+**Save over itself:**
+
+instructions coming soon...
+
+
 ## Problems, bug
 
 If the Application does not display anything after having red a preset, that's probably because the MIDI communication is 
@@ -124,6 +149,31 @@ proposés par Arturia.
 
 Le fichier enregistré par l'application n'est ni un fichier sysex ni un fichier de preset au format MicroFreak. 
 Vous ne pouvez pas l'utiliser avec le MIDI Control Center.
+
+## Limites
+
+Cette application ne lit pas les **séquences**.
+
+### Presets d'usine non supportés
+
+Certains presets d'usine sont dans un format différent des autres presets, en particulier pour ce qui concerne la matrice de modulation.
+L'application est en générale capable de détecter ces presets et affiche un avertissement le cas échéant.
+
+#### Comment visualier les presets non-supportés
+
+Si on copie un preset d'usine non supporté dans un autre emplacement ou si on sauvegarde sur lui-même un preset d'usine non supporté, alors,
+comme par magie, le format du preset est mis à jour et l'application est alors capable de le lire.
+
+Voici comment faire:
+
+**Copier un preset d'usine dans un autre emplacement:**
+
+bientôt...
+
+**Sauver un preset d'usine sur lui-même:**
+
+bientôt...
+
 
 ## Problèmes, bugs
 

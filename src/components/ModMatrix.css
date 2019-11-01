@@ -13,6 +13,29 @@
     padding: 0 5px;
 }
 
+.mod-matrix-unsupported {
+    grid-column: 2 / span 7;
+    grid-row: 2 / span 5;
+    padding: 10px 20px 5px 20px !important;
+    font-weight: 300;
+    /*font-size: 14px;*/
+}
+
+.mod-matrix-unsupported ol {
+    margin: 0;
+    padding-inline-start: 30px;
+}
+
+.mod-matrix-unsupported a {
+    text-decoration: none;
+    color: var(--link);
+}
+
+.mod-matrix-unsupported a:visited {
+    color: var(--link);
+}
+
+
 .mod-matrix-dest,
 .mod-matrix-value {
     text-align: center;
