@@ -2,8 +2,6 @@
 
 _(en français [plus bas](#Lecteur-de-preset-MicroFreak))_
 
-[![Buy Me A Coffee](https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png)](https://www.buymeacoffee.com/c6dVm4Q)
-
 This application allows you to **read and display the presets stored in the MicroFreak memory**.
 
 You can only read _saved_ presets. The application can not read the current, unsaved, values of the controllers.
@@ -111,6 +109,7 @@ For any other problem or suggestion, feel free to open an issue at https://githu
 Arturia, MicroFreak and all other products, logos or company names quoted in this document and in the application are
 trademarks or registered trademarks of their respective owners.
 
+If you like this application, you can [![Buy Me A Coffee](https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png)](https://www.buymeacoffee.com/c6dVm4Q).
 
 ----
 
@@ -224,5 +223,6 @@ Pour tout autre problème ou suggestion, n'hésitez pas à ouvrir un ticket
 Arturia, MicroFreak et tous les autres produits, logos ou noms de sociétés cités dans ce documents et dans l'application 
 sont des marques ou des marques déposées appartenant à leurs propriétaires respectifs.
 
+Si vous appréciez cette application, vous pouvez m'offrir un café [![Buy Me A Coffee](https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png)](https://www.buymeacoffee.com/c6dVm4Q)
 
 
