@@ -8,8 +8,7 @@ import {
     MOD_SOURCE,
     MOD_SOURCE_CSS, MOD_SOURCE_SHORT
 } from "../model";
-import "./ModMatrix.css"
-import {hs} from "../utils/hexstring";
+import "./ModMatrix.css";
 
 class ModMatrix extends Component {
 

@@ -85,6 +85,7 @@ class State {
                 if (global.dev) console.log("unsupported factory preset", number, hs(D[16]), hs(D[17]));
                 this.presets[number].supported = false;
             } else {
+                // if (global.dev) console.log("supported preset", number);
                 this.presets[number].supported = true;  // this will add the property if it does not yet exist
             }
         }
@@ -105,7 +106,7 @@ class State {
      */
     importData(midiMessage) {
 
-        // if (global.dev) console.log("midi message received", midiMessage);
+        // if (global.dev) console.log("midi message received", midiMessage, hs(midiMessage.data));
 
         const data = midiMessage.data;
 
@@ -148,9 +149,12 @@ class State {
 
         //
         // Store PRESET DATA:
-        // TODO: move into store:
+        //
         this.last_received_midi_msg = MSG_DATA;
         this.presets[this.preset_number_comm].data.push(Array.from(data.slice(9, data.length - 1)));    // message_bytes is UInt8Array
+
+        // console.log(this.presets[this.preset_number_comm].data.length - 1, ":", hs(data.slice(9, data.length - 1)));
+
     }
 
     /**
