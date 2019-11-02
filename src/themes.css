@@ -65,8 +65,7 @@ html {
     --preset-number-bg: #eee;
     --preset-number-text: #000;
     --button-text: #fff;
-    /*--button-bg: #7d44ff;*/
-    --button-bg: #7c52dc;
+    --button-bg: #7d44ff;
     --button-disabled-bg: #cccccc;
     --button-disabled-text: #949494;
     --button-hover-bg: #562ecd;
@@ -158,7 +157,6 @@ html {
         --preset-number-text: #fff;
         --progress: #34ab33;
         --button-text: #fff;
-        /*--button-bg: #452098;*/
         --button-bg: #7d44ff;
         --button-disabled-bg: #26017b;
         --button-disabled-text: #777;
