@@ -61,6 +61,7 @@ import {
     savePreferences
 } from "./utils/preferences";
 import PresetsGrid from "./components/PresetsGrid";
+import WindowTitle from "./components/WindowTitle";
 
 const MIDI_MSG_TYPE = "sysex";
 
@@ -106,6 +107,7 @@ class App extends Component {
 
         return (
             <Provider state={state}>
+                <WindowTitle />
                 <div className={`app-wrapper ${this.state.presets_pos}`}>
                     <div className="header">
                         <div className="title">
