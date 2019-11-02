@@ -65,7 +65,8 @@ html {
     --preset-number-bg: #eee;
     --preset-number-text: #000;
     --button-text: #fff;
-    --button-bg: #7d44ff;
+    /*--button-bg: #7d44ff;*/
+    --button-bg: #7c52dc;
     --button-disabled-bg: #cccccc;
     --button-disabled-text: #949494;
     --button-hover-bg: #562ecd;
@@ -105,18 +106,37 @@ html {
     --scrollbar-thumb: var(--knob-track);
 }
 
-html[data-theme='light'] .mod {
-    --mod-src-cyc_env : #a6a398;
-    --mod-src-env: #adb9c7;
-    --mod-src-lfo: #c7afb8;
-    --mod-src-press: #8bc795;
-    --mod-src-key_arp: #cba7d5;
-    --mod-src-cyc_env-text : #000;
-    --mod-src-env-text: #000;
-    --mod-src-lfo-text: #000;
-    --mod-src-press-text: #000;
-    --mod-src-key_arp-text: #000;
-    --mod-src-bg: #e8e8ea;
+
+@media screen {
+    html[data-theme='light'] .mod {
+        --mod-src-cyc_env: #a6a398;
+        --mod-src-env: #adb9c7;
+        --mod-src-lfo: #c7afb8;
+        --mod-src-press: #8bc795;
+        --mod-src-key_arp: #cba7d5;
+        --mod-src-cyc_env-text: #000;
+        --mod-src-env-text: #000;
+        --mod-src-lfo-text: #000;
+        --mod-src-press-text: #000;
+        --mod-src-key_arp-text: #000;
+        --mod-src-bg: #e8e8ea;
+    }
+}
+
+@media print {
+    .mod {
+        --mod-src-cyc_env: #333;
+        --mod-src-env: #333;
+        --mod-src-lfo: #333;
+        --mod-src-press: #333;
+        --mod-src-key_arp: #333;
+        --mod-src-cyc_env-text: #000;
+        --mod-src-env-text: #000;
+        --mod-src-lfo-text: #000;
+        --mod-src-press-text: #000;
+        --mod-src-key_arp-text: #000;
+        --mod-src-bg: #e8e8ea;
+    }
 }
 
 @media screen {
@@ -138,7 +158,8 @@ html[data-theme='light'] .mod {
         --preset-number-text: #fff;
         --progress: #34ab33;
         --button-text: #fff;
-        --button-bg: #452098;
+        /*--button-bg: #452098;*/
+        --button-bg: #7d44ff;
         --button-disabled-bg: #26017b;
         --button-disabled-text: #777;
         --button-hover-bg: #562ecd;
@@ -199,7 +220,8 @@ html[data-theme='light'] .mod {
         --preset-number-text: #fff;
         --progress: #34ab33;
         --button-text: #fff;
-        --button-bg: #452098;
+        /*--button-bg: #452098;*/
+        --button-bg: #7d44ff;
         --button-disabled-bg: #26017b;
         --button-disabled-text: #777;
         --button-hover-bg: #562ecd;

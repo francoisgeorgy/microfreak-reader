@@ -40,3 +40,13 @@
 .switch .ctrl-name {
     margin-bottom: 5px;
 }
+
+
+@media print {
+    .sw-sel {
+        border: 1px solid #888;
+    }
+    .sw-sel.sw-val {
+        color: #000;
+    }
+}

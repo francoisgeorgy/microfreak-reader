@@ -35,7 +35,6 @@
     color: var(--link);
 }
 
-
 .mod-matrix-dest,
 .mod-matrix-value {
     text-align: center;
@@ -60,4 +59,9 @@
     margin-bottom: 3px;
     margin-top: 16px;
     height: 3px;
+}
+
+
+@media print {
+
 }

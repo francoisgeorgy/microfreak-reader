@@ -473,12 +473,11 @@ class State {
         return MOD_MATRIX_DESTINATION[dest];
     }
 
-
     presetName(number) {  //TODO: change method name
-        if (!this.presets.length || (this.presets.length < number) || !this.presets[number]) {
-            return '';
-        } else {
+        if (this.presets.length && (number < this.presets.length) && this.presets[number]) {
             return this.presets[number].name;
+        } else {
+            return '';
         }
     }
 
