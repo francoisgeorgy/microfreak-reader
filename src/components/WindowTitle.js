@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {inject, observer, Provider} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import Helmet from "react-helmet/es/Helmet";
 
 class WindowTitle extends Component {

@@ -4,6 +4,7 @@ import {inject, observer} from "mobx-react";
 import {readPreset, sendPC, wait, WAIT_BETWEEN_MESSAGES} from "../utils/midi";
 import {savePreferences} from "../utils/preferences";
 import {readFile} from "../utils/files";
+import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
 
 class PresetSelector extends Component {
 
@@ -177,6 +178,18 @@ class PresetSelector extends Component {
         }, 1000);
     };
 
+    getURL = () => {
+        const S = this.props.state;
+        const d = JSON.stringify(S.presets[S.preset_number]);
+        console.log(d.length, d);
+        const z = compressToEncodedURIComponent(d);
+        console.log(z.length, z);
+        const u = decompressFromEncodedURIComponent(z);
+        // const b = z.toString('base64');
+        // const u = URLSafeBase64.encode(z);
+        console.log(u.length, u);
+    };
+
     render() {
 
         const S = this.props.state;
@@ -198,22 +211,6 @@ class PresetSelector extends Component {
 
         return (
             <div className={`preset-selector ${midi_ok?'midi-ok':'midi-ko'}`}>
-                <div className="seq-access">
-                    <input type="text" id="preset" name="preset" min="1" max="256" value={S.preset_number_string} onChange={this.change} />
-                    <button onClick={this.prev} title="Previous">&lt;</button>
-                    <button onClick={this.next} title="Next">&gt;</button>
-                    <button onClick={this.toggleDirectAccess} title="Choose the preset number then send a PC message to the MF.">#...</button>
-                    <button className="button-midi" onClick={this.go} title="Send a PC message to the MicroFreak to select this preset on the MicroFreak itself.">PC</button>
-                    <button className={midi_ok ? "button-midi read-button ok" : "button-midi read-button"} type="button" onClick={this.readSelected}>READ</button>
-                    <label title="Automatically sends a PC message to the MF on preset change."><input type="checkbox" checked={this.props.state.send_pc} onChange={this.toggleSync}/> send PC</label>
-                </div>
-                <div>
-                    {!this.state.reading_all && <button className="button-midi" onClick={this.read1To256} title="Read all">Read 1..256</button>}
-                    {!this.state.reading_all && <button className="button-midi" onClick={this.readNTo256} title="Read all">Read {preset_to}..256</button>}
-                    {this.state.reading_all && <button className="button-midi abort" onClick={this.abortAll} title="Stop reading all">{this.state.abort_all ? "Stopping..." : "STOP"}</button>}
-                    <label title="Only read unread presets"><input type="checkbox" checked={this.state.unread} onChange={this.toggleUnread}/> only unread</label>
-                </div>
-                {this.state.direct_access && <div className="direct-access">{pc}</div>}
                 <div>
                     <select className="preloader" onChange={this.loadData}>
                         <option value="">Packs...</option>
@@ -225,7 +222,25 @@ class PresetSelector extends Component {
                     <input ref={this.inputOpenFileRef} type="file" style={{display:"none"}}  onChange={this.onFileSelection} />
                     <button type="button midi-ok" onClick={this.importFromFile}>Load file</button>
                     <button type="button midi-ok" onClick={this.exportAsFile}>Save to file</button>
+
                 </div>
+                <div className="seq-access">
+                    <input type="text" id="preset" name="preset" min="1" max="256" value={S.preset_number_string} onChange={this.change} />
+                    <button onClick={this.prev} title="Previous">&lt;</button>
+                    <button onClick={this.next} title="Next">&gt;</button>
+                    <button onClick={this.toggleDirectAccess} title="Choose the preset number then send a PC message to the MF.">#...</button>
+                    <button className="button-midi" onClick={this.go} title="Send a PC message to the MicroFreak to select this preset on the MicroFreak itself.">PC</button>
+                    <label title="Automatically sends a PC message to the MF on preset change."><input type="checkbox" checked={this.props.state.send_pc} onChange={this.toggleSync}/> send PC</label>
+                    <button type="button" onClick={this.getURL}>Get URL</button>
+                </div>
+                <div>
+                    <button className={midi_ok ? "button-midi read-button ok" : "button-midi read-button"} type="button" onClick={this.readSelected}>READ</button>
+                    {!this.state.reading_all && <button className="button-midi" onClick={this.read1To256} title="Read all">Read 1..256</button>}
+                    {!this.state.reading_all && <button className="button-midi" onClick={this.readNTo256} title="Read all">Read {preset_to}..256</button>}
+                    {this.state.reading_all && <button className="button-midi abort" onClick={this.abortAll} title="Stop reading all">{this.state.abort_all ? "Stopping..." : "STOP"}</button>}
+                    <label title="Only read unread presets"><input type="checkbox" checked={this.state.unread} onChange={this.toggleUnread}/> only unread</label>
+                </div>
+                {this.state.direct_access && <div className="direct-access">{pc}</div>}
             </div>
         );
     }
