@@ -25,7 +25,7 @@ export const MSG_DATA = 1;
 export function sendPC(presetNumber) {
 
     if (!state.hasInputAndOutputEnabled()) {
-        if (global.dev) console.log("sendPresetRequest: no output and/or input connected, ignore request");
+        if (global.dev) console.log("sendPC: no output and/or input connected, ignore request");
         return;
     }
 
@@ -45,7 +45,7 @@ function sendNameRequest(presetNumber) {
     // sendmidi dev arturia system-exclusive hex 00 20 6B 07 01 07 03 19 01 70 00
 
     if (!state.hasInputAndOutputEnabled()) {
-        if (global.dev) console.log("sendPresetRequest: no output and/or input connected, ignore request");
+        if (global.dev) console.log("sendNameRequest: no output and/or input connected, ignore request");
         return;
     }
 
