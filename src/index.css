@@ -20,3 +20,7 @@ code {
     margin: 0 auto;
     max-width: 1400px;
 }
+
+.no-bold {
+    font-weight: 300!important;
+}

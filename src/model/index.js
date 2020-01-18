@@ -35,36 +35,99 @@ export const multibytesValue = (MSB, LSB, msb_byte, mask_msb, sign_byte, mask_si
 };
 
 
-const _osc_type = function (v) {
-    switch (v) {
-        case 10:
-            return "Basic\nWaves";
-        case 21:
-            return "Superwave";
-        case 32:
-            return "Wavetable";
-        case 42:
-            return "Harmonic";
-        case 53:
-            return "Karplus\nStrong";
-        case 64:
-            return "V. Analog";
-        case 74:
-            return "Waveshaper";
-        case 85:
-            return "Two Op.\nFM";
-        case 95:
-            return "Formant";
-        case 106:
-            return "Chords";
-        case 117:
-            return "Speech";
-        case 127:
-            return "Modal";
-        default:
-            return "?";
+const _osc_type = function (v, fw=2) {
+    if (fw === 2) {
+        switch (true) {
+            case (v >= 0x00) && (v <= 0x09):
+                return "Basic\nWaves";
+            case (v > 0x09) && (v <= 0x13):
+                return "Superwave";
+            case (v > 0x13) && (v <= 0x1d):
+                return "Wavetable";
+            case (v > 0x1d) && (v <= 0x27):
+                return "Harmonic";
+            case (v > 0x27) && (v <= 0x31):
+                return "Karplus\nStrong";
+            case (v > 0x31) && (v <= 0x3b):
+                return "V. Analog";
+            case (v > 0x3b) && (v <= 0x44):
+                return "Waveshaper";
+            case (v > 0x44) && (v <= 0x4e):
+                return "Two Op.\nFM";
+            case (v > 0x4e) && (v <= 0x58):
+                return "Formant";
+            case (v > 0x58) && (v <= 0x62):
+                return "Chords";
+            case (v > 0x62) && (v <= 0x6c):
+                return "Speech";
+            case (v > 0x6c) && (v <= 0x76):
+                return "Modal";
+            case (v > 0x76) && (v <= 0x7f):
+                return "Noise";
+            default:
+                return "?";
+        }
+    } else {
+        switch (true) {
+            case (v >= 0x00) && (v <= 0x0a):
+                return "Basic\nWaves";
+            case (v > 0x0a) && (v <= 0x15):
+                return "Superwave";
+            case (v > 0x15) && (v <= 0x20):
+                return "Wavetable";
+            case (v > 0x20) && (v <= 0x2a):
+                return "Harmonic";
+            case (v > 0x2a) && (v <= 0x35):
+                return "Karplus\nStrong";
+            case (v > 0x35) && (v <= 0x40):
+                return "V. Analog";
+            case (v > 0x40) && (v <= 0x4a):
+                return "Waveshaper";
+            case (v > 0x4a) && (v <= 0x55):
+                return "Two Op.\nFM";
+            case (v > 0x55) && (v <= 0x5f):
+                return "Formant";
+            case (v > 0x5f) && (v <= 0x6a):
+                return "Chords";
+            case (v > 0x6a) && (v <= 0x75):
+                return "Speech";
+            case (v > 0x75) && (v <= 0x7f):
+                return "Modal";
+            default:
+                return "?";
+        }
     }
+
+    // switch (v) {
+    //     case 10:     0x0a
+    //         return "Basic\nWaves";
+    //     case 21:     0x15
+    //         return "Superwave";
+    //     case 32:     0x20
+    //         return "Wavetable";
+    //     case 42:     0x2a
+    //         return "Harmonic";
+    //     case 53:     0x35
+    //         return "Karplus\nStrong";
+    //     case 64:     0x40
+    //         return "V. Analog";
+    //     case 74:     0x4a
+    //         return "Waveshaper";
+    //     case 85:     0x55
+    //         return "Two Op.\nFM";
+    //     case 95:     0x5f
+    //         return "Formant";
+    //     case 106:    0x6a
+    //         return "Chords";
+    //     case 117:    0x75
+    //         return "Speech";
+    //     case 127:    0x7f
+    //         return "Modal";
+    //     default:
+    //         return "?";
+
 };
+
 /*
 const _0_100 = function (v) {
     return Math.floor(v / 127 * 100 + 0.5);

@@ -12,8 +12,14 @@ class Control extends Component {
 
         const {cc, state: S} = this.props;
         const control = CONTROL[cc];
+
         const v = S.controlValue(control, cc === OSC_TYPE);
-        const mapped = control.mapping ? control.mapping(v) : '';
+        let mapped;
+        if (cc === OSC_TYPE) {
+            mapped = control.mapping ? control.mapping(v, S.fwVersion()) : '';
+        } else {
+            mapped = control.mapping ? control.mapping(v) : '';
+        }
 
         return (
             <div className={`control${cc === OSC_TYPE ? ' osc' : ''}`}>

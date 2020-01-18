@@ -316,6 +316,27 @@ class State {
         return this.hasInputEnabled() && this.hasOutputEnabled();
     }
 
+    fwVersion() {   //TODO: not sure this is the right way to find the firmware version, but that seems to work.
+
+        const def = 2;
+
+        if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
+            return def;
+        }
+
+        if (!this.presets[this.preset_number]) {
+            return def;
+        }
+
+        const data = this.presets[this.preset_number].data;
+
+        if (data.length < 39) return 0;  //FIXME
+
+        return data[0][12] === 0x0C ? 1 : def;
+        // console.log(data);
+        // return 2;
+    }
+
     controlValue(m, return_raw=false) {
 
         if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
