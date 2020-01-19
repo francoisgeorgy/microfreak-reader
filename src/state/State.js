@@ -413,7 +413,7 @@ class State {
 
         if (data.length < 39) return 0;  //FIXME
 
-        const m = MOD_MATRIX[src][dest];    //TODO: check params validity
+        const m = MOD_MATRIX[1][src][dest];    //TODO: check params validity
 
         if (!m) {
             if (global.dev) console.log("modMatrixValue, no def for", src, dest);
@@ -447,7 +447,7 @@ class State {
         const data = this.presets[this.preset_number].data;
 
         if (data.length < 39) return;  //FIXME
-        const m = MOD_ASSIGN_SLOT[slot].mod_group;
+        const m = MOD_ASSIGN_SLOT[1][slot].mod_group;
         const dest_num = data[ m[0] ][ m[1] ];
 
         return MOD_ASSIGN_DEST[dest_num];  // ? MOD_ASSIGN_DEST[group_num] : null;
@@ -466,7 +466,7 @@ class State {
         const data = this.presets[this.preset_number].data;
 
         if (data.length < 39) return;  //FIXME
-        const m = MOD_ASSIGN_SLOT[slot].control;
+        const m = MOD_ASSIGN_SLOT[1][slot].control;
         return data[ m[0] ][ m[1] ];
     };
 

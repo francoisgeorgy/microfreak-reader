@@ -1,5 +1,8 @@
 import {getRightShift} from "../utils/bits-utils";
 
+export const FW1 = 0;
+export const FW2 = 1;
+
 export const multibytesValue = (MSB, LSB, msb_byte, mask_msb, sign_byte, mask_sign) => {
 
     // if mask_sign is 0, sign is ignored
@@ -445,241 +448,690 @@ export const MOD_ASSIGN_DEST = {
 // mod matrix assign slots configuration
 // The values in memory at mod_group and control are to be used with the MOD_ASSIGN_DEST map.
 export const MOD_ASSIGN_SLOT = {
-    [ASSIGN1]: {
-        mod_group: [21, 5],     // value is key for MOD_ASSIGN_DEST
-        control: [21, 4]
+    [FW1]: {
+        [ASSIGN1]: {
+            mod_group: [21, 5],     // value is key for MOD_ASSIGN_DEST
+            control: [21, 4]
+        },
+        [ASSIGN2]: {
+            mod_group: [21, 19],
+            control: [21, 18]
+        },
+        [ASSIGN3]: {
+            mod_group: [22, 1],
+            control: [21, 31]
+        }
     },
-    [ASSIGN2]: {
-        mod_group: [21, 19],
-        control: [21, 18]
-    },
-    [ASSIGN3]: {
-        mod_group: [22, 1],
-        control: [21, 31]
+    [FW2]: {
+        [ASSIGN1]: {
+            // mod_group: [21, 5],     // value is key for MOD_ASSIGN_DEST
+            // control: [21, 4]
+            mod_group: [21, 27],     // value is key for MOD_ASSIGN_DEST
+            control: [21, 26]
+        },
+        [ASSIGN2]: {
+            // mod_group: [21, 19],
+            // control: [21, 18]
+            mod_group: [22, 9],
+            control: [22, 7]
+        },
+        [ASSIGN3]: {
+            // mod_group: [22, 1],
+            // control: [21, 31]
+            mod_group: [22, 21],
+            control: [22, 22]
+        }
     }
 };
 
 // [row, col] for data received when reading preset. Data does not include sysex header, sysex footer, man. id and constant data header
 export const MOD_MATRIX = {
-    // TODO: nibble
-    [MOD_SRC_CYC_ENV]: {
-        [PITCH]: {
-            MSB: [22, 15],
-            LSB: [22, 14],
-            msb: [22, 8, 0x20],
-            sign: [22, 8, 0x40]
+    [FW1]: {
+        [MOD_SRC_CYC_ENV]: {
+            [PITCH]: {
+                MSB: [22, 15],
+                LSB: [22, 14],
+                msb: [22, 8, 0x20],
+                sign: [22, 8, 0x40]
+            },
+            [OSC_WAVE]: {
+                MSB: [24, 3],
+                LSB: [24, 2],
+                msb: [24, 0, 0x02],
+                sign: [24, 0, 0x04]
+            },
+            [OSC_TIMBRE]: {
+                MSB: [25, 22],
+                LSB: [25, 21],
+                msb: [25, 16, 0x10],
+                sign: [25, 16, 0x20]
+            },
+            [FILTER_CUTOFF]: {
+                MSB: [27, 10],
+                LSB: [27, 9],
+                msb: [27, 8, 0x01],
+                sign: [27, 8, 0x02]
+            },
+            [ASSIGN1]: {
+                MSB: [28, 29],
+                LSB: [28, 28],
+                msb: [28, 24, 0x08],
+                sign: [28, 24, 0x10]
+            },
+            [ASSIGN2]: {
+                MSB: [30, 17],
+                LSB: [30, 15],
+                msb: [30, 8, 0x40],
+                sign: [30, 16, 0x01]
+            },
+            [ASSIGN3]: {
+                MSB: [32, 4],
+                LSB: [32, 3],
+                msb: [32, 0, 0x04],
+                sign: [32, 0, 0x08]
+            }
         },
-        [OSC_WAVE]: {
-            MSB: [24, 3],
-            LSB: [24, 2],
-            msb: [24, 0, 0x02],
-            sign: [24, 0, 0x04]
+        [MOD_SRC_ENV]: {
+            [PITCH]: {              // OK
+                MSB: [22, 25],
+                LSB: [22, 23],
+                msb: [22, 16, 0x40],
+                sign: [22, 24, 0x01]
+            },
+            [OSC_WAVE]: {
+                MSB: [24, 12],
+                LSB: [24, 11],
+                msb: [24, 8, 0x04],
+                sign: [24, 8, 0x08]
+            },
+            [OSC_TIMBRE]: {
+                MSB: [25, 31],
+                LSB: [25, 30],
+                msb: [25, 24, 0x20],
+                sign: [25, 24, 0x40]
+            },
+            [FILTER_CUTOFF]: {
+                MSB: [27, 19],
+                LSB: [27, 18],
+                msb: [27, 16, 0x02],
+                sign: [27, 16, 0x04]
+            },
+            [ASSIGN1]: {
+                MSB: [29, 6],
+                LSB: [29, 5],
+                msb: [29, 0, 0x10],
+                sign: [29, 0, 0x20]
+            },
+            [ASSIGN2]: {
+                MSB: [30, 26],
+                LSB: [30, 25],
+                msb: [30, 24, 0x01],
+                sign: [30, 24, 0x02]
+            },
+            [ASSIGN3]: {
+                MSB: [32, 13],
+                LSB: [32, 12],
+                msb: [32, 8, 0x08],
+                sign: [32, 8, 0x10]
+            }
         },
-        [OSC_TIMBRE]: {
-            MSB: [25, 22],
-            LSB: [25, 21],
-            msb: [25, 16, 0x10],
-            sign: [25, 16, 0x20]
+        [MOD_SRC_LFO]: {
+            [PITCH]: {
+                MSB: [23, 2],
+                LSB: [23, 1],
+                msb: [23, 0, 0x01],
+                sign: [23, 0, 0x02]
+            },
+            [OSC_WAVE]: {
+                MSB: [24, 21],
+                LSB: [24, 20],
+                msb: [24, 16, 0x08],
+                sign: [24, 16, 0x10]
+            },
+            [OSC_TIMBRE]: {
+                MSB: [26, 9],
+                LSB: [26, 7],
+                msb: [26, 0, 0x40],
+                sign: [26, 8, 0x01]
+            },
+            [FILTER_CUTOFF]: {
+                MSB: [27, 28],
+                LSB: [27, 27],
+                msb: [27, 24, 0x04],
+                sign: [27, 24, 0x08]
+            },
+            [ASSIGN1]: {
+                MSB: [29, 15],
+                LSB: [29, 14],
+                msb: [29, 8, 0x20],
+                sign: [29, 8, 0x40]
+            },
+            [ASSIGN2]: {
+                MSB: [31, 3],
+                LSB: [31, 2],
+                msb: [31, 0, 0x02],
+                sign: [31, 0, 0x04]
+            },
+            [ASSIGN3]: {
+                MSB: [32, 22],
+                LSB: [32, 21],
+                msb: [32, 16, 0x10],
+                sign: [32, 16, 0x20]
+            }
         },
-        [FILTER_CUTOFF]: {
-            MSB: [27, 10],
-            LSB: [27, 9],
-            msb: [27, 8, 0x01],
-            sign: [27, 8, 0x02]
+        [MOD_SRC_PRESS]: {
+            [PITCH]: {
+                MSB: [23, 11],
+                LSB: [23, 10],
+                msb: [23, 8, 0x02],
+                sign: [23, 8, 0x04]
+            },
+            [OSC_WAVE]: {
+                MSB: [24, 30],
+                LSB: [24, 29],
+                msb: [24, 24, 0x10],
+                sign: [24, 24, 0x20]
+            },
+            [OSC_TIMBRE]: {
+                MSB: [26, 18],
+                LSB: [26, 17],
+                msb: [26, 16, 0x01],
+                sign: [26, 16, 0x02]
+            },
+            [FILTER_CUTOFF]: {
+                MSB: [28, 5],
+                LSB: [28, 4],
+                msb: [28, 0, 0x08],
+                sign: [28, 0, 0x10]
+            },
+            [ASSIGN1]: {
+                MSB: [29, 25],
+                LSB: [29, 23],
+                msb: [29, 16, 0x40],
+                sign: [29, 24, 0x01]
+            },
+            [ASSIGN2]: {
+                MSB: [31, 12],
+                LSB: [31, 11],
+                msb: [31, 8, 0x04],
+                sign: [31, 8, 0x08]
+            },
+            [ASSIGN3]: {
+                MSB: [32, 31],
+                LSB: [32, 30],
+                msb: [32, 24, 0x20],
+                sign: [32, 24, 0x40]
+            }
         },
-        [ASSIGN1]: {
-            MSB: [28, 29],
-            LSB: [28, 28],
-            msb: [28, 24, 0x08],
-            sign: [28, 24, 0x10]
-        },
-        [ASSIGN2]: {
-            MSB: [30, 17],
-            LSB: [30, 15],
-            msb: [30, 8, 0x40],
-            sign: [30, 16, 0x01]
-        },
-        [ASSIGN3]: {
-            MSB: [32, 4],
-            LSB: [32, 3],
-            msb: [32, 0, 0x04],
-            sign: [32, 0, 0x08]
+        [MOD_SRC_KEY_ARP]: {
+            [PITCH]: {
+                MSB: [23, 20],
+                LSB: [23, 19],
+                msb: [23, 16, 0x04],
+                sign: [23, 16, 0x08]
+            },
+            [OSC_WAVE]: {
+                MSB: [25, 7],
+                LSB: [25, 6],
+                msb: [25, 0, 0x20],
+                sign: [25, 0, 0x40]
+            },
+            [OSC_TIMBRE]: {
+                MSB: [26, 27],
+                LSB: [26, 26],
+                msb: [26, 24, 0x02],
+                sign: [26, 24, 0x04]
+            },
+            [FILTER_CUTOFF]: {
+                MSB: [28, 14],
+                LSB: [28, 13],
+                msb: [28, 8, 0x10],
+                sign: [28, 8, 0x20]
+            },
+            [ASSIGN1]: {
+                MSB: [30, 2],
+                LSB: [30, 1],
+                msb: [30, 0, 0x01],
+                sign: [30, 0, 0x02]
+            },
+            [ASSIGN2]: {
+                MSB: [31, 21],
+                LSB: [31, 20],
+                msb: [31, 16, 0x08],
+                sign: [31, 16, 0x10]
+            },
+            [ASSIGN3]: {
+                MSB: [33, 9],
+                LSB: [33, 7],
+                msb: [33, 0, 0x40],
+                sign: [33, 8, 0x01]
+            }
         }
     },
-    [MOD_SRC_ENV]: {
-        [PITCH]: {              // OK
-            MSB: [22, 25],
-            LSB: [22, 23],
-            msb: [22, 16, 0x40],
-            sign: [22, 24, 0x01]
+    [FW2]: {
+        [MOD_SRC_CYC_ENV]: {
+            // [PITCH]: {
+            //     MSB: [22, 15],
+            //     LSB: [22, 14],
+            //     msb: [22, 8, 0x20],
+            //     sign: [22, 8, 0x40]
+            // },
+            [PITCH]: {                  // ok
+                MSB: [23, 5],           // +1 -10
+                LSB: [23, 4],           // +1 -10
+                msb: [23, 0, 0x08],     // +1 -8
+                sign: [23, 0, 0x10]     // +1 -8
+            },
+            // [OSC_WAVE]: {
+            //     MSB: [24, 3],
+            //     LSB: [24, 2],
+            //     msb: [24, 0, 0x02],
+            //     sign: [24, 0, 0x04]
+            // },
+            [OSC_WAVE]: {               // ok
+                MSB: [24, 25],          // +1 +20
+                LSB: [24, 23],          // +1 +19
+                msb: [24, 16, 0x40],    // +1 +16
+                sign: [24, 24, 0x01]    // +1 +24
+            },
+            // [OSC_TIMBRE]: {
+            //     MSB: [25, 22],
+            //     LSB: [25, 21],
+            //     msb: [25, 16, 0x10],
+            //     sign: [25, 16, 0x20]
+            // },
+            [OSC_TIMBRE]: {
+                LSB: [26, 11],
+                MSB: [26, 12],
+                msb: [26, 8, 0x04],
+                sign: [26, 8, 0x08]
+            },
+            // [FILTER_CUTOFF]: {
+            //     MSB: [27, 10],
+            //     LSB: [27, 9],
+            //     msb: [27, 8, 0x01],
+            //     sign: [27, 8, 0x02]
+            // },
+            [FILTER_CUTOFF]: {
+                LSB: [27, 30],
+                MSB: [27, 31],
+                msb: [27, 24, 0x20],
+                sign: [27, 24, 0x40]
+            },
+            // [ASSIGN1]: {
+            //     MSB: [28, 29],
+            //     LSB: [28, 28],
+            //     msb: [28, 24, 0x08],
+            //     sign: [28, 24, 0x10]
+            // },
+            [ASSIGN1]: {
+                LSB: [29, 18],
+                MSB: [29, 19],
+                msb: [29, 16, 0x02],
+                sign: [29, 16, 0x04]
+            },
+            // [ASSIGN2]: {
+            //     MSB: [30, 17],
+            //     LSB: [30, 15],
+            //     msb: [30, 8, 0x40],
+            //     sign: [30, 16, 0x01]
+            // },
+            [ASSIGN2]: {
+                LSB: [31, 5],
+                MSB: [31, 6],
+                msb: [31, 0, 0x10],
+                sign: [31, 0, 0x20]
+            },
+            // [ASSIGN3]: {
+            //     MSB: [32, 4],
+            //     LSB: [32, 3],
+            //     msb: [32, 0, 0x04],
+            //     sign: [32, 0, 0x08]
+            // },
+            [ASSIGN3]: {
+                LSB: [32, 25],
+                MSB: [32, 26],
+                msb: [32, 24, 0x01],
+                sign: [32, 24, 0x02]
+            }
         },
-        [OSC_WAVE]: {
-            MSB: [24, 12],
-            LSB: [24, 11],
-            msb: [24, 8, 0x04],
-            sign: [24, 8, 0x08]
+        [MOD_SRC_ENV]: {
+            [PITCH]: {
+                LSB: [23, 13],
+                MSB: [23, 14],
+                msb: [23, 8, 0x10],
+                sign: [23, 8, 0x20]
+            },
+            // [OSC_WAVE]: {
+            //     MSB: [24, 12],
+            //     LSB: [24, 11],
+            //     msb: [24, 8, 0x04],
+            //     sign: [24, 8, 0x08]
+            // },
+            [OSC_WAVE]: {
+                LSB: [25, 1],
+                MSB: [25, 2],
+                msb: [25, 8, 0x01],
+                sign: [25, 0, 0x02]
+            },
+            // [OSC_TIMBRE]: {
+            //     MSB: [25, 31],
+            //     LSB: [25, 30],
+            //     msb: [25, 24, 0x20],
+            //     sign: [25, 24, 0x40]
+            // },
+            [OSC_TIMBRE]: {
+                LSB: [26, 20],
+                MSB: [26, 21],
+                msb: [26, 16, 0x08],
+                sign: [26, 16, 0x10]
+            },
+            // [FILTER_CUTOFF]: {
+            //     MSB: [27, 19],
+            //     LSB: [27, 18],
+            //     msb: [27, 16, 0x02],
+            //     sign: [27, 16, 0x04]
+            // },
+            [FILTER_CUTOFF]: {
+                LSB: [28, 7],
+                MSB: [28, 9],
+                msb: [28, 0, 0x40],
+                sign: [28, 8, 0x01]
+            },
+            // [ASSIGN1]: {
+            //     LSB: [29, 5],
+            //     MSB: [29, 6],
+            //     msb: [29, 0, 0x10],
+            //     sign: [29, 0, 0x20]
+            // },
+            [ASSIGN1]: {
+                LSB: [29, 27],
+                MSB: [29, 28],
+                msb: [29, 24, 0x04],
+                sign: [29, 24, 0x08]
+            },
+            // [ASSIGN2]: {
+            //     LSB: [30, 25],
+            //     MSB: [30, 26],
+            //     msb: [30, 24, 0x01],
+            //     sign: [30, 24, 0x02]
+            // },
+            [ASSIGN2]: {
+                LSB: [31, 14],
+                MSB: [31, 15],
+                msb: [31, 8, 0x20],
+                sign: [31, 8, 0x40]
+            },
+            // [ASSIGN3]: {
+            //     LSB: [32, 12],
+            //     MSB: [32, 13],
+            //     msb: [32, 8, 0x08],
+            //     sign: [32, 8, 0x10]
+            // },
+            [ASSIGN3]: {
+                LSB: [33, 2],
+                MSB: [33, 3],
+                msb: [33, 0, 0x02],
+                sign: [33, 0, 0x04]
+            }
         },
-        [OSC_TIMBRE]: {
-            MSB: [25, 31],
-            LSB: [25, 30],
-            msb: [25, 24, 0x20],
-            sign: [25, 24, 0x40]
+        [MOD_SRC_LFO]: {
+            // [PITCH]: {
+            //     MSB: [23, 2],
+            //     LSB: [23, 1],
+            //     msb: [23, 0, 0x01],
+            //     sign: [23, 0, 0x02]
+            // },
+            [PITCH]: {
+                MSB: [23, 23],
+                LSB: [23, 22],
+                msb: [23, 16, 0x01],
+                sign: [23, 16, 0x02]
+            },
+            // [OSC_WAVE]: {
+            //     MSB: [24, 21],
+            //     LSB: [24, 20],
+            //     msb: [24, 16, 0x08],
+            //     sign: [24, 16, 0x10]
+            // },
+            [OSC_WAVE]: {
+                LSB: [25, 10],
+                MSB: [25, 11],
+                msb: [25, 8, 0x02],
+                sign: [25, 8, 0x04]
+            },
+            // [OSC_TIMBRE]: {
+            //     MSB: [26, 9],
+            //     LSB: [26, 7],
+            //     msb: [26, 0, 0x40],
+            //     sign: [26, 8, 0x01]
+            // },
+            [OSC_TIMBRE]: {
+                LSB: [26, 29],
+                MSB: [26, 30],
+                msb: [26, 24, 0x10],
+                sign: [26, 24, 0x20]
+            },
+            // [FILTER_CUTOFF]: {
+            //     MSB: [27, 28],
+            //     LSB: [27, 27],
+            //     msb: [27, 24, 0x04],
+            //     sign: [27, 24, 0x08]
+            // },
+            [FILTER_CUTOFF]: {
+                LSB: [28, 17],
+                MSB: [28, 18],
+                msb: [28, 16, 0x01],
+                sign: [28, 16, 0x02]
+            },
+            // [ASSIGN1]: {
+            //     MSB: [29, 15],
+            //     LSB: [29, 14],
+            //     msb: [29, 8, 0x20],
+            //     sign: [29, 8, 0x40]
+            // },
+            [ASSIGN1]: {
+                LSB: [30, 4],
+                MSB: [30, 5],
+                msb: [30, 0, 0x08],
+                sign: [30, 0, 0x10]
+            },
+            // [ASSIGN2]: {
+            //     LSB: [31, 2],
+            //     MSB: [31, 3],
+            //     msb: [31, 0, 0x02],
+            //     sign: [31, 0, 0x04]
+            // },
+            [ASSIGN2]: {
+                LSB: [31, 23],
+                MSB: [31, 25],
+                msb: [31, 16, 0x40],
+                sign: [31, 24, 0x01]
+            },
+            // [ASSIGN3]: {
+            //     LSB: [32, 21],
+            //     MSB: [32, 22],
+            //     msb: [32, 16, 0x10],
+            //     sign: [32, 16, 0x20]
+            // },
+            [ASSIGN3]: {
+                LSB: [33, 11],
+                MSB: [33, 12],
+                msb: [33, 8, 0x04],
+                sign: [33, 8, 0x08]
+            }
         },
-        [FILTER_CUTOFF]: {
-            MSB: [27, 19],
-            LSB: [27, 18],
-            msb: [27, 16, 0x02],
-            sign: [27, 16, 0x04]
+        [MOD_SRC_PRESS]: {
+            // [PITCH]: {
+            //     MSB: [23, 11],
+            //     LSB: [23, 10],
+            //     msb: [23, 8, 0x02],
+            //     sign: [23, 8, 0x04]
+            // },
+            [PITCH]: {
+                LSB: [23, 31],
+                MSB: [24, 1],
+                msb: [23, 24, 0x40],
+                sign: [24, 0, 0x01]
+            },
+            // [OSC_WAVE]: {
+            //     MSB: [24, 30],
+            //     LSB: [24, 29],
+            //     msb: [24, 24, 0x10],
+            //     sign: [24, 24, 0x20]
+            // },
+            [OSC_WAVE]: {
+                LSB: [25, 19],
+                MSB: [25, 20],
+                msb: [25, 16, 0x04],
+                sign: [25, 16, 0x08]
+            },
+            // [OSC_TIMBRE]: {
+            //     LSB: [26, 17],
+            //     MSB: [26, 18],
+            //     msb: [26, 16, 0x01],
+            //     sign: [26, 16, 0x02]
+            // },
+            [OSC_TIMBRE]: {
+                LSB: [27, 7],
+                MSB: [27, 7],
+                msb: [27, 0, 0x20],
+                sign: [27, 0, 0x40]
+            },
+            // [FILTER_CUTOFF]: {
+            //     LSB: [28, 4],
+            //     MSB: [28, 5],
+            //     msb: [28, 0, 0x08],
+            //     sign: [28, 0, 0x10]
+            // },
+            [FILTER_CUTOFF]: {
+                LSB: [28, 26],
+                MSB: [28, 27],
+                msb: [28, 24, 0x02],
+                sign: [28, 24, 0x04]
+            },
+            // [ASSIGN1]: {
+            //     LSB: [29, 23],
+            //     MSB: [29, 25],
+            //     msb: [29, 16, 0x40],
+            //     sign: [29, 24, 0x01]
+            // },
+            [ASSIGN1]: {
+                LSB: [30, 13],
+                MSB: [30, 14],
+                msb: [30, 8, 0x10],
+                sign: [30, 8, 0x20]
+            },
+            // [ASSIGN2]: {
+            //     LSB: [31, 11],
+            //     MSB: [31, 12],
+            //     msb: [31, 8, 0x04],
+            //     sign: [31, 8, 0x08]
+            // },
+            [ASSIGN2]: {
+                LSB: [32, 1],
+                MSB: [32, 2],
+                msb: [32, 0, 0x01],
+                sign: [32, 0, 0x02]
+            },
+            // [ASSIGN3]: {
+            //     LSB: [32, 30],
+            //     MSB: [32, 31],
+            //     msb: [32, 24, 0x20],
+            //     sign: [32, 24, 0x40]
+            // },
+            [ASSIGN3]: {
+                LSB: [33, 20],
+                MSB: [33, 21],
+                msb: [33, 16, 0x08],
+                sign: [33, 16, 0x10]
+            }
         },
-        [ASSIGN1]: {
-            MSB: [29, 6],
-            LSB: [29, 5],
-            msb: [29, 0, 0x10],
-            sign: [29, 0, 0x20]
-        },
-        [ASSIGN2]: {
-            MSB: [30, 26],
-            LSB: [30, 25],
-            msb: [30, 24, 0x01],
-            sign: [30, 24, 0x02]
-        },
-        [ASSIGN3]: {
-            MSB: [32, 13],
-            LSB: [32, 12],
-            msb: [32, 8, 0x08],
-            sign: [32, 8, 0x10]
-        }
-    },
-    [MOD_SRC_LFO]: {
-        [PITCH]: {
-            MSB: [23, 2],
-            LSB: [23, 1],
-            msb: [23, 0, 0x01],
-            sign: [23, 0, 0x02]
-        },
-        [OSC_WAVE]: {
-            MSB: [24, 21],
-            LSB: [24, 20],
-            msb: [24, 16, 0x08],
-            sign: [24, 16, 0x10]
-        },
-        [OSC_TIMBRE]: {
-            MSB: [26, 9],
-            LSB: [26, 7],
-            msb: [26, 0, 0x40],
-            sign: [26, 8, 0x01]
-        },
-        [FILTER_CUTOFF]: {
-            MSB: [27, 28],
-            LSB: [27, 27],
-            msb: [27, 24, 0x04],
-            sign: [27, 24, 0x08]
-        },
-        [ASSIGN1]: {
-            MSB: [29, 15],
-            LSB: [29, 14],
-            msb: [29, 8, 0x20],
-            sign: [29, 8, 0x40]
-        },
-        [ASSIGN2]: {
-            MSB: [31, 3],
-            LSB: [31, 2],
-            msb: [31, 0, 0x02],
-            sign: [31, 0, 0x04]
-        },
-        [ASSIGN3]: {
-            MSB: [32, 22],
-            LSB: [32, 21],
-            msb: [32, 16, 0x10],
-            sign: [32, 16, 0x20]
-        }
-    },
-    [MOD_SRC_PRESS]: {
-        [PITCH]: {
-            MSB: [23, 11],
-            LSB: [23, 10],
-            msb: [23, 8, 0x02],
-            sign: [23, 8, 0x04]
-        },
-        [OSC_WAVE]: {
-            MSB: [24, 30],
-            LSB: [24, 29],
-            msb: [24, 24, 0x10],
-            sign: [24, 24, 0x20]
-        },
-        [OSC_TIMBRE]: {
-            MSB: [26, 18],
-            LSB: [26, 17],
-            msb: [26, 16, 0x01],
-            sign: [26, 16, 0x02]
-        },
-        [FILTER_CUTOFF]: {
-            MSB: [28, 5],
-            LSB: [28, 4],
-            msb: [28, 0, 0x08],
-            sign: [28, 0, 0x10]
-        },
-        [ASSIGN1]: {
-            MSB: [29, 25],
-            LSB: [29, 23],
-            msb: [29, 16, 0x40],
-            sign: [29, 24, 0x01]
-        },
-        [ASSIGN2]: {
-            MSB: [31, 12],
-            LSB: [31, 11],
-            msb: [31, 8, 0x04],
-            sign: [31, 8, 0x08]
-        },
-        [ASSIGN3]: {
-            MSB: [32, 31],
-            LSB: [32, 30],
-            msb: [32, 24, 0x20],
-            sign: [32, 24, 0x40]
-        }
-    },
-    [MOD_SRC_KEY_ARP]: {
-        [PITCH]: {
-            MSB: [23, 20],
-            LSB: [23, 19],
-            msb: [23, 16, 0x04],
-            sign: [23, 16, 0x08]
-        },
-        [OSC_WAVE]: {
-            MSB: [25, 7],
-            LSB: [25, 6],
-            msb: [25, 0, 0x20],
-            sign: [25, 0, 0x40]
-        },
-        [OSC_TIMBRE]: {
-            MSB: [26, 27],
-            LSB: [26, 26],
-            msb: [26, 24, 0x02],
-            sign: [26, 24, 0x04]
-        },
-        [FILTER_CUTOFF]: {
-            MSB: [28, 14],
-            LSB: [28, 13],
-            msb: [28, 8, 0x10],
-            sign: [28, 8, 0x20]
-        },
-        [ASSIGN1]: {
-            MSB: [30, 2],
-            LSB: [30, 1],
-            msb: [30, 0, 0x01],
-            sign: [30, 0, 0x02]
-        },
-        [ASSIGN2]: {
-            MSB: [31, 21],
-            LSB: [31, 20],
-            msb: [31, 16, 0x08],
-            sign: [31, 16, 0x10]
-        },
-        [ASSIGN3]: {
-            MSB: [33, 9],
-            LSB: [33, 7],
-            msb: [33, 0, 0x40],
-            sign: [33, 8, 0x01]
+        [MOD_SRC_KEY_ARP]: {
+            // [PITCH]: {
+            //     LSB: [23, 19],
+            //     MSB: [23, 20],
+            //     msb: [23, 16, 0x04],
+            //     sign: [23, 16, 0x08]
+            // },
+            [PITCH]: {
+                LSB: [24, 9],
+                MSB: [24, 10],
+                msb: [24, 8, 0x01],
+                sign: [24, 8, 0x02]
+            },
+            // [OSC_WAVE]: {
+            //     LSB: [25, 6],
+            //     MSB: [25, 7],
+            //     msb: [25, 0, 0x20],
+            //     sign: [25, 0, 0x40]
+            // },
+            [OSC_WAVE]: {
+                LSB: [25, 28],
+                MSB: [25, 29],
+                msb: [25, 24, 0x08],
+                sign: [25, 24, 0x10]
+            },
+            // [OSC_TIMBRE]: {
+            //     LSB: [26, 26],
+            //     MSB: [26, 27],
+            //     msb: [26, 24, 0x02],
+            //     sign: [26, 24, 0x04]
+            // },
+            [OSC_TIMBRE]: {
+                LSB: [27, 15],
+                MSB: [27, 17],
+                msb: [27, 8, 0x40],
+                sign: [27, 24, 0x01]
+            },
+            // [FILTER_CUTOFF]: {
+            //     LSB: [28, 13],
+            //     MSB: [28, 14],
+            //     msb: [28, 8, 0x10],
+            //     sign: [28, 8, 0x20]
+            // },
+            [FILTER_CUTOFF]: {
+                LSB: [29, 3],
+                MSB: [29, 4],
+                msb: [29, 0, 0x04],
+                sign: [29, 0, 0x08]
+            },
+            // [ASSIGN1]: {
+            //     LSB: [30, 1],
+            //     MSB: [30, 2],
+            //     msb: [30, 0, 0x01],
+            //     sign: [30, 0, 0x02]
+            // },
+            [ASSIGN1]: {
+                LSB: [30, 22],
+                MSB: [30, 23],
+                msb: [30, 16, 0x20],
+                sign: [30, 16, 0x40]
+            },
+            // [ASSIGN2]: {
+            //     LSB: [31, 20],
+            //     MSB: [31, 21],
+            //     msb: [31, 16, 0x08],
+            //     sign: [31, 16, 0x10]
+            // },
+            [ASSIGN2]: {
+                LSB: [32, 10],
+                MSB: [32, 11],
+                msb: [32, 8, 0x02],
+                sign: [32, 8, 0x04]
+            },
+            // [ASSIGN3]: {
+            //     LSB: [33, 7],
+            //     MSB: [33, 9],
+            //     msb: [33, 0, 0x40],
+            //     sign: [33, 8, 0x01]
+            // },
+            [ASSIGN3]: {
+                LSB: [33, 29],
+                MSB: [33, 30],
+                msb: [33, 24, 0x10],
+                sign: [33, 24, 0x20]
+            }
         }
     }
 };

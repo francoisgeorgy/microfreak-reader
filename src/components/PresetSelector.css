@@ -65,6 +65,10 @@ button.abort {
     margin-right: 5px;
 }
 
+.actions {
+    margin-top: 10px;
+}
+
 .direct-access {
     position: absolute;
     right: 10px;
