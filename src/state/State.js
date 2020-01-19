@@ -17,7 +17,7 @@ import {
     MOD_SRC_KEY_ARP,
     MOD_SRC_PRESS,
     MOD_SRC_LFO,
-    MOD_SRC_ENV
+    MOD_SRC_ENV, FW1, FW2
 } from "../model";
 import {MSG_DATA, MSG_NAME, portById} from "../utils/midi";
 import {h, hs} from "../utils/hexstring";
@@ -63,6 +63,27 @@ class State {
         return s;
     }
 
+    fwVersion() {   //TODO: not sure this is the right way to find the firmware version, but that seems to work.
+
+        const def = FW2;
+
+        if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
+            return def;
+        }
+
+        if (!this.presets[this.preset_number]) {
+            return def;
+        }
+
+        const data = this.presets[this.preset_number].data;
+
+        if (data.length < 39) return 0;  //FIXME
+
+        return data[0][12] === 0x0C ? FW1 : def;
+        // console.log(data);
+        // return 2;
+    }
+
     checkPreset(number) {
 
         // if (global.dev) console.log("checkPreset", number);
@@ -70,6 +91,8 @@ class State {
         if (this.presets && this.presets.length && this.presets[number]) {
 
             const D = this.presets[number].data;
+
+            this.presets[number].fw = D[0][12] === 0x0C ? FW1 : FW2;
 
             // console.log(hs(D[16]));
             // console.log(hs(D[17]));
@@ -88,6 +111,7 @@ class State {
                 // if (global.dev) console.log("supported preset", number);
                 this.presets[number].supported = true;  // this will add the property if it does not yet exist
             }
+
         }
     }
 
@@ -316,27 +340,6 @@ class State {
         return this.hasInputEnabled() && this.hasOutputEnabled();
     }
 
-    fwVersion() {   //TODO: not sure this is the right way to find the firmware version, but that seems to work.
-
-        const def = 2;
-
-        if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
-            return def;
-        }
-
-        if (!this.presets[this.preset_number]) {
-            return def;
-        }
-
-        const data = this.presets[this.preset_number].data;
-
-        if (data.length < 39) return 0;  //FIXME
-
-        return data[0][12] === 0x0C ? 1 : def;
-        // console.log(data);
-        // return 2;
-    }
-
     controlValue(m, return_raw=false) {
 
         if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
@@ -413,7 +416,7 @@ class State {
 
         if (data.length < 39) return 0;  //FIXME
 
-        const m = MOD_MATRIX[1][src][dest];    //TODO: check params validity
+        const m = MOD_MATRIX[this.presets[this.preset_number].fw][src][dest];    //TODO: check params validity
 
         if (!m) {
             if (global.dev) console.log("modMatrixValue, no def for", src, dest);
@@ -447,7 +450,7 @@ class State {
         const data = this.presets[this.preset_number].data;
 
         if (data.length < 39) return;  //FIXME
-        const m = MOD_ASSIGN_SLOT[1][slot].mod_group;
+        const m = MOD_ASSIGN_SLOT[this.presets[this.preset_number].fw][slot].mod_group;
         const dest_num = data[ m[0] ][ m[1] ];
 
         return MOD_ASSIGN_DEST[dest_num];  // ? MOD_ASSIGN_DEST[group_num] : null;
@@ -466,7 +469,7 @@ class State {
         const data = this.presets[this.preset_number].data;
 
         if (data.length < 39) return;  //FIXME
-        const m = MOD_ASSIGN_SLOT[1][slot].control;
+        const m = MOD_ASSIGN_SLOT[this.presets[this.preset_number].fw][slot].control;
         return data[ m[0] ][ m[1] ];
     };
 

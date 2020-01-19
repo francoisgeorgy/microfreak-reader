@@ -464,22 +464,16 @@ export const MOD_ASSIGN_SLOT = {
     },
     [FW2]: {
         [ASSIGN1]: {
-            // mod_group: [21, 5],     // value is key for MOD_ASSIGN_DEST
-            // control: [21, 4]
             mod_group: [21, 27],     // value is key for MOD_ASSIGN_DEST
             control: [21, 26]
         },
         [ASSIGN2]: {
-            // mod_group: [21, 19],
-            // control: [21, 18]
             mod_group: [22, 9],
             control: [22, 7]
         },
         [ASSIGN3]: {
-            // mod_group: [22, 1],
-            // control: [21, 31]
-            mod_group: [22, 21],
-            control: [22, 22]
+            mod_group: [22, 22],
+            control: [22, 21]
         }
     }
 };
@@ -993,7 +987,7 @@ export const MOD_MATRIX = {
             //     sign: [26, 16, 0x02]
             // },
             [OSC_TIMBRE]: {
-                LSB: [27, 7],
+                LSB: [27, 6],
                 MSB: [27, 7],
                 msb: [27, 0, 0x20],
                 sign: [27, 0, 0x40]
@@ -1138,355 +1132,765 @@ export const MOD_MATRIX = {
 
 // if mod_group is defined, that means that the control can be a modulation destination
 export const CONTROL = {
-    [GLIDE]: {
-        MSB: [6, 23],
-        LSB: [6, 22],
-        //sign: [0, 0, 0x02],
-        msb: [6, 16, 0x20],
-        cc: 5,
-        mapping: null,
-        name: "Glide",
-        // group: MOD_GROUP_
+    [FW1]: {
+        [GLIDE]: {
+            MSB: [6, 23],
+            LSB: [6, 22],
+            //sign: [0, 0, 0x02],
+            msb: [6, 16, 0x20],
+            cc: 5,
+            mapping: null,
+            name: "Glide",
+            // group: MOD_GROUP_
+        },
+        [OSC_TYPE]: {
+            MSB: null,
+            LSB: [0, 14],
+            msb: null,
+            cc: 9,
+            mapping: _osc_type,
+            name: "Type",
+            mod_group: MOD_GROUP_OSC
+        },
+        [OSC_WAVE]: {
+            MSB: [0, 27],
+            LSB: [0, 26],
+            //sign: [0, 0, 0x02],
+            msb: [0, 24, 0x10],
+            cc: 10,
+            mapping: null,
+            name: 'Wave',
+            mod_group: MOD_GROUP_OSC
+        },
+        [OSC_TIMBRE]: {
+            MSB: [1, 7],
+            LSB: [1, 6],
+            //sign: [0, 0, 0x02],
+            msb: [1, 0, 0x02],
+            cc: 12,
+            mapping: null,
+            name: 'Timbre',
+            mod_group: MOD_GROUP_OSC
+        },
+        [OSC_SHAPE]: {      // ok
+            MSB: [1, 20],
+            LSB: [1, 19],
+            //sign: [0, 0, 0x02],
+            msb: [1, 16, 0x04],
+            cc: 13,
+            mapping: null,
+            name: 'Shape',
+            mod_group: MOD_GROUP_OSC
+        },
+        [FILTER_CUTOFF]: {
+            MSB: [2, 30],
+            LSB: [2, 29],
+            //sign: [0, 0, 0x02],
+            msb: [2, 24, 0x10],
+            cc: 23,
+            mapping: null,
+            name: 'Cutoff',
+            mod_group: MOD_GROUP_FILTER
+        },
+        [FILTER_RESONANCE]: {
+            MSB: [3, 9],
+            LSB: [3, 7],
+            //sign: [0, 0, 0x02],
+            msb: [3, 0, 0x40],
+            cc: 83,
+            mapping: null,
+            name: 'Resonance',
+            mod_group: MOD_GROUP_FILTER
+        },
+        [CYCLING_ENV_RISE]: {
+            MSB: [4, 6],
+            LSB: [4, 5],
+            //sign: [0, 0, 0x02],
+            msb: [4, 0, 0x10],
+            cc: 102,
+            mapping: null,  //_0_100,
+            name: 'Rise',
+            mod_group: MOD_GROUP_CYCLING_ENV
+        },
+        [CYCLING_ENV_FALL]: {
+            MSB: [5, 2],
+            LSB: [5, 1],
+            //sign: [0, 0, 0x02],
+            msb: [5, 0, 0x01],
+            cc: 103,
+            mapping: null,
+            name: 'Fall',
+            mod_group: MOD_GROUP_CYCLING_ENV
+        },
+        [CYCLING_ENV_HOLD]: {
+            MSB: [5, 12],
+            LSB: [5, 11],
+            //sign: [0, 0, 0x02],
+            msb: [5, 8, 0x04],
+            cc: 28,
+            mapping: null,
+            name: 'Hold',
+            mod_group: MOD_GROUP_CYCLING_ENV
+        },
+        [CYCLING_ENV_AMOUNT]: {
+            MSB: [6, 6],
+            LSB: [6, 5],
+            //sign: [0, 0, 0x02],
+            msb: [6, 0, 0x10],
+            cc: 24,
+            mapping: null,
+            name: 'Amount',
+            mod_group: MOD_GROUP_CYCLING_ENV
+        },
+        [CYCLING_ENV_RISE_SHAPE]: {
+            MSB: [4, 20],
+            LSB: [4, 19],
+            msb: [4, 16, 0x04],
+            cc: 24,
+            mapping: null,
+            name: 'Rise shape'
+        },
+        [CYCLING_ENV_FALL_SHAPE]: {
+            MSB: [5, 26],
+            LSB: [5, 25],
+            msb: [5, 24, 0x01],
+            cc: 24,
+            mapping: null,
+            name: 'Fall shape'
+        },
+        [ARP_SEQ_RATE_FREE]: {
+            MSB: [10, 5],
+            LSB: [10, 4],
+            msb: [10, 0, 0x08],
+            cc: 91,
+            mapping: null,
+            name: 'Rate free'
+        },
+        [ARP_SEQ_RATE_SYNC]: {
+            MSB: [9, 27],
+            LSB: [9, 26],
+            msb: [9, 24, 0x02],
+            cc: 92,
+            mapping: null,
+            name: 'Rate sync'
+        },
+        [ARP_SEQ_SWING]: {
+            MSB: [10, 17],
+            LSB: [10, 15],
+            msb: [19, 8, 0x40],
+            cc: 0,
+            mapping: null,  // 50%..75%
+            name: 'Swing'
+        },
+        [LFO_RATE_FREE]: {
+            MSB: [13, 10],
+            LSB: [13, 9],
+            msb: [13, 8, 0x01],
+            cc: 93,
+            mapping: null,
+            name: 'Rate free'
+        },
+        [LFO_RATE_SYNC]: {
+            MSB: [12, 31],
+            LSB: [12, 30],
+            msb: [12, 24, 0x20],
+            cc: 94,
+            mapping: null,
+            name: 'Rate sync'
+        },
+        [ENVELOPE_ATTACK]: {
+            MSB: [14, 29],
+            LSB: [14, 28],
+            // sign: [1, 0x02],
+            msb: [14, 24, 0x08],
+            cc: 105,
+            mapping: null,
+            name: 'Attack',
+            mod_group: MOD_GROUP_ENVELOPE
+        },
+        [ENVELOPE_DECAY]: {
+            MSB: [15, 10],
+            LSB: [15, 9],
+            //sign: [0, 0, 0x02],
+            msb: [15, 8, 0x01],
+            cc: 106,
+            mapping: null,
+            name: 'Decay/Rel',
+            mod_group: MOD_GROUP_ENVELOPE
+        },
+        [ENVELOPE_SUSTAIN]: {
+            MSB: [15, 23],
+            LSB: [15, 22],
+            //sign: [0, 0, 0x02],
+            msb: [15, 16, 0x20],
+            cc: 29,
+            mapping: null,
+            name: 'Sustain',
+            mod_group: MOD_GROUP_ENVELOPE
+        },
+        // [HOLD]: {
+        //     MSB: [0, 0],
+        //     LSB: [0, 0],
+        //     //sign: [0, 0, 0x02],
+        //     msb: [0, 0, 0x01],
+        //     cc: 64,
+        //     mapping: null,
+        //     name: 'Hold'
+        // },
+        [SPICE]: {
+            MSB: [0, 0],
+            LSB: [0, 0],
+            //sign: [0, 0, 0x02],
+            msb: [0, 0, 0x01],
+            cc: 2,
+            mapping: null,
+            name: 'Spice'
+        }
     },
-    [OSC_TYPE]: {
-        MSB: null,
-        LSB: [0, 14],
-        msb: null,
-        cc: 9,
-        mapping: _osc_type,
-        name: "Type",
-        mod_group: MOD_GROUP_OSC
-    },
-    [OSC_WAVE]: {
-        MSB: [0, 27],
-        LSB: [0, 26],
-        //sign: [0, 0, 0x02],
-        msb: [0, 24, 0x10],
-        cc: 10,
-        mapping: null,
-        name: 'Wave',
-        mod_group: MOD_GROUP_OSC
-    },
-    [OSC_TIMBRE]: {
-        MSB: [1, 7],
-        LSB: [1, 6],
-        //sign: [0, 0, 0x02],
-        msb: [1, 0, 0x02],
-        cc: 12,
-        mapping: null,
-        name: 'Timbre',
-        mod_group: MOD_GROUP_OSC
-    },
-    [OSC_SHAPE]: {      // ok
-        MSB: [1, 20],
-        LSB: [1, 19],
-        //sign: [0, 0, 0x02],
-        msb: [1, 16, 0x04],
-        cc: 13,
-        mapping: null,
-        name: 'Shape',
-        mod_group: MOD_GROUP_OSC
-    },
-    [FILTER_CUTOFF]: {
-        MSB: [2, 30],
-        LSB: [2, 29],
-        //sign: [0, 0, 0x02],
-        msb: [2, 24, 0x10],
-        cc: 23,
-        mapping: null,
-        name: 'Cutoff',
-        mod_group: MOD_GROUP_FILTER
-    },
-    [FILTER_RESONANCE]: {
-        MSB: [3, 9],
-        LSB: [3, 7],
-        //sign: [0, 0, 0x02],
-        msb: [3, 0, 0x40],
-        cc: 83,
-        mapping: null,
-        name: 'Resonance',
-        mod_group: MOD_GROUP_FILTER
-    },
-    [CYCLING_ENV_RISE]: {
-        MSB: [4, 6],
-        LSB: [4, 5],
-        //sign: [0, 0, 0x02],
-        msb: [4, 0, 0x10],
-        cc: 102,
-        mapping: null,  //_0_100,
-        name: 'Rise',
-        mod_group: MOD_GROUP_CYCLING_ENV
-    },
-    [CYCLING_ENV_FALL]: {
-        MSB: [5, 2],
-        LSB: [5, 1],
-        //sign: [0, 0, 0x02],
-        msb: [5, 0, 0x01],
-        cc: 103,
-        mapping: null,
-        name: 'Fall',
-        mod_group: MOD_GROUP_CYCLING_ENV
-    },
-    [CYCLING_ENV_HOLD]: {
-        MSB: [5, 12],
-        LSB: [5, 11],
-        //sign: [0, 0, 0x02],
-        msb: [5, 8, 0x04],
-        cc: 28,
-        mapping: null,
-        name: 'Hold',
-        mod_group: MOD_GROUP_CYCLING_ENV
-    },
-    [CYCLING_ENV_AMOUNT]: {
-        MSB: [6, 6],
-        LSB: [6, 5],
-        //sign: [0, 0, 0x02],
-        msb: [6, 0, 0x10],
-        cc: 24,
-        mapping: null,
-        name: 'Amount',
-        mod_group: MOD_GROUP_CYCLING_ENV
-    },
-    [CYCLING_ENV_RISE_SHAPE]: {
-        MSB: [4, 20],
-        LSB: [4, 19],
-        msb: [4, 16, 0x04],
-        cc: 24,
-        mapping: null,
-        name: 'Rise shape'
-    },
-    [CYCLING_ENV_FALL_SHAPE]: {
-        MSB: [5, 26],
-        LSB: [5, 25],
-        msb: [5, 24, 0x01],
-        cc: 24,
-        mapping: null,
-        name: 'Fall shape'
-    },
-    [ARP_SEQ_RATE_FREE]: {
-        MSB: [10, 5],
-        LSB: [10, 4],
-        msb: [10, 0, 0x08],
-        cc: 91,
-        mapping: null,
-        name: 'Rate free'
-    },
-    [ARP_SEQ_RATE_SYNC]: {
-        MSB: [9, 27],
-        LSB: [9, 26],
-        msb: [9, 24, 0x02],
-        cc: 92,
-        mapping: null,
-        name: 'Rate sync'
-    },
-    [ARP_SEQ_SWING]: {
-        MSB: [10, 17],
-        LSB: [10, 15],
-        msb: [19, 8, 0x40],
-        cc: 0,
-        mapping: null,  // 50%..75%
-        name: 'Swing'
-    },
-    [LFO_RATE_FREE]: {
-        MSB: [13, 10],
-        LSB: [13, 9],
-        msb: [13, 8, 0x01],
-        cc: 93,
-        mapping: null,
-        name: 'Rate free'
-    },
-    [LFO_RATE_SYNC]: {
-        MSB: [12, 31],
-        LSB: [12, 30],
-        msb: [12, 24, 0x20],
-        cc: 94,
-        mapping: null,
-        name: 'Rate sync'
-    },
-    [ENVELOPE_ATTACK]: {
-        MSB: [14, 29],
-        LSB: [14, 28],
-        // sign: [1, 0x02],
-        msb: [14, 24, 0x08],
-        cc: 105,
-        mapping: null,
-        name: 'Attack',
-        mod_group: MOD_GROUP_ENVELOPE
-    },
-    [ENVELOPE_DECAY]: {
-        MSB: [15, 10],
-        LSB: [15, 9],
-        //sign: [0, 0, 0x02],
-        msb: [15, 8, 0x01],
-        cc: 106,
-        mapping: null,
-        name: 'Decay/Rel',
-        mod_group: MOD_GROUP_ENVELOPE
-    },
-    [ENVELOPE_SUSTAIN]: {
-        MSB: [15, 23],
-        LSB: [15, 22],
-        //sign: [0, 0, 0x02],
-        msb: [15, 16, 0x20],
-        cc: 29,
-        mapping: null,
-        name: 'Sustain',
-        mod_group: MOD_GROUP_ENVELOPE
-    },
-    // [HOLD]: {
-    //     MSB: [0, 0],
-    //     LSB: [0, 0],
-    //     //sign: [0, 0, 0x02],
-    //     msb: [0, 0, 0x01],
-    //     cc: 64,
-    //     mapping: null,
-    //     name: 'Hold'
-    // },
-    [SPICE]: {
-        MSB: [0, 0],
-        LSB: [0, 0],
-        //sign: [0, 0, 0x02],
-        msb: [0, 0, 0x01],
-        cc: 2,
-        mapping: null,
-        name: 'Spice'
+    [FW2]: {
+        [GLIDE]: {
+            MSB: [6, 23],
+            LSB: [6, 22],
+            //sign: [0, 0, 0x02],
+            msb: [6, 16, 0x20],
+            cc: 5,
+            mapping: null,
+            name: "Glide",
+            // group: MOD_GROUP_
+        },
+        [OSC_TYPE]: {
+            MSB: null,
+            LSB: [0, 14],
+            msb: null,
+            cc: 9,
+            mapping: _osc_type,
+            name: "Type",
+            mod_group: MOD_GROUP_OSC
+        },
+        [OSC_WAVE]: {
+            LSB: [0, 26],
+            MSB: [0, 27],
+            //sign: [0, 0, 0x02],
+            msb: [0, 24, 0x02],
+            cc: 10,
+            mapping: null,
+            name: 'Wave',
+            mod_group: MOD_GROUP_OSC
+        },
+        [OSC_TIMBRE]: {
+            LSB: [1, 6],
+            MSB: [1, 7],
+            msb: [1, 0, 0x20],
+            cc: 12,
+            mapping: null,
+            name: 'Timbre',
+            mod_group: MOD_GROUP_OSC
+        },
+        [OSC_SHAPE]: {      // ok
+            MSB: [1, 20],
+            LSB: [1, 19],
+            //sign: [0, 0, 0x02],
+            msb: [1, 16, 0x04],
+            cc: 13,
+            mapping: null,
+            name: 'Shape',
+            mod_group: MOD_GROUP_OSC
+        },
+        [FILTER_CUTOFF]: {
+            MSB: [2, 30],
+            LSB: [2, 29],
+            //sign: [0, 0, 0x02],
+            msb: [2, 24, 0x10],
+            cc: 23,
+            mapping: null,
+            name: 'Cutoff',
+            mod_group: MOD_GROUP_FILTER
+        },
+        [FILTER_RESONANCE]: {
+            MSB: [3, 9],
+            LSB: [3, 7],
+            //sign: [0, 0, 0x02],
+            msb: [3, 0, 0x40],
+            cc: 83,
+            mapping: null,
+            name: 'Resonance',
+            mod_group: MOD_GROUP_FILTER
+        },
+        [CYCLING_ENV_RISE]: {
+            MSB: [4, 6],
+            LSB: [4, 5],
+            //sign: [0, 0, 0x02],
+            msb: [4, 0, 0x10],
+            cc: 102,
+            mapping: null,  //_0_100,
+            name: 'Rise',
+            mod_group: MOD_GROUP_CYCLING_ENV
+        },
+        [CYCLING_ENV_FALL]: {
+            MSB: [5, 2],
+            LSB: [5, 1],
+            //sign: [0, 0, 0x02],
+            msb: [5, 0, 0x01],
+            cc: 103,
+            mapping: null,
+            name: 'Fall',
+            mod_group: MOD_GROUP_CYCLING_ENV
+        },
+        [CYCLING_ENV_HOLD]: {
+            MSB: [5, 12],
+            LSB: [5, 11],
+            //sign: [0, 0, 0x02],
+            msb: [5, 8, 0x04],
+            cc: 28,
+            mapping: null,
+            name: 'Hold',
+            mod_group: MOD_GROUP_CYCLING_ENV
+        },
+        [CYCLING_ENV_AMOUNT]: {
+            MSB: [6, 6],
+            LSB: [6, 5],
+            //sign: [0, 0, 0x02],
+            msb: [6, 0, 0x10],
+            cc: 24,
+            mapping: null,
+            name: 'Amount',
+            mod_group: MOD_GROUP_CYCLING_ENV
+        },
+        [CYCLING_ENV_RISE_SHAPE]: {
+            MSB: [4, 20],
+            LSB: [4, 19],
+            msb: [4, 16, 0x04],
+            cc: 24,
+            mapping: null,
+            name: 'Rise shape'
+        },
+        [CYCLING_ENV_FALL_SHAPE]: {
+            MSB: [5, 26],
+            LSB: [5, 25],
+            msb: [5, 24, 0x01],
+            cc: 24,
+            mapping: null,
+            name: 'Fall shape'
+        },
+        [ARP_SEQ_RATE_FREE]: {
+            LSB: [10, 26],
+            MSB: [10, 27],
+            msb: [10, 24, 0x02],
+            cc: 91,
+            mapping: null,
+            name: 'Rate free'
+        },
+        [ARP_SEQ_RATE_SYNC]: {
+            LSB: [10, 15],
+            MSB: [10, 17],
+            msb: [10, 8, 0x40],
+            cc: 92,
+            mapping: null,
+            name: 'Rate sync'
+        },
+        [ARP_SEQ_SWING]: {
+            MSB: [11, 5],
+            LSB: [11, 6],
+            msb: [11, 0, 0x10],
+            cc: 0,
+            mapping: null,  // 50%..75%
+            name: 'Swing'
+        },
+        [LFO_RATE_FREE]: {
+            LSB: [13, 30],
+            MSB: [13, 31],
+            msb: [13, 24, 0x20],
+            cc: 93,
+            mapping: null,
+            name: 'Rate free'
+        },
+        [LFO_RATE_SYNC]: {
+            LSB: [13, 20],
+            MSB: [13, 21],
+            msb: [13, 16, 0x08],
+            cc: 94,
+            mapping: null,
+            name: 'Rate sync'
+        },
+        [ENVELOPE_ATTACK]: {
+            LSB: [15, 18],
+            MSB: [15, 19],
+            msb: [15, 16, 0x02],
+            cc: 105,
+            mapping: null,
+            name: 'Attack',
+            mod_group: MOD_GROUP_ENVELOPE
+        },
+        [ENVELOPE_DECAY]: {
+            LSB: [15, 30],
+            MSB: [15, 31],
+            //sign: [0, 0, 0x02],
+            msb: [15, 24, 0x20],
+            cc: 106,
+            mapping: null,
+            name: 'Decay/Rel',
+            mod_group: MOD_GROUP_ENVELOPE
+        },
+        [ENVELOPE_SUSTAIN]: {
+            LSB: [16, 12],
+            MSB: [16, 13],
+            msb: [16, 8, 0x08],
+            cc: 29,
+            mapping: null,
+            name: 'Sustain',
+            mod_group: MOD_GROUP_ENVELOPE
+        },
+        // [HOLD]: {
+        //     MSB: [0, 0],
+        //     LSB: [0, 0],
+        //     //sign: [0, 0, 0x02],
+        //     msb: [0, 0, 0x01],
+        //     cc: 64,
+        //     mapping: null,
+        //     name: 'Hold'
+        // },
+        [SPICE]: {
+            MSB: [0, 0],
+            LSB: [0, 0],
+            //sign: [0, 0, 0x02],
+            msb: [0, 0, 0x01],
+            cc: 2,
+            mapping: null,
+            name: 'Spice'
+        }
     }
 };
 
 export const SWITCH = {
-    [FILTER_TYPE]: {
-        MSB: [2, 18],
-        LSB: [2, 17],
-        msb: [2, 16, 0x01],
-        values: [
-            {name: 'LPF', value: 0},
-            {name: 'BPF', value: 0x4000},
-            {name: 'HPF', value: 0x7fff}
-        ],
-        name: "Filter type"
+    [FW1]: {
+        [FILTER_TYPE]: {
+            MSB: [2, 18],
+            LSB: [2, 17],
+            msb: [2, 16, 0x01],
+            values: [
+                {name: 'LPF', value: 0},
+                {name: 'BPF', value: 0x4000},
+                {name: 'HPF', value: 0x7fff}
+            ],
+            name: "Filter type"
+        },
+        [AMP_MOD]: {
+            MSB: [14, 17],
+            LSB: [14, 15],
+            msb: [14, 8, 0x40],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: "Amp mod"
+        },
+        [CYCLING_ENV_MODE]: {
+            MSB: [3, 25],
+            LSB: [3, 23],
+            msb: [3, 16, 0x40],
+            values: [
+                {name: 'Env', value: 0},
+                {name: 'Run', value: 0x4000},
+                {name: 'Loop', value: 0x7fff}
+            ],
+            name: "Mode"
+        },
+        [LFO_SHAPE]: {
+            MSB: [12, 22],
+            LSB: [12, 21],
+            msb: [12, 16, 0x10],
+            values: [
+                {name: 'Sine', value: 0},
+                {name: 'Tri', value: 0x1999},
+                {name: 'Saw', value: 0x3333},
+                {name: 'Sqa', value: 0x4ccc},
+                {name: 'SnH', value: 0x6666},
+                {name: 'SnHF', value: 0x7fff}
+            ],
+            name: "Shape",
+            mod_group: MOD_GROUP_LFO
+        },
+        [ARP]: {
+            MSB: [9, 6],
+            LSB: [9, 5],
+            msb: [9, 0, 0x10],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: "Arp"
+        },
+        [SEQ]: {
+            MSB: [12, 5],
+            LSB: [12, 4],
+            msb: [12, 0, 0x08],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: "Seq"
+        },
+        [ARP_SEQ_MOD]: {
+            MSB: [9, 18],
+            LSB: [9, 17],
+            msb: [9, 16, 0x01],
+            values: [
+                {name: '1', value: 17408},
+                {name: '2', value: 10922},
+                {name: '3', value: 21845},
+                {name: '4', value: 0x7fff}
+            ],
+            name: "Mod"
+        },
+        [ARP_SEQ_SYNC]: {   //TODO
+            MSB: [10, 27],
+            LSB: [10, 26],
+            msb: [10, 24, 0x02],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: "Sync"
+        },
+        [LFO_SYNC]: {
+            MSB: [13, 20],
+            LSB: [13, 19],
+            msb: [13, 16, 0x04],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: "Sync"
+        },
+        [PARAPHONIC]: {
+            MSB: [16, 23],
+            LSB: [16, 22],
+            msb: [16, 16, 0x20],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: "Paraphonic"
+        },
+        [OCTAVE]: {
+            MSB: [7, 4],
+            LSB: [7, 3],
+            msb: [7, 0, 0x04],
+            // mapping: _octave,
+            values: [
+                {name: '-3', value: 0},
+                {name: '-2', value: 0x1555},
+                {name: '-1', value: 0x2aaa},
+                {name: '0', value: 0x4000},
+                {name: '+1', value: 0x5555},
+                {name: '+2', value: 0x6aaa},
+                {name: '+3', value: 0x7fff}
+            ],
+            name: "Octave"
+        },
+        [HOLD]: {   //TODO
+            MSB: [0, 0],
+            LSB: [0, 0],
+            msb: [0, 0, 0],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: 'Hold'
+        }
     },
-    [AMP_MOD]: {
-        MSB: [14, 17],
-        LSB: [14, 15],
-        msb: [14, 8, 0x40],
-        values: [
-            {name: 'Off', value: 0},
-            {name: 'On', value: 0x7fff}
-        ],
-        name: "Amp mod"
-    },
-    [CYCLING_ENV_MODE]: {
-        MSB: [3, 25],
-        LSB: [3, 23],
-        msb: [3, 16, 0x40],
-        values: [
-            {name: 'Env', value: 0},
-            {name: 'Run', value: 0x4000},
-            {name: 'Loop', value: 0x7fff}
-        ],
-        name: "Mode"
-    },
-    [LFO_SHAPE]: {
-        MSB: [12, 22],
-        LSB: [12, 21],
-        msb: [12, 16, 0x10],
-        values: [
-            {name: 'Sine', value: 0},
-            {name: 'Tri', value: 0x1999},
-            {name: 'Saw', value: 0x3333},
-            {name: 'Sqa', value: 0x4ccc},
-            {name: 'SnH', value: 0x6666},
-            {name: 'SnHF', value: 0x7fff}
-        ],
-        name: "Shape",
-        mod_group: MOD_GROUP_LFO
-    },
-    [ARP]: {
-        MSB: [9, 6],
-        LSB: [9, 5],
-        msb: [9, 0, 0x10],
-        values: [
-            {name: 'Off', value: 0},
-            {name: 'On', value: 0x7fff}
-        ],
-        name: "Arp"
-    },
-    [SEQ]: {
-        MSB: [12, 5],
-        LSB: [12, 4],
-        msb: [12, 0, 0x08],
-        values: [
-            {name: 'Off', value: 0},
-            {name: 'On', value: 0x7fff}
-        ],
-        name: "Seq"
-    },
-    [ARP_SEQ_MOD]: {
-        MSB: [9, 18],
-        LSB: [9, 17],
-        msb: [9, 16, 0x01],
-        values: [
-            {name: '1', value: 17408},
-            {name: '2', value: 10922},
-            {name: '3', value: 21845},
-            {name: '4', value: 0x7fff}
-        ],
-        name: "Mod"
-    },
-    [ARP_SEQ_SYNC]: {   //TODO
-        MSB: [10, 27],
-        LSB: [10, 26],
-        msb: [10, 24, 0x02],
-        values: [
-            {name: 'Off', value: 0},
-            {name: 'On', value: 0x7fff}
-        ],
-        name: "Sync"
-    },
-    [LFO_SYNC]: {
-        MSB: [13, 20],
-        LSB: [13, 19],
-        msb: [13, 16, 0x04],
-        values: [
-            {name: 'Off', value: 0},
-            {name: 'On', value: 0x7fff}
-        ],
-        name: "Sync"
-    },
-    [PARAPHONIC]: {
-        MSB: [16, 23],
-        LSB: [16, 22],
-        msb: [16, 16, 0x20],
-        values: [
-            {name: 'Off', value: 0},
-            {name: 'On', value: 0x7fff}
-        ],
-        name: "Paraphonic"
-    },
-    [OCTAVE]: {
-        MSB: [7, 4],
-        LSB: [7, 3],
-        msb: [7, 0, 0x04],
-        // mapping: _octave,
-        values: [
-            {name: '-3', value: 0},
-            {name: '-2', value: 0x1555},
-            {name: '-1', value: 0x2aaa},
-            {name: '0', value: 0x4000},
-            {name: '+1', value: 0x5555},
-            {name: '+2', value: 0x6aaa},
-            {name: '+3', value: 0x7fff}
-        ],
-        name: "Octave"
-    },
-    [HOLD]: {   //TODO
-        MSB: [0, 0],
-        LSB: [0, 0],
-        msb: [0, 0, 0],
-        values: [
-            {name: 'Off', value: 0},
-            {name: 'On', value: 0x7fff}
-        ],
-        name: 'Hold'
+    [FW2]: {
+        [FILTER_TYPE]: {        // fw1, fw2
+            MSB: [2, 18],
+            LSB: [2, 17],
+            msb: [2, 16, 0x01],
+            values: [
+                {name: 'LPF', value: 0},
+                {name: 'BPF', value: 0x4000},
+                {name: 'HPF', value: 0x7fff}
+            ],
+            name: "Filter type"
+        },
+        // [AMP_MOD]: {
+        //     MSB: [14, 17],
+        //     LSB: [14, 15],
+        //     msb: [14, 8, 0x40],
+        //     values: [
+        //         {name: 'Off', value: 0},
+        //         {name: 'On', value: 0x7fff}
+        //     ],
+        //     name: "Amp mod"
+        // },
+        [AMP_MOD]: {
+            LSB: [15, 5],
+            MSB: [15, 6],
+            msb: [15, 0, 0x10],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: "Amp mod"
+        },
+        [CYCLING_ENV_MODE]: {
+            MSB: [3, 25],       // fw1, fw2
+            LSB: [3, 23],
+            msb: [3, 16, 0x40],
+            values: [
+                {name: 'Env', value: 0},
+                {name: 'Run', value: 0x4000},
+                {name: 'Loop', value: 0x7fff}
+            ],
+            name: "Mode"
+        },
+        // [LFO_SHAPE]: {
+        //     MSB: [12, 22],
+        //     LSB: [12, 21],
+        //     msb: [12, 16, 0x10],
+        //     values: [
+        //         {name: 'Sine', value: 0},
+        //         {name: 'Tri', value: 0x1999},
+        //         {name: 'Saw', value: 0x3333},
+        //         {name: 'Sqa', value: 0x4ccc},
+        //         {name: 'SnH', value: 0x6666},
+        //         {name: 'SnHF', value: 0x7fff}
+        //     ],
+        //     name: "Shape",
+        //     mod_group: MOD_GROUP_LFO
+        // },
+        [LFO_SHAPE]: {
+            LSB: [13, 11],
+            MSB: [13, 12],
+            msb: [13, 8, 0x04],
+            values: [
+                {name: 'Sine', value: 0},
+                {name: 'Tri', value: 0x1999},
+                {name: 'Saw', value: 0x3333},
+                {name: 'Sqa', value: 0x4ccc},
+                {name: 'SnH', value: 0x6666},
+                {name: 'SnHF', value: 0x7fff}
+            ],
+            name: "Shape",
+            mod_group: MOD_GROUP_LFO
+        },
+        [ARP]: {
+            MSB: [9, 6],
+            LSB: [9, 5],
+            msb: [9, 0, 0x10],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: "Arp"
+        },
+        [SEQ]: {
+            MSB: [12, 5],
+            LSB: [12, 4],
+            msb: [12, 0, 0x08],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: "Seq"
+        },
+        // [ARP_SEQ_MOD]: {
+        //     MSB: [9, 18],
+        //     LSB: [9, 17],
+        //     msb: [9, 16, 0x01],
+        //     values: [
+        //         {name: '1', value: 17408},
+        //         {name: '2', value: 10922},
+        //         {name: '3', value: 21845},
+        //         {name: '4', value: 0x7fff}
+        //     ],
+        //     name: "Mod"
+        // },
+        [ARP_SEQ_MOD]: {
+            LSB: [9, 27],
+            MSB: [9, 28],
+            msb: [9, 24, 0x04],
+            values: [
+                {name: '1', value: 17408},
+                {name: '2', value: 10922},
+                {name: '3', value: 21845},
+                {name: '4', value: 0x7fff}
+            ],
+            name: "Mod"
+        },
+        [ARP_SEQ_SYNC]: {   //TODO
+            LSB: [10, 6],
+            MSB: [10, 7],
+            msb: [10, 0, 0x20],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: "Sync"
+        },
+        // [LFO_SYNC]: {
+        //     MSB: [13, 20],
+        //     LSB: [13, 19],
+        //     msb: [13, 16, 0x04],
+        //     values: [
+        //         {name: 'Off', value: 0},
+        //         {name: 'On', value: 0x7fff}
+        //     ],
+        //     name: "Sync"
+        // },
+        [LFO_SYNC]: {
+            LSB: [14, 9],
+            MSB: [14, 10],
+            msb: [14, 8, 0x01],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: "Sync"
+        },
+        [PARAPHONIC]: {
+            MSB: [16, 23],
+            LSB: [16, 22],
+            msb: [16, 16, 0x20],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: "Paraphonic"
+        },
+        [PARAPHONIC]: {
+            LSB: [17, 12],
+            MSB: [17, 13],
+            msb: [17, 8, 0x08],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: "Paraphonic"
+        },
+        [OCTAVE]: {         // fw1, fw2
+            MSB: [7, 4],
+            LSB: [7, 3],
+            msb: [7, 0, 0x04],
+            // mapping: _octave,
+            values: [
+                {name: '-3', value: 0},
+                {name: '-2', value: 0x1555},
+                {name: '-1', value: 0x2aaa},
+                {name: '0', value: 0x4000},
+                {name: '+1', value: 0x5555},
+                {name: '+2', value: 0x6aaa},
+                {name: '+3', value: 0x7fff}
+            ],
+            name: "Octave"
+        },
+        [HOLD]: {   //TODO
+            MSB: [0, 0],
+            LSB: [0, 0],
+            msb: [0, 0, 0],
+            values: [
+                {name: 'Off', value: 0},
+                {name: 'On', value: 0x7fff}
+            ],
+            name: 'Hold'
+        }
     }
 };

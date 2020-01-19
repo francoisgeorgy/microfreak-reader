@@ -11,7 +11,7 @@ class Control extends Component {
     render() {
 
         const {cc, state: S} = this.props;
-        const control = CONTROL[cc];
+        const control = CONTROL[S.fwVersion()][cc];
 
         const v = S.controlValue(control, cc === OSC_TYPE);
         let mapped;

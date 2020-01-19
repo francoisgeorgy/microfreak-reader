@@ -9,7 +9,7 @@ class Switch extends Component {
     render() {
 
         const {cc, state: S} = this.props;
-        const sw = SWITCH[cc];
+        const sw = SWITCH[S.fwVersion()][cc];
         const v = S.switchValue(sw);
 
         return (

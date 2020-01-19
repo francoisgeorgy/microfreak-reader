@@ -1,6 +1,7 @@
 import WebMidi from "webmidi";
 import {PORT_OUTPUT} from "../components/Midi";
 import {state} from "../state/State";
+import {FW2} from "../model";
 
 export function portById(id) {
     if (!id) return null;
@@ -138,7 +139,13 @@ export async function readPreset(presetNumber = -1) {
 
     state.preset_number_comm = presetNumber < 0 ? state.preset_number : presetNumber;
 
-    state.presets[state.preset_number_comm] = {name: null, supported: true, data:[]};
+    // create preset default structure:
+    state.presets[state.preset_number_comm] = {
+        fw: FW2,
+        name: null,
+        supported: true,
+        data: []
+    };
 
     sendNameRequest(state.preset_number_comm);
     await wait(WAIT_BETWEEN_MESSAGES);
