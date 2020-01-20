@@ -22,6 +22,13 @@
     text-align: center;
 }
 
+.arp-sync {
+    margin-top: 16px;
+    color: var(--knob-text);
+    white-space: pre-wrap;
+    text-align: center;
+}
+
 .ctrl-value {
     margin-top: -7px;
     color: var(--knob-text);

@@ -62,6 +62,7 @@ import {
 } from "./utils/preferences";
 import PresetsGrid from "./components/PresetsGrid";
 import WindowTitle from "./components/WindowTitle";
+import ControlRateSync from "./components/ControlRateSync";
 
 const MIDI_MSG_TYPE = "sysex";
 
@@ -114,7 +115,7 @@ class App extends Component {
                             MicroFreak&nbsp;<PresetName />
                         </div>
                         <div className="header-options">
-                            <a href="https://studiocode.dev/microfreak/reader/help/" target="_blank" rel="noopener noreferrer">Doc</a>
+                            <a href="https://studiocode.dev/applications/microfreak-reader/" target="_blank" rel="noopener noreferrer">Doc</a>
                             <select value={this.state.theme} onChange={this.selectTheme}>
                                 <option value="light">Light theme</option>
                                 <option value="dark">Dark theme</option>
@@ -149,7 +150,7 @@ class App extends Component {
                             <div className="group oscillator">
                                 <h3>Oscillator</h3>
                                 <div className="controls">
-                                    <Control cc={OSC_TYPE} group={MOD_GROUP_OSC}/>
+                                    <Control cc={OSC_TYPE} group={MOD_GROUP_OSC} raw={true}/>
                                     <Control cc={OSC_WAVE} group={MOD_GROUP_OSC}/>
                                     <Control cc={OSC_TIMBRE} group={MOD_GROUP_OSC}/>
                                     <Control cc={OSC_SHAPE} group={MOD_GROUP_OSC}/>
@@ -183,7 +184,7 @@ class App extends Component {
                                     <Switch cc={ARP_SEQ_MOD} layout={LAYOUT_2_COLS}/>
                                     <Switch cc={ARP_SEQ_SYNC} />
                                     <Control cc={ARP_SEQ_RATE_FREE} group={MOD_GROUP_ARP_SEQ}/>
-                                    <Control cc={ARP_SEQ_RATE_SYNC} group={MOD_GROUP_ARP_SEQ}/>
+                                    <ControlRateSync cc={ARP_SEQ_RATE_SYNC} group={MOD_GROUP_ARP_SEQ} raw={true}/>
                                     <Control cc={ARP_SEQ_SWING} />
                                     <Control cc={SPICE}/>
                                 </div>
@@ -194,7 +195,7 @@ class App extends Component {
                                     <Switch cc={LFO_SHAPE} layout={LAYOUT_2_COLS}/>
                                     <Switch cc={LFO_SYNC} />
                                     <Control cc={LFO_RATE_FREE} group={MOD_GROUP_LFO}/>
-                                    <Control cc={LFO_RATE_SYNC} group={MOD_GROUP_LFO}/>
+                                    <ControlRateSync cc={LFO_RATE_SYNC} group={MOD_GROUP_LFO} raw={true}/>
                                 </div>
                             </div>
                             <div className="group env">

@@ -38,6 +38,8 @@ export const multibytesValue = (MSB, LSB, msb_byte, mask_msb, sign_byte, mask_si
 };
 
 
+const _percent = v => `${v.toFixed(0)}%`;
+
 const _osc_type = function (v, fw=2) {
     if (fw === 2) {
         switch (true) {
@@ -129,6 +131,80 @@ const _osc_type = function (v, fw=2) {
     //     default:
     //         return "?";
 
+};
+
+const _arp_rate_sync = function (v) {
+    // console.log(`arp rate sync`, v, typeof v);
+
+    // arp rate sync
+    // 1	0x00	0	0
+    // 2	0x0c	12	3277
+    // 2t	0x19	25	6553
+    // 4	0x26	38	9830
+    // 4t	0x33	51	13107
+    // 8	0x40	64	16384
+    // 8t	0x4c	76	19660
+    // 16	0x59	89	22937
+    // 16t	0x66	102	26214
+    // 32	0x73	115	29490
+    // 32t	0x7f	127	32767
+
+    switch (true) {
+        case (v >= 0x00) && (v < 3277):     return "1/1";
+        case (v >= 3277) && (v < 6553):     return "1/2";
+        case (v >= 6553) && (v < 9830):     return "1/2T";
+        case (v >= 9830) && (v < 13107):    return "1/4";
+        case (v >= 13107) && (v < 16384):   return "1/4T";
+        case (v >= 16384) && (v < 19660):   return "1/8";
+        case (v >= 19660) && (v < 22937):   return "1/8T";
+        case (v >= 22937) && (v < 26214):   return "1/16";
+        case (v >= 26214) && (v < 29490):   return "1/16T";
+        case (v >= 29490) && (v < 32767):   return "1/32";
+        case (v >= 32767):                  return "1/32T";
+        default:
+            return "?";
+    }
+};
+
+const _lfo_rate_sync = function (v) {
+
+    // 8	    0	    0
+    // 4	    0x0a	10
+    // 2	    0x15	21
+    // 1	    0x20	32
+    // 1/2	    0x2a	42
+    // 1/2t	    0x35	53
+    // 1/4	    0x40	64
+    // 1/4t	    0x4a	74
+    // 1/8	    0x55	85
+    // 1/8t	    0x5f	95
+    // 1/16	    0x6a	106
+    // 1/16t	0x75	117
+    // 1/32	    0x7f	127
+
+    const R = ['8/1', '4/1', '2/1', '1/1', '1/2', '1/2T', '1/4', '1/4T', '1/8', '1/8T', '1/16', '1/16T', '1/32'];
+
+    const delta = 32768 / 12;
+
+    // console.log(`lfo rate sync`, v, v / delta, delta, Math.floor(v / delta + 0.5));
+
+    return R[Math.floor(v / delta + 0.5)];
+
+    // switch (true) {
+    //     case (v >= 0x00) && (v < 3277):     return "1/1";
+    //     case (v >= 3277) && (v < 6553):     return "1/2";
+    //     case (v >= 6553) && (v < 9830):     return "1/2T";
+    //     case (v >= 9830) && (v < 13107):    return "1/4";
+    //     case (v >= 13107) && (v < 16384):   return "1/4T";
+    //     case (v >= 16384) && (v < 19660):   return "1/8";
+    //     case (v >= 19660) && (v < 22937):   return "1/8T";
+    //     case (v >= 22937) && (v < 26214):   return "1/16";
+    //     case (v >= 26214) && (v < 29490):   return "1/16T";
+    //     case (v >= 29490) && (v < 32767):   return "1/32";
+    //     case (v >= 32767):                  return "1/32T";
+    //     default:
+    //         return "?";
+    // }
 };
 
 /*
@@ -1198,7 +1274,7 @@ export const CONTROL = {
             //sign: [0, 0, 0x02],
             msb: [3, 0, 0x40],
             cc: 83,
-            mapping: null,
+            mapping: _percent,
             name: 'Resonance',
             mod_group: MOD_GROUP_FILTER
         },
@@ -1238,7 +1314,7 @@ export const CONTROL = {
             //sign: [0, 0, 0x02],
             msb: [6, 0, 0x10],
             cc: 24,
-            mapping: null,
+            mapping: _percent,
             name: 'Amount',
             mod_group: MOD_GROUP_CYCLING_ENV
         },
@@ -1271,7 +1347,7 @@ export const CONTROL = {
             LSB: [9, 26],
             msb: [9, 24, 0x02],
             cc: 92,
-            mapping: null,
+            mapping: _arp_rate_sync,
             name: 'Rate sync'
         },
         [ARP_SEQ_SWING]: {
@@ -1295,7 +1371,7 @@ export const CONTROL = {
             LSB: [12, 30],
             msb: [12, 24, 0x20],
             cc: 94,
-            mapping: null,
+            mapping: _lfo_rate_sync,
             name: 'Rate sync'
         },
         [ENVELOPE_ATTACK]: {
@@ -1324,7 +1400,7 @@ export const CONTROL = {
             //sign: [0, 0, 0x02],
             msb: [15, 16, 0x20],
             cc: 29,
-            mapping: null,
+            mapping: _percent,
             name: 'Sustain',
             mod_group: MOD_GROUP_ENVELOPE
         },
@@ -1412,7 +1488,7 @@ export const CONTROL = {
             //sign: [0, 0, 0x02],
             msb: [3, 0, 0x40],
             cc: 83,
-            mapping: null,
+            mapping: _percent,
             name: 'Resonance',
             mod_group: MOD_GROUP_FILTER
         },
@@ -1452,7 +1528,7 @@ export const CONTROL = {
             //sign: [0, 0, 0x02],
             msb: [6, 0, 0x10],
             cc: 24,
-            mapping: null,
+            mapping: _percent,
             name: 'Amount',
             mod_group: MOD_GROUP_CYCLING_ENV
         },
@@ -1485,7 +1561,7 @@ export const CONTROL = {
             MSB: [10, 17],
             msb: [10, 8, 0x40],
             cc: 92,
-            mapping: null,
+            mapping: _arp_rate_sync,
             name: 'Rate sync'
         },
         [ARP_SEQ_SWING]: {
@@ -1509,7 +1585,7 @@ export const CONTROL = {
             MSB: [13, 21],
             msb: [13, 16, 0x08],
             cc: 94,
-            mapping: null,
+            mapping: _lfo_rate_sync,
             name: 'Rate sync'
         },
         [ENVELOPE_ATTACK]: {
@@ -1536,7 +1612,7 @@ export const CONTROL = {
             MSB: [16, 13],
             msb: [16, 8, 0x08],
             cc: 29,
-            mapping: null,
+            mapping: _percent,
             name: 'Sustain',
             mod_group: MOD_GROUP_ENVELOPE
         },
