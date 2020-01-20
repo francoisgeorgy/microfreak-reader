@@ -215,9 +215,11 @@ class PresetSelector extends Component {
                     <select className="preloader" onChange={this.loadData}>
                         <option value="">Packs...</option>
                         <option value="Factory_1-1.json">Factory 1.1</option>
+                        <option value="Factory_2-0.json">Factory 2.0</option>
                         <option value="Naughty_Bass.json">Naughty Bass</option>
                         <option value="Plaisir_Pads.json">Plaisir Pads</option>
                         <option value="Tech_Loop.json">Tech Loop</option>
+                        <option value="Arp_Monster.json">Arp Monster</option>
                     </select>
                     <input ref={this.inputOpenFileRef} type="file" style={{display:"none"}}  onChange={this.onFileSelection} />
                     <button type="button midi-ok" onClick={this.importFromFile}>Load file</button>

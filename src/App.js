@@ -221,15 +221,22 @@ class App extends Component {
                                 </div>
                             </div>
                             <div className="instructions">
-                                <h3>How to use:</h3>
                                 <div>
-                                    <ol>
-                                        <li>Enable the MIDI input and output ports.</li>
-                                        <li>Select the preset number.</li>
-                                        <li>Click the READ button.</li>
-                                    </ol>
+                                    This is not an editor. This application will not update in real-time to your changes.
                                 </div>
-                                <div>You can only read saved presets.</div>
+                                <div>
+                                    This application can only read presets saved in the MicroFreak memory.
+                                </div>
+                                <div>
+                                    If you modify a preset on the MicroFreak, do not forget to save it first before being able to
+                                    read it again here to see your changes.
+                                </div>
+                                <div>
+                                    No guarantee is given as to the accuracy of the displayed data.
+                                </div>
+                                <div>
+                                    To report bugs and issues: <a href="https://github.com/francoisgeorgy/microfreak-reader/issues" className="github-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+                                </div>
                                 {/*<div>You can read a preset different than the one currently loaded on the MicroFreak.</div>*/}
                                 <div className="copyright">
                                     v{process.env.REACT_APP_VERSION} &copy; <a href="https://studiocode.dev" target="_blank" rel="noopener noreferrer">studiocode.dev 2019</a>
