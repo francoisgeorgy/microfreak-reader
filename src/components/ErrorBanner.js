@@ -17,7 +17,7 @@ class ErrorBanner extends Component {
                 msg = 'MIDI communication error. Try restarting the MicroFreak.';
                 break;
             case 2:
-                msg = 'Unsupported browser. Not support for MIDI.';
+                msg = 'Unsupported browser. No support for MIDI.';
                 break;
             default:
                 msg = 'Unknown error code: ' + S.error;
