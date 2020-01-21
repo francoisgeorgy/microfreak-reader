@@ -106,6 +106,8 @@ class App extends Component {
         const { theme } = this.state;
         document.documentElement.setAttribute('data-theme', theme);
 
+
+
         return (
             <Provider state={state}>
                 <WindowTitle />
@@ -183,8 +185,8 @@ class App extends Component {
                                     <Switch cc={SEQ} />
                                     <Switch cc={ARP_SEQ_MOD} layout={LAYOUT_2_COLS}/>
                                     <Switch cc={ARP_SEQ_SYNC} />
-                                    <Control cc={ARP_SEQ_RATE_FREE} group={MOD_GROUP_ARP_SEQ}/>
-                                    <ControlRateSync cc={ARP_SEQ_RATE_SYNC} group={MOD_GROUP_ARP_SEQ} raw={true}/>
+                                    <Control cc={ARP_SEQ_RATE_FREE} group={MOD_GROUP_ARP_SEQ} sw={ARP_SEQ_SYNC} inverseSw={true} />
+                                    <ControlRateSync cc={ARP_SEQ_RATE_SYNC} group={MOD_GROUP_ARP_SEQ} raw={true} sw={ARP_SEQ_SYNC} />
                                     <Control cc={ARP_SEQ_SWING} />
                                     <Control cc={SPICE}/>
                                 </div>
@@ -194,8 +196,8 @@ class App extends Component {
                                 <div className="controls">
                                     <Switch cc={LFO_SHAPE} layout={LAYOUT_2_COLS}/>
                                     <Switch cc={LFO_SYNC} />
-                                    <Control cc={LFO_RATE_FREE} group={MOD_GROUP_LFO}/>
-                                    <ControlRateSync cc={LFO_RATE_SYNC} group={MOD_GROUP_LFO} raw={true}/>
+                                    <Control cc={LFO_RATE_FREE} group={MOD_GROUP_LFO} sw={LFO_SYNC} inverseSw={true} />
+                                    <ControlRateSync cc={LFO_RATE_SYNC} group={MOD_GROUP_LFO} raw={true} sw={LFO_SYNC} />
                                 </div>
                             </div>
                             <div className="group env">

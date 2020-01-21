@@ -213,6 +213,23 @@ const _0_100 = function (v) {
 };
 */
 
+
+/*
+const arpSyncOn = function () {
+
+    if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
+        return 0;
+    }
+    const data = this.presets[this.preset_number].data;
+    if (data.length < 39) return;  //FIXME
+
+    console.log("arpSyncOn", this.switchValue(SWITCH[this.presets[this.preset_number].fw][ARP_SEQ_SYNC]));
+
+    return this.switchValue(SWITCH[this.presets[this.preset_number].fw][ARP_SEQ_SYNC]) > 0;
+}
+*/
+
+
 // default mask for LSB and MSB : 0x7f
 // default mask for MSB_lsb : 0x01
 // default mask for sign in MSB_lsb : 0x02
@@ -1348,6 +1365,7 @@ export const CONTROL = {
             msb: [9, 24, 0x02],
             cc: 92,
             mapping: _arp_rate_sync,
+            // enabled: state.arpSyncOn,
             name: 'Rate sync'
         },
         [ARP_SEQ_SWING]: {

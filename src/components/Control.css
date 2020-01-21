@@ -33,3 +33,7 @@
     margin-top: -7px;
     color: var(--knob-text);
 }
+
+.control-off {
+    opacity: 0.2;
+}

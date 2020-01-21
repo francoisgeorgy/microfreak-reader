@@ -17,7 +17,7 @@ import {
     MOD_SRC_KEY_ARP,
     MOD_SRC_PRESS,
     MOD_SRC_LFO,
-    MOD_SRC_ENV, FW1, FW2
+    MOD_SRC_ENV, FW1, FW2, ARP_SEQ_SYNC, SWITCH
 } from "../model";
 import {MSG_DATA, MSG_NAME, portById} from "../utils/midi";
 import {h, hs} from "../utils/hexstring";
@@ -495,6 +495,19 @@ class State {
             }
         }
         return MOD_MATRIX_DESTINATION[dest];
+    }
+
+    arpSyncOn() {
+
+        if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
+            return 0;
+        }
+        const data = this.presets[this.preset_number].data;
+        if (data.length < 39) return;  //FIXME
+
+        console.log("arpSyncOn", this.switchValue(SWITCH[this.presets[this.preset_number].fw][ARP_SEQ_SYNC]));
+
+        return this.switchValue(SWITCH[this.presets[this.preset_number].fw][ARP_SEQ_SYNC]) > 0;
     }
 
     presetName(number) {  //TODO: change method name
