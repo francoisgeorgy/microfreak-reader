@@ -9,6 +9,16 @@ import {inject, observer} from "mobx-react";
 
 class ControlMods extends Component {
 
+/*
+    state = {
+        popup: false
+    };
+
+    togglePopup = () => {
+        this.setState({popup: !this.state.popup});
+    };
+*/
+
     render() {
 
         const {cc, state: S} = this.props;
@@ -52,6 +62,37 @@ class ControlMods extends Component {
                         )
                     }
                 )}
+                {/* this.state.popup && <div className="control-mods-popup" onClick={this.togglePopup}>
+
+                    {Object.getOwnPropertySymbols(MOD_SOURCE).map(
+                        (src, i) => {
+
+                            if (!MOD_MATRIX_DESTINATION[cc]) {
+                                return null;
+                            }
+
+                            const v = S.modMatrixValue(src, cc);
+                            if (!v || (Math.abs(v) < 0.01)) {
+                                return null;
+                            }
+                            const direction = v < 0 ? 'to left' : 'to right';
+
+                            return (
+                                <div key={src.toString() + i} className="mod"
+                                     style={
+                                         {background: `linear-gradient(${direction}, var(--${MOD_SOURCE_CSS[src]}) ${Math.abs(v)}%, var(--mod-src-bg) ${Math.abs(v)}%)`}
+                                     }
+                                     title={`${MOD_SOURCE_SHORT[src]} ${v}`}>
+                                    <div className={`mod-text ${MOD_SOURCE_CSS[src]}-text`}>
+                                        <div className="mod-name">{MOD_SOURCE_SHORT[src]}</div>
+                                        <div className="mod-value">{v}</div>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    )}
+
+                </div> */}
             </div>
         );
 

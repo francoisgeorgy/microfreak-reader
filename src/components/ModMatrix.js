@@ -118,7 +118,7 @@ class ModMatrix extends Component {
                                     {i === 0 &&
                                         <div className="mod-matrix-unsupported">
                                             <div>
-                                                This factory preset mod-matrix is in an unsupported format.
+                                                This factory preset mod-matrix is in an indecipherable format.
                                             </div>
                                             <div>
                                                 To view this preset mod-matrix you have two possibilities:

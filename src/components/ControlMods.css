@@ -1,3 +1,27 @@
+
+.control-mods {
+    width: 100%;
+    position: relative;
+}
+
+/*
+.control-mods-popup {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    z-index: 2000;
+    background-color: #0ba20b;
+}
+*/
+
+/*
+.popup-wrapper {
+    background-color: #7d44ff;
+}
+*/
+
 .mod {
     margin: 0 0 0 0;
     border: none;
@@ -8,20 +32,28 @@
     width: 100%;
 }
 
-.control-mods {
-    width: 100%;
-}
-
 .control-mods .mod {
     margin-top: 16px;
     height: 3px;
 }
 
+/*
+.control-mods-popup .mod {
+    margin-top: 20px;
+}
+*/
+
+.control-mods-popup .mod {
+    font-size: 100%;
+}
+
+/*
 .mod-text-wrapper {
     position: absolute;
     top: 0;
     left: 0;
 }
+*/
 
 .mod-text {
     font-weight: 300;
@@ -30,8 +62,20 @@
     padding: 0 2px;
     display: flex;
     justify-content: space-between;
-    z-index: 10000;
+    z-index: 1000;
 }
+
+/*
+.control-mods-popup .mod-text {
+    font-weight: 300;
+    position: absolute;
+    bottom: 3px;
+    padding: 0 2px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 2000;
+}
+*/
 
 .mod-name {
     margin-right: 4px;
