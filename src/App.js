@@ -63,6 +63,7 @@ import {
 import PresetsGrid from "./components/PresetsGrid";
 import WindowTitle from "./components/WindowTitle";
 import ControlRateSync from "./components/ControlRateSync";
+import SharePreset from "./components/SharePreset";
 
 const MIDI_MSG_TYPE = "sysex";
 
@@ -115,6 +116,7 @@ class App extends Component {
                     <div className="header">
                         <div className="title">
                             MicroFreak&nbsp;<PresetName />
+                            <SharePreset />
                         </div>
                         <div className="header-options">
                             <a href="https://studiocode.dev/applications/microfreak-reader/" target="_blank" rel="noopener noreferrer">Doc</a>
