@@ -1,4 +1,4 @@
-import {decorate, observable} from 'mobx';
+import {computed, decorate, observable} from 'mobx';
 import {PORT_INPUT, PORT_OUTPUT} from "../components/Midi";
 import {
     ASSIGN1,
@@ -22,6 +22,8 @@ import {
 import {MSG_DATA, MSG_NAME, portById} from "../utils/midi";
 import {h, hs} from "../utils/hexstring";
 import {savePreferences} from "../utils/preferences";
+import {compressToEncodedURIComponent} from "lz-string";
+import axios from "axios";
 
 class State {
 
@@ -518,6 +520,55 @@ class State {
         }
     }
 
+    get shortUrl() {
+        if (this.presets && this.presets.length && this.presets[this.preset_number]) {
+            return this.presets[this.preset_number].shortUrl;
+        } else {
+            return '';
+        }
+    }
+
+    async createShortUrl() {
+
+        console.log("State.createShortUrl()");
+
+        if (this.presets && this.presets.length && this.presets[this.preset_number]) {
+
+            if (this.presets[this.preset_number].shortUrl) return this.presets[this.preset_number].shortUrl;    // not necessary is the state is observed
+
+                // const d = JSON.stringify(this.presets[this.preset_number]);
+            // console.log(d.length, d);
+
+            const zipped = compressToEncodedURIComponent(JSON.stringify(this.presets[this.preset_number]));
+            console.log(zipped.length, zipped);
+
+            // test uncompress:
+            // const u = decompressFromEncodedURIComponent(z);
+            // const b = z.toString('base64');
+            // const u = URLSafeBase64.encode(z);
+            // console.log(u.length, u);
+
+            console.log("getShortUrl: will post");
+            let res = await axios.post(
+                'http://www.mocky.io/v2/5e32facb3200005f0094d317',
+                "this_is_the_data");
+
+            console.log("getShortUrl: has posted");
+            // u = getShareUrl(this.presets[number].data);
+            // console.log(u);
+
+            console.log(`set state.shortUrl to ${res.data}`, this.presets[this.preset_number]);
+
+            this.presets[this.preset_number].shortUrl = 'https://link.studiocode.dev/' + res.data;
+            // this.setState({shortUrl: res.data});
+            // this.setState({shortUrl: `/?data=${z}`});
+
+            return this.presets[this.preset_number].shortUrl;   // not necessary is the state is observed
+
+        }
+    }
+
+
 }
 
 // https://mobx.js.org/best/decorators.html
@@ -530,7 +581,8 @@ decorate(State, {
     send_pc: observable,
     lock: observable,
     read_progress: observable,
-    error: observable
+    error: observable,
+    shortUrl: computed
 });
 
 export const state = new State();
