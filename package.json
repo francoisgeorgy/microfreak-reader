@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
+    "axios": "^0.19.2",
     "detect-browser": "^4.7.0",
     "lz-string": "^1.4.4",
     "mobx": "^5.14.0",

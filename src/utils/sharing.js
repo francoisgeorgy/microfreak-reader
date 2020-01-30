@@ -25,6 +25,7 @@ export function getParameterByName(name) {
 }
 
 export function getShareUrl(data) {
+    console.log("getShareUrl", data);
     return "?data" + "=" + encodeURIComponent(toHexString(data));
 }
 

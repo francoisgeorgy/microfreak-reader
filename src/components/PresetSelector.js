@@ -4,7 +4,7 @@ import {inject, observer} from "mobx-react";
 import {readPreset, sendPC, wait, WAIT_BETWEEN_MESSAGES} from "../utils/midi";
 import {savePreferences} from "../utils/preferences";
 import {readFile} from "../utils/files";
-import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
+// import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
 
 class PresetSelector extends Component {
 
@@ -178,6 +178,7 @@ class PresetSelector extends Component {
         }, 1000);
     };
 
+/*
     getURL = () => {
         const S = this.props.state;
         const d = JSON.stringify(S.presets[S.preset_number]);
@@ -189,6 +190,7 @@ class PresetSelector extends Component {
         // const u = URLSafeBase64.encode(z);
         console.log(u.length, u);
     };
+*/
 
     render() {
 
