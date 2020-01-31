@@ -66,30 +66,18 @@ class SharePreset extends Component {
 
 
     render() {
-        console.log("SharePreset render");
-        // const S = this.props.state;
-        // const preset_name = S.presetName(S.preset_number);
 
-        // let u = '';
-        // if (this.props.state.presets && this.props.state.presets.length && this.props.state.presets[this.props.state.preset_number]) {
-        //     u = this.props.state.presets[this.props.state.preset_number].shortUrl;
-        // }
+        if (this.props.state.presetNull) {
+            return null;
+        }
 
         return this.props.state.shortUrl ?
             (<div>
-                <a className="shorturl" href={this.props.state.shortUrl}>{this.props.state.shortUrl}</a>
+                <a className="shorturl" href={this.props.state.shortUrl}>{this.props.state.shortUrl.substring(8)}</a>
             </div>) :
             (<div>
                 <span className="shorturl-icon"><a href="#" onClick={this.getShortUrl}><FontAwesomeIcon icon={faShareAlt} /></a></span>
             </div>);
-
-/*
-        return (
-            <div>
-                <span className="shorturl-icon"><a href="#" onClick={this.getShortUrl}><FontAwesomeIcon icon={faShareAlt} /></a></span>
-                <a className="shorturl" href={this.props.state.shortUrl}>{this.props.state.shortUrl}</a>
-            </div>);
-*/
     }
 }
 

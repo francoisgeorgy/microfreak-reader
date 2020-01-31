@@ -22,8 +22,9 @@ import {
 import {MSG_DATA, MSG_NAME, portById} from "../utils/midi";
 import {h, hs} from "../utils/hexstring";
 import {savePreferences} from "../utils/preferences";
-import {compressToEncodedURIComponent} from "lz-string";
+import {compressToEncodedURIComponent, decompressFromEncodedURIComponent} from "lz-string";
 import axios from "axios";
+import {getParameterByName} from "../utils/sharing";
 
 class State {
 
@@ -54,6 +55,23 @@ class State {
     last_received_midi_msg = 0;
 
     error = 0;  // 0 means no error
+
+    constructor() {
+        // console.log("constructor", this.preset_number_string, this.presets);
+        const data = getParameterByName('data');
+        // console.log("constructor", data);
+        if (data) {
+            const json = decompressFromEncodedURIComponent(data);
+            if (json) {
+                const preset = JSON.parse(json);
+                if (preset) {
+                    // console.log(json.length, json, preset);
+                    this.presets[0] = preset;
+                }
+            }
+
+        }
+    }
 
     bytesToName(data) {
         let s = '';
@@ -499,6 +517,7 @@ class State {
         return MOD_MATRIX_DESTINATION[dest];
     }
 
+/*
     arpSyncOn() {
 
         if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
@@ -511,12 +530,21 @@ class State {
 
         return this.switchValue(SWITCH[this.presets[this.preset_number].fw][ARP_SEQ_SYNC]) > 0;
     }
+*/
 
     presetName(number) {  //TODO: change method name
         if (this.presets.length && (number < this.presets.length) && this.presets[number]) {
             return this.presets[number].name;
         } else {
             return '';
+        }
+    }
+
+    get presetNull() {
+        if (this.presets && this.presets.length && this.presets[this.preset_number]) {
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -568,7 +596,7 @@ class State {
                 'https://link.studiocode.dev/rest/v2/short-urls',
                 {
                     longUrl: dataUrl,
-                    findIfExists: false
+                    findIfExists: true
                 }, {
                     headers: {
                         "X-Api-Key": "e94740ac-6796-4329-b5e0-87cc908b0c41"
@@ -601,6 +629,7 @@ decorate(State, {
     lock: observable,
     read_progress: observable,
     error: observable,
+    presetNull: computed,
     shortUrl: computed
 });
 
