@@ -559,7 +559,7 @@ class State {
     async createShortUrl() {
 
         /*
-        $ curl -v 'https://link.studiocode.dev/rest/v2/short-urls'
+        $ curl -v 'https://goto.studiocode.dev/rest/v2/short-urls'
             -H 'Connection: keep-alive' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache'
             -H 'Accept: application/json, text/plain, * / *'
             -H 'X-Api-Key: e94740ac-6796-4329-b5e0-87cc908b0c41'
@@ -593,7 +593,7 @@ class State {
 
             console.log("getShortUrl: will post");
             let res = await axios.post(
-                'https://link.studiocode.dev/rest/v2/short-urls',
+                'https://goto.studiocode.dev/rest/v2/short-urls',
                 {
                     longUrl: dataUrl,
                     findIfExists: true
