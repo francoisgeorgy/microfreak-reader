@@ -17,7 +17,7 @@ import {
     MOD_SRC_KEY_ARP,
     MOD_SRC_PRESS,
     MOD_SRC_LFO,
-    MOD_SRC_ENV, FW1, FW2, ARP_SEQ_SYNC, SWITCH
+    MOD_SRC_ENV, FW1, FW2
 } from "../model";
 import {MSG_DATA, MSG_NAME, portById} from "../utils/midi";
 import {h, hs} from "../utils/hexstring";
@@ -57,16 +57,18 @@ class State {
     error = 0;  // 0 means no error
 
     constructor() {
-        // console.log("constructor", this.preset_number_string, this.presets);
+        console.log("constructor", this.preset_number_string, this.presets);
         const data = getParameterByName('data');
-        // console.log("constructor", data);
+        console.log("constructor", data);
         if (data) {
             const json = decompressFromEncodedURIComponent(data);
             if (json) {
                 const preset = JSON.parse(json);
                 if (preset) {
-                    // console.log(json.length, json, preset);
+                    console.log(json.length, json, preset);
                     this.presets[0] = preset;
+                    this.preset_number = 0;
+                    this.preset_number_string = '1';
                 }
             }
 

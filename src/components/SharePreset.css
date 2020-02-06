@@ -1,6 +1,15 @@
 .shorturl-icon {
     margin-left: 10px;
+    /*font-size: 1.5rem;*/
+    /*background-color: none;*/
+    /*border: none;*/
+}
+.shorturl-icon button {
     font-size: 1.5rem;
+    background-color: transparent;
+    border: none;
+    color: var(--link);
+    cursor: pointer;
 }
 .shorturl {
     margin-left: 10px;

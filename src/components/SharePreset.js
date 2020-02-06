@@ -76,7 +76,7 @@ class SharePreset extends Component {
                 <a className="shorturl" href={this.props.state.shortUrl}>{this.props.state.shortUrl.substring(8)}</a>
             </div>) :
             (<div>
-                <span className="shorturl-icon"><a href="#" onClick={this.getShortUrl}><FontAwesomeIcon icon={faShareAlt} /></a></span>
+                <span className="shorturl-icon"><button type="button" onClick={this.getShortUrl} title="get share URL"><FontAwesomeIcon icon={faShareAlt}/></button></span>
             </div>);
     }
 }
