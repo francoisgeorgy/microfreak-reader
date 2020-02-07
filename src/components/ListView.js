@@ -29,6 +29,10 @@ class ListView extends Component {
 
 */
 
+    state = {
+        cols: 4
+    };
+
     render() {
 
 /*
@@ -63,22 +67,31 @@ class ListView extends Component {
 
         const control = CONTROL[fw][OSC_TYPE];
 
+        const cols = 4; //this.state.cols;
+        const delta = 256 / cols;
+
         const pc = [];
-        for (let i=0; i<256; i++) {
-            const v = S.controlValue(control, true, i);
-            const mapped = control.mapping ? control.mapping(v, fw) : '';
-            const n = S.presetName(i);
-            pc.push(
-                <Fragment key={i}>
-                    <div className="num">{i+1}</div>
-                    <div>{n}</div>
-                    <div>{n && mapped}</div>
-                </Fragment>
-            );
+        for (let i=0; i<(256 / cols); i++) {
+            for (let c=0; c<cols; c++) {
+
+                const k = c*delta + i;
+
+                const v = S.controlValue(control, true, k);
+                const mapped = control.mapping ? control.mapping(v, fw) : '';
+                const n = S.presetName(k);
+                pc.push(
+                    <Fragment key={i}>
+                        <div className={`num ${c===0?'':'pl'}`}>{k+1}</div>
+                        <div>&nbsp;</div>
+                        <div>{n}</div>
+                        <div>{n && mapped}</div>
+                    </Fragment>
+                );
+            }
         }
 
         return (
-            <div>
+            <div className="lw-content">
 {/*
                 <div>
                     <select className="preloader" onChange={this.loadData}>
@@ -95,9 +108,22 @@ class ListView extends Component {
                 </div>
 */}
                 <div className="lw-presets-list">
-                    <div className="num">#</div>
-                    <div>name</div>
-                    <div>osc. type</div>
+                    <div className="lw-h num">#</div>
+                    <div className="lw-h">cat.</div>
+                    <div className="lw-h">name</div>
+                    <div className="lw-h">osc. type</div>
+                    <div className="lw-h num">#</div>
+                    <div className="lw-h">cat.</div>
+                    <div className="lw-h">name</div>
+                    <div className="lw-h">osc. type</div>
+                    <div className="lw-h num">#</div>
+                    <div className="lw-h">cat.</div>
+                    <div className="lw-h">name</div>
+                    <div className="lw-h">osc. type</div>
+                    <div className="lw-h num">#</div>
+                    <div className="lw-h">cat.</div>
+                    <div className="lw-h">name</div>
+                    <div className="lw-h">osc. type</div>
                     {pc}
                 </div>
             </div>

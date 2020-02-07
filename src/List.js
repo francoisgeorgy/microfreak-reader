@@ -81,7 +81,6 @@ class List extends Component {
                             <button type="button midi-ok" onClick={this.importFromFile}>Load file</button>
                         </div>
                         <div className="header-options">
-                            <a href="https://studiocode.dev/applications/microfreak-reader/" target="_blank" rel="noopener noreferrer">Doc</a>
                             <select value={this.state.theme} onChange={this.selectTheme}>
                                 <option value="light">Light theme</option>
                                 <option value="dark">Dark theme</option>
