@@ -1,0 +1,25 @@
+.lw .header {
+    display: flex;
+    align-items: flex-start;
+    /*justify-content: space-between;*/
+    align-items: center;
+    justify-content: left;
+    margin-bottom: 5px;
+}
+
+
+.num {
+    justify-self: right;
+}
+
+.lw-presets-list {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-items: start;
+    justify-content: start;
+    grid-column-gap: 20px;
+}
+
+.lw-p {
+    display: flex;
+}

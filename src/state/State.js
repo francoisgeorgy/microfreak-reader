@@ -362,16 +362,18 @@ class State {
         return this.hasInputEnabled() && this.hasOutputEnabled();
     }
 
-    controlValue(m, return_raw=false) {
+    controlValue(m, return_raw=false, preset_number = -1) {
 
-        if (!this.presets.length || (this.presets.length < this.preset_number) || !this.presets[this.preset_number]) {
+        const n = preset_number >= 0 ? preset_number : this.preset_number;
+
+        if (!this.presets.length || (this.presets.length < n) || !this.presets[n]) {
             return 0;
         }
 
-        if (!this.presets[this.preset_number]) {
+        if (!this.presets[n]) {
             return 0;
         }
-        const data = this.presets[this.preset_number].data;
+        const data = this.presets[n].data;
 
         if (data.length < 39) return 0;  //FIXME
 
@@ -538,7 +540,7 @@ class State {
         if (this.presets.length && (number < this.presets.length) && this.presets[number]) {
             return this.presets[number].name;
         } else {
-            return '';
+            return null;
         }
     }
 
@@ -549,6 +551,16 @@ class State {
             return true;
         }
     }
+
+/*
+    oscType(number) {  //TODO: change method name
+        if (this.presets.length && (number < this.presets.length) && this.presets[number]) {
+            return this.presets[number].data[];
+        } else {
+            return '';
+        }
+    }
+*/
 
     get shortUrl() {
         if (this.presets && this.presets.length && this.presets[this.preset_number]) {
