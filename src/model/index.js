@@ -230,6 +230,20 @@ const arpSyncOn = function () {
 */
 
 
+export const CATEGORY = [
+    "Bass", // 0
+    "Brass", // 1
+    "Keys", // 2
+    "Lead", // 3
+    "Organ", // 4
+    "Pad", // 5
+    "Percussion", // 6
+    "Sequence", // 7
+    "SFX", // 8
+    "Strings", // 9
+    "Template"  // 10
+];
+
 // default mask for LSB and MSB : 0x7f
 // default mask for MSB_lsb : 0x01
 // default mask for sign in MSB_lsb : 0x02

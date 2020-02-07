@@ -27,7 +27,7 @@
 .presets-grid-bottom .presets-grid {
     margin-top: 10px;
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(8, 1fr);
     grid-gap: 3px;
     font-size: 85%;
     color: var(--presets-grid-text);
@@ -36,6 +36,12 @@
 .presets-grid > div {
     padding: 0 5px;
     cursor: pointer;
+    display:flex;
+}
+
+.g-n {
+    margin-left: 5px;
+    flex-grow: 2;
 }
 
 .presets-grid > div:hover {

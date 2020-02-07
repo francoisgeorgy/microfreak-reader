@@ -22,7 +22,7 @@ class ListView extends Component {
             const n = S.presetName(i);
             presets.push({
                 index: i,
-                cat: '',
+                cat: S.presetCat(i),
                 name: n,
                 osc: n && mapped
             });
@@ -31,6 +31,7 @@ class ListView extends Component {
         let sort_key = this.state.sortBy;
 
         presets.sort(( a, b ) => {
+            if (a[sort_key] === '') return 1;
             if ( a[sort_key] < b[sort_key] ){
                 return -1;
             }
@@ -51,8 +52,8 @@ class ListView extends Component {
                 pc.push(
                     <Fragment key={k}>
                         <div className={`num ${c===0?'':'pl'}`}>{presets[k].index + 1}</div>
-                        <div>{presets[k].cat}</div>
                         <div>{presets[k].name}</div>
+                        <div>{presets[k].cat}</div>
                         <div>{presets[k].osc}</div>
                     </Fragment>
                 );
@@ -64,8 +65,8 @@ class ListView extends Component {
             head.push(
                 <Fragment key={c}>
                     <div className="lw-h num">#</div>
-                    <div className="lw-h">cat.</div>
                     <div className="lw-h">name</div>
+                    <div className="lw-h">cat.</div>
                     <div className="lw-h">osc. type</div>
                 </Fragment>
             );
@@ -76,8 +77,8 @@ class ListView extends Component {
                 <div className="lw-controls">
                     <div>sort by </div>
                     <button type="button" onClick={() => this.setState({sortBy:"num"})} className={this.state.sortBy==="num"?'lw-bt lw-bt-on':'lw-bt'}>num</button>
-                    <button type="button" onClick={() => this.setState({sortBy:"cat"})} className={this.state.sortBy==="cat"?'lw-bt lw-bt-on':'lw-bt'}>cat</button>
                     <button type="button" onClick={() => this.setState({sortBy:"name"})} className={this.state.sortBy==="name"?'lw-bt lw-bt-on':'lw-bt'}>name</button>
+                    <button type="button" onClick={() => this.setState({sortBy:"cat"})} className={this.state.sortBy==="cat"?'lw-bt lw-bt-on':'lw-bt'}>cat</button>
                     <button type="button" onClick={() => this.setState({sortBy:"osc"})} className={this.state.sortBy==="osc"?'lw-bt lw-bt-on':'lw-bt'}>osc</button>
                     <div className="ml">display in </div>
                     <button type="button" onClick={() => this.setState({cols:1})} className={this.state.cols===1?'lw-bt lw-bt-on':'lw-bt'}>1</button>

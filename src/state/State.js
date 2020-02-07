@@ -17,7 +17,7 @@ import {
     MOD_SRC_KEY_ARP,
     MOD_SRC_PRESS,
     MOD_SRC_LFO,
-    MOD_SRC_ENV, FW1, FW2
+    MOD_SRC_ENV, FW1, FW2, CATEGORY
 } from "../model";
 import {MSG_DATA, MSG_NAME, portById} from "../utils/midi";
 import {h, hs} from "../utils/hexstring";
@@ -76,6 +76,7 @@ class State {
     }
 
     bytesToName(data) {
+        // console.log("bytesToName", hs(data));
         let s = '';
         let i = 12;
         while (i < data.length && data[i] !== 0) {
@@ -173,13 +174,18 @@ class State {
         }
 
         //
-        // Store PRESET NAME:
+        // Store PRESET NAME and PRESET CAT:
         //
         if (data[8] === 0x52) {
-            // console.log("answer 0x52 contains name", hs(message_bytes));
+            // console.log("answer 0x52 contains name");
+            // console.log(hs(data));
+            // console.log(hs(Array.from(data.slice(9, data.length - 1))));
             this.last_received_midi_msg = MSG_NAME;
             // state.data_name = Array.from(message_bytes.slice(9, message_bytes.length - 1));    // message_bytes is UInt8Array
             this.presets[this.preset_number_comm].name = this.bytesToName(Array.from(data.slice(9, data.length - 1)));    // message_bytes is UInt8Array
+
+            console.log("save cat", this.presets[this.preset_number_comm].cat);
+            this.presets[this.preset_number_comm].cat = data[19];
             return;
         }
 
@@ -538,9 +544,23 @@ class State {
 
     presetName(number) {  //TODO: change method name
         if (this.presets.length && (number < this.presets.length) && this.presets[number]) {
+            // console.log("preset name", this.presets[number]);
             return this.presets[number].name;
         } else {
             return null;
+        }
+    }
+
+    presetCat(number) {  //TODO: change method name
+        if (this.presets.length && (number < this.presets.length) && this.presets[number]) {
+            // && this.presets[number].hasOwnProperty("cat")
+            // console.log("preset cat", this.presets[number]);
+            if (this.presets[number].cat < CATEGORY.length)
+                return CATEGORY[this.presets[number].cat];
+            else
+                return '';  //TODO: log error
+        } else {
+            return '';
         }
     }
 

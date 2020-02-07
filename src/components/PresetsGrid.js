@@ -20,6 +20,8 @@ class PresetsGrid extends Component {
 
     onKeyboardEvent = (e) => {
 
+        const GRID_COLS = 8;
+
         const isEligibleEvent = e.target === document.body;
 
         if (!isEligibleEvent) {
@@ -36,7 +38,7 @@ class PresetsGrid extends Component {
                     e.preventDefault();
                     //e.stopPropagation();
                     if (xy) {
-                        this.prev(10);
+                        this.prev(GRID_COLS);
                     } else {
                         this.prev();
                     }
@@ -52,7 +54,7 @@ class PresetsGrid extends Component {
                 if (k) {
                     e.preventDefault();
                     if (xy) {
-                        this.prev(10);
+                        this.prev(GRID_COLS);
                     } else {
                         this.prev();
                     }
@@ -62,7 +64,7 @@ class PresetsGrid extends Component {
                 if (k) {
                     e.preventDefault();
                     if (xy) {
-                        this.next(10);
+                        this.next(GRID_COLS);
                     } else {
                         this.next();
                     }
@@ -82,7 +84,7 @@ class PresetsGrid extends Component {
                 if (k) {
                     e.preventDefault();
                     if (xy) {
-                        this.next(10);
+                        this.next(GRID_COLS);
                     } else {
                         this.next();
                     }
@@ -138,7 +140,9 @@ class PresetsGrid extends Component {
             }
             pc.push(
                 <div key={i} className={classname} onClick={() => this.selectPreset(i)}>
-                    {i+1}&nbsp;&nbsp;{S.presetName(i)}
+                    <div className="g-i">{i+1}</div>
+                    <div className="g-n">{S.presetName(i)}</div>
+                    <div className="g-c">{S.presetCat(i)}</div>
                 </div>
             );
         }
