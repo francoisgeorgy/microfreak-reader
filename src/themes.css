@@ -103,6 +103,9 @@ html {
     --instructions-text: #666;
     --scrollbar-track: var(--knob-track-bg);
     --scrollbar-thumb: var(--knob-track);
+    --list-view-grid-header: #eee;
+    --list-view-grid-header-text: #000;
+    --list-view-grid-border: #aaa;
 }
 
 
@@ -199,6 +202,9 @@ html {
         --instructions-text: #aaa;
         --scrollbar-track: var(--group-bg);
         --scrollbar-thumb: var(--group-header);
+        --list-view-grid-header: #444;
+        --list-view-grid-header-text: #ccc;
+        --list-view-grid-border: #777;
     }
 
     html[data-theme='darker'] {
@@ -258,6 +264,9 @@ html {
         --instructions-text: #999;
         --scrollbar-track: var(--knob-track-bg);
         --scrollbar-thumb: var(--group-header);
+        --list-view-grid-header: #333;
+        --list-view-grid-header-text: #ccc;
+        --list-view-grid-border: #666;
     }
 
 }

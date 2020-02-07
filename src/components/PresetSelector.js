@@ -4,7 +4,8 @@ import {inject, observer} from "mobx-react";
 import {readPreset, sendPC, wait, WAIT_BETWEEN_MESSAGES} from "../utils/midi";
 import {savePreferences} from "../utils/preferences";
 import {readFile} from "../utils/files";
-// import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
+import {faPrint} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class PresetSelector extends Component {
 
@@ -178,20 +179,6 @@ class PresetSelector extends Component {
         }, 1000);
     };
 
-/*
-    getURL = () => {
-        const S = this.props.state;
-        const d = JSON.stringify(S.presets[S.preset_number]);
-        console.log(d.length, d);
-        const z = compressToEncodedURIComponent(d);
-        console.log(z.length, z);
-        const u = decompressFromEncodedURIComponent(z);
-        // const b = z.toString('base64');
-        // const u = URLSafeBase64.encode(z);
-        console.log(u.length, u);
-    };
-*/
-
     render() {
 
         const S = this.props.state;
@@ -226,7 +213,7 @@ class PresetSelector extends Component {
                     <input ref={this.inputOpenFileRef} type="file" style={{display:"none"}}  onChange={this.onFileSelection} />
                     <button type="button midi-ok" onClick={this.importFromFile}>Load file</button>
                     <button type="button midi-ok" onClick={this.exportAsFile}>Save to file</button>
-
+                    <a href={"?list=1"} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faPrint}/></a>
                 </div>
                 <div className="seq-access">
                     <input type="text" id="preset" name="preset" min="1" max="256" value={S.preset_number_string} onChange={this.change} />

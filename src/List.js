@@ -3,7 +3,6 @@ import './App.css';
 import './List.css';
 import {Provider} from "mobx-react";
 import {state} from "./state/State";
-import PresetSelector from "./components/PresetSelector";
 import {
     DEFAULT_THEME,
     loadPreferences,
@@ -15,7 +14,8 @@ import {readFile} from "./utils/files";
 class List extends Component {
 
     state = {
-        theme: DEFAULT_THEME
+        theme: DEFAULT_THEME    //,
+        // pack: null
     };
 
     selectTheme = (e) => {
@@ -31,9 +31,11 @@ class List extends Component {
     loadData = async e => {
         if (global.dev) console.log("load data", e.target.value);
         if (e.target.value) {
+            // this.setState({pack: e.target.value});
             let response = await fetch("data/" + e.target.value);
             state.presets = await response.json();
             state.checkAllPresets();
+
         }
     };
 
@@ -66,6 +68,7 @@ class List extends Component {
                     <div className="header">
                         <div className="title">
                             MicroFreak presets
+                            {/*<div className="lw-pack">{this.state.pack}</div>*/}
                         </div>
                         <div>
                             <select className="preloader" onChange={this.loadData}>
