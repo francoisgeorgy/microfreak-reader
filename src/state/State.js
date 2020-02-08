@@ -368,6 +368,10 @@ class State {
         return this.hasInputEnabled() && this.hasOutputEnabled();
     }
 
+    presetExists(number) {
+        return this.presets.length && (number < this.presets.length) && this.presets[number];
+    }
+
     controlValue(m, return_raw=false, preset_number = -1) {
 
         const n = preset_number >= 0 ? preset_number : this.preset_number;

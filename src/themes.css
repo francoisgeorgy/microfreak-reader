@@ -106,6 +106,7 @@ html {
     --list-view-grid-header: #eee;
     --list-view-grid-header-text: #000;
     --list-view-grid-border: #aaa;
+    --list-view-osc-text: #000;
 }
 
 
@@ -205,6 +206,7 @@ html {
         --list-view-grid-header: #444;
         --list-view-grid-header-text: #ccc;
         --list-view-grid-border: #777;
+        --list-view-osc-text: #f8f8f8;
     }
 
     html[data-theme='darker'] {
@@ -267,6 +269,7 @@ html {
         --list-view-grid-header: #333;
         --list-view-grid-header-text: #ccc;
         --list-view-grid-border: #666;
+        --list-view-osc-text: #f0f0f0;
     }
 
 }

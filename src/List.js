@@ -18,6 +18,11 @@ class List extends Component {
         // pack: null
     };
 
+    constructor(props) {
+        super(props);
+        this.inputOpenFileRef = React.createRef();
+    }
+
     selectTheme = (e) => {
         this.setState({theme: e.target.value});
         savePreferences({theme: e.target.value});

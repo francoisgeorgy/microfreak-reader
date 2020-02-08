@@ -1,3 +1,11 @@
+
+#root {
+    margin: 0 auto;
+    max-width: none;
+    margin-left: 20px;
+}
+
+
 .lw .header {
     display: flex;
     /*align-items: flex-start;*/
@@ -15,6 +23,10 @@
 .lw-content {
     font-family: sans-serif;
     margin-top: 20px;
+}
+
+.lw-font-small {
+    font-size: 0.85rem;
 }
 
 .num {
@@ -41,8 +53,20 @@
     grid-template-columns: repeat(2, auto auto auto auto);
 }
 
+.lw-grid-3 {
+    grid-template-columns: repeat(3, auto auto auto auto);
+}
+
 .lw-grid-4 {
     grid-template-columns: repeat(4, auto auto auto auto);
+}
+
+.lw-grid-6 {
+    grid-template-columns: repeat(6, auto auto auto auto);
+}
+
+.lw-grid-8 {
+    grid-template-columns: repeat(8, auto auto auto auto);
 }
 
 .lw-presets-list div {
@@ -57,6 +81,12 @@
     background-color: var(--list-view-grid-header);
     color: var(--list-view-grid-header-text);
 }
+
+/*
+.lw-osc {
+    color: var(--list-view-osc-text);
+}
+*/
 
 .lw-p {
     display: flex;
