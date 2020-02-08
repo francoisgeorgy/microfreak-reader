@@ -241,7 +241,6 @@ class App extends Component {
                                 <div>
                                     To report bugs and issues: <a href="https://github.com/francoisgeorgy/microfreak-reader/issues" className="github-link" target="_blank" rel="noopener noreferrer">GitHub</a>
                                 </div>
-                                {/*<div>You can read a preset different than the one currently loaded on the MicroFreak.</div>*/}
                                 <div className="copyright">
                                     v{process.env.REACT_APP_VERSION} &copy; <a href="https://studiocode.dev" target="_blank" rel="noopener noreferrer">studiocode.dev 2019</a>
                                 </div>

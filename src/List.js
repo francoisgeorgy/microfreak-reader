@@ -14,8 +14,7 @@ import {readFile} from "./utils/files";
 class List extends Component {
 
     state = {
-        theme: DEFAULT_THEME    //,
-        // pack: null
+        theme: DEFAULT_THEME
     };
 
     constructor(props) {
@@ -97,7 +96,6 @@ class List extends Component {
                         </div>
                     </div>
                     <div className="App">
-                        {/*<PresetSelector />*/}
                         <ListView />
                     </div>
                 </div>

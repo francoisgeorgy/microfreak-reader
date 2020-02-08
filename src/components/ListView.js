@@ -16,25 +16,19 @@ class ListView extends Component {
         const control = CONTROL[fw][OSC_TYPE];
 
         let num_presets = 0;
-
         const presets = [];
         for (let i=0; i<256; i++) {
-
             if (S.presetExists(i)) {
                 num_presets++;
-                // console.log(`preset ${i} exists`);
-
                 const v = S.controlValue(control, true, i);
                 const mapped = control.mapping ? control.mapping(v, fw) : '';
                 const n = S.presetName(i);
-
                 presets.push({
                     index: i,
                     cat: S.presetCat(i),
                     name: n,
                     osc: n && mapped
                 });
-
             } else {
                 presets.push({
                     index: i,
@@ -43,7 +37,6 @@ class ListView extends Component {
                     osc: null
                 });
             }
-
         }
 
         let sort_key = this.state.sortBy;
@@ -59,11 +52,8 @@ class ListView extends Component {
             return 0;
         });
 
-
         const cols = this.state.cols;
         const rows_per_col = Math.ceil(num_presets / cols);
-
-        // console.log(cols, rows_per_col);
 
         const pc = [];
         for (let i=0; i<(num_presets / cols); i++) {

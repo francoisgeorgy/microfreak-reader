@@ -21,7 +21,6 @@ class ControlRateSync extends Component {
         let enabled = true;
         if (sw) {
             enabled = S.switchValue(SWITCH[fw][sw], true) > 0;
-            // console.log("controlratesync", S.switchValue(SWITCH[fw][sw], raw), enabled);
         }
 
         return (
