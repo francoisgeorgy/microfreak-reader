@@ -80,7 +80,7 @@ html {
     --switch-sel-text: #fff;
     --knob-track-bg: #CFD8DC;
     --knob-track: #42A5F5;
-    --knob-text: #000;
+    --knob-text: #42A5F5;
     --direct-access-bg: #fff;
     --direct-access-loaded-bg: #ddd;
     --direct-access-border: #ccc;
@@ -106,6 +106,7 @@ html {
     --list-view-grid-header: #eee;
     --list-view-grid-header-text: #000;
     --list-view-grid-border: #aaa;
+    --list-view-text: #000;
     --list-view-osc-text: #000;
 }
 
@@ -206,7 +207,8 @@ html {
         --list-view-grid-header: #444;
         --list-view-grid-header-text: #ccc;
         --list-view-grid-border: #777;
-        --list-view-osc-text: #f8f8f8;
+        --list-view-text: #e8e8e8;
+        --list-view-osc-text: #e8e8e8;
     }
 
     html[data-theme='darker'] {
@@ -242,7 +244,7 @@ html {
         --switch-sel-text: #000;
         --knob-track-bg: #393939;
         --knob-track: #eec83f;
-        --knob-text: #fff;
+        --knob-text: #eec83f;
         --direct-access-bg: #000;
         --direct-access-loaded-bg: #333;
         --direct-access-border: #555;
@@ -269,7 +271,8 @@ html {
         --list-view-grid-header: #333;
         --list-view-grid-header-text: #ccc;
         --list-view-grid-border: #666;
-        --list-view-osc-text: #f0f0f0;
+        --list-view-text: #e0e0e0;
+        --list-view-osc-text: #e0e0e0;
     }
 
 }

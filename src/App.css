@@ -34,21 +34,23 @@
 
 .header {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: flex-start;
     margin-bottom: 5px;
 }
 
 .header a {
-    color: var(--link);
+    /*color: var(--link);*/
     text-decoration: none;
-    font-weight: 300;
-    margin-right: 5px;
+    /*font-weight: 300;*/
+    /*margin-right: 5px;*/
 }
 
+/*
 .header a:visited {
     color: var(--link);
 }
+*/
 
 .header select {
     margin-left: 5px;
@@ -68,14 +70,14 @@ footer {
     font-size: 0.75rem;
 }
 */
-.github-link {
+.link {
     text-decoration: none;
     color: var(--link);
 }
 
 .copyright {
     text-align: right;
-    color: var(--footer);
+    /*color: var(--footer);*/
     font-size: 0.75rem;
 }
 
@@ -92,6 +94,7 @@ footer {
     font-size: 2rem;
     display: flex;
     color: var(--title-text);
+    flex-grow: 1;
 }
 
 .main-grid {

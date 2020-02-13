@@ -42,6 +42,8 @@ class State {
     // We prefill the array with null value to avoid OutOfBound exceptions when accessing the array with MobX
     presets = new Array(256).fill(null);   // index 0..255
 
+    // filename = null;    // presets file
+
     send_pc = true;    // if true send PC when changing preset
 
     lock = false;   // Used during preset reading to prevent concurrent reads.
@@ -69,6 +71,7 @@ class State {
                     this.presets[0] = preset;
                     this.preset_number = 0;
                     this.preset_number_string = '1';
+                    // this.setPresetNumber(0);
                 }
             }
 
@@ -170,7 +173,15 @@ class State {
         }
 
         if (!this.presets.length || (this.presets.length <= this.preset_number_comm) || this.presets[this.preset_number_comm] === null) {
-            this.presets[this.preset_number_comm] = {name: null, supported: true, data:[]};
+
+            // create the preset struct:
+            this.presets[this.preset_number_comm] = {
+                name: null,
+                supported: true,
+                cat: 0,
+                data:[]
+            };
+
         }
 
         //
@@ -215,6 +226,7 @@ class State {
      * @param number
      */
     setPresetNumber(number) {
+
         if (number === undefined || number === null) return;
         if ((typeof number !== 'string') && (typeof number !== 'number')) return;
 
@@ -244,7 +256,7 @@ class State {
         } else {
             this.preset_number_string = s;
             this.preset_number = num - 1;
-            savePreferences({preset:s});
+            // savePreferences({preset:s});
         }
     }
 
@@ -659,6 +671,7 @@ class State {
 // https://mobx.js.org/best/decorators.html
 decorate(State, {
     midi: observable,
+    // filename: observable,
     presets: observable,
     preset_number: observable,
     preset_number_string: observable,

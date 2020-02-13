@@ -93,7 +93,7 @@ class App extends Component {
             theme: s.theme || DEFAULT_THEME,
             presets_pos: s.presets_pos || DEFAULT_PRESETS_POS,
         });
-        state.setPresetNumber(s.preset);
+        // state.setPresetNumber(s.preset);
         state.send_pc = s.send_pc;
     }
 
@@ -107,8 +107,6 @@ class App extends Component {
         const { theme } = this.state;
         document.documentElement.setAttribute('data-theme', theme);
 
-
-
         return (
             <Provider state={state}>
                 <WindowTitle />
@@ -116,10 +114,9 @@ class App extends Component {
                     <div className="header">
                         <div className="title">
                             MicroFreak&nbsp;<PresetName />
-                            <SharePreset />
                         </div>
+                        <SharePreset />
                         <div className="header-options">
-                            <a href="https://studiocode.dev/applications/microfreak-reader/" target="_blank" rel="noopener noreferrer">Doc</a>
                             <select value={this.state.theme} onChange={this.selectTheme}>
                                 <option value="light">Light theme</option>
                                 <option value="dark">Dark theme</option>
@@ -232,17 +229,18 @@ class App extends Component {
                                     This application can only read presets saved in the MicroFreak memory.
                                 </div>
                                 <div>
-                                    If you modify a preset on the MicroFreak, do not forget to save it first before being able to
+                                    If you modify a preset on the MicroFreak, you must save it first before being able to
                                     read it again here to see your changes.
                                 </div>
                                 <div>
                                     No guarantee is given as to the accuracy of the displayed data.
                                 </div>
                                 <div>
-                                    To report bugs and issues: <a href="https://github.com/francoisgeorgy/microfreak-reader/issues" className="github-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+                                    <a href="https://studiocode.dev/applications/microfreak-reader/" className="link" target="_blank" rel="noopener noreferrer">Read the doc</a>.
+                                    Report bugs and issues <a href="https://github.com/francoisgeorgy/microfreak-reader/issues" className="link" target="_blank" rel="noopener noreferrer">here</a>.
                                 </div>
                                 <div className="copyright">
-                                    v{process.env.REACT_APP_VERSION} &copy; <a href="https://studiocode.dev" target="_blank" rel="noopener noreferrer">studiocode.dev 2019</a>
+                                    v{process.env.REACT_APP_VERSION} &copy; <a href="https://studiocode.dev" target="_blank" rel="noopener noreferrer">studiocode.dev</a>
                                 </div>
                             </div>
                         </div>

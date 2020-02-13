@@ -5,7 +5,7 @@ import {CONTROL, OSC_TYPE} from "../model";
 class ListView extends Component {
 
     state = {
-        cols: 4,
+        cols: 2,
         sortBy: 'num'
     };
 
@@ -59,7 +59,6 @@ class ListView extends Component {
         for (let i=0; i<(num_presets / cols); i++) {
             for (let c=0; c<cols; c++) {
                 const k = c*rows_per_col + i;
-                console.log(k, presets.length);
                 if (k < num_presets) {
                     pc.push(
                         <Fragment key={k}>

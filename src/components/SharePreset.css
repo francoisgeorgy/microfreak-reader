@@ -1,17 +1,25 @@
 .shorturl-icon {
-    margin-left: 10px;
-    /*font-size: 1.5rem;*/
-    /*background-color: none;*/
-    /*border: none;*/
+    margin-right: 5px;
+    font-size: 1rem;
+    font-weight: 300;
 }
+
 .shorturl-icon button {
-    font-size: 1.5rem;
-    background-color: transparent;
-    border: none;
-    color: var(--link);
-    cursor: pointer;
+    background-color: var(--midi-select-bg);
+    color: var(--midi-select-text);
+    border: var(--input-border);
+    font-size: 1rem;
+    font-weight: 300;
+    border-radius: 3px;
 }
-.shorturl {
-    margin-left: 10px;
-    font-size: 1.5rem;
+
+.share-label {
+    font-weight: 300;
+    color: var(--header-select-text);
+}
+
+.share-link {
+    color: var(--knob-text);
+    font-weight: 300;
+    margin: 0 10px 0 5px;
 }

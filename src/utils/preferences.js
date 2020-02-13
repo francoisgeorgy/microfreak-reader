@@ -9,7 +9,7 @@ let preferences = {
     presets_pos: DEFAULT_PRESETS_POS,
     send_pc: true,
     midi_channel: 1,
-    preset: '1',
+    // preset: '1',
     input_id: null,      // web midi port ID
     output_id: null      // web midi port ID
 };
