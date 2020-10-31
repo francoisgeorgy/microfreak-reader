@@ -1,0 +1,46 @@
+.midi-support-warning-fs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #d08e5a;
+    z-index: 1000;
+    opacity: 0.9;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    padding-top: 80px;
+}
+
+.midi-support-warning-fs h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+div.warning-message-fs {
+    background-color: white;
+    padding: 20px 40px;
+    line-height: 2;
+}
+
+div.warning-message a {
+    font-weight: bold;
+}
+
+.midi-support-warning-top {
+    background-color: #ffc73d;
+    padding: 10px 20px;
+    /*border: 1px solid red;*/
+    /*border-bottom: 1px solid red;*/
+    font-size: 1.5rem;
+    color: black;
+}
+
+.midi-support-warning-top a {
+    /*font-weight: bold;*/
+    text-decoration: none;
+    color: blue;
+}
+
