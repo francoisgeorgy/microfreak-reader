@@ -1,0 +1,9 @@
+.warning-top {
+    background-color: #ffc73d;
+    padding: 6px 12px;
+    /*border: 1px solid red;*/
+    /*border-bottom: 1px solid red;*/
+    font-size: 1.0rem;
+    color: black;
+}
+

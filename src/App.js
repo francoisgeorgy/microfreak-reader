@@ -65,6 +65,7 @@ import WindowTitle from "./components/WindowTitle";
 import ControlRateSync from "./components/ControlRateSync";
 import SharePreset from "./components/SharePreset";
 import {MidiSupportWarning} from "./components/MidiSupportWarning";
+import {WarningBanner} from "./components/WarningBanner";
 
 const MIDI_MSG_TYPE = "sysex";
 
@@ -110,6 +111,7 @@ class App extends Component {
 
         return (
             <Provider state={state}>
+                <WarningBanner />
                 <MidiSupportWarning />
                 <WindowTitle />
                 <div className={`app-wrapper ${this.state.presets_pos}`}>
