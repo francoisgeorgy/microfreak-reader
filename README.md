@@ -1,3 +1,12 @@
+---
+
+# NOT MAINTAINED ANYMORE
+
+**This project is not maintained anymore**
+
+---
+
+
 # MicroFreak Reader
 
 _(en français [plus bas](#Lecteur-de-preset-MicroFreak))_
