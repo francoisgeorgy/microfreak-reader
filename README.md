@@ -1,8 +1,9 @@
+
 ---
 
 # NOT MAINTAINED ANYMORE
 
-**This project is not maintained anymore**
+**I'm sorry but this project is not maintained anymore. I don't have the resources (time, hardware) to update it. Feel free to fork it.**
 
 ---
 
